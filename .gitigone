@@ -1,0 +1,31 @@
+# Odoo specific files and directories
+*.pyc
+*.log
+*.pid
+.idea/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# Database related files (if not managed by version control)
+*.sqlite
+data.db
+
+# Environment specific files
+.env
+local_settings.py
+
+# Generated files
+web/static/lib/
+web/static/src/xml/*.js
+web/static/src/js/widgets/*.js
+web/static/src/css/widgets/*.css
+web/static/src/scss/*.css
+
+# Backup files
+*~
+#*#
+.#*
+
+# System files
+Thumbs.db
