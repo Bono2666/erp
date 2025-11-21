@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class country(models.Model):
     _name = 'general.country'
     _description = 'general.country'
+    _rec_name = 'country_name'
 
     country_id = fields.Char(string="Country ID", readonly=True)
     country_name = fields.Char(string="Country Name")
@@ -25,6 +26,7 @@ class country(models.Model):
 class state(models.Model):
     _name = 'general.state'
     _description = 'general.state'
+    _rec_name = 'state_name'
 
     state_id = fields.Char(string="State ID", readonly=True)
     state_name = fields.Char(string="State Name")
@@ -46,6 +48,7 @@ class state(models.Model):
 class city(models.Model):
     _name = 'general.city'
     _description = 'general.city'
+    _rec_name = 'city_name'
 
     city_id = fields.Char(string="City ID", readonly=True)
     city_name = fields.Char(string="City Name")
@@ -67,6 +70,7 @@ class city(models.Model):
 class district(models.Model):
     _name = 'general.district'
     _description = 'general.district'
+    _rec_name = 'district_name'
 
     district_id = fields.Char(string="District ID", readonly=True)
     district_name = fields.Char(string="District Name")
@@ -88,6 +92,7 @@ class district(models.Model):
 class position(models.Model):
     _name = 'general.position'
     _description = 'general.position'
+    _rec_name = 'position_name'
 
     position_id = fields.Char(string="Position ID", readonly=True)
     position_name = fields.Char(string="Position Name")
@@ -109,6 +114,7 @@ class position(models.Model):
 class department(models.Model):
     _name = 'general.department'
     _description = 'general.department'
+    _rec_name = 'department_name'
 
     department_id = fields.Char(string="Department ID", readonly=True)
     department_name = fields.Char(string="Department Name")
@@ -130,6 +136,7 @@ class department(models.Model):
 class menu(models.Model):
     _name = 'general.menu'
     _description = 'general.menu'
+    _rec_name = 'menu_name'
 
-    menuid = fields.Char(string="Menu ID")
-    menunm = fields.Char(string="Menu Name")
+    menu_id = fields.Char(string="Menu ID")
+    menu_name = fields.Char(string="Menu Name")

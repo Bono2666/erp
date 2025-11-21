@@ -1,18 +1,18 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+    <!-- explicit tree view definition -->
 
-    <record model="ir.ui.view" id="employees.list">
+    <record model="ir.ui.view" id="employees.tree">
       <field name="name">Employees</field>
       <field name="model">employees.employees</field>
       <field name="arch" type="xml">
-        <list>
+        <tree>
           <field name="employee_id"/>
           <field name="employee_name"/>
           <field name="position_id"/>
           <field name="department_id"/>
           <field name="sales_code"/>
-        </list>
+        </tree>
       </field>
     </record>
 
@@ -41,24 +41,9 @@
     <record model="ir.actions.act_window" id="employees.action_window">
       <field name="name">Employees</field>
       <field name="res_model">employees.employees</field>
-      <field name="view_mode">list,form</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="employees.action_server">
-      <field name="name">employees server</field>
-      <field name="model_id" ref="model_employees_employees"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "list,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
 
     <!-- Top menu item -->
 
@@ -68,12 +53,5 @@
 
     <menuitem name="Employees" id="employees.employee_menu" parent="employees.menu_root" action="employees.action_window"/>
 
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="employees.menu_1_list" parent="employees.menu_1"
-              action="employees.action_window"/>
-    <menuitem name="Server to list" id="employees" parent="employees.menu_2"
-              action="employees.action_server"/>
--->
   </data>
 </odoo>

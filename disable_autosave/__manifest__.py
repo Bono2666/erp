@@ -9,7 +9,7 @@
     'category': 'Technical',
     'version': '0.1',
 
-    'depends': ['web'],
+    'depends': ['base'],
 
     'data': [
         'security/ir.model.access.csv',

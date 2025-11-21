@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class cust_category(models.Model):
     _name = 'sales.cust_category'
     _description = 'sales.cust_category'
+    _rec_name = 'category_name'
 
     category_id = fields.Char(string="Category ID", readonly=True)
     category_name = fields.Char(string="Category Name")
@@ -25,6 +26,7 @@ class cust_category(models.Model):
 class cust_type(models.Model):
     _name = 'sales.cust_type'
     _description = 'sales.cust_type'
+    _rec_name = 'type_name'
 
     type_id = fields.Char(string="Type ID", readonly=True)
     type_name = fields.Char(string="Type Name")
@@ -46,6 +48,7 @@ class cust_type(models.Model):
 class cust_area(models.Model):
     _name = 'sales.cust_area'
     _description = 'sales.cust_area'
+    _rec_name = 'area_name'
 
     area_id = fields.Char(string="Area ID", readonly=True)
     area_name = fields.Char(string="Area Name")
@@ -67,10 +70,11 @@ class cust_area(models.Model):
 class customer(models.Model):
     _name = 'sales.customer'
     _description = 'sales.customer'
+    _rec_name = 'customer_name'
 
     customer_id = fields.Char(string="Customer ID", readonly=True)
     customer_name = fields.Char(string="Customer Name")
-    address = fields.Text(string="Address", size=100)
+    address = fields.Text(string="Address")
     country = fields.Many2one(
         comodel_name='general.country', string='Country', ondelete='set null', index=True)
     state = fields.Many2one(
@@ -115,12 +119,13 @@ class customer(models.Model):
 class ship_to(models.Model):
     _name = 'sales.ship_to'
     _description = 'sales.ship_to'
+    _rec_name = 'ship_name'
 
     ship_id = fields.Char(string="Ship ID", readonly=True)
     ship_name = fields.Char(string="Ship Name")
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
-    address = fields.Text(string="Address", size=100)
+    address = fields.Text(string="Address")
     country = fields.Many2one(
         comodel_name='general.country', string='Country', ondelete='set null', index=True)
     state = fields.Many2one(
@@ -147,6 +152,7 @@ class ship_to(models.Model):
 class products(models.Model):
     _name = 'sales.products'
     _description = 'sales.products'
+    _rec_name = 'product_name'
 
     product_id = fields.Char(string="Product ID", readonly=True)
     product_name = fields.Char(string="Product Name")
@@ -169,6 +175,7 @@ class products(models.Model):
 class price_condition(models.Model):
     _name = 'sales.price_condition'
     _description = 'sales.price_condition'
+    _rec_name = 'price_name'
 
     price_id = fields.Char(string="Price ID", readonly=True)
     price_name = fields.Char(string="Price Name")
