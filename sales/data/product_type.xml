@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <data noupdate="1">
+            <!-- Add you code here -->
+            <record id="raw_materials" model="sales.product_type">
+                <field name="name">Raw Materials</field>
+            </record>
+            <record id="semifinished_products" model="sales.product_type">
+                <field name="name">Semifinished Products</field>
+            </record>
+            <record id="finished_products" model="sales.product_type">
+                <field name="name">Finished Products</field>
+            </record>
+        </data>
+
+</odoo>

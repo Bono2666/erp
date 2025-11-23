@@ -17,7 +17,7 @@ From quotations to invoices
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'general', 'employees'],
+    'depends': ['base', 'general', 'employees', 'disable_autosave'],
 
     # always loaded
     'data': [
@@ -25,6 +25,8 @@ From quotations to invoices
         'views/views.xml',
         'views/templates.xml',
         'data/sequence.xml',
+        'data/account_type.xml',
+        'data/product_type.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

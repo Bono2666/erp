@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 class cust_category(models.Model):
     _name = 'sales.cust_category'
-    _description = 'sales.cust_category'
+    _description = 'Customer Category'
     _rec_name = 'category_name'
 
     category_id = fields.Char(string="Category ID", readonly=True)
@@ -25,7 +25,7 @@ class cust_category(models.Model):
 
 class cust_type(models.Model):
     _name = 'sales.cust_type'
-    _description = 'sales.cust_type'
+    _description = 'Customer Type'
     _rec_name = 'type_name'
 
     type_id = fields.Char(string="Type ID", readonly=True)
@@ -47,7 +47,7 @@ class cust_type(models.Model):
 
 class cust_area(models.Model):
     _name = 'sales.cust_area'
-    _description = 'sales.cust_area'
+    _description = 'Customer Area'
     _rec_name = 'area_name'
 
     area_id = fields.Char(string="Area ID", readonly=True)
@@ -69,7 +69,7 @@ class cust_area(models.Model):
 
 class customer(models.Model):
     _name = 'sales.customer'
-    _description = 'sales.customer'
+    _description = 'Customer'
     _rec_name = 'customer_name'
 
     customer_id = fields.Char(string="Customer ID", readonly=True)
@@ -95,6 +95,8 @@ class customer(models.Model):
         comodel_name='sales.cust_area', string='Customer Area', ondelete='set null', index=True)
     price_condition = fields.Many2one(
         comodel_name='sales.price_condition', string='Price Condition', ondelete='set null', index=True)
+    payment_terms = fields.Many2one(
+        comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True)
     contact_name = fields.Char(string="Contact Name")
     telephone = fields.Char(string="Telephone")
     email = fields.Char(string="Email")
@@ -118,7 +120,7 @@ class customer(models.Model):
 
 class ship_to(models.Model):
     _name = 'sales.ship_to'
-    _description = 'sales.ship_to'
+    _description = 'Ship To'
     _rec_name = 'ship_name'
 
     ship_id = fields.Char(string="Ship ID", readonly=True)
@@ -149,13 +151,36 @@ class ship_to(models.Model):
         return super(ship_to, self).create(vals)
 
 
+class product_type(models.Model):
+    _name = 'sales.product_type'
+    _description = 'Product Type'
+
+    name = fields.Char(string='Product Type')
+
+
+class product_unit(models.Model):
+    _name = 'sales.product_unit'
+    _description = 'Product Unit'
+    _rec_name = 'uom'
+
+    uom = fields.Char(string='Unit of Measure')
+    qty = fields.Integer(string='Qty')
+    base_uom = fields.Char(string='Base UoM')
+    base_qty = fields.Integer(string='Base Qty')
+
+
 class products(models.Model):
     _name = 'sales.products'
-    _description = 'sales.products'
+    _description = 'Products'
     _rec_name = 'product_name'
 
     product_id = fields.Char(string="Product ID", readonly=True)
     product_name = fields.Char(string="Product Name")
+    product_type = fields.Many2one(
+        comodel_name='sales.product_type', string='Product Type')
+    product_unit = fields.Many2one(
+        comodel_name='sales.product_unit', string='Product Unit')
+
     image = fields.Binary(string="Image")
 
     @api.model
@@ -174,7 +199,7 @@ class products(models.Model):
 
 class price_condition(models.Model):
     _name = 'sales.price_condition'
-    _description = 'sales.price_condition'
+    _description = 'Price Condition'
     _rec_name = 'price_name'
 
     price_id = fields.Char(string="Price ID", readonly=True)
@@ -202,7 +227,7 @@ class price_condition(models.Model):
 
 class price_condition_product(models.Model):
     _name = 'sales.price_condition_product'
-    _description = 'sales.price_condition_product'
+    _description = 'Price Condition - Product'
 
     price_id = fields.Many2one(
         comodel_name='sales.price_condition', string='Price Condition', ondelete='cascade', index=True)
@@ -213,9 +238,58 @@ class price_condition_product(models.Model):
 
 class price_condition_customer(models.Model):
     _name = 'sales.price_condition_customer'
-    _description = 'sales.price_condition_customer'
+    _description = 'Price Condition - Customer'
 
     price_id = fields.Many2one(
         comodel_name='sales.price_condition', string='Price Condition', ondelete='cascade', index=True)
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='set null', index=True)
+
+
+class account_type(models.Model):
+    _name = 'sales.account_type'
+    _description = 'Account Type'
+
+    name = fields.Char(string='Account Type', required=True)
+
+
+class payment_terms(models.Model):
+    _name = 'sales.payment_terms'
+    _description = 'Payment Terms'
+    _rec_name = 'sales_text'
+
+    payment_terms_id = fields.Char(string="Payment Terms ID", readonly=True)
+    sales_text = fields.Char(string="Sales Text")
+    account_type = fields.Many2many(
+        'sales.account_type', string="Account Type")
+    baseline_date = fields.Selection([
+        ('doc', 'Document Date'),
+        ('post', 'Posting Date'),
+        ('entry', 'Entry Date')
+    ], string="Default for Baseline Date")
+    payment_terms_ids = fields.One2many(
+        'sales.payment_terms_detail', 'payment_terms_id', string="Payment Terms")
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('payment_terms_id'):
+                    v['payment_terms_id'] = self.env['ir.sequence'].next_by_code(
+                        'sales.payment_terms') or '/'
+            return super(payment_terms, self).create(vals)
+        if not vals.get('payment_terms_id'):
+            vals['payment_terms_id'] = self.env['ir.sequence'].next_by_code(
+                'sales.payment_terms') or '/'
+        return super(payment_terms, self).create(vals)
+
+
+class payment_terms_detail(models.Model):
+    _name = 'sales.payment_terms_detail'
+    _description = 'Payment Terms - Detail'
+
+    payment_terms_id = fields.Many2one(
+        comodel_name='sales.payment_terms', string='Payment Terms ID', ondelete='cascade', index=True)
+    percentage = fields.Float(string="Percentage")
+    no_of_days = fields.Integer(string="No of Days")
+    explanation = fields.Char(string="Explanation")

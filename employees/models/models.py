@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 class employees(models.Model):
     _name = 'employees.employees'
-    _description = 'employees.employees'
+    _description = 'Employees'
     _rec_name = 'employee_name'
 
     employee_id = fields.Char(string="Employee ID", readonly=True)

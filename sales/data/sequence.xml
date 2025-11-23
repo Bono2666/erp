@@ -51,6 +51,13 @@
         <field name="padding">4</field>
         <field name="number_increment">1</field>
         </record>
+        <record id="seq_payment_terms" model="ir.sequence">
+        <field name="name">Payment Terms Sequence</field>
+        <field name="code">sales.payment_terms</field>
+        <field name="prefix">PAYT</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        </record>
     </data>
 
 </odoo>

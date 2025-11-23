@@ -3,7 +3,7 @@ from odoo import models, fields, api
 
 class country(models.Model):
     _name = 'general.country'
-    _description = 'general.country'
+    _description = 'Country'
     _rec_name = 'country_name'
 
     country_id = fields.Char(string="Country ID", readonly=True)
@@ -25,7 +25,7 @@ class country(models.Model):
 
 class state(models.Model):
     _name = 'general.state'
-    _description = 'general.state'
+    _description = 'State'
     _rec_name = 'state_name'
 
     state_id = fields.Char(string="State ID", readonly=True)
@@ -47,7 +47,7 @@ class state(models.Model):
 
 class city(models.Model):
     _name = 'general.city'
-    _description = 'general.city'
+    _description = 'City'
     _rec_name = 'city_name'
 
     city_id = fields.Char(string="City ID", readonly=True)
@@ -69,7 +69,7 @@ class city(models.Model):
 
 class district(models.Model):
     _name = 'general.district'
-    _description = 'general.district'
+    _description = 'District'
     _rec_name = 'district_name'
 
     district_id = fields.Char(string="District ID", readonly=True)
@@ -91,7 +91,7 @@ class district(models.Model):
 
 class position(models.Model):
     _name = 'general.position'
-    _description = 'general.position'
+    _description = 'Position'
     _rec_name = 'position_name'
 
     position_id = fields.Char(string="Position ID", readonly=True)
@@ -113,7 +113,7 @@ class position(models.Model):
 
 class department(models.Model):
     _name = 'general.department'
-    _description = 'general.department'
+    _description = 'Department'
     _rec_name = 'department_name'
 
     department_id = fields.Char(string="Department ID", readonly=True)
@@ -135,7 +135,7 @@ class department(models.Model):
 
 class menu(models.Model):
     _name = 'general.menu'
-    _description = 'general.menu'
+    _description = 'Menu'
     _rec_name = 'menu_name'
 
     menu_id = fields.Char(string="Menu ID")

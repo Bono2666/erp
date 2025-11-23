@@ -17,7 +17,7 @@ Centralize employee information
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'general'],
+    'depends': ['base', 'general', 'disable_autosave'],
 
     # always loaded
     'data': [

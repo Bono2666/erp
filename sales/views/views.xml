@@ -2,6 +2,21 @@
   <data>
     <!-- explicit tree view definition -->
 
+    <!-- sales.payment_terms tree view -->
+    <record id="sales.payment_terms_view_tree" model="ir.ui.view">
+      <field name="name">Payment Terms</field>
+      <field name="model">sales.payment_terms</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="payment_terms_id"/>
+          <field name="sales_text"/>
+          <field name="account_type" widget="many2many_tags"/>
+          <field name="baseline_date"/>
+        </tree>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="sales.cust_category_tree">
       <field name="name">Customer Category</field>
       <field name="model">sales.cust_category</field>
@@ -76,6 +91,33 @@
       </field>
     </record>
 
+    <!-- sales.product_type tree view -->
+    <record id="sales.product_type_view_tree" model="ir.ui.view">
+      <field name="name">sales.product_type.view.tree</field>
+      <field name="model">sales.product_type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- sales.product_unit tree view -->
+    <record id="sales.product_unit_view_tree" model="ir.ui.view">
+      <field name="name">sales.product_unit.view.tree</field>
+      <field name="model">sales.product_unit</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="qty"/>
+          <field name="uom"/>
+          <field name="base_qty"/>
+          <field name="base_uom"/>
+        </tree>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="sales.price_condition_tree">
       <field name="name">Price Condition</field>
       <field name="model">sales.price_condition</field>
@@ -86,6 +128,39 @@
           <field name="date_start"/>
           <field name="date_end"/>
         </tree>
+      </field>
+    </record>
+
+    <!-- sales.payment_terms form view -->
+    <record id="sales.payment_terms_view_form" model="ir.ui.view">
+      <field name="name">sales.payment_terms.view.form</field>
+      <field name="model">sales.payment_terms</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="payment_terms_id"/>
+              <field name="sales_text"/>
+              <field name="account_type" widget="many2many_tags"/>
+              <field name="baseline_date"/>
+              <field name="payment_terms_ids" string="Payment Terms">
+                <tree editable="bottom">
+                  <field name="percentage"/>
+                  <field name="no_of_days"/>
+                  <field name="explanation"/>
+                  <field name="payment_terms_id" column_invisible="1"/>
+                </tree>
+                <form>
+                  <field name="percentage"/>
+                  <field name="no_of_days"/>
+                  <field name="explanation"/>
+                  <field name="payment_terms_id" column_invisible="1"/>
+                </form>
+              </field>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
 
@@ -166,6 +241,7 @@
             </group>
             <group>
               <field name="price_condition"/>
+              <field name="payment_terms"/>
             </group>
             <group>
               <field name="contact_name"/>
@@ -193,6 +269,61 @@
                 <field name="customer_id" column_invisible="1"/>
               </form>
             </field>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- sales.products form view -->
+    <record id="sales.products_view_form" model="ir.ui.view">
+      <field name="name">sales.products.view.form</field>
+      <field name="model">sales.products</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="product_id"/>
+              <field name="product_name"/>
+              <field name="product_type"/>
+              <field name="product_unit"/>
+              <field name="image"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- sales.product_type form view -->
+    <record id="sales.product_type_view_form" model="ir.ui.view">
+      <field name="name">sales.product_type.view.form</field>
+      <field name="model">sales.product_type</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="name"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- sales.product_unit form view -->
+    <record id="sales.product_unit_view_form" model="ir.ui.view">
+      <field name="name">sales.product_unit.view.form</field>
+      <field name="model">sales.product_unit</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <field name="qty"/>
+              <field name="uom"/>
+              <field name="base_qty"/>
+              <field name="base_uom"/>
+            </group>
           </sheet>
         </form>
       </field>
@@ -247,6 +378,12 @@
 
     <!-- actions opening views on models -->
 
+    <!-- sales.payment_terms action window -->
+    <record id="sales.payment_terms_action" model="ir.actions.act_window">
+      <field name="name">Payment Terms</field>
+      <field name="res_model">sales.payment_terms</field>
+      <field name="view_mode">tree,form</field>
+    </record>
     <record model="ir.actions.act_window" id="sales.cust_category_action">
       <field name="name">Customer Category</field>
       <field name="res_model">sales.cust_category</field>
@@ -272,6 +409,16 @@
       <field name="res_model">sales.products</field>
       <field name="view_mode">kanban,form</field>
     </record>
+    <record id="sales.product_type_action" model="ir.actions.act_window">
+      <field name="name">Product Type</field>
+      <field name="res_model">sales.product_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record id="sales.product_unit_action" model="ir.actions.act_window">
+      <field name="name">Product Unit</field>
+      <field name="res_model">sales.product_unit</field>
+      <field name="view_mode">tree,form</field>
+    </record>
     <record model="ir.actions.act_window" id="sales.price_condition_action">
       <field name="name">Price Condition</field>
       <field name="res_model">sales.price_condition</field>
@@ -291,15 +438,19 @@
     <menuitem name="Price Condition" id="sales.price_condition_menu" parent="sales.sales_master_menu" action="sales.price_condition_action" sequence="3"/>
 
     <!-- actions -->
+    <!-- This Menu Item must have a parent and an action -->
 
     <menuitem name="Customers" id="sales.customer_customer_menu" parent="sales.customer_menu" action="sales.customer_action" sequence="1"/>
+    <menuitem name="Payment Terms" id="sales.payment_terms_menu_act"  parent="sales.customer_menu" action="sales.payment_terms_action" sequence="2"/>
     <menuitem name="Category" id="sales.cust_category" parent="sales.customer_menu"
-              action="sales.cust_category_action"/>
+              action="sales.cust_category_action" sequence="3"/>
     <menuitem name="Type" id="sales.cust_type" parent="sales.customer_menu"
-              action="sales.cust_type_action"/>
+              action="sales.cust_type_action" sequence="4"/>
     <menuitem name="Area" id="sales.cust_area" parent="sales.customer_menu"
-              action="sales.cust_area_action"/>
+              action="sales.cust_area_action" sequence="5"/>
     <menuitem name="Products" id="sales.product_product_menu" parent="sales.product_menu" action="sales.products_action" sequence="1"/>
+    <menuitem id="product_type_menu_act" name="Type" parent="sales.product_menu" action="sales.product_type_action" sequence="2"/>
+    <menuitem id="product_unit_menu_act" name="Unit of Measure" parent="sales.product_menu" action="sales.product_unit_action" sequence="3"/>
     
     <!-- general menus -->
 
