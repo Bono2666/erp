@@ -164,9 +164,9 @@ class product_unit(models.Model):
     _rec_name = 'uom'
 
     uom = fields.Char(string='Unit of Measure')
-    qty = fields.Integer(string='Qty')
+    qty = fields.Integer(string='Qty', default=1)
     base_uom = fields.Char(string='Base UoM')
-    base_qty = fields.Integer(string='Base Qty')
+    base_qty = fields.Integer(string='Base Qty', default=1)
 
 
 class products(models.Model):
