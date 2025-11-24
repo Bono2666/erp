@@ -23,14 +23,25 @@
       <field name="arch" type="xml">
         <form string="">
           <sheet>
-            <group>
-              <!-- Add your fields here -->
-              <field name="employee_id"/>
-              <field name="employee_name"/>
-              <field name="position_id"/>
-              <field name="department_id"/>
-              <field name="sales_code"/>
-            </group>
+            <div class="oe_title">
+              <span class="d-inline-flex">
+                  <field name="employee_id"/>
+              </span>
+              <h1>
+                <div class="d-flex">
+                  <field class="text-break" name="employee_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Fulan" default_focus="1"/>
+                </div>
+              </h1>
+            </div>
+            <notebook>
+              <page string="General Information" name="general_information">
+                <group>
+                  <field name="position_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="department_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="sales_code"/>
+                </group>
+              </page>
+            </notebook>
           </sheet>
         </form>
       </field>

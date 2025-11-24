@@ -21,11 +21,14 @@
       <field name="arch" type="xml">
       <form string="Country">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="country_id"/>
-          <field name="country_name"/>
-        </group>
+          <div class="oe_title">
+            <field name="country_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="country_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Indonesia"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
@@ -51,11 +54,14 @@
       <field name="arch" type="xml">
       <form string="State">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="state_id"/>
-          <field name="state_name"/>
-        </group>
+          <div class="oe_title">
+            <field name="state_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="state_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. DKI Jakarta"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
@@ -81,11 +87,14 @@
       <field name="arch" type="xml">
       <form string="City">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="city_id"/>
-          <field name="city_name"/>
-        </group>
+          <div class="oe_title">
+            <field name="city_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="city_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Bandung"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
@@ -111,11 +120,14 @@
       <field name="arch" type="xml">
       <form string="District">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="district_id"/>
-          <field name="district_name"/>
-        </group>
+          <div class="oe_title">
+            <field name="district_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="district_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Tebet"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
@@ -141,11 +153,14 @@
       <field name="arch" type="xml">
       <form string="Position">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="position_id"/>
-          <field name="position_name"/>
-        </group>
+          <div class="oe_title">
+            <field name="position_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="position_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
@@ -171,11 +186,14 @@
       <field name="arch" type="xml">
       <form string="Department">
         <sheet>
-        <group>
-          <!-- Add your fields here -->
-          <field name="department_id">{'no_breadcrumbs': True}</field>
-          <field name="department_name">{'no_breadcrumbs': True}</field>
-        </group>
+          <div class="oe_title">
+            <field name="department_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="department_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Shipping"/>
+              </div>
+            </h1>
+          </div>
         </sheet>
       </form>
       </field>
