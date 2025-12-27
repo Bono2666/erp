@@ -199,6 +199,22 @@
       </field>
     </record>
 
+    <!-- general.home form view -->
+    <record id="general.home_view_form" model="ir.ui.view">
+      <field name="name">general.home.view.form</field>
+      <field name="model">ir.ui.view</field>
+      <field name="arch" type="xml">
+        <form string="Home" create="false" edit="false">
+          <!-- Centered Image Container -->
+          <div class="d-flex justify-content-center align-items-center" style="height: 85vh; flex-direction: column;">
+            <img src="/general/static/src/img/transparent_logo.webp" 
+                alt="ERP Logo" 
+                style="object-fit: auto; opacity: 0.2; width: 32%;"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="general.country_action">
       <field name="name">Country</field>
@@ -230,6 +246,28 @@
       <field name="res_model">general.department</field>
       <field name="view_mode">tree,form</field>
     </record>
+    <record model="ir.actions.act_window" id="general.home_action">
+      <field name="name">Home</field>
+      <field name="res_model">ir.ui.view</field>
+      <field name="view_id" ref="general.home_view_form"/>
+      <field name="view_mode">form</field>
+      <field name="context">{'no_breadcrumbs': True}</field>
+    </record>
 
+    <!-- menu items -->
+    <menuitem name="Home" id="general.menu_root" sequence="0" action="general.home_action"/>
+    
+    <menuitem name="Master Data" id="general.menu_master_menu" parent="general.menu_root" sequence="3"/>
+
+    <!-- general menus -->
+
+    <menuitem name="Others" id="general.general_others_menu" parent="general.menu_master_menu" sequence="4"/>
+    
+    <menuitem name="Country" id="general.general_country_act" parent="general.general_others_menu" action="general.country_action" sequence="1"/>
+    <menuitem name="State" id="general.general_state_act" parent="general.general_others_menu" action="general.state_action" sequence="2"/>
+    <menuitem name="City" id="general.general_city_act" parent="general.general_others_menu" action="general.city_action" sequence="3"/>
+    <menuitem name="District" id="general.general_district_act" parent="general.general_others_menu" action="general.district_action" sequence="4"/>
+    <menuitem name="Position" id="general.general_position_act" parent="general.general_others_menu" action="general.position_action" sequence="5"/>
+    <menuitem name="Department" id="general.general_department_act" parent="general.general_others_menu" action="general.department_action" sequence="6"/>
   </data>
 </odoo>

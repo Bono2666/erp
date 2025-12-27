@@ -4,6 +4,8 @@ import { FormController } from "@web/views/form/form_controller";
 import { FormRenderer } from "@web/views/form/form_renderer";
 import { useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
+import { ControlPanel } from "@web/search/control_panel/control_panel";
+import { onMounted } from "@odoo/owl";
 
 // GLOBAL STATE
 let models = [];
@@ -103,3 +105,16 @@ patch(FormRenderer.prototype, {
         return super.onBlur?.(ev);
     },
 });
+
+/** Hide Control Panel */
+patch(ControlPanel.prototype, {
+    setup() {
+        super.setup();
+        onMounted(() => {
+            if (this.env.searchModel?.resModel === 'ir.ui.view') {
+                this.root.el.style.setProperty("display", "none", "important");
+            }
+        });
+    },
+});
+/** Hide Control Panel */

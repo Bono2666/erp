@@ -32,6 +32,5 @@ From quotations to invoices
     'demo': [
         'demo/demo.xml',
     ],
-    'application': True,
-    'license': 'LGPL-3',
+    'license': 'LGPL-3'
 }
