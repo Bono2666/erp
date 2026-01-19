@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="users_menu" model="general.menu">
+        <field name="menu_id">custom_users</field>
+        <field name="menu_name">Users</field>
+        <field name="parent_menu">master_data</field>
+    </record>
+
+</odoo>

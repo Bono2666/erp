@@ -22,8 +22,8 @@ From quotations to invoices
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
         'views/templates.xml',
+        'views/views.xml',
         'data/sequence.xml',
         'data/account_type.xml',
         'data/product_type.xml'

@@ -25,7 +25,9 @@
     'assets': {
         'web.assets_backend': [
             'disable_autosave/static/src/js/disable_autosave.js',
+            'disable_autosave/static/src/css/disable_autosave.css',
         ],
     },
+
     'license': 'LGPL-3',
 }
