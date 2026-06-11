@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <data noupdate="1">
+            <!-- Add you code here -->
+            <record id="account_type_customer" model="sales.account_type">
+                <field name="name">Customer</field>
+            </record>
+            <record id="account_type_vendor" model="sales.account_type">
+                <field name="name">Vendor</field>
+            </record>
+        </data>
+
+</odoo>
