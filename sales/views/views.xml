@@ -308,7 +308,7 @@
                 </group>
                 <group>
                   <group string="Due Terms">
-                    <field name="payment_terms_ids" readonly="not is_edit and id" nolabel="1" colspan="2">
+                    <field name="payment_terms_ids" readonly="not is_edit and id" nolabel="1" colspan="2" options="{'no_open': True, 'no_create': True}">
                       <tree editable="bottom">
                         <field name="percentage"/>
                         <field name="no_of_days"/>
@@ -729,14 +729,14 @@
               <page name="products" string="Products">
                 <group name="product_conditions" string="Conditions">
                     <field name="applied_on" readonly="not is_edit and id" widget="radio"/>
-                    <field name="product_category_ids" widget="many2many_tags" 
+                    <field name="product_category_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"
                           invisible="applied_on != 'category'" 
                           readonly="not is_edit and id"/>
                 </group>
 
                 <!-- Letakkan di luar group utama agar tidak terikat grid kiri-kanan -->
                 <div invisible="applied_on != 'product'" style="width: 100% !important;">
-                    <field name="product_ids" 
+                    <field name="product_ids" options="{'no_open': True, 'no_create': True}"
                           nolabel="1" 
                           readonly="not is_edit and id"
                           style="width: 100% !important;">
@@ -750,14 +750,14 @@
               <page name="customers" string="Customers">
                 <group name="customer_conditions" string="Conditions">
                     <field name="customer_applied_on" readonly="not is_edit and id" widget="radio"/>
-                    <field name="customer_category_ids" widget="many2many_tags" 
-                          invisible="customer_applied_on != 'category'" 
+                    <field name="customer_category_ids" widget="many2many_tags"
+                          invisible="customer_applied_on != 'category'"
                           readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
                 </group>
 
                 <!-- Letakkan di luar group utama agar tidak terikat grid kiri-kanan -->
                 <div invisible="customer_applied_on != 'customer'" style="width: 100% !important;">
-                    <field name="customer_ids" 
+                    <field name="customer_ids" options="{'no_open': True, 'no_create': True}"
                           nolabel="1" 
                           readonly="not is_edit and id"
                           style="width: 100% !important;">
@@ -838,7 +838,7 @@
 
               <notebook colspan="4">
                   <page string="Shipping Addresses" name="shipping_addresses" autofocus="autofocus">
-                      <field name="ship_to_ids" mode="kanban" readonly="not is_edit and id">
+                      <field name="ship_to_ids" mode="kanban" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}">
                           <kanban>
                               <field name="customer_id" invisible="1"/>
                               <templates>
@@ -898,7 +898,7 @@
                       </group>
                   </page>
                   <page name="price_condition" string="Price Condition">
-                      <field name="price_condition_ids" readonly="1" widget="many2many_tags"/>
+                      <field name="price_condition_ids" readonly="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
                   </page>
                   <page name="payment_terms" string="Payment Terms">
                       <field name="payment_terms" placeholder="Payment terms..." options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
@@ -1113,7 +1113,7 @@
                 </group>
                 <notebook colspan="4">
                     <page string="Order Lines" name="order_lines">
-                        <field name="order_line_ids" string="Order Lines" readonly="state in ['cancel', 'wait_approval'] or (not is_edit and id)">
+                        <field name="order_line_ids" string="Order Lines" readonly="state in ['cancel', 'wait_approval'] or (not is_edit and id)" options="{'no_open': True, 'no_create': True}">
                             <tree editable="bottom">
                                 <field name="product_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" force_save="1"/>
                                 <field name="quantity"/>
@@ -1160,7 +1160,7 @@
                         </group>
                     </page>
                     <page string="Approval Logs" name="approval_logs" invisible="not approval_log_ids">
-                        <field name="approval_log_ids" readonly="1">
+                        <field name="approval_log_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
                             <tree default_order="action_date asc, id asc">
                                 <field name="id" column_invisible="True"/>
                                 <field name="sequence" widget="handle"/>
@@ -1190,7 +1190,7 @@
                         </field>
                     </page>
                     <page string="Invoices" name="custom_invoices" invisible="invoice_count == 0">
-                        <field name="invoice_ids" readonly="1">
+                        <field name="invoice_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
                             <tree create="0" delete="0" edit="0" no_open="1">
                                 <field name="invoice_number"/>
                                 <field name="invoice_date"/>
@@ -1298,8 +1298,8 @@
 
             <!-- 2. Add your custom customer field in its place -->
             <xpath expr="//field[@name='partner_ids']" position="after">
-                <field name="customer_ids" 
-                      widget="many2many_tags" 
+                <field name="customer_ids"
+                      widget="many2many_tags"
                       context="{'show_email_in_wizard': True}"
                       force_save="1"
                       options="{'no_create': True, 'no_open': True}"
@@ -1460,7 +1460,7 @@
             </group>
             <notebook>
               <page string="Journal Items" name="journal_items">
-                <field name="journal_item_ids" readonly="1">
+                <field name="journal_item_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
                   <tree create="0" delete="0" edit="0">
                     <field name="sequence" widget="handle"/>
                     <field name="account_code"/>
@@ -1556,7 +1556,7 @@
             <notebook>
               <page string="Invoice Lines" name="invoice_lines">
                 <field name="invoice_type" invisible="1"/>
-                <field name="line_ids" widget="section_and_note_one2many" readonly="state != 'draft'">
+                <field name="line_ids" widget="section_and_note_one2many" readonly="state != 'draft'" options="{'no_open': True, 'no_create': True}">
                   <tree editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="display_type" column_invisible="1"/>
@@ -1573,7 +1573,7 @@
                 </field>
               </page>
               <page string="Journal Items" name="journal_items">
-                <field name="journal_item_ids" readonly="1">
+                <field name="journal_item_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
                   <tree create="0" delete="0" edit="0">
                     <field name="sequence" widget="handle"/>
                     <field name="account_code"/>
@@ -1600,7 +1600,7 @@
                 </group>
               </page>
               <page string="Payments" name="payments" invisible="payment_count == 0">
-                <field name="payment_ids" readonly="1">
+                <field name="payment_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
                   <tree create="0" delete="0" edit="0" no_open="1">
                     <field name="payment_number"/>
                     <field name="payment_date"/>
@@ -1927,8 +1927,8 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Sales" id="sales.menu_sales_root" parent="general.menu_root" sequence="1"/>
-    <menuitem name="Approvals" id="sales.menu_approvals_root" parent="general.menu_root" sequence="4"/>
+    <menuitem name="Sales" id="sales.menu_sales_root" sequence="1"/>
+    <menuitem name="Approvals" id="sales.menu_approvals_root" parent="sales.menu_sales_root" sequence="4"/>
 
     <!-- menu categories -->
     
@@ -2005,7 +2005,7 @@
             </group>
             <notebook>
               <page string="Delivery Lines">
-                <field name="line_ids" readonly="state != 'draft'">
+                <field name="line_ids" readonly="state != 'draft'" options="{'no_open': True, 'no_create': True}">
                   <tree editable="bottom">
                     <field name="sales_order_line_id" column_invisible="1"/>
                     <field name="product_id" options="{'no_open': True, 'no_create': True}"/>

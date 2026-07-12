@@ -17,7 +17,7 @@ From quotations to invoices
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'general', 'employees', 'disable_autosave', 'mail'],
+    'depends': ['base', 'general', 'hcm', 'disable_autosave', 'mail'],
 
     # always loaded
     'data': [

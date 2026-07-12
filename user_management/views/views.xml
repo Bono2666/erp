@@ -40,7 +40,6 @@
         <tree>
           <field name="name"/>
           <field name="login"/>
-          <field name="position"/>
           <field name="custom_login_date"/>
         </tree>
       </field>
@@ -82,9 +81,6 @@
               <h1><field name="name" placeholder="e.g. John Doe" required="1" readonly="not is_edit and id"/></h1>
               <label for="login" string="Email Address"/>
               <h2><field name="login" placeholder="e.g. email@yourcompany.com" readonly="not is_edit and id"/></h2>
-              <group>
-                  <field name="position" required="0" readonly="not is_edit and id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-              </group>
               <notebook>
                 <page string="Account Security" name="security" invisible="id">
                   <group string="Password Management">
@@ -92,7 +88,7 @@
                   </group>
                 </page>
                 <page string="Access Rights" name="authentication" invisible="not id">
-                  <field name="menu_ids" readonly="not is_edit and id">
+                  <field name="menu_ids" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}">
                     <tree editable="bottom">
                         <field name="menu_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                         <field name="can_create" string="Create"/>

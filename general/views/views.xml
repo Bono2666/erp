@@ -62,9 +62,9 @@
       <field name="model">general.state</field>
       <field name="arch" type="xml">
         <tree>
-          <!-- Add your fields here -->
           <field name="state_id"/>
           <field name="state_name"/>
+          <field name="country_ref"/>
         </tree>
       </field>
     </record>
@@ -106,6 +106,9 @@
               </div>
             </h1>
           </div>
+          <group>
+            <field name="country_ref" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
         </sheet>
       </form>
       </field>
@@ -117,9 +120,9 @@
       <field name="model">general.city</field>
       <field name="arch" type="xml">
         <tree>
-          <!-- Add your fields here -->
           <field name="city_id"/>
           <field name="city_name"/>
+          <field name="state_ref"/>
         </tree>
       </field>
     </record>
@@ -161,6 +164,9 @@
               </div>
             </h1>
           </div>
+          <group>
+            <field name="state_ref" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
         </sheet>
       </form>
       </field>
@@ -172,9 +178,9 @@
       <field name="model">general.district</field>
       <field name="arch" type="xml">
         <tree>
-          <!-- Add your fields here -->
           <field name="district_id"/>
           <field name="district_name"/>
+          <field name="city_ref"/>
         </tree>
       </field>
     </record>
@@ -216,6 +222,67 @@
               </div>
             </h1>
           </div>
+          <group>
+            <field name="city_ref" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- general.village tree view -->
+    <record id="general.village_view_tree" model="ir.ui.view">
+      <field name="name">general.village.view.tree</field>
+      <field name="model">general.village</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="village_id"/>
+          <field name="village_name"/>
+          <field name="district_ref"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- general.village form view -->
+    <record id="general.village_view_form" model="ir.ui.view">
+      <field name="name">general.village.view.form</field>
+      <field name="model">general.village</field>
+      <field name="arch" type="xml">
+      <form string="Village">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="min-w-0 text-truncate mt-1">
+            <field name="model_description"/>
+          </span>
+          <style>
+            .o_control_panel {
+              display: none !important;
+            }
+          </style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <field name="village_id"/>
+            <h1>
+              <div class="d-flex">
+                <field class="text-break" name="village_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Cipete Utara"/>
+              </div>
+            </h1>
+          </div>
+          <group>
+            <field name="district_ref" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
         </sheet>
       </form>
       </field>
@@ -227,9 +294,9 @@
       <field name="model">general.position</field>
       <field name="arch" type="xml">
         <tree>
-          <!-- Add your fields here -->
           <field name="position_id"/>
           <field name="position_name"/>
+          <field name="department_id"/>
         </tree>
       </field>
     </record>
@@ -271,6 +338,9 @@
               </div>
             </h1>
           </div>
+          <group>
+            <field name="department_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
         </sheet>
       </form>
       </field>
@@ -282,9 +352,9 @@
       <field name="model">general.department</field>
       <field name="arch" type="xml">
         <tree>
-          <!-- Add your fields here -->
           <field name="department_id"/>
           <field name="department_name"/>
+          <field name="division_id"/>
         </tree>
       </field>
     </record>
@@ -326,12 +396,191 @@
               </div>
             </h1>
           </div>
+          <group>
+            <field name="division_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+          </group>
         </sheet>
       </form>
       </field>
     </record>
 
-    <!-- general.home form view -->
+    <!-- general.company views -->
+    <record id="general.company_view_tree" model="ir.ui.view">
+      <field name="name">general.company.view.tree</field>
+      <field name="model">general.company</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="company_id"/>
+          <field name="company_name"/>
+        </tree>
+      </field>
+    </record>
+    <record id="general.company_view_form" model="ir.ui.view">
+      <field name="name">general.company.view.form</field>
+      <field name="model">general.company</field>
+      <field name="arch" type="xml">
+      <form string="Company">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="min-w-0 text-truncate mt-1"><field name="model_description"/></span>
+          <style>.o_control_panel { display: none !important; }</style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <field name="company_id"/>
+            <h1><div class="d-flex">
+              <field class="text-break" name="company_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. PT KSI Solusi" readonly="not is_edit and id"/>
+            </div></h1>
+          </div>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- general.location views -->
+    <record id="general.location_view_tree" model="ir.ui.view">
+      <field name="name">general.location.view.tree</field>
+      <field name="model">general.location</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="location_id"/>
+          <field name="location_name"/>
+        </tree>
+      </field>
+    </record>
+    <record id="general.location_view_form" model="ir.ui.view">
+      <field name="name">general.location.view.form</field>
+      <field name="model">general.location</field>
+      <field name="arch" type="xml">
+      <form string="Location">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="min-w-0 text-truncate mt-1"><field name="model_description"/></span>
+          <style>.o_control_panel { display: none !important; }</style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <field name="location_id"/>
+            <h1><div class="d-flex">
+              <field class="text-break" name="location_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Jakarta" readonly="not is_edit and id"/>
+            </div></h1>
+          </div>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- general.division views -->
+    <record id="general.division_view_tree" model="ir.ui.view">
+      <field name="name">general.division.view.tree</field>
+      <field name="model">general.division</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="division_id"/>
+          <field name="division_name"/>
+        </tree>
+      </field>
+    </record>
+    <record id="general.division_view_form" model="ir.ui.view">
+      <field name="name">general.division.view.form</field>
+      <field name="model">general.division</field>
+      <field name="arch" type="xml">
+      <form string="Division">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="min-w-0 text-truncate mt-1"><field name="model_description"/></span>
+          <style>.o_control_panel { display: none !important; }</style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <field name="division_id"/>
+            <h1><div class="d-flex">
+              <field class="text-break" name="division_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales" readonly="not is_edit and id"/>
+            </div></h1>
+          </div>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- general.level_grade views -->
+    <record id="general.level_grade_view_tree" model="ir.ui.view">
+      <field name="name">general.level_grade.view.tree</field>
+      <field name="model">general.level_grade</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="level_id"/>
+          <field name="level_name"/>
+        </tree>
+      </field>
+    </record>
+    <record id="general.level_grade_view_form" model="ir.ui.view">
+      <field name="name">general.level_grade.view.form</field>
+      <field name="model">general.level_grade</field>
+      <field name="arch" type="xml">
+      <form string="Level / Grade">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="min-w-0 text-truncate mt-1"><field name="model_description"/></span>
+          <style>.o_control_panel { display: none !important; }</style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <field name="level_id"/>
+            <h1><div class="d-flex">
+              <field class="text-break" name="level_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Manager" readonly="not is_edit and id"/>
+            </div></h1>
+          </div>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- general.home form view — Enterprise-style home screen -->
     <record id="general.home_view_form" model="ir.ui.view">
       <field name="name">general.home.view.form</field>
       <field name="model">general.home</field>
@@ -341,12 +590,85 @@
             .o_control_panel {
               display: none !important;
             }
+            .o_home_menu_background {
+              background: #ffffff;
+              min-height: 100vh;
+              padding: 48px 0;
+            }
+            .home-menu-grid {
+              display: grid;
+              grid-template-columns: repeat(6, 136.33px);
+              justify-content: center;
+              max-width: 817.98px;
+              margin: 0 auto;
+              padding: 0 16px;
+            }
+            button.home-menu-card {
+              width: 136.33px;
+              height: 115px;
+              background: #ffffff;
+              border: none;
+              border-radius: 0;
+              box-shadow: none;
+              cursor: pointer;
+              font-size: 13px;
+              font-weight: 600;
+              color: #374151;
+              padding: 12px 8px;
+              transition: none;
+              text-align: center;
+              line-height: 1.4;
+            }
+            button.home-menu-card:hover {
+              box-shadow: none;
+              border: none;
+            }
+            button.home-menu-card::before {
+              content: '';
+              display: block;
+              width: 70px;
+              height: 70px;
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              margin: 0 auto 8px;
+              border: 1px solid #dee2e6;
+              border-radius: 12px;
+              transition: transform 0.2s ease, border-color 0.2s ease;
+              pointer-events: none;
+            }
+            button.home-menu-card:hover::before {
+              transform: scale(1.08);
+              border-color: #adb5bd;
+            }
+            button.home-card-hcm::before {
+              background-image: url('/hcm/static/description/icon.png');
+            }
+            button.home-card-sales::before {
+              background-image: url('/sales/static/description/icon.png');
+            }
+            button.home-card-config::before {
+              background-image: url('/general/static/description/icon.png');
+            }
           </style>
-          <!-- Centered Image Container -->
-          <div class="d-flex justify-content-center align-items-center" style="height: 85vh; flex-direction: column;">
-            <img src="/general/static/src/img/transparent_logo.webp" 
-                alt="ERP Logo" 
-                style="object-fit: auto; opacity: 0.2; width: 32%;"/>
+          <div class="o_home_menu_background">
+            <field name="show_hcm" invisible="1"/>
+            <field name="show_sales" invisible="1"/>
+            <field name="show_configuration" invisible="1"/>
+            <div class="home-menu-grid">
+              <button name="action_open_hcm" type="object"
+                      class="home-menu-card home-card-hcm"
+                      string="HCM"
+                      invisible="not show_hcm"/>
+              <button name="action_open_sales" type="object"
+                      class="home-menu-card home-card-sales"
+                      string="Sales"
+                      invisible="not show_sales"/>
+              <button name="action_open_configuration" type="object"
+                      class="home-menu-card home-card-config"
+                      string="Configuration"
+                      invisible="not show_configuration"/>
+            </div>
           </div>
         </form>
       </field>
@@ -442,6 +764,43 @@
         <field name="view_mode">form</field>
         <field name="target">new</field> <!-- Membuka sebagai Popup agar fokus -->
     </record>
+    <record model="ir.actions.act_window" id="general.company_action">
+      <field name="name">Companies</field>
+      <field name="res_model">general.company</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first Company</p>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="general.location_action">
+      <field name="name">Locations</field>
+      <field name="res_model">general.location</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first Location</p>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="general.division_action">
+      <field name="name">Divisions</field>
+      <field name="res_model">general.division</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first Division</p>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="general.level_grade_action">
+      <field name="name">Levels / Grades</field>
+      <field name="res_model">general.level_grade</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Create your first Level / Grade</p>
+      </field>
+    </record>
+
     <record model="ir.actions.act_window" id="general.country_action">
       <field name="name">Country</field>
       <field name="res_model">general.country</field>
@@ -486,6 +845,17 @@
         </p>
       </field>
     </record>
+    <record model="ir.actions.act_window" id="general.village_action">
+      <field name="name">Village</field>
+      <field name="res_model">general.village</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create your first Village
+        </p>
+      </field>
+    </record>
     <record model="ir.actions.act_window" id="general.position_action">
       <field name="name">Position</field>
       <field name="res_model">general.position</field>
@@ -521,7 +891,7 @@
     <!-- menu items -->
     <menuitem name="Home" id="general.menu_root" sequence="0" action="general.home_action"/>
     
-    <menuitem name="Configuration" id="general.menu_master_menu" parent="general.menu_root" sequence="5"/>
+    <menuitem name="Configuration" id="general.menu_master_menu" sequence="5"/>
 
     <!-- general menus -->
 
@@ -531,8 +901,12 @@
     <menuitem name="States" id="general.general_state_act" parent="general.general_others_menu" action="general.state_action" sequence="2"/>
     <menuitem name="Cities" id="general.general_city_act" parent="general.general_others_menu" action="general.city_action" sequence="3"/>
     <menuitem name="Districts" id="general.general_district_act" parent="general.general_others_menu" action="general.district_action" sequence="4"/>
-    <menuitem name="Positions" id="general.general_position_act" parent="general.general_others_menu" action="general.position_action" sequence="5"/>
-    <menuitem name="Departments" id="general.general_department_act" parent="general.general_others_menu" action="general.department_action" sequence="6"/>
+    <menuitem name="Villages" id="general.general_village_act" parent="general.general_others_menu" action="general.village_action" sequence="5"/>
+    <menuitem name="Companies" id="general.general_company_act" parent="general.general_others_menu" action="general.company_action" sequence="6"/>
+    <menuitem name="Departments" id="general.general_department_act" parent="general.general_others_menu" action="general.department_action" sequence="7"/>
+    <menuitem name="Locations" id="general.general_location_act" parent="general.general_others_menu" action="general.location_action" sequence="8"/>
+    <menuitem name="Divisions" id="general.general_division_act" parent="general.general_others_menu" action="general.division_action" sequence="9"/>
+    <menuitem name="Levels / Grades" id="general.general_level_grade_act" parent="general.general_others_menu" action="general.level_grade_action" sequence="10"/>
     
   </data>
 </odoo>

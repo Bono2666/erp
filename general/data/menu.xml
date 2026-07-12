@@ -21,14 +21,34 @@
         <field name="menu_name">Districts</field>
         <field name="parent_menu">others</field>
     </record>
-    <record id="position_menu" model="general.menu">
-        <field name="menu_id">position</field>
-        <field name="menu_name">Positions</field>
+    <record id="company_menu" model="general.menu">
+        <field name="menu_id">company</field>
+        <field name="menu_name">Companies</field>
+        <field name="parent_menu">others</field>
+    </record>
+    <record id="location_menu" model="general.menu">
+        <field name="menu_id">location</field>
+        <field name="menu_name">Locations</field>
+        <field name="parent_menu">others</field>
+    </record>
+    <record id="division_menu" model="general.menu">
+        <field name="menu_id">division</field>
+        <field name="menu_name">Divisions</field>
+        <field name="parent_menu">others</field>
+    </record>
+    <record id="level_grade_menu" model="general.menu">
+        <field name="menu_id">level_grade</field>
+        <field name="menu_name">Levels / Grades</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="department_menu" model="general.menu">
         <field name="menu_id">department</field>
         <field name="menu_name">Departments</field>
+        <field name="parent_menu">others</field>
+    </record>
+    <record id="position_menu" model="general.menu">
+        <field name="menu_id">position</field>
+        <field name="menu_name">Positions</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="users_menu" model="general.menu">
@@ -50,6 +70,7 @@
     <record id="approvals_menu_root" model="general.menu">
         <field name="menu_id">approvals</field>
         <field name="menu_name">Approvals</field>
+        <field name="parent_menu">sales</field>
         <field name="is_parent">True</field>
     </record>
     <record id="approvals_config_menu" model="general.menu">

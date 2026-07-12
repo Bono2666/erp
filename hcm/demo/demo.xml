@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Demo data commented out - uncomment and customize for demo -->
+    
+    <record id="demo_position_manager" model="hcm.position">
+        <field name="name">Manager</field>
+    </record>
+    <record id="demo_position_staff" model="hcm.position">
+        <field name="name">Staff</field>
+        <field name="parent_id" ref="demo_position_manager"/>
+    </record>
+    <record id="demo_employee" model="hcm.employee">
+        <field name="name">Demo Employee</field>
+        <field name="nik">1234567890123456</field>
+        <field name="phone">08123456789</field>
+        <field name="email">demo@example.com</field>
+        <field name="position_id" ref="demo_position_staff"/>
+        <field name="join_date">2024-01-01</field>
+        <field name="status">active</field>
+    </record>
+   
+
+</odoo>

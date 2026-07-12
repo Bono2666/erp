@@ -1,0 +1,74 @@
+<templates xml:space="preserve">
+
+  <t t-name="hcm.OrgStructure" owl="1">
+    <div class="org-structure-container d-flex flex-column w-100 h-100 overflow-hidden">
+      <!-- Header -->
+      <div class="d-flex align-items-center px-3 py-2 border-bottom bg-light flex-shrink-0">
+        <h4 class="mb-0 me-auto">
+          <i class="fa fa-sitemap me-2"/> Organization Structure
+        </h4>
+        <small class="text-muted d-none d-md-block">
+          Scroll to zoom | Drag to pan | Click to expand/collapse
+        </small>
+      </div>
+
+      <!-- Loading -->
+      <div t-if="!state.loaded and !state.error"
+           class="d-flex justify-content-center align-items-center flex-grow-1">
+        <div class="text-center text-muted">
+          <i class="fa fa-spinner fa-spin fa-2x mb-2"/>
+          <div>Loading organization structure...</div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div t-if="state.error"
+           class="d-flex justify-content-center align-items-center flex-grow-1">
+        <div class="alert alert-danger m-3">
+          <i class="fa fa-exclamation-triangle me-2"/><t t-esc="state.error"/>
+        </div>
+      </div>
+
+      <!-- Chart Container -->
+      <div t-ref="treeContainer"
+           class="org-chart-svg-container flex-grow-1 w-100"
+           style="min-height:500px;background:#f1f5f9;position:relative;overflow:hidden;"/>
+
+      <style>
+        /* d3-org-chart container styling */
+        .org-chart-svg-container svg {
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        /* Style the expand/collapse buttons */
+        .org-chart-svg-container .node-button {
+          fill: #4f46e5;
+          stroke: #fff;
+          stroke-width: 1.5;
+          cursor: pointer;
+          transition: fill 0.15s ease;
+        }
+        .org-chart-svg-container .node-button:hover {
+          fill: #7c3aed;
+        }
+
+        /* Style connection lines */
+        .org-chart-svg-container .link {
+          stroke: #94a3b8;
+          stroke-width: 2;
+          fill: none;
+        }
+
+        /* Node hover effect */
+        .org-chart-svg-container .node-rect {
+          transition: filter 0.15s ease;
+        }
+        .org-chart-svg-container .node-rect:hover {
+          filter: brightness(0.95);
+        }
+      </style>
+    </div>
+  </t>
+
+</templates>

@@ -5,153 +5,6 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
 
-class NavigationMixin(models.AbstractModel):
-    _name = 'navigation.mixin'
-    _description = 'Mixin for General Navigation'
-
-    model_description = fields.Char(compute='_compute_model_description')
-    user_can_read = fields.Boolean(compute='_compute_custom_permissions')
-    user_can_create = fields.Boolean(
-        compute='_compute_custom_permissions', store=False)
-    user_can_update = fields.Boolean(compute='_compute_custom_permissions')
-    user_can_delete = fields.Boolean(compute='_compute_custom_permissions')
-
-    @api.model
-    def get_views(self, views, options=None):
-        res = super().get_views(views, options=options)
-
-        # Pengecekan Admin
-        if not self.env.user.has_group('base.group_system'):
-            # Cari akses di tabel kustom
-            access = self.env['general.auth'].sudo().search([
-                ('custom_user_id.user_id', '=', self.env.uid),
-                ('menu_id.menu_id', '=', self._menu_code)
-            ], limit=1)
-
-            # Jika tidak punya akses create, hapus kemampuan create dari arsitektur view
-            if not access or not access.can_create:
-                for view_type in ['list', 'form']:
-                    if view_type in res['views']:
-                        import lxml.etree as etree
-                        doc = etree.fromstring(res['views'][view_type]['arch'])
-                        doc.set('create', '0')  # Paksa tombol New jadi hilang
-                        res['views'][view_type]['arch'] = etree.tostring(
-                            doc, encoding='unicode')
-        return res
-
-    @api.depends_context('uid')
-    def _compute_custom_permissions(self):
-        is_admin = self.env.user.has_group('base.group_system')
-
-        # 2. Jika Admin, berikan akses penuh secara otomatis
-        if is_admin:
-            for record in self:
-                record.user_can_read = True
-                record.user_can_create = True
-                record.user_can_update = True
-                record.user_can_delete = True
-            return
-
-        menu_code = getattr(self, '_menu_code', False)
-
-        access = self.env['general.auth'].sudo().search([
-            ('custom_user_id.user_id', '=', self.env.uid),
-            ('menu_id.menu_id', '=', menu_code)
-        ], limit=1)
-
-        for record in self:
-            if access:
-                record.user_can_read = True
-                record.user_can_create = access.can_create
-                record.user_can_update = access.can_update
-                record.user_can_delete = access.can_delete
-            else:
-                record.user_can_read = False
-                record.user_can_create = False
-                record.user_can_update = False
-                record.user_can_delete = False
-
-    def _compute_model_description(self):
-        for record in self:
-            record.model_description = self._description
-
-    def action_back(self):
-        self.ensure_one()
-        return {
-            'name': self._description,
-            'type': 'ir.actions.act_window',
-            'res_model': self._name,
-            'view_mode': 'tree,form',
-            'views': [(False, 'tree'), (False, 'form')],
-            'target': 'main',
-            'context': self.env.context,
-        }
-
-    def action_back_kanban(self):
-        self.ensure_one()
-        return {
-            'name': self._description,
-            'type': 'ir.actions.act_window',
-            'res_model': self._name,
-            'view_mode': 'kanban,form',
-            'views': [(False, 'kanban'), (False, 'form')],
-            'target': 'main',
-            'context': self.env.context,
-        }
-
-    def action_edit(self):
-        self.ensure_one()
-        self.write({'is_edit': True})
-
-        view_id = self.env['ir.ui.view'].sudo().search([
-            ('model', '=', self._name),
-            ('type', '=', 'form')
-        ], limit=1).id
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': self._description,
-            'res_model': self._name,
-            'view_mode': 'form',
-            'res_id': self.id,
-            'views': [(view_id, 'form')],
-            'target': 'current',
-        }
-
-    def action_save(self):
-        self.ensure_one()
-        self.write({'is_edit': False})
-
-        view_id = self.env['ir.ui.view'].sudo().search([
-            ('model', '=', self._name),
-            ('type', '=', 'form')
-        ], limit=1).id
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': self._description,
-            'res_model': self._name,
-            'view_mode': 'form',
-            'res_id': self.id,
-            'views': [(view_id, 'form')],
-            'target': 'current',
-        }
-
-    def action_delete(self):
-        self.ensure_one()
-        self.unlink()
-
-        return {
-            'name': self._description,
-            'type': 'ir.actions.act_window',
-            'res_model': self._name,
-            'view_mode': 'tree,form',
-            'views': [(False, 'tree'), (False, 'form')],
-            'target': 'main',
-            'context': self.env.context,
-        }
-
-
 class cust_category(models.Model):
     _name = 'sales.cust_category'
     _inherit = ['navigation.mixin']
@@ -294,7 +147,7 @@ class customer(models.Model):
         comodel_name='general.district', string='District', ondelete='set null', index=True)
     postal_code = fields.Char(string="Postal Code")
     sales_name = fields.Many2one(
-        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations', 'Customers'])])
+        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
     npwp = fields.Char(string="NPWP")
     cust_category = fields.Many2one(
         comodel_name='sales.cust_category', string='Customer Category', index=True, required=True, ondelete='cascade')
@@ -907,7 +760,7 @@ class sales_order(models.Model):
     payment_terms = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True, domain="[('account_type', '=', 'Customer')]")
     sales_name = fields.Many2one(
-        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, default=lambda self: self.env['general.custom_users'].search([('user_id', '=', self.env.uid)], limit=1), domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations'])])
+        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
     commitment_date = fields.Date(string="Delivery Date")
     expected_date = fields.Date(
         string="Expected Date", default=fields.Date.add(fields.Date.today(), days=7), readonly=True)
@@ -2313,9 +2166,9 @@ class sales_approval_matrix(models.Model):
     _menu_code = 'sales_approval_matrix'
 
     name = fields.Many2one(
-        comodel_name='general.custom_users', string='Approver', index=True, domain=[('menu_ids.menu_id', 'in', ['Sales Approval'])])
+        comodel_name='hcm.employee', string='Approver', index=True)
     sequence = fields.Integer(string="Sequence", default=1)
-    position = fields.Many2one(related='name.position', string="Job Position")
+    position = fields.Many2one(related='name.position_id', string="Job Position")
     receive_return = fields.Boolean(string="Receive Return")
     min_amount = fields.Float(string="Minimum Amount",
                               digits=(16, 0), default=0)
@@ -2388,7 +2241,7 @@ class sales_invoice(models.Model):
         ('credit_note', 'Credit Note')
     ], string="Document Type", default='invoice', required=True)
     sales_name = fields.Many2one(
-        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True)
+        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
     delivery_date = fields.Date(string="Delivery Date")
     payment_terms_id = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True)

@@ -1,34 +1,32 @@
 {
-    'name': "General by KSI",
+    'name': "Human Capital Management by KSI",
 
-    'summary': "General Master Table",
+    'summary': "Human Capital Management Module",
 
     'description': """
-General Master Table
+Human Capital Management (HCM) Module
+- Employee Master Data
+- Position & Organization Structure
+- Family, Education, Certificate, Training
+- Document Repository
     """,
 
     'author': "KSI Solusi",
     'website': "https://www.ksisolusi.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Technical',
+    'category': 'Human Resources',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'disable_autosave'],
-    'uninstall_hook': 'uninstall_hook_cleanup_users',
+    'depends': ['base', 'general', 'disable_autosave'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/templates.xml',
-        'data/menu.xml',
-        'data/home.xml',
         'views/views.xml',
         'data/sequence.xml',
-        'data/logo.xml',
+        'data/menu.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
@@ -37,6 +35,8 @@ General Master Table
 
     'assets': {
         'web.assets_backend': [
+            'hcm/static/src/js/org_structure.js',
+            'hcm/static/src/xml/org_structure.xml',
         ],
     },
 

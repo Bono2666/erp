@@ -1,0 +1,20 @@
+<odoo>
+  <data>
+
+    <!-- Organization Structure Hierarchical Tree -->
+    <record id="hcm_position_org_tree" model="ir.ui.view">
+      <field name="name">hcm.position.org.tree</field>
+      <field name="model">hcm.position</field>
+      <field name="arch" type="xml">
+        <tree default_order="name">
+          <field name="name"/>
+          <field name="department_id"/>
+          <field name="parent_id"/>
+          <field name="employee_count"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+  </data>
+</odoo>

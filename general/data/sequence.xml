@@ -30,6 +30,13 @@
         <field name="padding">4</field>
         <field name="number_increment">1</field>
         </record>
+        <record id="seq_village" model="ir.sequence">
+        <field name="name">Village Sequence</field>
+        <field name="code">general.village.sequence</field>
+        <field name="prefix">VILL</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        </record>
         <record id="seq_position" model="ir.sequence">
         <field name="name">Position Sequence</field>
         <field name="code">general.position.sequence</field>
@@ -41,6 +48,34 @@
         <field name="name">Department Sequence</field>
         <field name="code">general.department.sequence</field>
         <field name="prefix">DEPT</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        </record>
+        <record id="seq_company" model="ir.sequence">
+        <field name="name">Company Sequence</field>
+        <field name="code">general.company.sequence</field>
+        <field name="prefix">COMP</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        </record>
+        <record id="seq_location" model="ir.sequence">
+        <field name="name">Location Sequence</field>
+        <field name="code">general.location.sequence</field>
+        <field name="prefix">LOC</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+        </record>
+        <record id="seq_division" model="ir.sequence">
+        <field name="name">Division Sequence</field>
+        <field name="code">general.division.sequence</field>
+        <field name="prefix">DIV</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        </record>
+        <record id="seq_level_grade" model="ir.sequence">
+        <field name="name">Level/Grade Sequence</field>
+        <field name="code">general.level_grade.sequence</field>
+        <field name="prefix">LVGR</field>
         <field name="padding">4</field>
         <field name="number_increment">1</field>
         </record>

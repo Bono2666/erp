@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hcm_position,hcm.position,model_hcm_position,,1,1,1,1
+access_hcm_employee,hcm.employee,model_hcm_employee,,1,1,1,1
+access_hcm_employee_family,hcm.employee.family,model_hcm_employee_family,,1,1,1,1
+access_hcm_employee_education,hcm.employee.education,model_hcm_employee_education,,1,1,1,1
+access_hcm_employee_certificate,hcm.employee.certificate,model_hcm_employee_certificate,,1,1,1,1
+access_hcm_employee_training,hcm.employee.training,model_hcm_employee_training,,1,1,1,1

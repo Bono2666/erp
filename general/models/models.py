@@ -149,6 +149,7 @@ class NavigationMixin(models.AbstractModel):
     @api.model
     def get_views(self, views, options=None):
         res = super().get_views(views, options=options)
+        import lxml.etree as etree
 
         # Pengecekan Admin
         if not self.env.user.has_group('base.group_system'):
@@ -162,11 +163,61 @@ class NavigationMixin(models.AbstractModel):
             if not access or not access.can_create:
                 for view_type in ['list', 'form']:
                     if view_type in res['views']:
-                        import lxml.etree as etree
                         doc = etree.fromstring(res['views'][view_type]['arch'])
                         doc.set('create', '0')  # Paksa tombol New jadi hilang
                         res['views'][view_type]['arch'] = etree.tostring(
                             doc, encoding='unicode')
+
+        # Auto-inject readonly="not is_edit and id" ke semua form fields
+        # Hanya untuk master-data forms yang punya <field name="is_edit"/> di header
+        SYSTEM_FIELDS = {
+            'is_edit', 'id', 'user_can_read', 'user_can_create',
+            'user_can_update', 'user_can_delete', 'model_description',
+        }
+
+        # Dapatkan field definitions untuk cek computed fields
+        model_fields = self._fields if hasattr(self, '_fields') else {}
+
+        for view_type in res['views']:
+            if view_type == 'form':
+                doc = etree.fromstring(res['views']['form']['arch'])
+
+                # Deteksi: apakah ini master-data form dengan is_edit?
+                has_is_edit = doc.xpath("//header//field[@name='is_edit']")
+
+                if has_is_edit:
+                    # Cari semua field di dalam <sheet>
+                    for field in doc.xpath("//sheet//field"):
+                        name = field.get('name', '')
+
+                        # Skip field yang sudah readonly
+                        if field.get('readonly'):
+                            continue
+                        # Skip special system fields
+                        if name in SYSTEM_FIELDS:
+                            continue
+                        # Skip invisible fields
+                        if field.get('invisible'):
+                            continue
+                        # Skip fields inside <tree> (inline one2many tree rows)
+                        if field.xpath("ancestor::tree"):
+                            continue
+                        # Skip fields inside embedded sub-form (one2many sub-form)
+                        if field.xpath("ancestor::form[parent::field]"):
+                            continue
+                        # Skip computed fields without inverse (always readonly)
+                        field_def = model_fields.get(name)
+                        if field_def and field_def.compute and not field_def.inverse:
+                            continue
+                        # Skip fields with model-level readonly=True (always readonly)
+                        if field_def and field_def.readonly:
+                            continue
+
+                        field.set('readonly', 'not is_edit and id')
+
+                res['views'][view_type]['arch'] = etree.tostring(
+                    doc, encoding='unicode')
+
         return res
 
     @api.depends_context('uid')
@@ -342,6 +393,7 @@ class state(models.Model):
 
     state_id = fields.Char(string="State ID", readonly=True)
     state_name = fields.Char(string="State Name")
+    country_ref = fields.Many2one('general.country', string="Country", required=True)
     is_edit = fields.Boolean(default=False)
 
     @api.model
@@ -367,6 +419,7 @@ class city(models.Model):
 
     city_id = fields.Char(string="City ID", readonly=True)
     city_name = fields.Char(string="City Name")
+    state_ref = fields.Many2one('general.state', string="State", required=True)
     is_edit = fields.Boolean(default=False)
 
     @api.model
@@ -392,6 +445,7 @@ class district(models.Model):
 
     district_id = fields.Char(string="District ID", readonly=True)
     district_name = fields.Char(string="District Name")
+    city_ref = fields.Many2one('general.city', string="City", required=True)
     is_edit = fields.Boolean(default=False)
 
     @api.model
@@ -408,6 +462,32 @@ class district(models.Model):
         return super(district, self).create(vals)
 
 
+class village(models.Model):
+    _name = 'general.village'
+    _inherit = ['navigation.mixin']
+    _description = 'Villages'
+    _rec_name = 'village_name'
+    _menu_code = 'village'
+
+    village_id = fields.Char(string="Village ID", readonly=True)
+    village_name = fields.Char(string="Village Name")
+    district_ref = fields.Many2one('general.district', string="District", required=True)
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('village_id'):
+                    v['village_id'] = self.env['ir.sequence'].next_by_code(
+                        'general.village.sequence') or '/'
+            return super(village, self).create(vals)
+        if not vals.get('village_id'):
+            vals['village_id'] = self.env['ir.sequence'].next_by_code(
+                'general.village.sequence') or '/'
+        return super(village, self).create(vals)
+
+
 class position(models.Model):
     _name = 'general.position'
     _inherit = ['navigation.mixin']
@@ -417,6 +497,8 @@ class position(models.Model):
 
     position_id = fields.Char(string="Position ID", readonly=True)
     position_name = fields.Char(string="Position Name")
+    department_id = fields.Many2one(
+        'general.department', string="Department", required=True)
     is_edit = fields.Boolean(default=False)
 
     @api.model
@@ -442,6 +524,10 @@ class department(models.Model):
 
     department_id = fields.Char(string="Department ID", readonly=True)
     department_name = fields.Char(string="Department Name")
+    division_id = fields.Many2one(
+        'general.division', string="Division", required=True)
+    position_ids = fields.One2many(
+        'general.position', 'department_id', string="Positions")
     is_edit = fields.Boolean(string="Is Edit?", default=False)
 
     @api.model
@@ -456,6 +542,108 @@ class department(models.Model):
             vals['department_id'] = self.env['ir.sequence'].next_by_code(
                 'general.department.sequence') or '/'
         return super(department, self).create(vals)
+
+
+class company(models.Model):
+    _name = 'general.company'
+    _inherit = ['navigation.mixin']
+    _description = 'Companies'
+    _rec_name = 'company_name'
+    _menu_code = 'company'
+
+    company_id = fields.Char(string="Company ID", readonly=True)
+    company_name = fields.Char(string="Company Name")
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('company_id'):
+                    v['company_id'] = self.env['ir.sequence'].next_by_code(
+                        'general.company.sequence') or '/'
+            return super(company, self).create(vals)
+        if not vals.get('company_id'):
+            vals['company_id'] = self.env['ir.sequence'].next_by_code(
+                'general.company.sequence') or '/'
+        return super(company, self).create(vals)
+
+
+class location(models.Model):
+    _name = 'general.location'
+    _inherit = ['navigation.mixin']
+    _description = 'Locations'
+    _rec_name = 'location_name'
+    _menu_code = 'location'
+
+    location_id = fields.Char(string="Location ID", readonly=True)
+    location_name = fields.Char(string="Location Name")
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('location_id'):
+                    v['location_id'] = self.env['ir.sequence'].next_by_code(
+                        'general.location.sequence') or '/'
+            return super(location, self).create(vals)
+        if not vals.get('location_id'):
+            vals['location_id'] = self.env['ir.sequence'].next_by_code(
+                'general.location.sequence') or '/'
+        return super(location, self).create(vals)
+
+
+class division(models.Model):
+    _name = 'general.division'
+    _inherit = ['navigation.mixin']
+    _description = 'Divisions'
+    _rec_name = 'division_name'
+    _menu_code = 'division'
+
+    division_id = fields.Char(string="Division ID", readonly=True)
+    division_name = fields.Char(string="Division Name")
+    department_ids = fields.One2many(
+        'general.department', 'division_id', string="Departments")
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('division_id'):
+                    v['division_id'] = self.env['ir.sequence'].next_by_code(
+                        'general.division.sequence') or '/'
+            return super(division, self).create(vals)
+        if not vals.get('division_id'):
+            vals['division_id'] = self.env['ir.sequence'].next_by_code(
+                'general.division.sequence') or '/'
+        return super(division, self).create(vals)
+
+
+class level_grade(models.Model):
+    _name = 'general.level_grade'
+    _inherit = ['navigation.mixin']
+    _description = 'Levels / Grades'
+    _rec_name = 'level_name'
+    _menu_code = 'level_grade'
+
+    level_id = fields.Char(string="Level ID", readonly=True)
+    level_name = fields.Char(string="Level / Grade Name")
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('level_id'):
+                    v['level_id'] = self.env['ir.sequence'].next_by_code(
+                        'general.level_grade.sequence') or '/'
+            return super(level_grade, self).create(vals)
+        if not vals.get('level_id'):
+            vals['level_id'] = self.env['ir.sequence'].next_by_code(
+                'general.level_grade.sequence') or '/'
+        return super(level_grade, self).create(vals)
 
 
 class menu(models.Model):
@@ -474,6 +662,76 @@ class home(models.Model):
     _description = 'Home'
 
     name = fields.Char()
+    show_hcm = fields.Boolean(compute='_compute_show_cards')
+    show_sales = fields.Boolean(compute='_compute_show_cards')
+    show_configuration = fields.Boolean(compute='_compute_show_cards')
+
+    @api.depends_context('uid')
+    def _compute_show_cards(self):
+        """Check if current user has access to any menu in each module."""
+        user = self.env.user
+
+        # Admin sees all cards
+        if user.has_group('base.group_system'):
+            for record in self:
+                record.show_hcm = True
+                record.show_sales = True
+                record.show_configuration = True
+            return
+
+        # Get user's custom auth records
+        custom_user = self.env['general.custom_users'].sudo().search([
+            ('user_id', '=', user.id)
+        ], limit=1)
+
+        if not custom_user:
+            for record in self:
+                record.show_hcm = False
+                record.show_sales = False
+                record.show_configuration = False
+            return
+
+        auth_menu_ids = self.env['general.auth'].sudo().search([
+            ('custom_user_id', '=', custom_user.id),
+        ]).mapped('menu_id.id')
+
+        all_menus = self.env['general.menu'].sudo().search([])
+
+        for record in self:
+            record.show_hcm = any(
+                m.menu_id == 'hcm' or m.parent_menu == 'hcm'
+                for m in all_menus if m.id in auth_menu_ids
+            )
+            record.show_sales = any(
+                m.menu_id == 'sales' or m.parent_menu == 'sales'
+                for m in all_menus if m.id in auth_menu_ids
+            )
+            record.show_configuration = any(
+                m.menu_id == 'master_data' or m.parent_menu == 'master_data'
+                for m in all_menus if m.id in auth_menu_ids
+            )
+
+    def _navigate_to_menu(self, menu_xml_id):
+        """Navigate to a menu — this makes Odoo show the menu as the active app
+        with all its submenus visible in the navbar."""
+        self.ensure_one()
+        menu = self.env.ref(menu_xml_id)
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
+            'web.base.url', default='').rstrip('/')
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '%s/web#menu_id=%s' % (base_url, menu.id),
+        }
+
+    def action_open_hcm(self):
+        return self._navigate_to_menu('hcm.menu_hcm_root')
+
+    def action_open_sales(self):
+        return self._navigate_to_menu('sales.menu_sales_root')
+
+    def action_open_configuration(self):
+        return self._navigate_to_menu('general.menu_master_menu')
 
 
 class custom_users(models.Model):
@@ -670,6 +928,17 @@ class ResUsers(models.Model):
         custom_user_model = self.env['general.custom_users'].sudo()
 
         for user in self:
+            # Admin sees all menus — clear existing restrictions and skip
+            if user.has_group('base.group_system'):
+                restricted_menus = ir_ui_menu_model.search([
+                    ('restrict_user_ids', 'in', user.id)
+                ])
+                if restricted_menus:
+                    restricted_menus.write({
+                        'restrict_user_ids': [(3, user.id)]
+                    })
+                continue
+
             # Cari semua menu yang membatasi user ini
             restricted_menus = ir_ui_menu_model.search([
                 ('restrict_user_ids', 'in', user.id)

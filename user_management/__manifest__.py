@@ -18,7 +18,7 @@ This module extends Odoo's standard functionality to provide deeper control over
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'general', 'disable_autosave'],
+    'depends': ['base', 'general', 'hcm', 'disable_autosave'],
 
     # always loaded
     'data': [

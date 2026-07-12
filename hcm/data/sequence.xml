@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- Position Sequence -->
+        <record id="seq_hcm_position" model="ir.sequence">
+            <field name="name">HCM Position Sequence</field>
+            <field name="code">hcm.position.sequence</field>
+            <field name="prefix">POS</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Employee Sequence -->
+        <record id="seq_hcm_employee" model="ir.sequence">
+            <field name="name">HCM Employee Sequence</field>
+            <field name="code">hcm.employee.sequence</field>
+            <field name="prefix">EMP</field>
+            <field name="padding">6</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+
+</odoo>
