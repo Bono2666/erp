@@ -569,6 +569,78 @@ Each module defines `security/ir.model.access.csv` for model-level CRUD access c
 | d3-flextree  | v2.1.2  | Org chart (layout) |
 | d3-org-chart | v2.6.0  | Org chart          |
 
+### 9.4 Kanban View Standard Style
+
+Semua kanban view dengan foto/gambar harus mengikuti standar styling berikut:
+
+#### 9.4.1 Struktur HTML
+
+```xml
+<div class="oe_kanban_card oe_kanban_global_click o_kanban_record_has_image_fill">
+  <div class="o_kanban_image">
+    <img t-att-src="kanban_image('model', 'field', record.id.raw_value)" 
+         alt="Photo" class="o_image_64_cover"/>
+  </div>
+  <div class="oe_kanban_details">
+    <!-- content here -->
+  </div>
+</div>
+```
+
+#### 9.4.2 CSS Standard
+
+```css
+.o_kanban_record_has_image_fill {
+    display: flex !important;
+    padding: 0 !important;
+}
+
+.o_kanban_record_has_image_fill .o_kanban_image {
+    flex: 0 0 auto !important;
+    width: 100px !important;
+    min-height: 100px !important;
+    height: 100% !important;
+    margin: 0 !important;
+    display: flex !important;
+}
+
+.o_kanban_record_has_image_fill .o_kanban_image img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100px !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+}
+
+.o_kanban_record_has_image_fill .oe_kanban_details {
+    flex: 1 !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+```
+
+#### 9.4.3 Aturan
+
+| Aturan | Keterangan |
+|--------|------------|
+| **Full Height** | Foto harus mengisi tinggi penuh card (tidak ada padding atas/bawah) |
+| **Left Aligned** | Foto selalu di posisi kiri card |
+| **Object Fit: Cover** | Foto menggunakan `object-fit: cover` agar mengisi area tanpa distorsi |
+| **Fixed Width** | Lebar foto tetap 100px, tidak ikut lebar card |
+| **Min Height** | Minimum tinggi 100px untuk konsistensi |
+| **No Border Radius** | Foto tanpa rounded corners (sharp edges) |
+| **Flex Layout** | Card menggunakan flexbox: foto kiri (fixed), details kanan (flex: 1) |
+
+#### 9.4.4 Penerapan
+
+| Module | Model | File CSS |
+|--------|-------|----------|
+| hcm | `hcm.employee` | `hcm/static/src/css/employee_kanban.css` |
+
+Untuk module baru yang memiliki kanban view dengan foto, buat file CSS baru dan ikuti standar di atas.
+
 ---
 
 ## 10. Data Model Overview
