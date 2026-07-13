@@ -1,5 +1,5 @@
 {
-    'name': "Sales by KSI",
+    'name': "Sales by KSI Solusi",
 
     'summary': "From quotations to invoices",
 

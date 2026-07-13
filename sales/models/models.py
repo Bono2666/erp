@@ -4,6 +4,188 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
+import lxml.etree as etree
+
+import ast
+
+
+def _inject_m2o_no_open_create(doc, model_name, env):
+    """Inject no_open=True and no_create=True into all Many2one <field> nodes."""
+    Model = env.get(model_name)
+    if Model is None:
+        return
+    field_defs = Model.fields_get()
+    for field_el in doc.iter('field'):
+        field_name = field_el.get('name')
+        if not field_name or field_name not in field_defs:
+            continue
+        if field_defs[field_name].get('type') != 'many2one':
+            continue
+        existing = field_el.get('options', '{}')
+        try:
+            opts = ast.literal_eval(existing)
+        except (ValueError, SyntaxError):
+            opts = {}
+        opts.setdefault('no_open', True)
+        opts.setdefault('no_create', True)
+        field_el.set('options', repr(opts))
+
+
+class NavigationMixin(models.AbstractModel):
+    _name = 'navigation.mixin'
+    _description = 'Mixin for General Navigation'
+
+    model_description = fields.Char(compute='_compute_model_description')
+    user_can_read = fields.Boolean(compute='_compute_custom_permissions')
+    user_can_create = fields.Boolean(
+        compute='_compute_custom_permissions', store=False)
+    user_can_update = fields.Boolean(compute='_compute_custom_permissions')
+    user_can_delete = fields.Boolean(compute='_compute_custom_permissions')
+
+    @api.model
+    def get_views(self, views, options=None):
+        res = super().get_views(views, options=options)
+
+        # Pengecekan Admin
+        if not self.env.user.has_group('base.group_system'):
+            # Cari akses di tabel kustom
+            access = self.env['general.auth'].sudo().search([
+                ('custom_user_id.user_id', '=', self.env.uid),
+                ('menu_id.menu_id', '=', self._menu_code)
+            ], limit=1)
+
+            # Jika tidak punya akses create, hapus kemampuan create dari arsitektur view
+            if not access or not access.can_create:
+                for view_type in ['list', 'form']:
+                    if view_type in res['views']:
+                        doc = etree.fromstring(res['views'][view_type]['arch'])
+                        doc.set('create', '0')  # Paksa tombol New jadi hilang
+                        res['views'][view_type]['arch'] = etree.tostring(
+                            doc, encoding='unicode')
+
+        # Global: inject no_open/no_create on all Many2one fields
+        for view_type in ['form', 'list', 'tree', 'kanban', 'search']:
+            arch = res.get('views', {}).get(view_type, {}).get('arch')
+            if arch:
+                doc = etree.fromstring(arch)
+                _inject_m2o_no_open_create(doc, self._name, self.env)
+                res['views'][view_type]['arch'] = etree.tostring(
+                    doc, encoding='unicode')
+
+        return res
+
+    @api.depends_context('uid')
+    def _compute_custom_permissions(self):
+        is_admin = self.env.user.has_group('base.group_system')
+
+        # 2. Jika Admin, berikan akses penuh secara otomatis
+        if is_admin:
+            for record in self:
+                record.user_can_read = True
+                record.user_can_create = True
+                record.user_can_update = True
+                record.user_can_delete = True
+            return
+
+        menu_code = getattr(self, '_menu_code', False)
+
+        access = self.env['general.auth'].sudo().search([
+            ('custom_user_id.user_id', '=', self.env.uid),
+            ('menu_id.menu_id', '=', menu_code)
+        ], limit=1)
+
+        for record in self:
+            if access:
+                record.user_can_read = True
+                record.user_can_create = access.can_create
+                record.user_can_update = access.can_update
+                record.user_can_delete = access.can_delete
+            else:
+                record.user_can_read = False
+                record.user_can_create = False
+                record.user_can_update = False
+                record.user_can_delete = False
+
+    def _compute_model_description(self):
+        for record in self:
+            record.model_description = self._description
+
+    def action_back(self):
+        self.ensure_one()
+        return {
+            'name': self._description,
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'view_mode': 'tree,form',
+            'views': [(False, 'tree'), (False, 'form')],
+            'target': 'main',
+            'context': self.env.context,
+        }
+
+    def action_back_kanban(self):
+        self.ensure_one()
+        return {
+            'name': self._description,
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'view_mode': 'kanban,form',
+            'views': [(False, 'kanban'), (False, 'form')],
+            'target': 'main',
+            'context': self.env.context,
+        }
+
+    def action_edit(self):
+        self.ensure_one()
+        self.write({'is_edit': True})
+
+        view_id = self.env['ir.ui.view'].sudo().search([
+            ('model', '=', self._name),
+            ('type', '=', 'form')
+        ], limit=1).id
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self._description,
+            'res_model': self._name,
+            'view_mode': 'form',
+            'res_id': self.id,
+            'views': [(view_id, 'form')],
+            'target': 'current',
+        }
+
+    def action_save(self):
+        self.ensure_one()
+        self.write({'is_edit': False})
+
+        view_id = self.env['ir.ui.view'].sudo().search([
+            ('model', '=', self._name),
+            ('type', '=', 'form')
+        ], limit=1).id
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self._description,
+            'res_model': self._name,
+            'view_mode': 'form',
+            'res_id': self.id,
+            'views': [(view_id, 'form')],
+            'target': 'current',
+        }
+
+    def action_delete(self):
+        self.ensure_one()
+        self.unlink()
+
+        return {
+            'name': self._description,
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'view_mode': 'tree,form',
+            'views': [(False, 'tree'), (False, 'form')],
+            'target': 'main',
+            'context': self.env.context,
+        }
+
 
 class cust_category(models.Model):
     _name = 'sales.cust_category'
@@ -147,7 +329,7 @@ class customer(models.Model):
         comodel_name='general.district', string='District', ondelete='set null', index=True)
     postal_code = fields.Char(string="Postal Code")
     sales_name = fields.Many2one(
-        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
+        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations', 'Customers'])])
     npwp = fields.Char(string="NPWP")
     cust_category = fields.Many2one(
         comodel_name='sales.cust_category', string='Customer Category', index=True, required=True, ondelete='cascade')
@@ -406,6 +588,11 @@ class products(models.Model):
     product_unit = fields.Many2one(
         comodel_name='sales.product_unit', string='Product Unit')
     base_price = fields.Float(string="Sales Price", digits=(16, 0))
+    currency_id = fields.Many2one(
+        comodel_name='res.currency', string='Currency',
+        default=lambda self: self.env['res.currency'].search(
+            [('name', '=', 'IDR')], limit=1)
+        or self.env.company.currency_id)
     price = fields.Float(string="Price", digits=(16, 0))
     tax_string = fields.Char(
         compute='_compute_tax_string', string='Tax Description')
@@ -760,7 +947,7 @@ class sales_order(models.Model):
     payment_terms = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True, domain="[('account_type', '=', 'Customer')]")
     sales_name = fields.Many2one(
-        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
+        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, default=lambda self: self.env['general.custom_users'].search([('user_id', '=', self.env.uid)], limit=1), domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations'])])
     commitment_date = fields.Date(string="Delivery Date")
     expected_date = fields.Date(
         string="Expected Date", default=fields.Date.add(fields.Date.today(), days=7), readonly=True)
@@ -1283,12 +1470,14 @@ class sales_order(models.Model):
         return res
 
     def _refresh_line_indent_flags(self):
-        """Perbarui label Indent pada baris SO setelah create/update."""
+        """Set initial Indent label on SO lines. Only overwrites auto-generated
+        values ('Indent' or empty); preserves user-edited custom text."""
         for order in self.filtered(lambda o: o.state in RESERVED_SO_STATES):
             for line in order.order_line_ids:
                 if not line.product_id:
-                    if line.info:
-                        line.info = ""
+                    current = line.info or ''
+                    if current == 'Indent':
+                        line.write({'info': ''})
                     continue
                 free = max(0, line.product_id.stock -
                            line.product_id.qty_reserved_sale)
@@ -1296,7 +1485,10 @@ class sales_order(models.Model):
                     (l.quantity or 0) for l in order.order_line_ids
                     if l.product_id == line.product_id)
                 new_info = "Indent" if demand > free else ""
-                if line.info != new_info:
+                current = line.info or ''
+                # Only auto-clear "Indent" when stock becomes sufficient.
+                # Never overwrite empty or user-edited custom text.
+                if current == 'Indent' and current != new_info:
                     line.write({'info': new_info})
 
     def _check_approval_requirement(self):
@@ -1965,7 +2157,7 @@ class sales_order_line(models.Model):
             if l.product_id == product)
 
     def _set_indent_from_availability(self):
-        """Indent jika total kebutuhan produk di SO ini melebihi stok bebas."""
+        """Reset info label based on current stock availability (onchange)."""
         if not self.product_id:
             self.info = ""
             return
@@ -2166,9 +2358,9 @@ class sales_approval_matrix(models.Model):
     _menu_code = 'sales_approval_matrix'
 
     name = fields.Many2one(
-        comodel_name='hcm.employee', string='Approver', index=True)
+        comodel_name='general.custom_users', string='Approver', index=True, domain=[('menu_ids.menu_id', 'in', ['Sales Approval'])])
     sequence = fields.Integer(string="Sequence", default=1)
-    position = fields.Many2one(related='name.position_id', string="Job Position")
+    position = fields.Many2one(related='name.position', string="Job Position")
     receive_return = fields.Boolean(string="Receive Return")
     min_amount = fields.Float(string="Minimum Amount",
                               digits=(16, 0), default=0)
@@ -2241,7 +2433,7 @@ class sales_invoice(models.Model):
         ('credit_note', 'Credit Note')
     ], string="Document Type", default='invoice', required=True)
     sales_name = fields.Many2one(
-        comodel_name='hcm.employee', string='Salesperson', ondelete='set null', index=True)
+        comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True)
     delivery_date = fields.Date(string="Delivery Date")
     payment_terms_id = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True)
@@ -2567,6 +2759,7 @@ class sales_invoice(models.Model):
 
     def action_post(self):
         self.ensure_one()
+        self._check_invoicing_access()
         if self.state != 'draft':
             raise UserError(_("Only draft invoices can be confirmed."))
         if not self.line_ids:
@@ -2817,9 +3010,10 @@ class sales_invoice(models.Model):
             'context': self.env.context,
         }
 
+    @api.depends_context('uid')
     def _compute_invoicing_permissions(self):
-        self.user_can_invoicing = False
-        if self.env.user.has_group('base.group_system'):
+        is_admin = self.env.user.has_group('base.group_system')
+        if is_admin:
             for rec in self:
                 rec.user_can_invoicing = True
             return
@@ -2834,9 +3028,8 @@ class sales_invoice(models.Model):
              current_custom_user.id if current_custom_user else None)
         ], limit=1)
 
-        if invoicing_authorized:
-            for rec in self:
-                rec.user_can_invoicing = True
+        for rec in self:
+            rec.user_can_invoicing = bool(invoicing_authorized)
 
     def _check_invoicing_access(self):
         self.ensure_one()
@@ -3079,7 +3272,11 @@ class sales_payment(models.Model):
         ('posted', 'Posted'),
         ('cancel', 'Cancelled'),
     ], string="Status", default='draft', readonly=True)
-    currency = fields.Char(string="Currency", default='IDR')
+    currency_id = fields.Many2one(
+        comodel_name='res.currency', string='Currency',
+        default=lambda self: self.env['res.currency'].search(
+            [('name', '=', 'IDR')], limit=1)
+        or self.env.company.currency_id)
     journal_item_ids = fields.One2many(
         'sales.payment.journal.item', 'payment_id', string='Journal Items')
 
@@ -3213,7 +3410,11 @@ class sales_register_payment_wizard(models.TransientModel):
     amount = fields.Float(string="Amount", digits=(16, 0), required=True)
     amount_due = fields.Float(
         string="Amount Due", digits=(16, 0), readonly=True)
-    currency = fields.Char(string="Currency", default='IDR', readonly=True)
+    currency_id = fields.Many2one(
+        comodel_name='res.currency', string='Currency',
+        default=lambda self: self.env['res.currency'].search(
+            [('name', '=', 'IDR')], limit=1)
+        or self.env.company.currency_id)
 
     @api.model
     def default_get(self, fields_list):
@@ -3248,7 +3449,7 @@ class sales_register_payment_wizard(models.TransientModel):
             'payment_method': self.payment_method,
             'memo': self.memo,
             'amount': self.amount,
-            'currency': self.currency,
+            'currency_id': self.currency_id.id,
         })
         payment.action_post()
         return payment.action_view_payment()

@@ -116,11 +116,6 @@
                 <field name="menu_name">Sales Matrix</field>
                 <field name="parent_menu">approvals_config</field>
             </record>
-            <record id="delivery_orders_menu_auth" model="general.menu">
-                <field name="menu_id">delivery_orders</field>
-                <field name="menu_name">Delivery Orders</field>
-                <field name="parent_menu">orders</field>
-            </record>
         </data>
 
 </odoo>

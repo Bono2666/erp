@@ -668,15 +668,26 @@ class home(models.Model):
 
     @api.depends_context('uid')
     def _compute_show_cards(self):
-        """Check if current user has access to any menu in each module."""
+        """Check module installation and user access for each module card."""
         user = self.env.user
 
-        # Admin sees all cards
+        # Check which modules are installed
+        Module = self.env['ir.module.module'].sudo()
+        installed_modules = Module.search([
+            ('state', '=', 'installed'),
+        ]).mapped('name')
+
+        hcm_installed = 'hcm' in installed_modules
+        sales_installed = 'sales' in installed_modules
+        # general module is always installed (we're running inside it)
+        configuration_visible = True
+
+        # Admin sees cards for installed modules
         if user.has_group('base.group_system'):
             for record in self:
-                record.show_hcm = True
-                record.show_sales = True
-                record.show_configuration = True
+                record.show_hcm = hcm_installed
+                record.show_sales = sales_installed
+                record.show_configuration = configuration_visible
             return
 
         # Get user's custom auth records
@@ -698,11 +709,11 @@ class home(models.Model):
         all_menus = self.env['general.menu'].sudo().search([])
 
         for record in self:
-            record.show_hcm = any(
+            record.show_hcm = hcm_installed and any(
                 m.menu_id == 'hcm' or m.parent_menu == 'hcm'
                 for m in all_menus if m.id in auth_menu_ids
             )
-            record.show_sales = any(
+            record.show_sales = sales_installed and any(
                 m.menu_id == 'sales' or m.parent_menu == 'sales'
                 for m in all_menus if m.id in auth_menu_ids
             )

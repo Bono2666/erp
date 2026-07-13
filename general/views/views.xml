@@ -895,7 +895,7 @@
 
     <!-- general menus -->
 
-    <menuitem name="Others" id="general.general_others_menu" parent="general.menu_master_menu" sequence="7"/>
+    <menuitem name="Others" id="general.general_others_menu" parent="general.menu_master_menu" sequence="100"/>
     
     <menuitem name="Countries" id="general.general_country_act" parent="general.general_others_menu" action="general.country_action" sequence="1"/>
     <menuitem name="States" id="general.general_state_act" parent="general.general_others_menu" action="general.state_action" sequence="2"/>
