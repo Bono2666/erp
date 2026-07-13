@@ -359,6 +359,43 @@ class customer(models.Model):
     avatar_128 = fields.Binary(
         string="Avatar 128", related='partner_id.avatar_128')
 
+    # ============================================================
+    # ADDRESS ONCHANGE METHODS (Hierarchical Auto-fill)
+    # ============================================================
+
+    @api.onchange('district')
+    def _onchange_district(self):
+        """When district is selected, auto-fill city, state, country."""
+        if self.district:
+            city = self.district.city_ref
+            if city:
+                self.city = city
+                state = city.state_ref
+                if state:
+                    self.state = state
+                    country = state.country_ref
+                    if country:
+                        self.country = country
+
+    @api.onchange('city')
+    def _onchange_city(self):
+        """When city is selected, auto-fill state, country."""
+        if self.city:
+            state = self.city.state_ref
+            if state:
+                self.state = state
+                country = state.country_ref
+                if country:
+                    self.country = country
+
+    @api.onchange('state')
+    def _onchange_state(self):
+        """When state is selected, auto-fill country."""
+        if self.state:
+            country = self.state.country_ref
+            if country:
+                self.country = country
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -367,19 +404,36 @@ class customer(models.Model):
                     'sales.customer') or '/'
 
             # --- CREATE PARTNER ---
-            partner = self.env['res.partner'].sudo().create({
+            partner_vals = {
                 'name': vals.get('customer_name'),
                 'email': vals.get('email'),
                 'phone': vals.get('telephone'),
                 'website': vals.get('website'),
                 'street': vals.get('address'),
                 'city': vals.get('city') and self.env['general.city'].browse(vals.get('city')).city_name or '',
-                'state_id': vals.get('state'),
-                'country_id': vals.get('country'),
                 'user_id': vals.get('sales_name'),
                 'vat': vals.get('npwp'),
                 'image_1920': vals.get('image_1920'),
-            })
+            }
+            if vals.get('country'):
+                gen_country = self.env['general.country'].browse(vals['country'])
+                res_country = self.env['res.country'].search([('name', '=', gen_country.country_name)], limit=1)
+                if res_country:
+                    partner_vals['country_id'] = res_country.id
+            if vals.get('state'):
+                gen_state = self.env['general.state'].browse(vals['state'])
+                res_country = False
+                if vals.get('country'):
+                    gen_country = self.env['general.country'].browse(vals['country'])
+                    res_country = self.env['res.country'].search([('name', '=', gen_country.country_name)], limit=1)
+                if res_country:
+                    res_state = self.env['res.country.state'].search([
+                        ('name', '=', gen_state.state_name),
+                        ('country_id', '=', res_country.id)
+                    ], limit=1)
+                    if res_state:
+                        partner_vals['state_id'] = res_state.id
+            partner = self.env['res.partner'].sudo().create(partner_vals)
             vals['partner_id'] = partner.id
 
         records = super(customer, self).create(vals_list)
@@ -405,10 +459,33 @@ class customer(models.Model):
         if 'city' in vals:
             partner_vals['city'] = self.env['general.city'].browse(
                 vals['city']).city_name if vals['city'] else ''
-        if 'state' in vals:
-            partner_vals['state_id'] = vals['state']
         if 'country' in vals:
-            partner_vals['country_id'] = vals['country']
+            if vals['country']:
+                gen_country = self.env['general.country'].browse(vals['country'])
+                res_country = self.env['res.country'].search([('name', '=', gen_country.country_name)], limit=1)
+                if res_country:
+                    partner_vals['country_id'] = res_country.id
+            else:
+                partner_vals['country_id'] = False
+        if 'state' in vals:
+            if vals['state']:
+                gen_state = self.env['general.state'].browse(vals['state'])
+                res_country = False
+                if 'country' in vals and vals['country']:
+                    gen_country = self.env['general.country'].browse(vals['country'])
+                    res_country = self.env['res.country'].search([('name', '=', gen_country.country_name)], limit=1)
+                elif self.country:
+                    gen_country = self.country
+                    res_country = self.env['res.country'].search([('name', '=', gen_country.country_name)], limit=1)
+                if res_country:
+                    res_state = self.env['res.country.state'].search([
+                        ('name', '=', gen_state.state_name),
+                        ('country_id', '=', res_country.id)
+                    ], limit=1)
+                    if res_state:
+                        partner_vals['state_id'] = res_state.id
+            else:
+                partner_vals['state_id'] = False
         if 'sales_name' in vals:
             partner_vals['user_id'] = vals['sales_name']
         if 'npwp' in vals:
@@ -498,6 +575,43 @@ class ship_to(models.Model):
     district = fields.Many2one(
         comodel_name='general.district', string='District', ondelete='set null', index=True)
     postal_code = fields.Char(string="Postal Code")
+
+    # ============================================================
+    # ADDRESS ONCHANGE METHODS (Hierarchical Auto-fill)
+    # ============================================================
+
+    @api.onchange('district')
+    def _onchange_district(self):
+        """When district is selected, auto-fill city, state, country."""
+        if self.district:
+            city = self.district.city_ref
+            if city:
+                self.city = city
+                state = city.state_ref
+                if state:
+                    self.state = state
+                    country = state.country_ref
+                    if country:
+                        self.country = country
+
+    @api.onchange('city')
+    def _onchange_city(self):
+        """When city is selected, auto-fill state, country."""
+        if self.city:
+            state = self.city.state_ref
+            if state:
+                self.state = state
+                country = state.country_ref
+                if country:
+                    self.country = country
+
+    @api.onchange('state')
+    def _onchange_state(self):
+        """When state is selected, auto-fill country."""
+        if self.state:
+            country = self.state.country_ref
+            if country:
+                self.country = country
 
     @api.model
     def create(self, vals):

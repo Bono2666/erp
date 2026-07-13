@@ -35,6 +35,7 @@ Human Capital Management (HCM) Module
 
     'assets': {
         'web.assets_backend': [
+            'hcm/static/src/css/employee_kanban.css',
             'hcm/static/src/js/org_structure.js',
             'hcm/static/src/xml/org_structure.xml',
         ],

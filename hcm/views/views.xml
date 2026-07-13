@@ -206,9 +206,9 @@
                 </group>
                 <group string="Organization">
                   <field name="division_ref" options="{'no_create': True, 'no_open': True}"/>
-                  <field name="department_id" domain="[('division_id', '=', division_ref)]" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="department_id" domain="[('division_id', '=', division_ref)] if division_ref else []" options="{'no_create': True, 'no_open': True}"/>
                   <field name="level_grade_ref" options="{'no_create': True, 'no_open': True}"/>
-                  <field name="position_id" domain="[('department_id', '=', department_id)]" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="position_id" domain="[('department_id', '=', department_id)] if department_id else []" options="{'no_create': True, 'no_open': True}"/>
                   <field name="manager_id" options="{'no_open': True, 'no_create': True}"/>
                   <field name="join_date"/>
                   <field name="status"/>
@@ -248,10 +248,10 @@
               <group string="Address">
                 <field name="address" colspan="2"/>
                 <field name="country_id" options="{'no_open': True, 'no_create': True}"/>
-                <field name="state_id" options="{'no_open': True, 'no_create': True}" domain="[('country_ref', '=', country_id)]"/>
-                <field name="city_id" options="{'no_open': True, 'no_create': True}" domain="[('state_ref', '=', state_id)]"/>
-                <field name="district_id" options="{'no_open': True, 'no_create': True}" domain="[('city_ref', '=', city_id)]"/>
-                <field name="village_id" options="{'no_open': True, 'no_create': True}" domain="[('district_ref', '=', district_id)]"/>
+                <field name="state_id" options="{'no_open': True, 'no_create': True}" domain="[('country_ref', '=', country_id)] if country_id else []"/>
+                <field name="city_id" options="{'no_open': True, 'no_create': True}" domain="[('state_ref', '=', state_id)] if state_id else []"/>
+                <field name="district_id" options="{'no_open': True, 'no_create': True}" domain="[('city_ref', '=', city_id)] if city_id else []"/>
+                <field name="village_id" options="{'no_open': True, 'no_create': True}" domain="[('district_ref', '=', district_id)] if district_id else []"/>
                 <field name="rt"/>
                 <field name="rw"/>
                 <field name="postal_code"/>

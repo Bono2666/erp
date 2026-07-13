@@ -820,9 +820,9 @@
                       </span>
                       <div class="o_address_format">
                           <field name="address" placeholder="Street..." readonly="not is_edit and id"/>
-                          <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                          <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                          <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                          <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('city_ref', '=', city)] if city else []"/>
+                          <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('state_ref', '=', state)] if state else []"/>
+                          <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('country_ref', '=', country)] if country else []"/>
                           <field name="postal_code" placeholder="Postal Code" readonly="not is_edit and id" class="o_address_zip"/>
                           <div name="partner_address_country" class="d-flex justify-content-between">
                               <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
@@ -875,9 +875,9 @@
                                       <div>
                                           <div class="o_address_format" name="div_address">
                                               <field name="address" placeholder="Street..."/>
-                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
+                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
+                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
                                               <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
                                               <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                           </div>

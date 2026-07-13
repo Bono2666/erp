@@ -233,6 +233,83 @@ class HcmEmployee(models.Model):
             else:
                 employee.age = 0
 
+    # ============================================================
+    # ADDRESS ONCHANGE METHODS (Hierarchical Auto-fill)
+    # ============================================================
+
+    @api.onchange('village_id')
+    def _onchange_village_id(self):
+        """When village is selected, auto-fill district, city, state, country."""
+        if self.village_id:
+            district = self.village_id.district_ref
+            if district:
+                self.district_id = district
+                city = district.city_ref
+                if city:
+                    self.city_id = city
+                    state = city.state_ref
+                    if state:
+                        self.state_id = state
+                        country = state.country_ref
+                        if country:
+                            self.country_id = country
+
+    @api.onchange('district_id')
+    def _onchange_district_id(self):
+        """When district is selected, auto-fill city, state, country."""
+        if self.district_id:
+            city = self.district_id.city_ref
+            if city:
+                self.city_id = city
+                state = city.state_ref
+                if state:
+                    self.state_id = state
+                    country = state.country_ref
+                    if country:
+                        self.country_id = country
+
+    @api.onchange('city_id')
+    def _onchange_city_id(self):
+        """When city is selected, auto-fill state, country."""
+        if self.city_id:
+            state = self.city_id.state_ref
+            if state:
+                self.state_id = state
+                country = state.country_ref
+                if country:
+                    self.country_id = country
+
+    @api.onchange('state_id')
+    def _onchange_state_id(self):
+        """When state is selected, auto-fill country."""
+        if self.state_id:
+            country = self.state_id.country_ref
+            if country:
+                self.country_id = country
+
+    # ============================================================
+    # ORGANIZATION HIERARCHY ONCHANGE METHODS
+    # ============================================================
+
+    @api.onchange('position_id')
+    def _onchange_position_id(self):
+        """When position is selected, auto-fill department and division."""
+        if self.position_id:
+            department = self.position_id.department_id
+            if department:
+                self.department_id = department
+                division = department.division_id
+                if division:
+                    self.division_ref = division
+
+    @api.onchange('department_id')
+    def _onchange_department_id(self):
+        """When department is selected, auto-fill division."""
+        if self.department_id:
+            division = self.department_id.division_id
+            if division:
+                self.division_ref = division
+
     @api.model
     def create(self, vals):
         if vals.get('employee_id', _('New')) == _('New'):

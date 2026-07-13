@@ -1,0 +1,29 @@
+.o_kanban_record_has_image_fill {
+    display: flex !important;
+    padding: 0 !important;
+}
+
+.o_kanban_record_has_image_fill .o_kanban_image {
+    flex: 0 0 auto !important;
+    width: 100px !important;
+    min-height: 100px !important;
+    height: 100% !important;
+    margin: 0 !important;
+    display: flex !important;
+}
+
+.o_kanban_record_has_image_fill .o_kanban_image img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100px !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+}
+
+.o_kanban_record_has_image_fill .oe_kanban_details {
+    flex: 1 !important;
+    padding: 8px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
