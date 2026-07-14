@@ -6,6 +6,9 @@ access_sales_account_type,sales.account_type,model_sales_account_type,,1,0,0,0
 access_sales_cust_category,sales.cust_category,model_sales_cust_category,,1,1,1,1
 access_sales_cust_type,sales.cust_type,model_sales_cust_type,,1,1,1,1
 access_sales_cust_area,sales.cust_area,model_sales_cust_area,,1,1,1,1
+access_sales_cust_sub_category,sales.cust_sub_category,model_sales_cust_sub_category,,1,1,1,1
+access_sales_sold_to,sales.sold_to,model_sales_sold_to,,1,1,1,1
+access_sales_bill_to,sales.bill_to,model_sales_bill_to,,1,1,1,1
 access_sales_ship_to,sales.ship_to,model_sales_ship_to,,1,1,1,1
 access_sales_products,sales.products,model_sales_products,,1,1,1,1
 access_sales_product_type,sales.product_type,model_sales_product_type,,1,1,1,1

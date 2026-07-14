@@ -1,0 +1,3 @@
+.o_kanban_record_has_image_fill .o_kanban_image img {
+    object-fit: contain !important;
+}

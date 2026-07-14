@@ -277,6 +277,45 @@ class cust_area(models.Model):
         return super(cust_area, self).create(vals)
 
 
+class cust_sub_category(models.Model):
+    _name = 'sales.cust_sub_category'
+    _inherit = ['navigation.mixin']
+    _description = 'Customer Sub Categories'
+    _rec_name = 'sub_category_name'
+    _menu_code = 'cust_sub_category'
+
+    sub_category_id = fields.Char(string="Sub Category ID", readonly=True)
+    sub_category_name = fields.Char(string="Sub Category Name")
+    category_ref = fields.Many2one(
+        comodel_name='sales.cust_category', string='Customer Category', required=True, ondelete='cascade', index=True)
+    is_edit = fields.Boolean(default=False)
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('sub_category_id'):
+                    v['sub_category_id'] = self.env['ir.sequence'].next_by_code(
+                        'sales.cust_sub_category') or '/'
+            return super(cust_sub_category, self).create(vals)
+        if not vals.get('sub_category_id'):
+            vals['sub_category_id'] = self.env['ir.sequence'].next_by_code(
+                'sales.cust_sub_category') or '/'
+        return super(cust_sub_category, self).create(vals)
+
+    def unlink(self):
+        for record in self:
+            customer_count = self.env['sales.customer'].search_count([
+                ('cust_sub_category', '=', record.id)
+            ])
+            if customer_count > 0:
+                raise UserError(_(
+                    "The sub category '%s' cannot be deleted because it is still assigned to %s customer(s). "
+                    "Please reassign these customers to another sub category before deleting."
+                ) % (record.sub_category_name, customer_count))
+        return super(cust_sub_category, self).unlink()
+
+
 class MailComposeMessage(models.TransientModel):
     _inherit = 'mail.compose.message'
 
@@ -333,6 +372,8 @@ class customer(models.Model):
     npwp = fields.Char(string="NPWP")
     cust_category = fields.Many2one(
         comodel_name='sales.cust_category', string='Customer Category', index=True, required=True, ondelete='cascade')
+    cust_sub_category = fields.Many2one(
+        comodel_name='sales.cust_sub_category', string='Customer Sub Category', ondelete='set null', index=True)
     cust_type = fields.Many2one(
         comodel_name='sales.cust_type', string='Customer Type', ondelete='set null', index=True)
     cust_area = fields.Many2one(
@@ -352,12 +393,18 @@ class customer(models.Model):
     website = fields.Char(string="Website")
     ship_to_ids = fields.One2many(
         'sales.ship_to', 'customer_id', string="Ship To Addresses")
+    sold_to_ids = fields.One2many(
+        'sales.sold_to', 'customer_id', string="Sold To Addresses")
+    bill_to_ids = fields.One2many(
+        'sales.bill_to', 'customer_id', string="Bill To Addresses")
     is_edit = fields.Boolean(default=False)
     partner_id = fields.Many2one(
         'res.partner', string="Related Partner", ondelete='cascade')
     image_1920 = fields.Binary(string="Image 1920")
     avatar_128 = fields.Binary(
         string="Avatar 128", related='partner_id.avatar_128')
+    tags = fields.Char(string="Tags")
+    pkp = fields.Boolean(string="PKP", default=False)
 
     # ============================================================
     # ADDRESS ONCHANGE METHODS (Hierarchical Auto-fill)
@@ -625,6 +672,134 @@ class ship_to(models.Model):
             vals['ship_id'] = self.env['ir.sequence'].next_by_code(
                 'sales.ship_to') or '/'
         return super(ship_to, self).create(vals)
+
+
+class sold_to(models.Model):
+    _name = 'sales.sold_to'
+    _description = 'Sold To'
+    _rec_name = 'sold_name'
+
+    sold_id = fields.Char(string="Sold ID", readonly=True)
+    sold_name = fields.Char(string="Sold Name")
+    customer_id = fields.Many2one(
+        comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
+    address = fields.Text(string="Address")
+    country = fields.Many2one(
+        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+    state = fields.Many2one(
+        comodel_name='general.state', string='State', ondelete='set null', index=True)
+    city = fields.Many2one(
+        comodel_name='general.city', string='City', ondelete='set null', index=True)
+    district = fields.Many2one(
+        comodel_name='general.district', string='District', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Postal Code")
+
+    @api.onchange('district')
+    def _onchange_district(self):
+        if self.district:
+            city = self.district.city_ref
+            if city:
+                self.city = city
+                state = city.state_ref
+                if state:
+                    self.state = state
+                    country = state.country_ref
+                    if country:
+                        self.country = country
+
+    @api.onchange('city')
+    def _onchange_city(self):
+        if self.city:
+            state = self.city.state_ref
+            if state:
+                self.state = state
+                country = state.country_ref
+                if country:
+                    self.country = country
+
+    @api.onchange('state')
+    def _onchange_state(self):
+        if self.state:
+            country = self.state.country_ref
+            if country:
+                self.country = country
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('sold_id'):
+                    v['sold_id'] = self.env['ir.sequence'].next_by_code(
+                        'sales.sold_to') or '/'
+            return super(sold_to, self).create(vals)
+        if not vals.get('sold_id'):
+            vals['sold_id'] = self.env['ir.sequence'].next_by_code(
+                'sales.sold_to') or '/'
+        return super(sold_to, self).create(vals)
+
+
+class bill_to(models.Model):
+    _name = 'sales.bill_to'
+    _description = 'Bill To'
+    _rec_name = 'bill_name'
+
+    bill_id = fields.Char(string="Bill ID", readonly=True)
+    bill_name = fields.Char(string="Bill Name")
+    customer_id = fields.Many2one(
+        comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
+    address = fields.Text(string="Address")
+    country = fields.Many2one(
+        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+    state = fields.Many2one(
+        comodel_name='general.state', string='State', ondelete='set null', index=True)
+    city = fields.Many2one(
+        comodel_name='general.city', string='City', ondelete='set null', index=True)
+    district = fields.Many2one(
+        comodel_name='general.district', string='District', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Postal Code")
+
+    @api.onchange('district')
+    def _onchange_district(self):
+        if self.district:
+            city = self.district.city_ref
+            if city:
+                self.city = city
+                state = city.state_ref
+                if state:
+                    self.state = state
+                    country = state.country_ref
+                    if country:
+                        self.country = country
+
+    @api.onchange('city')
+    def _onchange_city(self):
+        if self.city:
+            state = self.city.state_ref
+            if state:
+                self.state = state
+                country = state.country_ref
+                if country:
+                    self.country = country
+
+    @api.onchange('state')
+    def _onchange_state(self):
+        if self.state:
+            country = self.state.country_ref
+            if country:
+                self.country = country
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if not v.get('bill_id'):
+                    v['bill_id'] = self.env['ir.sequence'].next_by_code(
+                        'sales.bill_to') or '/'
+            return super(bill_to, self).create(vals)
+        if not vals.get('bill_id'):
+            vals['bill_id'] = self.env['ir.sequence'].next_by_code(
+                'sales.bill_to') or '/'
+        return super(bill_to, self).create(vals)
 
 
 class product_type(models.Model):
@@ -1495,10 +1670,31 @@ class sales_order(models.Model):
 
     def _prepare_custom_invoice_vals(self, invoice_type, percentage=0.0, fixed_amount=0.0):
         self.ensure_one()
+
+        # Use Bill To address if available, otherwise use customer address
+        if self.customer_id.bill_to_ids:
+            bill = self.customer_id.bill_to_ids[0]
+            parts = []
+            if bill.address:
+                parts.append(bill.address)
+            if bill.district:
+                parts.append(bill.district.district_name)
+            if bill.city:
+                parts.append(bill.city.city_name)
+            if bill.state:
+                parts.append(bill.state.state_name)
+            if bill.postal_code:
+                parts.append(bill.postal_code)
+            if bill.country:
+                parts.append(bill.country.country_name)
+            customer_address = ', '.join(parts)
+        else:
+            customer_address = self.address
+
         invoice_vals = {
             'sales_order_id': self.id,
             'customer_id': self.customer_id.id,
-            'customer_address': self.address,
+            'customer_address': customer_address,
             'delivery_date': self.commitment_date,
             'invoice_date': fields.Date.today(),
             'invoice_type': invoice_type,

@@ -1,0 +1,224 @@
+version: "2"
+type: frontend
+tech_stack:
+  - Python 3
+  - Odoo 17
+  - OWL v2
+  - PostgreSQL
+  - Bootstrap
+routes:
+  - path: /web/login
+    file: odoo/web/static/src/webclient.js
+    auth_required: false
+    description: User login page
+  - path: /web#action=sales.customer_action&model=sales.customer&view_type=kanban
+    file: sales/views/views.xml
+    auth_required: true
+    description: Customer kanban view
+  - path: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    file: sales/views/views.xml
+    auth_required: true
+    description: Customer form view for create/edit
+features:
+  - name: Customer Login
+    description: User login with email and password
+    files:
+      - odoo/web/static/src/webclient.js
+    entry_route: /web/login
+    user_interactions:
+      - Fill email input field
+      - Fill password input field
+      - Click Login button
+    api_calls:
+      - method: POST
+        endpoint: /web/session/authenticate
+    auth_required: false
+
+  - name: Customer Kanban View
+    description: View all customers in kanban layout with search and filter
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=kanban
+    user_interactions:
+      - See customer cards with avatar, name, category, contact, email
+      - Search customers by name
+      - Click a customer card to open form view
+      - Click Create button to open new customer form
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw
+    auth_required: true
+
+  - name: Customer Form - Create New Customer
+    description: Create a new customer with all fields including Sold To, Ship To, Bill To tabs
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Create button to open blank form
+      - Fill customer_name field
+      - Select cust_type from dropdown
+      - Fill address field in Address section
+      - Select district, city, state, postal_code, country from dropdowns
+      - Fill npwp field
+      - Toggle pkp checkbox
+      - Fill tags field
+      - Fill contact_name, telephone, email, website fields
+      - Click Sold To tab and add a sold-to address
+      - Click Ship To tab and add a ship-to address
+      - Click Bill To tab and add a bill-to address
+      - Click Save button
+      - See auto-generated customer_id
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/create
+    auth_required: true
+
+  - name: Customer Form - Edit Customer
+    description: Edit an existing customer record
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Edit button to enable editing
+      - Modify customer_name field
+      - Change cust_category dropdown
+      - See cust_sub_category filtered by selected category
+      - Modify contact information
+      - Add or remove Sold To, Ship To, Bill To entries
+      - Click Save button
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/write
+    auth_required: true
+
+  - name: Customer Form - Delete Customer
+    description: Delete a customer record
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Delete button
+      - Confirm deletion in dialog
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/unlink
+    auth_required: true
+
+  - name: Customer Form - Sold To Tab
+    description: Manage Sold To addresses for a customer
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Sold To tab
+      - See kanban cards of existing sold-to addresses
+      - Click Add button to create new sold-to address
+      - Fill sold_name field (required)
+      - Fill address, district, city, state, postal_code, country
+      - Click Save in the popup form
+      - See new sold-to card in kanban
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.sold_to/create
+    auth_required: true
+
+  - name: Customer Form - Ship To Tab
+    description: Manage Ship To addresses for a customer
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Ship To tab
+      - See kanban cards of existing ship-to addresses
+      - Click Add button to create new ship-to address
+      - Fill ship_name field (required)
+      - Fill address, district, city, state, postal_code, country
+      - Click Save in the popup form
+      - See new ship-to card in kanban
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.ship_to/create
+    auth_required: true
+
+  - name: Customer Form - Bill To Tab
+    description: Manage Bill To addresses for a customer
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Bill To tab
+      - See kanban cards of existing bill-to addresses
+      - Click Add button to create new bill-to address
+      - Fill bill_name field (required)
+      - Fill address, district, city, state, postal_code, country
+      - Click Save in the popup form
+      - See new bill-to card in kanban
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.bill_to/create
+    auth_required: true
+
+  - name: Customer Form - Sales Tab
+    description: View and edit sales-related fields for a customer
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Sales tab
+      - Select sales_name (salesperson) from dropdown
+      - Select cust_category from dropdown
+      - Select cust_sub_category filtered by cust_category
+      - Select cust_area from dropdown
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/write
+    auth_required: true
+
+  - name: Customer Form - PKP Toggle
+    description: Toggle PKP checkbox and verify behavior
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Edit button
+      - Toggle pkp checkbox on
+      - Click Save button
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/write
+    auth_required: true
+
+  - name: Customer Form - Address Hierarchy Auto-fill
+    description: Verify address hierarchy auto-fill behavior
+    files:
+      - sales/views/views.xml
+      - sales/models/models.py
+    entry_route: /web#action=sales.customer_action&model=sales.customer&view_type=form
+    user_interactions:
+      - Click Create button
+      - Select a district from dropdown
+      - See city auto-filled
+      - See state auto-filled
+      - See country auto-filled
+    api_calls:
+      - method: POST
+        endpoint: /web/dataset/call_kw/sales.customer/create
+    auth_required: true
+
+known_limitations:
+  - issue: Customer form requires login authentication
+    location: /web/login
+    impact: Tests must authenticate first before accessing customer form
+  - issue: PKP validation on Sales Order requires SO with order lines
+    location: sales/models/models.py
+    impact: PKP tax validation only triggers on SO create/write, not directly testable from customer form

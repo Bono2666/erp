@@ -23,6 +23,27 @@
             <field name="padding">4</field>
             <field name="number_increment">1</field>
         </record>
+        <record id="seq_cust_sub_category" model="ir.sequence">
+            <field name="name">Customer Sub Category Sequence</field>
+            <field name="code">sales.cust_sub_category</field>
+            <field name="prefix">CUSTSUBCAT</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="seq_sold_to" model="ir.sequence">
+            <field name="name">Sold To Sequence</field>
+            <field name="code">sales.sold_to</field>
+            <field name="prefix">SOLDTO</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="seq_bill_to" model="ir.sequence">
+            <field name="name">Bill To Sequence</field>
+            <field name="code">sales.bill_to</field>
+            <field name="prefix">BILLTO</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+        </record>
         <record id="seq_ship_to" model="ir.sequence">
             <field name="name">Ship To Sequence</field>
             <field name="code">sales.ship_to</field>

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "TC001",
+    "title": "test_navigationmixin_form_edit_save_pattern",
+    "description": "Verify the NavigationMixin form edit/save pattern including readonly injection on form fields, explicit Edit, Save, Cancel, Back, and Delete actions, and correct user permission enforcement on master-data forms."
+  }
+]

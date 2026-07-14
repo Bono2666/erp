@@ -37,5 +37,10 @@ From quotations to invoices
     'demo': [
         'demo/demo.xml',
     ],
-    'license': 'LGPL-3'
+    'license': 'LGPL-3',
+    'assets': {
+        'web.assets_backend': [
+            'sales/static/src/css/customer_kanban.css',
+        ],
+    },
 }

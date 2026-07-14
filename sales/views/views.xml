@@ -66,6 +66,18 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="sales.cust_sub_category_tree">
+      <field name="name">Customer Sub Category</field>
+      <field name="model">sales.cust_sub_category</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="sub_category_id"/>
+          <field name="sub_category_name"/>
+          <field name="category_ref"/>
+        </tree>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="sales.customer_tree">
       <field name="name">Customer</field>
       <field name="model">sales.customer</field>
@@ -503,6 +515,53 @@
       </field>
     </record>
 
+    <!-- sales.cust_sub_category form view -->
+    <record id="sales.cust_sub_category_view_form" model="ir.ui.view">
+      <field name="name">sales.cust_sub_category.view.form</field>
+      <field name="model">sales.cust_sub_category</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <header>
+            <field name="id" invisible="1"/>
+            <field name="is_edit" invisible="1"/>
+            <field name="user_can_update" invisible="1"/>
+            <field name="user_can_delete" invisible="1"/>
+            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <span class="min-w-0 text-truncate mt-1">
+              <field name="model_description"/>
+            </span>
+            <style>
+              .o_control_panel {
+                display: none !important;
+              }
+            </style>
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <field name="sub_category_id"/>
+              <h1>
+                <div class="d-flex">
+                  <field class="text-break" name="sub_category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
+                </div>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="category_ref" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
     <!-- sales.products form view -->
     <record id="sales.products_view_form" model="ir.ui.view">
       <field name="name">sales.products.view.form</field>
@@ -815,6 +874,7 @@
 
               <group>
                   <group>
+                      <field name="cust_type" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                       <span class="o_form_label o_td_label" name="address_name">
                           <b>Address</b>
                       </span>
@@ -829,17 +889,67 @@
                           </div>
                       </div>
                       <field name="npwp" placeholder="e.g. 08.178.554.2-123.321" readonly="not is_edit and id"/>
+                      <field name="pkp" readonly="not is_edit and id"/>
                   </group>
                   <group>
                       <field name="contact_name" readonly="not is_edit and id"/>
                       <field name="telephone" widget="phone" readonly="not is_edit and id"/>
                       <field name="email" widget="email" context="{'gravatar_image': True}" readonly="not is_edit and id"/>
                       <field name="website" string="Website" widget="url" placeholder="e.g. https://www.odoo.com" readonly="not is_edit and id"/>
+                      <field name="tags" placeholder="e.g. Google Maps tag" readonly="not is_edit and id"/>
                   </group>
               </group>
 
               <notebook colspan="4">
-                  <page string="Shipping Addresses" name="shipping_addresses" autofocus="autofocus">
+                  <page string="Sold To" name="sold_to" autofocus="autofocus">
+                       <field name="sold_to_ids" mode="kanban" readonly="not is_edit and id">
+                          <kanban>
+                              <field name="customer_id" invisible="1"/>
+                              <templates>
+                                  <t t-name="kanban-box">
+                                      <div class="oe_kanban_global_click">
+                                          <div class="o_kanban_image">
+                                              <img alt="Contact image" t-attf-src="sales/static/src/img/contact.png"/>
+                                          </div>
+                                          <div class="oe_kanban_details">
+                                              <field name="sold_name"/>
+                                              <div t-if="record.address">
+                                                  <div>
+                                                      <field name="district"/><t t-if="record.city"> </t>
+                                                      <field name="city"/><t t-if="record.postal_code"> </t>
+                                                      <field name="postal_code"/>
+                                                  </div>
+                                                  <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
+                                                  <field name="country"/>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </t>
+                              </templates>
+                          </kanban>
+                          <form string="Sold To Address">
+                              <sheet>
+                                  <field name="customer_id" invisible="1"/>
+                                  <hr/>
+                                  <group>
+                                      <field name="sold_name" string="Sold Name" required="1"/>
+                                      <label for="address" string="Address"/>
+                                      <div>
+                                          <div class="o_address_format" name="div_address">
+                                              <field name="address" placeholder="Street..."/>
+                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
+                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
+                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
+                                              <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
+                                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                          </div>
+                                      </div>
+                                  </group>
+                              </sheet>
+                          </form>
+                      </field>
+                  </page>
+                  <page string="Ship To" name="ship_to">
                       <field name="ship_to_ids" mode="kanban" readonly="not is_edit and id">
                           <kanban>
                               <field name="customer_id" invisible="1"/>
@@ -887,6 +997,54 @@
                           </form>
                       </field>
                   </page>
+                   <page string="Bill To" name="bill_to">
+                      <field name="bill_to_ids" mode="kanban" readonly="not is_edit and id">
+                          <kanban>
+                              <field name="customer_id" invisible="1"/>
+                              <templates>
+                                  <t t-name="kanban-box">
+                                      <div class="oe_kanban_global_click">
+                                          <div class="o_kanban_image">
+                                              <img alt="Invoice image" t-attf-src="sales/static/src/img/invoice.png"/>
+                                          </div>
+                                          <div class="oe_kanban_details">
+                                              <field name="bill_name"/>
+                                              <div t-if="record.address">
+                                                  <div>
+                                                      <field name="district"/><t t-if="record.city"> </t>
+                                                      <field name="city"/><t t-if="record.postal_code"> </t>
+                                                      <field name="postal_code"/>
+                                                  </div>
+                                                  <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
+                                                  <field name="country"/>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </t>
+                              </templates>
+                          </kanban>
+                          <form string="Bill To Address">
+                              <sheet>
+                                  <field name="customer_id" invisible="1"/>
+                                  <hr/>
+                                  <group>
+                                      <field name="bill_name" string="Bill Name" required="1"/>
+                                      <label for="address" string="Address"/>
+                                      <div>
+                                          <div class="o_address_format" name="div_address">
+                                              <field name="address" placeholder="Street..."/>
+                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
+                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
+                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
+                                              <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
+                                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                          </div>
+                                      </div>
+                                  </group>
+                              </sheet>
+                          </form>
+                      </field>
+                  </page>
                   <page name="sales" string="Sales">
                       <group name="container_row_2">
                           <group string="Sales" name="sale" priority="1">
@@ -894,7 +1052,7 @@
                           </group>
                           <group name="misc" string="Misc">
                               <field name="cust_category" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                              <field name="cust_type" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                              <field name="cust_sub_category" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('category_ref', '=', cust_category)] if cust_category else []"/>
                               <field name="cust_area" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                           </group>
                       </group>
@@ -1804,6 +1962,17 @@
         </p>
       </field>
     </record>
+    <record model="ir.actions.act_window" id="sales.cust_sub_category_action">
+      <field name="name">Customer Sub Category</field>
+      <field name="res_model">sales.cust_sub_category</field>
+      <field name="view_mode">tree,form</field>
+      <field name="target">main</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create your first Customer Sub Category
+        </p>
+      </field>
+    </record>
     <record model="ir.actions.act_window" id="sales.products_action">
       <field name="name">Products</field>
       <field name="res_model">sales.products</field>
@@ -1955,6 +2124,7 @@
     <menuitem name="Customer Categories" id="sales.cust_category" parent="sales.customer_menu" action="sales.cust_category_action" sequence="3"/>
     <menuitem name="Customer Types" id="sales.cust_type" parent="sales.customer_menu" action="sales.cust_type_action" sequence="4"/>
     <menuitem name="Customer Areas" id="sales.cust_area" parent="sales.customer_menu" action="sales.cust_area_action" sequence="5"/>
+    <menuitem name="Customer Sub Categories" id="sales.cust_sub_category_menu" parent="sales.customer_menu" action="sales.cust_sub_category_action" sequence="6"/>
     <menuitem name="Products" id="sales.product_product_menu" parent="sales.menu_sales_root" action="sales.products_action" sequence="1"/>
     <menuitem id="product_type_menu_act" name="Product Types" parent="sales.product_menu" action="sales.product_type_action" sequence="1"/>
     <menuitem id="product_category_menu_act" name="Product Categories" parent="sales.product_menu" action="sales.product_category_action" sequence="2"/>

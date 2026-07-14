@@ -1,0 +1,2232 @@
+[
+  {
+    "id": "TC001",
+    "title": "Accounting user can create and post an invoice from a confirmed sales order",
+    "description": "This verifies the key accounting flow of turning a confirmed sales order into an invoice and posting it.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a confirmed sales order"
+      },
+      {
+        "type": "action",
+        "description": "Create an invoice from the sales order"
+      },
+      {
+        "type": "action",
+        "description": "Post the invoice"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice is in a posted state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Sales admin can create a quotation with priced lines and submit it for approval",
+    "description": "This verifies the core sales flow of building a quotation with line items, pricing, and submitting it into the approval process.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new quotation"
+      },
+      {
+        "type": "action",
+        "description": "Add a quotation line for a product"
+      },
+      {
+        "type": "action",
+        "description": "Fill in valid line quantity and pricing values"
+      },
+      {
+        "type": "action",
+        "description": "Save the quotation"
+      },
+      {
+        "type": "action",
+        "description": "Submit the quotation for approval"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation is displayed in the approval workflow"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation line totals are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Create and post an invoice from a confirmed order",
+    "description": "An accounting user can create a regular invoice from a confirmed sales order and post it to generate journal items.",
+    "category": "Invoice Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the accounting user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the confirmed sales order"
+      },
+      {
+        "type": "action",
+        "description": "Create a regular invoice from the order"
+      },
+      {
+        "type": "action",
+        "description": "Open the new invoice"
+      },
+      {
+        "type": "action",
+        "description": "Post the invoice"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice is posted"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify journal items are generated"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Accounting user can register payment for a posted invoice",
+    "description": "This verifies that a posted invoice can receive a registered payment and remain visible as paid or partially paid in the UI.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a posted invoice"
+      },
+      {
+        "type": "action",
+        "description": "Register a payment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the payment record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice payment state is updated"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Admin can access permitted dashboard modules after sign in",
+    "description": "This verifies that an admin can log in and see dashboard content that matches their granted menu access.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify permitted module cards are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Admin sees only permitted dashboard modules",
+    "description": "This verifies that an authenticated admin only sees dashboard cards for menus they are allowed to access and can open an allowed module from the dashboard.",
+    "category": "RBAC User and Access Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard shows only the modules permitted for the signed-in user"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an allowed module can be opened from the dashboard"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Register a payment for a posted invoice",
+    "description": "This verifies that a user can register payment against a posted invoice and the invoice payment state updates after the payment is posted.",
+    "category": "Payment Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a posted invoice"
+      },
+      {
+        "type": "action",
+        "description": "Start payment registration for the invoice"
+      },
+      {
+        "type": "action",
+        "description": "Submit the payment registration"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the payment is posted and the invoice payment state is updated"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Create and submit a quotation with line pricing",
+    "description": "A sales user can create customer and product masters, set pricing defaults, build a quotation with line pricing, and submit it for approval.",
+    "category": "Sales Order Workflow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the sales user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the customer master form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new customer"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the product master form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new product"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the sales order form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new quotation for the customer"
+      },
+      {
+        "type": "action",
+        "description": "Add the product line with a valid quantity"
+      },
+      {
+        "type": "action",
+        "description": "Submit the quotation for approval"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation moves into approval waiting status"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Approver can approve a quotation and see it transition forward",
+    "description": "This verifies that approving a waiting quotation updates its workflow state to the next stage and keeps the record accessible.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a quotation in the approval queue"
+      },
+      {
+        "type": "action",
+        "description": "Approve the quotation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation is displayed in the next workflow state"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the approval outcome is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Admin can create and save a new master data record",
+    "description": "This verifies that a user can open a new master-data form, enter details, save the record, and return to a view state.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a new master-data record form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the required fields with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Save the record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the created record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the form is in view mode"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Admin creates a custom user with menu access",
+    "description": "This verifies that an admin can create a custom user account and save per-menu access rights for that user.",
+    "category": "RBAC User and Access Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the custom user management screen"
+      },
+      {
+        "type": "action",
+        "description": "Create a new custom user with a unique login, password, and position"
+      },
+      {
+        "type": "action",
+        "description": "Assign menu permissions to the new user"
+      },
+      {
+        "type": "action",
+        "description": "Save the user record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new custom user is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved menu access rights are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Approve a quotation and progress it to sale",
+    "description": "An approver can review a quotation in waiting approval, approve it, and see the order progress to an approved or sent state.",
+    "category": "Sales Order Workflow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the approver user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the sales orders awaiting approval list"
+      },
+      {
+        "type": "action",
+        "description": "Open a quotation waiting approval"
+      },
+      {
+        "type": "action",
+        "description": "Approve the quotation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the order transitions to an approved or sent state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Accounting user can verify invoice delivery and journal states after payment",
+    "description": "This verifies the end-to-end sales and accounting outcome where invoicing, payment, and delivery-linked states are all visible after completion.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a paid invoice"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the delivery status is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the journal item state is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Register payment for a posted invoice and complete delivery",
+    "description": "An accounting user can register payment for a posted invoice and see the related delivery and journal states advance accordingly.",
+    "category": "Invoice Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the accounting user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the posted invoice"
+      },
+      {
+        "type": "action",
+        "description": "Register a payment for the invoice"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the related delivery record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice payment state is updated"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the related delivery and journal states are updated"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Admin can edit an existing master data record and keep changes",
+    "description": "This verifies that an existing record can be switched into edit mode, updated, saved, and shown with the new values.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing master-data record"
+      },
+      {
+        "type": "action",
+        "description": "Enter edit mode"
+      },
+      {
+        "type": "action",
+        "description": "Update a field with a valid new value"
+      },
+      {
+        "type": "action",
+        "description": "Save the record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the changes remain visible after save"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Sales admin can create customer and product master records",
+    "description": "This verifies that a sales user can create the customer and product masters required before building quotations.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new customer master record"
+      },
+      {
+        "type": "action",
+        "description": "Save the customer record"
+      },
+      {
+        "type": "action",
+        "description": "Create a new product master record"
+      },
+      {
+        "type": "action",
+        "description": "Save the product record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the customer record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product record is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "HR admin can create linked division, department, and position records",
+    "description": "This verifies that organization master data can be created in hierarchy order and each child record reflects the selected parent.",
+    "category": "Organization Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new division"
+      },
+      {
+        "type": "action",
+        "description": "Save the division"
+      },
+      {
+        "type": "action",
+        "description": "Create a new department under that division"
+      },
+      {
+        "type": "action",
+        "description": "Save the department"
+      },
+      {
+        "type": "action",
+        "description": "Create a new position under that department"
+      },
+      {
+        "type": "action",
+        "description": "Save the position"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the position is displayed with its hierarchy"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected parent relationships are preserved"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "User changes their own password and signs in with the new one",
+    "description": "This verifies that a signed-in user can change their password from preferences and then authenticate with the new credentials.",
+    "category": "RBAC User and Access Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the password preferences screen"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the current password field with the existing password"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the new password field with a new password"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the new password"
+      },
+      {
+        "type": "action",
+        "description": "Save the password change"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the password change is confirmed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user can authenticate with the new password"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Create an employee with hierarchy and address data",
+    "description": "A HR admin can create a new employee with linked division, department, position, and address details and see the employee saved successfully.",
+    "category": "HCM Employee Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the employee management page"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new employee"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the employee identification and personal details with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Select valid division, department, and position values"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the address fields with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Save the employee record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the employee record is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the linked hierarchy and address details are visible on the employee record"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC020",
+    "title": "Send an invoice email with attachment",
+    "description": "This verifies that an accounting user can send an invoice email from a posted invoice and include the invoice attachment.",
+    "category": "Email Integration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a posted invoice"
+      },
+      {
+        "type": "action",
+        "description": "Open the email composer for the invoice"
+      },
+      {
+        "type": "action",
+        "description": "Send the email"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the invoice email is sent and the invoice attachment is included"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC021",
+    "title": "Approver can review a quotation waiting for approval",
+    "description": "This verifies that an approver can open a quotation in the approval queue and review the submitted order details before deciding.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a quotation in the approval queue"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation details are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation is in a waiting approval state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC022",
+    "title": "HR admin creates a position hierarchy",
+    "description": "This verifies that an HR admin can create a top-level position and a child position in the organization hierarchy.",
+    "category": "HCM Position Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the position management screen"
+      },
+      {
+        "type": "action",
+        "description": "Create a top-level position"
+      },
+      {
+        "type": "action",
+        "description": "Create a child position under the top-level position"
+      },
+      {
+        "type": "action",
+        "description": "Save the hierarchy"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the position hierarchy is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the child position appears under the parent position"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC023",
+    "title": "Create customer reference data and a customer with ship-to addresses",
+    "description": "A sales admin can create customer reference data, create a customer, and add ship-to addresses that remain linked to the customer record.",
+    "category": "Sales Customer Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the customer master data page"
+      },
+      {
+        "type": "action",
+        "description": "Create customer category, customer type, and customer area records with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new customer"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the required customer details with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Save the customer record"
+      },
+      {
+        "type": "action",
+        "description": "Open the saved customer record"
+      },
+      {
+        "type": "action",
+        "description": "Add a ship-to address with valid address details"
+      },
+      {
+        "type": "action",
+        "description": "Save the customer record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the customer record is saved and linked to a partner record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ship-to address is visible on the customer record"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC024",
+    "title": "Create and complete a delivery for a sales order",
+    "description": "This verifies that a delivery can be created from a sales order, updated with line quantities, and completed successfully.",
+    "category": "Delivery Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a sales order"
+      },
+      {
+        "type": "action",
+        "description": "Create a delivery for the order"
+      },
+      {
+        "type": "action",
+        "description": "Add delivery line quantities"
+      },
+      {
+        "type": "action",
+        "description": "Complete the delivery"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the delivery is completed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the delivery line quantities are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC025",
+    "title": "Send a quotation email to the customer",
+    "description": "This verifies that a sales user can send a quotation email with the customer recipient prefilled and the sales order transitions to the sent state.",
+    "category": "Email Integration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing quotation"
+      },
+      {
+        "type": "action",
+        "description": "Open the email composer for sending the quotation"
+      },
+      {
+        "type": "action",
+        "description": "Send the email"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation email is sent and the sales order is marked as sent"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC026",
+    "title": "Create a down payment invoice from a confirmed order",
+    "description": "An accounting user can create a percentage or fixed down payment invoice from a confirmed sales order and see the invoice created in draft state.",
+    "category": "Invoice Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the accounting user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the confirmed sales order"
+      },
+      {
+        "type": "action",
+        "description": "Open the invoice creation wizard"
+      },
+      {
+        "type": "action",
+        "description": "Choose a down payment method and confirm"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a draft invoice is created"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC027",
+    "title": "Admin can delete a master data record",
+    "description": "This verifies that a deletable master-data record can be removed from the system through the form actions.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing master-data record"
+      },
+      {
+        "type": "action",
+        "description": "Delete the record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the record is no longer displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user returns to the master-data list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC028",
+    "title": "Admin updates another user's password",
+    "description": "This verifies that an admin can change another user's password and that the updated account data is retained.",
+    "category": "RBAC User and Access Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the custom user management screen"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing user record"
+      },
+      {
+        "type": "action",
+        "description": "Change the user's password using the password action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user's account data is updated"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains available in the user list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC029",
+    "title": "Create product reference data and a priced product",
+    "description": "A sales admin can create product reference data and save a product with computed pricing and stock-related fields.",
+    "category": "Sales Product Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the product master data page"
+      },
+      {
+        "type": "action",
+        "description": "Create product type, product category, unit of measure, and tax records with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new product"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the required product details with valid values"
+      },
+      {
+        "type": "action",
+        "description": "Save the product record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product record is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify computed price and stock-related information are visible on the product record"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC030",
+    "title": "Reject a pending quotation",
+    "description": "An approver can reject a quotation in waiting approval and the order remains unconfirmed.",
+    "category": "Sales Order Workflow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the approver user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the sales orders awaiting approval list"
+      },
+      {
+        "type": "action",
+        "description": "Open a quotation waiting approval"
+      },
+      {
+        "type": "action",
+        "description": "Reject the quotation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the order remains in a non-sale state"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC031",
+    "title": "Create payment terms with installment details",
+    "description": "This verifies that a user can create a payment term header and add installment detail lines with a visible schedule preview.",
+    "category": "Payment Terms and Terms Conditions",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the payment terms form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new payment term header"
+      },
+      {
+        "type": "action",
+        "description": "Add an installment detail line"
+      },
+      {
+        "type": "action",
+        "description": "Save the payment term"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the payment term is saved"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the installment schedule preview is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC032",
+    "title": "Send an approval notification email",
+    "description": "This verifies that an approver can send the approval notification email from a sales order awaiting approval.",
+    "category": "Email Integration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a sales order waiting for approval"
+      },
+      {
+        "type": "action",
+        "description": "Open the email composer for the approval notification"
+      },
+      {
+        "type": "action",
+        "description": "Send the email"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the approval notification email is sent to the next approver"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC033",
+    "title": "Restricted users cannot create records from a protected form",
+    "description": "This verifies that a user without create permission cannot see the new-record action on a restricted master-data form.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a restricted master-data form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the create action is not available"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the form remains accessible in view mode"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC034",
+    "title": "Approver can reject a quotation and keep the record in a rejected state",
+    "description": "This verifies that rejecting a waiting quotation records the rejection outcome and updates the workflow state accordingly.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a quotation in the approval queue"
+      },
+      {
+        "type": "action",
+        "description": "Reject the quotation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation is displayed in a rejected state"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the rejection outcome is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC035",
+    "title": "Dashboard hides unauthorized modules for a restricted user",
+    "description": "This verifies that a user with limited permissions only sees dashboard cards for the modules they are allowed to access.",
+    "category": "Home Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard does not show unauthorized module cards"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify only permitted module cards are visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC036",
+    "title": "Apply a pricing rule to a matching order line",
+    "description": "A sales user can create a pricing rule and see it applied to a matching product line when building a sales order.",
+    "category": "Price Conditions Engine",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the sales user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the pricing rules view"
+      },
+      {
+        "type": "action",
+        "description": "Create a new pricing rule with a product scope and a fixed price"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the sales order form"
+      },
+      {
+        "type": "action",
+        "description": "Add the matching product to the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the line price is updated according to the pricing rule"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC037",
+    "title": "Review payment journal items for a posted payment",
+    "description": "This verifies that a posted payment shows its journal items with debit and credit lines.",
+    "category": "Payment Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a posted payment"
+      },
+      {
+        "type": "action",
+        "description": "Open the payment journal items view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify debit and credit journal lines are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC038",
+    "title": "Sales user can apply pricing and payment defaults while building a quotation",
+    "description": "This verifies that sales setup data such as price conditions and payment defaults affect a quotation before submission.",
+    "category": "Price Conditions Engine",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Create or open a quotation draft"
+      },
+      {
+        "type": "action",
+        "description": "Select a customer with configured pricing rules"
+      },
+      {
+        "type": "action",
+        "description": "Add a product line"
+      },
+      {
+        "type": "action",
+        "description": "Observe the calculated line pricing and payment defaults"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quotation reflects applied pricing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the payment terms are populated"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC039",
+    "title": "Admin can discard unsaved changes on a form",
+    "description": "This verifies that canceling an in-progress edit returns the record to its prior saved state.",
+    "category": "NavigationMixin Form Edit/Save Pattern",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing master-data record"
+      },
+      {
+        "type": "action",
+        "description": "Enter edit mode"
+      },
+      {
+        "type": "action",
+        "description": "Change a field value without saving"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the edit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the original record values are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no unsaved changes are shown"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC040",
+    "title": "Add family, education, certificate, and training records to an employee",
+    "description": "A HR admin can open an existing employee and add related family, education, certificate, and training records from the employee sub-tabs.",
+    "category": "HCM Employee Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the employee management page"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing employee record"
+      },
+      {
+        "type": "action",
+        "description": "Switch to the family tab"
+      },
+      {
+        "type": "action",
+        "description": "Add a family record with valid relationship details"
+      },
+      {
+        "type": "action",
+        "description": "Switch to the education tab"
+      },
+      {
+        "type": "action",
+        "description": "Add an education record with valid school details"
+      },
+      {
+        "type": "action",
+        "description": "Switch to the certificate tab"
+      },
+      {
+        "type": "action",
+        "description": "Add a certificate record with valid certificate details"
+      },
+      {
+        "type": "action",
+        "description": "Switch to the training tab"
+      },
+      {
+        "type": "action",
+        "description": "Add a training record with valid training details"
+      },
+      {
+        "type": "action",
+        "description": "Save the employee record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the employee record includes the related family, education, certificate, and training entries"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the related records are preserved after saving"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC041",
+    "title": "Apply a bulk discount to order lines",
+    "description": "A sales user can apply a bulk discount to a valid sales order and see the line discounts update.",
+    "category": "Sales Order Workflow",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the sales user"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the sales order form"
+      },
+      {
+        "type": "action",
+        "description": "Create a quotation with at least one product line"
+      },
+      {
+        "type": "action",
+        "description": "Open the discount action for the order"
+      },
+      {
+        "type": "action",
+        "description": "Apply a bulk discount"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the order line discounts are updated"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC042",
+    "title": "Load default terms and conditions into a new sales order",
+    "description": "This verifies that saved default terms and conditions appear automatically on a new sales order.",
+    "category": "Payment Terms and Terms Conditions",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the terms and conditions settings"
+      },
+      {
+        "type": "action",
+        "description": "Save default terms and conditions content"
+      },
+      {
+        "type": "action",
+        "description": "Open a new sales order form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the default terms and conditions content is loaded on the new sales order"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC043",
+    "title": "HR admin can use cascading organization selections when creating hierarchy data",
+    "description": "This verifies that choosing a parent organization item filters the available child choices and supports the intended hierarchy.",
+    "category": "Organization Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open a department form in edit mode"
+      },
+      {
+        "type": "action",
+        "description": "Select a division"
+      },
+      {
+        "type": "action",
+        "description": "Open the department selection"
+      },
+      {
+        "type": "action",
+        "description": "Verify only matching departments are available"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected hierarchy is applied to the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the available child options are filtered"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC044",
+    "title": "Resync customers after updating a pricing rule",
+    "description": "A sales user can update an existing pricing rule and see customer pricing synchronization reflected in the customer master.",
+    "category": "Price Conditions Engine",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credentials for the sales admin"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the pricing rules view"
+      },
+      {
+        "type": "action",
+        "description": "Create a new customer-scoped pricing rule"
+      },
+      {
+        "type": "action",
+        "description": "Open the saved pricing rule for editing"
+      },
+      {
+        "type": "action",
+        "description": "Update the rule price or scope"
+      },
+      {
+        "type": "action",
+        "description": "Save the pricing rule"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the customer master record tied to the rule"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the customer reflects the updated applicable pricing information"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC045",
+    "title": "Update a customer and keep partner sync intact",
+    "description": "A sales admin can edit a customer's contact or address information and see the saved changes reflected on the customer record.",
+    "category": "Sales Customer Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the customer master data page"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing customer record"
+      },
+      {
+        "type": "action",
+        "description": "Edit the contact or address fields with valid new values"
+      },
+      {
+        "type": "action",
+        "description": "Save the customer record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated customer information is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the customer remains linked to the synchronized partner record"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC046",
+    "title": "View delivery quantities from the delivery list",
+    "description": "This verifies that the delivery list shows ordered versus delivered quantities for existing deliveries.",
+    "category": "Delivery Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the credential fields with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the delivery list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify deliveries are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify ordered and delivered quantities are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC047",
+    "title": "HR admin can create a company and location master record",
+    "description": "This verifies that organization setup supports creating company and location records needed for downstream HR configuration.",
+    "category": "Organization Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /web/login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Create a new company"
+      },
+      {
+        "type": "action",
+        "description": "Save the company"
+      },
+      {
+        "type": "action",
+        "description": "Create a new location"
+      },
+      {
+        "type": "action",
+        "description": "Save the location"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the company record is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the location record is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC048",
+    "title": "Recalculate product price and tax after edits",
+    "description": "A sales admin can update a product's base price or tax settings and see the recalculated pricing information saved on the product record.",
+    "category": "Sales Product Master Data",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the product master data page"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing product record"
+      },
+      {
+        "type": "action",
+        "description": "Edit the base price or tax settings with valid new values"
+      },
+      {
+        "type": "action",
+        "description": "Save the product record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated pricing information is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the tax summary is updated on the product record"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC049",
+    "title": "Keep the employee hierarchy in sync after address changes",
+    "description": "A HR admin can edit an employee's personal address information and see the related hierarchy fields update consistently in the saved record.",
+    "category": "HCM Employee Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the username field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the employee management page"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing employee record"
+      },
+      {
+        "type": "action",
+        "description": "Edit the personal address fields with valid new values"
+      },
+      {
+        "type": "action",
+        "description": "Save the employee record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated address information is visible on the employee record"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the related hierarchy fields remain consistent after saving"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC050",
+    "title": "HR admin views the organization chart from positions",
+    "description": "This verifies that saved positions can be opened in the organization chart visualization.",
+    "category": "HCM Position Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the position management screen"
+      },
+      {
+        "type": "action",
+        "description": "Open the organization chart view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the organization chart is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify positions appear in the chart"
+      }
+    ],
+    "priority": "Medium"
+  }
+]
