@@ -1,7 +1,7 @@
 # ERP KSI — Product Specification Document
 
-> **Versi:** 1.1  
-> **Terakhir diperbarui:** 2026-07-14  
+> **Versi:** 1.2  
+> **Terakhir diperbarui:** 2026-07-15  
 > **Stack:** Odoo 17 (Python/OWL) + PostgreSQL  
 > **Target:** Developer
 
@@ -1018,10 +1018,10 @@ Default content di-load ke `note` field di sales order baru via `default_get()`.
 | `sales.payment_terms_detail` | `sales_payment_terms_detail` | `payment_terms_id`, `percentage`, `no_of_days` |
 | `sales.terms_and_conditions` | `sales_terms_and_conditions` | `content` |
 | `sales.sales_approval_matrix` | `sales_sales_approval_matrix` | `name`, `sequence`, `min_amount`, `approve/revise/reject/receive_return` |
-| `sales.sales_order` | `sales_sales_order` | `sales_code`, `customer_id`, `state`, `order_line_ids`, `total_amount`, `approval_log_ids`, `invoice_status` |
+| `sales.sales_order` | `sales_sales_order` | `sales_code`, `customer_id`, `sold_to_id`, `ship_to_id`, `bill_to_id`, `state`, `order_line_ids`, `total_amount`, `approval_log_ids`, `invoice_status` |
 | `sales.sales_order_line` | `sales_sales_order_line` | `sales_order_id`, `product_id`, `quantity`, `unit_price`, `discount`, `base_discount`, `sub_total`, `info` |
 | `sales.sales_approval_log` | `sales_sales_approval_log` | `sales_order_id`, `approver`, `state`, `sequence`, `note` |
-| `sales.invoice` | `sales_invoice` | `invoice_number`, `sales_order_id`, `customer_id`, `state`, `invoice_type`, `document_type`, `amount_total`, `payment_state` |
+| `sales.invoice` | `sales_invoice` | `invoice_number`, `sales_order_id`, `customer_id`, `bill_to_id`, `state`, `invoice_type`, `document_type`, `amount_total`, `payment_state` |
 | `sales.invoice.line` | `sales_invoice_line` | `invoice_id`, `product_id`, `description`, `quantity`, `unit_price`, `discount`, `tax_id`, `sub_total` |
 | `sales.invoice.journal.item` | `sales_invoice_journal_item` | `invoice_id`, `line_type`, `account_code`, `debit`, `credit` |
 | `sales.payment` | `sales_payment` | `payment_number`, `invoice_id`, `customer_id`, `payment_date`, `payment_method`, `amount`, `state` |
@@ -1059,15 +1059,17 @@ hcm
 
 sales
 ├── sales.customer → category, type, area, salesperson, payment_terms, partner
-│   └── sales.ship_to → customer (cascade)
+│   ├── sales.ship_to → customer (cascade)
+│   ├── sales.sold_to → customer (cascade)
+│   └── sales.bill_to → customer (cascade)
 ├── sales.products → type, category, unit, customer_tax
 ├── sales.price_condition → product_category (m2m), product (o2m), cust_category (m2m), customer (o2m)
 ├── sales.payment_terms → account_type (m2m)
 │   └── sales.payment_terms_detail → payment_terms
-├── sales.sales_order → customer, payment_terms, salesperson
+├── sales.sales_order → customer, sold_to, ship_to, bill_to, payment_terms, salesperson
 │   ├── sales.sales_order_line → sales_order (cascade), product, taxes
 │   └── sales.sales_approval_log → sales_order (cascade)
-├── sales.invoice → sales_order (restrict), customer (restrict), payment_terms
+├── sales.invoice → sales_order (restrict), customer (restrict), bill_to, payment_terms
 │   ├── sales.invoice.line → invoice (cascade), product, tax
 │   ├── sales.invoice.journal.item → invoice (cascade)
 │   └── sales.invoice → source_invoice_id (credit note)
@@ -1463,7 +1465,47 @@ Setiap module mendefinisikan `security/ir.model.access.csv` untuk model-level CR
 
 **Penerapan:** `hcm/static/src/css/employee_kanban.css`
 
-### 7.3 Organization Chart OWL Component
+### 7.3 Address View Toggle (Sold To / Ship To / Bill To)
+
+**Lokasi:** `sales/static/src/js/address_view_toggle.js` + `sales/static/src/css/address_view_toggle.css`
+
+**Tujuan:** Menambahkan tombol toggle **List** dan **Kanban** pada tab Sold To, Ship To, dan Bill To di form Customer.
+
+**Cara Kerja:**
+
+```
+1. setInterval(scanAndInject, 1500) — scan DOM setiap 1.5 detik
+2. Cari .tab-pane yang berisi .o_field_one2many
+3. Cek field name: sold_to_ids, ship_to_ids, bill_to_ids
+4. Sembunyikan Odoo's o_x2m_control_panel (empty di readonly mode)
+5. Inject toggle bar + kanban container
+6. Build kanban HTML dari data table yang sudah ada di DOM
+```
+
+**Struktur DOM:**
+
+```
+.o_field_one2many[name="sold_to_ids"]
+├── .address-view-toggle          ← Toggle bar (List | Kanban)
+├── .o_list_view                  ← Odoo's list view (toggle-able)
+└── .address-kanban-view          ← Custom kanban (toggle-able)
+    └── .o_kanban_renderer
+        └── .o_kanban_record oe_kanban_global_click
+            ├── .o_kanban_image (icon per type)
+            └── .oe_kanban_details (name + address)
+```
+
+**Icon per Type:**
+
+| Tab | Icon Path |
+|-----|-----------|
+| Sold To | `sales/static/src/img/contact.png` |
+| Ship To | `general/static/src/img/shipping.png` |
+| Bill To | `sales/static/src/img/invoice.png` |
+
+**Lazy Rendering:** Tab pane di-render oleh Odoo hanya saat tab aktif. Toggle di-inject ulang setiap kali tab baru dibuka.
+
+### 7.4 Organization Chart OWL Component
 
 **Component:** `OrgStructure` (`hcm/static/src/js/org_structure.js:11-215`)
 
@@ -1611,6 +1653,9 @@ SO di-submit untuk approval
 | `sales/data/mail_template_approver.xml` | Approval email template |
 | `sales/data/terms_and_conditions.xml` | Default T&C |
 | `sales/security/ir.model.access.csv` | Sales access control |
+| `sales/static/src/js/address_view_toggle.js` | Tree/Kanban toggle for Sold To, Ship To, Bill To |
+| `sales/static/src/css/address_view_toggle.css` | Toggle button styling |
+| `sales/static/src/css/customer_kanban.css` | Customer kanban image styling |
 | `user_management/__manifest__.py` | Module manifest |
 | `user_management/views/views.xml` | User management UI |
 

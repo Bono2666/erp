@@ -93,6 +93,57 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="sales.sold_to_tree">
+      <field name="name">Sold To</field>
+      <field name="model">sales.sold_to</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="sold_id"/>
+          <field name="sold_name"/>
+          <field name="customer_id"/>
+          <field name="district"/>
+          <field name="city"/>
+          <field name="state"/>
+          <field name="postal_code"/>
+          <field name="country"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sales.ship_to_tree">
+      <field name="name">Ship To</field>
+      <field name="model">sales.ship_to</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="ship_id"/>
+          <field name="ship_name"/>
+          <field name="customer_id"/>
+          <field name="district"/>
+          <field name="city"/>
+          <field name="state"/>
+          <field name="postal_code"/>
+          <field name="country"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sales.bill_to_tree">
+      <field name="name">Bill To</field>
+      <field name="model">sales.bill_to</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="bill_id"/>
+          <field name="bill_name"/>
+          <field name="customer_id"/>
+          <field name="district"/>
+          <field name="city"/>
+          <field name="state"/>
+          <field name="postal_code"/>
+          <field name="country"/>
+        </tree>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="sales.products_kanban">
       <field name="name">Products</field>
       <field name="model">sales.products</field>
@@ -901,32 +952,41 @@
               </group>
 
               <notebook colspan="4">
-                  <page string="Sold To" name="sold_to" autofocus="autofocus">
-                       <field name="sold_to_ids" mode="kanban" readonly="not is_edit and id">
-                          <kanban>
-                              <field name="customer_id" invisible="1"/>
-                              <templates>
-                                  <t t-name="kanban-box">
-                                      <div class="oe_kanban_global_click">
-                                          <div class="o_kanban_image">
-                                              <img alt="Contact image" t-attf-src="sales/static/src/img/contact.png"/>
-                                          </div>
-                                          <div class="oe_kanban_details">
-                                              <field name="sold_name"/>
-                                              <div t-if="record.address">
-                                                  <div>
-                                                      <field name="district"/><t t-if="record.city"> </t>
-                                                      <field name="city"/><t t-if="record.postal_code"> </t>
-                                                      <field name="postal_code"/>
-                                                  </div>
-                                                  <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
-                                                  <field name="country"/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </t>
-                              </templates>
-                          </kanban>
+               <page string="Sold To" name="sold_to" autofocus="autofocus">
+                        <field name="sold_to_ids" mode="kanban,tree" readonly="not is_edit and id">
+                           <tree>
+                               <field name="sold_id"/>
+                               <field name="sold_name"/>
+                               <field name="district"/>
+                               <field name="city"/>
+                               <field name="state"/>
+                               <field name="postal_code"/>
+                               <field name="country"/>
+                           </tree>
+                           <kanban>
+                               <field name="customer_id" invisible="1"/>
+                               <templates>
+                                   <t t-name="kanban-box">
+                                       <div class="oe_kanban_global_click">
+                                           <div class="o_kanban_image">
+                                               <img alt="Contact image" t-attf-src="sales/static/src/img/contact.png"/>
+                                           </div>
+                                           <div class="oe_kanban_details">
+                                               <field name="sold_name"/>
+                                               <div t-if="record.address">
+                                                   <div>
+                                                       <field name="district"/><t t-if="record.city"> </t>
+                                                       <field name="city"/><t t-if="record.postal_code"> </t>
+                                                       <field name="postal_code"/>
+                                                   </div>
+                                                   <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
+                                                   <field name="country"/>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </t>
+                               </templates>
+                           </kanban>
                           <form string="Sold To Address">
                               <sheet>
                                   <field name="customer_id" invisible="1"/>
@@ -949,32 +1009,41 @@
                           </form>
                       </field>
                   </page>
-                  <page string="Ship To" name="ship_to">
-                      <field name="ship_to_ids" mode="kanban" readonly="not is_edit and id">
-                          <kanban>
-                              <field name="customer_id" invisible="1"/>
-                              <templates>
-                                  <t t-name="kanban-box">
-                                      <div class="oe_kanban_global_click">
-                                          <div class="o_kanban_image">
-                                              <img alt="Contact image" t-attf-src="general/static/src/img/shipping.png"/>
-                                          </div>
-                                          <div class="oe_kanban_details">
-                                              <field name="ship_name"/>
-                                              <div t-if="record.address">
-                                                  <div>
-                                                      <field name="district"/><t t-if="record.city"> </t>
-                                                      <field name="city"/><t t-if="record.postal_code"> </t>
-                                                      <field name="postal_code"/>
-                                                  </div>
-                                                  <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
-                                                  <field name="country"/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </t>
-                              </templates>
-                          </kanban>
+                   <page string="Ship To" name="ship_to">
+                       <field name="ship_to_ids" mode="kanban,tree" readonly="not is_edit and id">
+                           <tree>
+                               <field name="ship_id"/>
+                               <field name="ship_name"/>
+                               <field name="district"/>
+                               <field name="city"/>
+                               <field name="state"/>
+                               <field name="postal_code"/>
+                               <field name="country"/>
+                           </tree>
+                           <kanban>
+                               <field name="customer_id" invisible="1"/>
+                               <templates>
+                                   <t t-name="kanban-box">
+                                       <div class="oe_kanban_global_click">
+                                           <div class="o_kanban_image">
+                                               <img alt="Contact image" t-attf-src="general/static/src/img/shipping.png"/>
+                                           </div>
+                                           <div class="oe_kanban_details">
+                                               <field name="ship_name"/>
+                                               <div t-if="record.address">
+                                                   <div>
+                                                       <field name="district"/><t t-if="record.city"> </t>
+                                                       <field name="city"/><t t-if="record.postal_code"> </t>
+                                                       <field name="postal_code"/>
+                                                   </div>
+                                                   <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
+                                                   <field name="country"/>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </t>
+                               </templates>
+                           </kanban>
                           <form string="Shipping Address">
                               <sheet>
                                   <field name="customer_id" invisible="1"/>
@@ -997,32 +1066,41 @@
                           </form>
                       </field>
                   </page>
-                   <page string="Bill To" name="bill_to">
-                      <field name="bill_to_ids" mode="kanban" readonly="not is_edit and id">
-                          <kanban>
-                              <field name="customer_id" invisible="1"/>
-                              <templates>
-                                  <t t-name="kanban-box">
-                                      <div class="oe_kanban_global_click">
-                                          <div class="o_kanban_image">
-                                              <img alt="Invoice image" t-attf-src="sales/static/src/img/invoice.png"/>
-                                          </div>
-                                          <div class="oe_kanban_details">
-                                              <field name="bill_name"/>
-                                              <div t-if="record.address">
-                                                  <div>
-                                                      <field name="district"/><t t-if="record.city"> </t>
-                                                      <field name="city"/><t t-if="record.postal_code"> </t>
-                                                      <field name="postal_code"/>
-                                                  </div>
-                                                  <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
-                                                  <field name="country"/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </t>
-                              </templates>
-                          </kanban>
+                    <page string="Bill To" name="bill_to">
+                       <field name="bill_to_ids" mode="kanban,tree" readonly="not is_edit and id">
+                           <tree>
+                               <field name="bill_id"/>
+                               <field name="bill_name"/>
+                               <field name="district"/>
+                               <field name="city"/>
+                               <field name="state"/>
+                               <field name="postal_code"/>
+                               <field name="country"/>
+                           </tree>
+                           <kanban>
+                               <field name="customer_id" invisible="1"/>
+                               <templates>
+                                   <t t-name="kanban-box">
+                                       <div class="oe_kanban_global_click">
+                                           <div class="o_kanban_image">
+                                               <img alt="Invoice image" t-attf-src="sales/static/src/img/invoice.png"/>
+                                           </div>
+                                           <div class="oe_kanban_details">
+                                               <field name="bill_name"/>
+                                               <div t-if="record.address">
+                                                   <div>
+                                                       <field name="district"/><t t-if="record.city"> </t>
+                                                       <field name="city"/><t t-if="record.postal_code"> </t>
+                                                       <field name="postal_code"/>
+                                                   </div>
+                                                   <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
+                                                   <field name="country"/>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </t>
+                               </templates>
+                           </kanban>
                           <form string="Bill To Address">
                               <sheet>
                                   <field name="customer_id" invisible="1"/>
@@ -1265,6 +1343,9 @@
             <group name="sale_header">
                 <group name="partner_details">
                     <field name="customer_id" widget="res_partner_many2one" placeholder="Type to find a customer..." readonly="state in ['cancel'] or (not is_edit and id)" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="sold_to_id" options="{&quot;no_create&quot;: True}" readonly="state in ['cancel'] or (not is_edit and id)" placeholder="Select Sold To address..."/>
+                    <field name="ship_to_id" options="{&quot;no_create&quot;: True}" readonly="state in ['cancel'] or (not is_edit and id)" placeholder="Select Ship To address..."/>
+                    <field name="bill_to_id" options="{&quot;no_create&quot;: True}" readonly="state in ['cancel'] or (not is_edit and id)" placeholder="Select Bill To address..."/>
                     <field name="address" widget="res_partner_address" readonly="1" string=""/>
                 </group>
                 <group name="order_details">
@@ -1709,6 +1790,7 @@
             <group>
               <group name="partner_details">
                 <field name="customer_id" readonly="1"/>
+                <field name="bill_to_id" readonly="1"/>
                 <field name="customer_address" widget="res_partner_address" readonly="1" string=""/>
               </group>
               <group>

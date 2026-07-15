@@ -1227,6 +1227,15 @@ class sales_order(models.Model):
     sales_code = fields.Char(string="Sales Code", readonly=True)
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', index=True, required=True)
+    sold_to_id = fields.Many2one(
+        comodel_name='sales.sold_to', string='Sold To', ondelete='set null', index=True,
+        domain="[('customer_id', '=', customer_id)]")
+    ship_to_id = fields.Many2one(
+        comodel_name='sales.ship_to', string='Ship To', ondelete='set null', index=True,
+        domain="[('customer_id', '=', customer_id)]")
+    bill_to_id = fields.Many2one(
+        comodel_name='sales.bill_to', string='Bill To', ondelete='set null', index=True,
+        domain="[('customer_id', '=', customer_id)]")
     address = fields.Text(compute='_compute_address')
     expiry_date = fields.Date(
         string="Expiration", default=fields.Date.add(fields.Date.today(), days=10))
@@ -1299,22 +1308,28 @@ class sales_order(models.Model):
     user_can_invoicing = fields.Boolean(
         string="User Can Invoicing", compute='_compute_invoicing_permissions')
 
-    @api.depends('customer_id.address', 'customer_id.district', 'customer_id.city', 'customer_id.state', 'customer_id.postal_code', 'customer_id.country')
+    @api.depends('customer_id', 'sold_to_id',
+                 'customer_id.address', 'customer_id.district', 'customer_id.city', 'customer_id.state', 'customer_id.postal_code', 'customer_id.country',
+                 'sold_to_id.address', 'sold_to_id.district', 'sold_to_id.city', 'sold_to_id.state', 'sold_to_id.postal_code', 'sold_to_id.country')
     def _compute_address(self):
         for record in self:
+            if record.sold_to_id:
+                source = record.sold_to_id
+            else:
+                source = record.customer_id
             parts = []
-            if record.customer_id.address:
-                parts.append(record.customer_id.address)
-            if record.customer_id.district:
-                parts.append(record.customer_id.district.district_name)
-            if record.customer_id.city:
-                parts.append(record.customer_id.city.city_name)
-            if record.customer_id.state:
-                parts.append(record.customer_id.state.state_name)
-            if record.customer_id.postal_code:
-                parts.append(record.customer_id.postal_code)
-            if record.customer_id.country:
-                parts.append(record.customer_id.country.country_name)
+            if source.address:
+                parts.append(source.address)
+            if source.district:
+                parts.append(source.district.district_name)
+            if source.city:
+                parts.append(source.city.city_name)
+            if source.state:
+                parts.append(source.state.state_name)
+            if source.postal_code:
+                parts.append(source.postal_code)
+            if source.country:
+                parts.append(source.country.country_name)
             record.address = ', '.join(parts)
 
     # Override _rec_names_search to include customer contact name
@@ -1671,9 +1686,15 @@ class sales_order(models.Model):
     def _prepare_custom_invoice_vals(self, invoice_type, percentage=0.0, fixed_amount=0.0):
         self.ensure_one()
 
-        # Use Bill To address if available, otherwise use customer address
-        if self.customer_id.bill_to_ids:
+        # Use selected Bill To address if available, otherwise use customer address
+        if self.bill_to_id:
+            bill = self.bill_to_id
+        elif self.customer_id.bill_to_ids:
             bill = self.customer_id.bill_to_ids[0]
+        else:
+            bill = None
+
+        if bill:
             parts = []
             if bill.address:
                 parts.append(bill.address)
@@ -1694,6 +1715,7 @@ class sales_order(models.Model):
         invoice_vals = {
             'sales_order_id': self.id,
             'customer_id': self.customer_id.id,
+            'bill_to_id': self.bill_to_id.id if self.bill_to_id else False,
             'customer_address': customer_address,
             'delivery_date': self.commitment_date,
             'invoice_date': fields.Date.today(),
@@ -1751,6 +1773,21 @@ class sales_order(models.Model):
             self.payment_terms = self.customer_id.payment_terms
         else:
             self.payment_terms = False
+
+    @api.onchange('customer_id')
+    def _onchange_customer_id_sold_to(self):
+        if self.customer_id and self.customer_id.sold_to_ids:
+            self.sold_to_id = self.customer_id.sold_to_ids[0]
+        else:
+            self.sold_to_id = False
+        if self.customer_id and self.customer_id.ship_to_ids:
+            self.ship_to_id = self.customer_id.ship_to_ids[0]
+        else:
+            self.ship_to_id = False
+        if self.customer_id and self.customer_id.bill_to_ids:
+            self.bill_to_id = self.customer_id.bill_to_ids[0]
+        else:
+            self.bill_to_id = False
 
     @api.model
     def default_get(self, fields_list):
@@ -2737,6 +2774,9 @@ class sales_invoice(models.Model):
         comodel_name='sales.sales_order', string='Sales Order', ondelete='restrict', index=True, required=True)
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='restrict', index=True, required=True)
+    bill_to_id = fields.Many2one(
+        comodel_name='sales.bill_to', string='Bill To', ondelete='set null', index=True,
+        domain="[('customer_id', '=', customer_id)]")
     customer_address = fields.Text(string="Customer Address")
     document_type = fields.Selection([
         ('invoice', 'Invoice'),

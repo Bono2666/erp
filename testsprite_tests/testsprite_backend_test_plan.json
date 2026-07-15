@@ -1,7 +1,27 @@
 [
   {
     "id": "TC001",
-    "title": "test_navigationmixin_form_edit_save_pattern",
-    "description": "Verify the NavigationMixin form edit/save pattern including readonly injection on form fields, explicit Edit, Save, Cancel, Back, and Delete actions, and correct user permission enforcement on master-data forms."
+    "title": "soldtoshiptobillto_tree_view_toggle_functionality",
+    "description": "Verify that the Tree/Kanban view toggle buttons on Customer form tabs for Sold To, Ship To, and Bill To addresses correctly switch views and display the appropriate address records in each layout."
+  },
+  {
+    "id": "TC002",
+    "title": "shiptobillto_selection_on_sales_order_autoselection",
+    "description": "Test that the ship_to_id and bill_to_id fields on Sales Order and Quotation forms are automatically populated from the customer's stored addresses when available, and that orders can be saved successfully with these selections."
+  },
+  {
+    "id": "TC003",
+    "title": "shiptobillto_selection_on_sales_order_manual_selection_and_validation",
+    "description": "Validate that when no matching Ship To or Bill To addresses exist for a customer, the sales order form shows empty fields, allows manual selection of valid addresses, and rejects invalid Ship To or Bill To references with appropriate validation errors."
+  },
+  {
+    "id": "TC004",
+    "title": "billto_selection_on_invoice_address_resolution",
+    "description": "Ensure that the bill_to_id field on Invoice forms is correctly populated from the linked sales order or customer context, and that the resolved billing address is displayed accurately for invoice posting."
+  },
+  {
+    "id": "TC005",
+    "title": "billto_selection_on_invoice_creation_and_validation",
+    "description": "Verify that creating an invoice with a valid bill_to_id resolves the billing address correctly and allows invoice creation and posting, while attempts to create or update invoices with invalid bill_to_id values are rejected with validation errors."
   }
 ]

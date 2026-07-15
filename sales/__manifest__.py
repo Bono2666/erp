@@ -41,6 +41,8 @@ From quotations to invoices
     'assets': {
         'web.assets_backend': [
             'sales/static/src/css/customer_kanban.css',
+            'sales/static/src/css/address_view_toggle.css',
+            'sales/static/src/js/address_view_toggle.js',
         ],
     },
 }
