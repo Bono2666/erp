@@ -1032,6 +1032,8 @@ class IrUiMenu(models.Model):
     """
     _inherit = 'ir.ui.menu'
 
+    HIDDEN_MENU_XML_IDS = ['account.menu_finance', 'base.menu_management']
+
     restrict_user_ids = fields.Many2many(
         'res.users', string="Restricted Users",
         help='Users restricted from accessing this menu.')
@@ -1044,6 +1046,19 @@ class IrUiMenu(models.Model):
         """
 
         menus = super(IrUiMenu, self)._filter_visible_menus()
+
+        # Hide Dashboards app menu for all users
+        menus = menus.filtered(lambda m: m.name != 'Dashboards')
+
+        # Hide menus by XML ID (safe if module not installed)
+        hidden_ids = set()
+        for xml_id in self.HIDDEN_MENU_XML_IDS:
+            try:
+                hidden_ids.add(self.env.ref(xml_id).id)
+            except ValueError:
+                pass
+        if hidden_ids:
+            menus = menus.filtered(lambda m: m.id not in hidden_ids)
 
         # Allow system admin to see everything
         if self.env.user.has_group('base.group_system'):

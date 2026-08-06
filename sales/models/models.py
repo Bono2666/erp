@@ -820,6 +820,11 @@ class product_category(models.Model):
     _menu_code = 'product_category'
 
     category_name = fields.Char(string="Category Name")
+    product_type = fields.Many2one(
+        comodel_name='sales.product_type', string='Product Type', required=True)
+    parent_category_id = fields.Many2one(
+        comodel_name='sales.product_category', string='Product Category Parent')
+    description = fields.Text(string='Description')
     is_edit = fields.Boolean(default=False)
 
     def unlink(self):
@@ -888,6 +893,9 @@ class products(models.Model):
     customer_tax = fields.Many2one(
         comodel_name='sales.taxes', string='Customer Tax', default=lambda self: self.env['sales.taxes'].search([('default_tax', '=', True)], limit=1))
     stock = fields.Integer(string='Stock', default=0)
+    cogs = fields.Float(string="COGS", digits=(16, 0))
+    bom_ids = fields.One2many('sales.bom', 'product_id', string="Bill of Materials")
+    bom_based_cogs = fields.Float(string="COGS (BOM-based)", compute='_compute_bom_based_cogs')
     sales_order_line_ids = fields.One2many(
         'sales.sales_order_line', 'product_id', string='Sales Order Lines')
     qty_reserved_sale = fields.Integer(
@@ -939,6 +947,77 @@ class products(models.Model):
             return self.env.ref('sales.products_action').sudo().read()[0]
         except Exception:
             return super(products, self).action_back_kanban()
+
+    def _get_effective_cost(self, visited=None):
+        if visited is None:
+            visited = set()
+        if self.id in visited:
+            return self.cogs or 0.0
+        visited.add(self.id)
+        boms = self.env['sales.bom'].search(
+            [('product_id', '=', self.id)])
+        if not boms:
+            return self.cogs or 0.0
+        total = 0.0
+        for bom in boms:
+            total += bom.overhead_cost or 0.0
+            for line in bom.line_ids:
+                total += line.quantity * line.component_id._get_effective_cost(visited)
+        return total
+
+    @api.depends('cogs', 'bom_ids.line_ids.quantity',
+                 'bom_ids.line_ids.component_id.cogs',
+                 'bom_ids.overhead_cost',
+                 'bom_ids.line_ids.component_id.bom_based_cogs')
+    def _compute_bom_based_cogs(self):
+        for product in self:
+            product.bom_based_cogs = product._get_effective_cost()
+
+
+class bom(models.Model):
+    _name = 'sales.bom'
+    _description = 'Bill of Materials'
+    _rec_name = 'name'
+
+    name = fields.Char(string="Name", default="BOM")
+    product_id = fields.Many2one(
+        'sales.products', string="Product", ondelete='cascade', required=True)
+    overhead_cost = fields.Float(string="Overhead Cost", digits=(16, 0))
+    line_ids = fields.One2many('sales.bom_line', 'bom_id', string="Components")
+    total_bom_cost = fields.Float(
+        string="Total BOM Cost", compute='_compute_total_bom_cost')
+    is_edit = fields.Boolean(default=False)
+
+    @api.depends('line_ids.quantity', 'line_ids.component_cost', 'overhead_cost')
+    def _compute_total_bom_cost(self):
+        for bom in self:
+            bom.total_bom_cost = sum(
+                line.subtotal for line in bom.line_ids) + (bom.overhead_cost or 0.0)
+
+
+class bom_line(models.Model):
+    _name = 'sales.bom_line'
+    _description = 'Bill of Materials Line'
+
+    bom_id = fields.Many2one('sales.bom', string="BOM", ondelete='cascade')
+    component_id = fields.Many2one(
+        'sales.products', string="Component", required=True)
+    quantity = fields.Float(string="Qty", default=1)
+    component_cost = fields.Float(
+        string="Unit Cost", compute='_compute_component_cost', store=True)
+    subtotal = fields.Float(
+        string="Subtotal", compute='_compute_subtotal', store=True)
+
+    @api.depends('component_id.cogs', 'component_id.bom_based_cogs',
+                 'component_id.bom_ids')
+    def _compute_component_cost(self):
+        for line in self:
+            line.component_cost = line.component_id._get_effective_cost()
+
+    @api.depends('component_cost', 'quantity')
+    def _compute_subtotal(self):
+        for line in self:
+            line.subtotal = line.component_cost * line.quantity
 
 
 class price_condition(models.Model):
