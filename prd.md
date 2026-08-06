@@ -1,6 +1,6 @@
 # ERP KSI — Product Requirements Document
 
-> **Last updated:** 2026-07-12
+> **Last updated:** 2026-08-06
 > **Stack:** Odoo 17 (Python) + OWL Framework (JavaScript) + PostgreSQL
 
 ---
@@ -380,15 +380,42 @@ Customers auto-create linked `res.partner` records. Price conditions auto-sync b
 
 ### 6.2 Product Master Data
 
-| Model                    | Description        | Key Fields                                                                                                                                                                |
-| ------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sales.product_type`     | Product Types      | `name`                                                                                                                                                                    |
-| `sales.product_category` | Product Categories | `category_name`                                                                                                                                                           |
-| `sales.product_unit`     | Units of Measure   | `uom`, `qty`, `base_uom`, `base_qty`                                                                                                                                      |
-| `sales.products`         | Products           | `product_id`, `product_name`, barcode, type/category/unit, `base_price`, `price`, `customer_tax` (→ taxes), `stock`, `qty_reserved_sale` (computed from open SO), `image` |
-| `sales.taxes`            | Taxes              | `name`, `tax_percentage`, `default_tax` (only one)                                                                                                                        |
+| Model                    | Description        | Key Fields                                                                                                                                                                                                                                                                      |
+| ------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sales.product_type`     | Product Types      | `name`                                                                                                                                                                                                                                                                          |
+| `sales.product_category` | Product Categories | `category_name`, `product_type` (→ product_type, required), `parent_category_id` (self-referencing hierarchy), `description`                                                                                                                                                    |
+| `sales.product_unit`     | Units of Measure   | `uom`, `qty`, `base_uom`, `base_qty`                                                                                                                                                                                                                                            |
+| `sales.products`         | Products           | `product_id`, `product_name`, barcode, type/category/unit, `base_price`, `price`, `customer_tax` (→ taxes), `stock`, `cogs` (manual COGS), `bom_ids` (→ BOM lines), `bom_based_cogs` (computed effective cost), `qty_reserved_sale` (computed from open SO), `image`, `currency_id` (default IDR) |
+| `sales.taxes`            | Taxes              | `name`, `tax_percentage`, `default_tax` (only one)                                                                                                                                                                                                                              |
 
 **Stock booking:** Products track `qty_reserved_sale` — quantity booked on open (non-cancelled) sales orders. This is used for Indent detection.
+
+**Product Category hierarchy:** Categories support a parent-child hierarchy via `parent_category_id`. Each category must have a `product_type` assigned. A category cannot be deleted if products are still assigned to it.
+
+#### 6.2.1 COGS & Bill of Materials (BOM)
+
+**Models:**
+
+| Model              | Description                      | Key Fields                                                                                                         |
+| ------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `sales.bom`        | Bill of Materials header         | `name`, `product_id` (→ product, required), `overhead_cost`, `line_ids` (→ BOM lines), `total_bom_cost` (computed) |
+| `sales.bom_line`   | BOM component line               | `bom_id` (→ BOM, cascade), `component_id` (→ product, required), `quantity`, `component_cost` (computed), `subtotal` (computed) |
+
+**Effective Cost Computation (`_get_effective_cost`):**
+
+The effective cost of a product is determined by a recursive algorithm with cycle detection:
+
+1. If the product has BOMs → effective cost = sum of all BOM lines' subtotals + overhead costs
+2. If the product has no BOMs → effective cost = manual `cogs` value
+3. Each BOM line's component cost is resolved by calling `_get_effective_cost()` on the component product
+4. A `visited` set prevents infinite recursion from circular BOM references
+
+**BOM Line Computation:**
+
+- `component_cost` = `_get_effective_cost()` of the component product (depends on component's cogs, bom_based_cogs, bom_ids)
+- `subtotal` = `component_cost × quantity`
+
+**`bom_based_cogs`** is a computed field on `sales.products` that stores the resolved effective cost for display and reporting.
 
 ### 6.3 Price Conditions
 
@@ -496,6 +523,8 @@ Payment wizard pre-fills amount due and validates against remaining balance.
 
 Tracks physical delivery of goods against sales order lines. Captures ordered quantity vs. delivered quantity.
 
+**RBAC:** The "Delivery Orders" menu is registered in `general.menu` (`delivery_menu`, `menu_id=delivery`, `parent_menu=orders`). Users without `general.auth` for this menu will not see it in the navigation.
+
 ### 6.9 Email Integration
 
 | Template                                | Purpose                                     |
@@ -505,6 +534,8 @@ Tracks physical delivery of goods against sales order lines. Captures ordered qu
 | `email_template_sales_invoice`          | Send invoice by email (with PDF attachment) |
 
 Uses `sales.customer` → `partner_id` for recipient resolution. Pre-fills customers in mail compose wizard.
+
+**Mail Compose Message extension:** Inherits `mail.compose.message` to add a `customer_ids` field (Many2many → `sales.customer`). On change, selected customers are synced to `partner_ids` for email delivery. After sending, optionally redirects to a tree view via `redirect_to_tree` context key.
 
 ### 6.10 Terms & Conditions
 
@@ -678,10 +709,12 @@ sales
 ├── sales.customer → category, type, area, salesperson (hcm.employee), payment_terms
 ├── sales.ship_to → customer
 ├── sales.product_type
-├── sales.product_category
+├── sales.product_category → product_type, parent_category_id (self-ref)
 ├── sales.product_unit
-├── sales.products → type, category, unit, customer_tax
+├── sales.products → type, category, unit, customer_tax, currency_id
 ├── sales.taxes
+├── sales.bom → product (cascade)
+├── sales.bom_line → bom (cascade), component (product)
 ├── sales.price_condition (m2m with customer/product)
 ├── sales.account_type
 ├── sales.payment_terms → account_type
@@ -723,3 +756,4 @@ sales
 | `sales/data/mail_template_*.xml`                       | Email templates                                                                         |
 | `disable_autosave/static/src/js/disable_autosave.js`   | Cancel button handler                                                                   |
 | `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling                                                                   |
+| `tests/e2e/`                                           | End-to-end test suite (Playwright)                                                      |

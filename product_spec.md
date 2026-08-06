@@ -1,7 +1,7 @@
 # ERP KSI — Product Specification Document
 
 > **Versi:** 1.2  
-> **Terakhir diperbarui:** 2026-07-15  
+> **Terakhir diperbarui:** 2026-08-06  
 > **Stack:** Odoo 17 (Python/OWL) + PostgreSQL  
 > **Target:** Developer
 
@@ -600,7 +600,7 @@ _escapeHtml(str) {
 
 #### 2.4.2 Product Master Data
 
-**Model: `sales.products`** (`sales/models/models.py:686-767`)
+**Model: `sales.products`** (`sales/models/models.py:868-976`)
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
@@ -618,6 +618,9 @@ _escapeHtml(str) {
 | `tax_string` | Char | Computed: `"(= X Incl. Taxes)"` |
 | `customer_tax` | Many2one → `sales.taxes` | Default: first default_tax |
 | `stock` | Integer | Default 0 |
+| `cogs` | Float | digits=(16,0). Manual Cost of Goods Sold |
+| `bom_ids` | One2many → `sales.bom` | Bill of Materials for this product |
+| `bom_based_cogs` | Float | **Computed**: effective cost (BOM-resolved) |
 | `sales_order_line_ids` | One2many → `sales.sales_order_line` | |
 | `qty_reserved_sale` | Integer | **Computed+stored**: stock booked on open SOs |
 | `image` | Binary | |
@@ -633,15 +636,87 @@ RESERVED_SO_STATES = ('draft', 'sale_draft', 'wait_approval', 'approved', 'sent'
 |-------|-------|--------|
 | `tax_string` | `"(= {price} Incl. Taxes)"` | Line 739 |
 | `qty_reserved_sale` | Sum qty dari SO lines di RESERVED_SO_STATES | Line 751 |
+| `bom_based_cogs` | `_get_effective_cost()` — recursive BOM resolution | Line 972 |
+
+**Effective Cost Algorithm (`_get_effective_cost`, line 951-976):**
+
+```python
+def _get_effective_cost(self, visited=None):
+    if visited is None:
+        visited = set()
+    if self.id in visited:
+        return self.cogs or 0.0
+    visited.add(self.id)
+
+    if self.bom_ids:
+        total = 0.0
+        for bom in self.bom_ids:
+            total += bom.overhead_cost or 0.0
+            for line in bom.line_ids:
+                total += line.quantity * line.component_id._get_effective_cost(visited)
+        return total
+    return self.cogs or 0.0
+```
+
+1. Jika produk punya BOM → effective cost = total semua BOM line subtotals + overhead costs
+2. Jika tidak punya BOM → effective cost = manual `cogs`
+3. Setiap BOM line cost di-resolve secara rekursif
+4. `visited` set mencegah infinite recursion dari circular BOM references
 
 **Supporting Models:**
 
 | Model | Fields |
 |-------|--------|
 | `sales.product_type` | `name` |
-| `sales.product_category` | `category_name`. **Blocked deletion** jika ada product reference |
+| `sales.product_category` | `category_name`, `product_type` (→ product_type, required), `parent_category_id` (self-referencing hierarchy), `description` (Text). **Blocked deletion** jika ada product reference |
 | `sales.product_unit` | `uom`, `qty`, `base_uom`, `base_qty` |
 | `sales.taxes` | `name`, `tax_percentage`, `default_tax` (singleton — hanya satu yang True) |
+
+**Product Category Behavior:**
+- `unlink()` (line 830): Cek jumlah products yang reference category. Jika > 0 → raise UserError, mencegah penghapusan.
+
+#### 2.4.2.1 Bill of Materials (BOM)
+
+**Model: `sales.bom`** (`sales/models/models.py:978-996`)
+
+| Field | Tipe | Keterangan |
+|-------|------|------------|
+| `name` | Char | Default "BOM" |
+| `product_id` | Many2one → `sales.products` | ondelete=cascade, required |
+| `overhead_cost` | Float | digits=(16,0) |
+| `line_ids` | One2many → `sales.bom_line` | Component lines |
+| `total_bom_cost` | Float | **Computed**: sum(line.subtotal) + overhead_cost |
+
+**Computed:**
+```python
+@api.depends('line_ids.quantity', 'line_ids.component_cost', 'overhead_cost')
+def _compute_total_bom_cost(self):
+    for bom in self:
+        bom.total_bom_cost = sum(line.subtotal for line in bom.line_ids) + (bom.overhead_cost or 0.0)
+```
+
+**Model: `sales.bom_line`** (`sales/models/models.py:998-1020`)
+
+| Field | Tipe | Keterangan |
+|-------|------|------------|
+| `bom_id` | Many2one → `sales.bom` | ondelete=cascade |
+| `component_id` | Many2one → `sales.products` | Required |
+| `quantity` | Float | Default 1 |
+| `component_cost` | Float | **Computed+stored**: `_get_effective_cost()` dari component |
+| `subtotal` | Float | **Computed+stored**: component_cost × quantity |
+
+**Computed:**
+```python
+@api.depends('component_id.cogs', 'component_id.bom_based_cogs', 'component_id.bom_ids')
+def _compute_component_cost(self):
+    for line in self:
+        line.component_cost = line.component_id._get_effective_cost()
+
+@api.depends('component_cost', 'quantity')
+def _compute_subtotal(self):
+    for line in self:
+        line.subtotal = line.component_cost * line.quantity
+```
 
 #### 2.4.3 Price Conditions
 
@@ -902,6 +977,8 @@ Default content di-load ke `note` field di sales order baru via `default_get()`.
     └──────────┘
 ```
 
+**Menu RBAC:** The "Delivery Orders" menu is registered in `general.menu` (`delivery_menu`, `menu_id=delivery`, `parent_menu=orders`). Users without `general.auth` for this menu will not see it.
+
 ### 3.6 Credit Note Flow
 
 ```
@@ -1006,10 +1083,12 @@ Default content di-load ke `note` field di sales order baru via `default_get()`.
 | `sales.sold_to` | `sales_sold_to` | `sold_id`, `sold_name`, `customer_id`, address hierarchy |
 | `sales.bill_to` | `sales_bill_to` | `bill_id`, `bill_name`, `customer_id`, address hierarchy |
 | `sales.product_type` | `sales_product_type` | `name` |
-| `sales.product_category` | `sales_product_category` | `category_name` |
+| `sales.product_category` | `sales_product_category` | `category_name`, `product_type`, `parent_category_id`, `description` |
 | `sales.product_unit` | `sales_product_unit` | `uom`, `qty`, `base_uom`, `base_qty` |
-| `sales.products` | `sales_products` | `product_id`, `product_name`, `product_category`, `base_price`, `price`, `customer_tax`, `stock`, `qty_reserved_sale` |
+| `sales.products` | `sales_products` | `product_id`, `product_name`, `product_category`, `base_price`, `price`, `customer_tax`, `stock`, `cogs`, `bom_ids`, `bom_based_cogs`, `qty_reserved_sale` |
 | `sales.taxes` | `sales_taxes` | `name`, `tax_percentage`, `default_tax` |
+| `sales.bom` | `sales_bom` | `name`, `product_id`, `overhead_cost`, `line_ids`, `total_bom_cost` |
+| `sales.bom_line` | `sales_bom_line` | `bom_id`, `component_id`, `quantity`, `component_cost`, `subtotal` |
 | `sales.price_condition` | `sales_price_condition` | `price_name`, `date_start/end`, `compute_price`, `fixed_price`, `percent_price`, `applied_on`, `customer_applied_on` |
 | `sales.price_condition_product` | `sales_price_condition_product` | `price_id`, `product_id` |
 | `sales.price_condition_customer` | `sales_price_condition_customer` | `price_id`, `customer_id` |
@@ -1028,6 +1107,8 @@ Default content di-load ke `note` field di sales order baru via `default_get()`.
 | `sales.payment.journal.item` | `sales_payment_journal_item` | `payment_id`, `line_type`, `account_code`, `debit`, `credit` |
 | `sales.delivery` | `sales_delivery` | `delivery_number`, `sales_order_id`, `customer_id`, `delivery_date`, `state`, `line_ids` |
 | `sales.delivery.line` | `sales_delivery_line` | `delivery_id`, `sales_order_line_id`, `product_id`, `ordered_qty`, `quantity` |
+
+**Menu RBAC Data:** The Delivery Orders menu is registered as `general.menu` data record (XML ID: `delivery_menu`, `menu_id=delivery`, `parent_menu=orders`) in `sales/data/menu.xml`. This ensures the RBAC system can restrict it for unauthorized users.
 
 ### 4.4 Relationship Map
 
@@ -1062,7 +1143,9 @@ sales
 │   ├── sales.ship_to → customer (cascade)
 │   ├── sales.sold_to → customer (cascade)
 │   └── sales.bill_to → customer (cascade)
-├── sales.products → type, category, unit, customer_tax
+├── sales.products → type, category, unit, customer_tax, currency_id
+├── sales.bom → product (cascade)
+│   └── sales.bom_line → bom (cascade), component (product)
 ├── sales.price_condition → product_category (m2m), product (o2m), cust_category (m2m), customer (o2m)
 ├── sales.payment_terms → account_type (m2m)
 │   └── sales.payment_terms_detail → payment_terms
@@ -1560,15 +1643,15 @@ Semua Many2one fields di form views di-inject dengan `no_open=True` dan `no_crea
 
 ### 8.2 Mail Compose Message Extension
 
-**Model:** `mail.compose.message` (inherited) — `sales/models/models.py:280-309`
+**Model:** `mail.compose.message` (inherited) — `sales/models/models.py:319-348`
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
 | `customer_ids` | Many2many → `sales.customer` | Custom field |
 
 **Behavior:**
-- `_onchange_customer_ids()` (line 291): Sync `customer_ids` ke `partner_ids` untuk email
-- `send_mail()` (line 299): Setelah kirim, redirect ke tree action jika `redirect_to_tree` di context
+- `_onchange_customer_ids()` (line 330): Sync `customer_ids` ke `partner_ids` untuk email
+- `send_mail()` (line 338): Setelah kirim, redirect ke tree action jika `redirect_to_tree` di context
 
 ### 8.3 Integration Points
 
@@ -1624,7 +1707,7 @@ SO di-submit untuk approval
 | `disable_autosave/static/src/js/disable_autosave.js` | Cancel button handler, auto-save patch |
 | `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling |
 | `general/__manifest__.py` | Module manifest |
-| `general/models/models.py` | NavigationMixin, all master data, RBAC (1053 lines) |
+| `general/models/models.py` | NavigationMixin, all master data, RBAC (~1053 lines) |
 | `general/views/views.xml` | Form/tree views |
 | `general/data/menu.xml` | Menu structure |
 | `general/data/home.xml` | Home dashboard view |
@@ -1641,7 +1724,7 @@ SO di-submit untuk approval
 | `hcm/data/menu.xml` | HCM menu structure |
 | `hcm/security/ir.model.access.csv` | HCM access control |
 | `sales/__manifest__.py` | Module manifest |
-| `sales/models/models.py` | All sales models (3685 lines) |
+| `sales/models/models.py` | All sales models (~4000 lines) |
 | `sales/views/views.xml` | Form/tree views |
 | `sales/views/templates.xml` | Sales templates |
 | `sales/data/menu.xml` | Sales menu structure |
@@ -1656,6 +1739,7 @@ SO di-submit untuk approval
 | `sales/static/src/js/address_view_toggle.js` | Tree/Kanban toggle for Sold To, Ship To, Bill To |
 | `sales/static/src/css/address_view_toggle.css` | Toggle button styling |
 | `sales/static/src/css/customer_kanban.css` | Customer kanban image styling |
+| `tests/e2e/` | End-to-end test suite (Playwright) |
 | `user_management/__manifest__.py` | Module manifest |
 | `user_management/views/views.xml` | User management UI |
 

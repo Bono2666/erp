@@ -101,6 +101,11 @@
                 <field name="menu_name">Sales Orders</field>
                 <field name="parent_menu">orders</field>
             </record>
+            <record id="delivery_menu" model="general.menu">
+                <field name="menu_id">delivery</field>
+                <field name="menu_name">Delivery Orders</field>
+                <field name="parent_menu">orders</field>
+            </record>
             <record id="sales_quotation_menu" model="general.menu">
                 <field name="menu_id">quotation</field>
                 <field name="menu_name">Quotations</field>
