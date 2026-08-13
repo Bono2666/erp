@@ -1,0 +1,15 @@
+.git
+.gitignore
+.DS_Store
+__pycache__
+*.py[cod]
+*.pyo
+*.log
+.pytest_cache
+.mypy_cache
+.ruff_cache
+node_modules
+testsprite_tests
+tests_e2e
+*.md
+docker-data
