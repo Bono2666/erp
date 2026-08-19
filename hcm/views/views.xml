@@ -185,7 +185,7 @@
         <sheet>
           <div class="d-flex justify-content-between align-items-start">
             <div class="oe_title">
-              <field name="employee_id"/>
+              <field name="employee_id" readonly="not is_edit and id" placeholder="e.g. EMP-001"/>
               <h1>
                 <div class="d-flex">
                   <field class="text-break" name="name" placeholder="e.g. John Doe"/>

@@ -108,6 +108,7 @@ def test_sales_customer_master_data_crud_and_partner_sync():
         # Step 4: Create customer with automatic partner creation and address hierarchy support
         # To support address hierarchy, normally would reference country, state, etc., but this test focuses on sales.* endpoints and automatic partner creation
         customer_vals = {
+            "customer_id": f"CUS-{uuid.uuid4().hex[:8].upper()}",
             "name": f"Customer_{uuid.uuid4().hex[:8]}",
             "cust_category_id": cust_category_id,
             "cust_type_id": cust_type_id,

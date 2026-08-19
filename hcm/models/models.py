@@ -64,8 +64,7 @@ class HcmEmployee(models.Model):
     # ============================================================
 
     employee_id = fields.Char(
-        string="Employee ID", readonly=True, copy=False,
-        default=lambda self: _('New'))
+        string="Employee ID", required=True, copy=False)
     name = fields.Char(string="Name", required=True)
     nik = fields.Char(string="NIK", required=True)
     phone = fields.Char(string="Phone")
@@ -203,6 +202,8 @@ class HcmEmployee(models.Model):
     _sql_constraints = [
         ('nik_unique', 'unique(nik)',
          'NIK must be unique! An employee with this NIK already exists.'),
+        ('employee_id_unique', 'unique(employee_id)',
+         'Employee ID must be unique! An employee with this ID already exists.'),
     ]
 
     @api.depends('position_id')
@@ -309,13 +310,6 @@ class HcmEmployee(models.Model):
             division = self.department_id.division_id
             if division:
                 self.division_ref = division
-
-    @api.model
-    def create(self, vals):
-        if vals.get('employee_id', _('New')) == _('New'):
-            vals['employee_id'] = self.env['ir.sequence'].next_by_code(
-                'hcm.employee.sequence') or _('New')
-        return super().create(vals)
 
     def action_back(self):
         self.ensure_one()

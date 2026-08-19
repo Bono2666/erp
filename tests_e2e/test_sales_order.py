@@ -27,6 +27,7 @@ def _create_test_product(session):
     name = f"{PREFIX}-Prod-{unique_suffix()}"
     category_ids = call_kw(session, "sales.product_category", "search", args=[[]])
     product_id = call_kw(session, "sales.products", "create", args=[{
+        "product_id": f"{PREFIX}-{unique_suffix()}",
         "product_name": name,
         "product_category": category_ids[0] if category_ids else False,
         "base_price": 50000,

@@ -109,6 +109,7 @@ def run_test():
     # ============================================================
     print("\n--- TEST 5: Create Customer with new fields ---")
     customer_vals = {
+        "customer_id": f"CUS-{uuid.uuid4().hex[:8].upper()}",
         "customer_name": f"Test Customer {uuid.uuid4().hex[:6]}",
         "email": f"test_{uuid.uuid4().hex[:6]}@example.com",
         "cust_category": cat_id,

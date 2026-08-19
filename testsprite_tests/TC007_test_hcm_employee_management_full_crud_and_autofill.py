@@ -1,4 +1,5 @@
 import requests
+import uuid
 
 BASE_URL = "http://localhost:8018"
 TIMEOUT = 30
@@ -91,6 +92,7 @@ def test_hcm_employee_management_full_crud_and_autofill():
 
         # Step 4: Create Employee with address/org hierarchy and test onchange autofill
         employee_vals = {
+            "employee_id": f"EMP-{uuid.uuid4().hex[:8].upper()}",
             "name": "Test Employee TC007",
             "position_id": position_id,
             "department_id": department_id,

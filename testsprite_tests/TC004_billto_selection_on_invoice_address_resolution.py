@@ -1,4 +1,5 @@
 import requests
+import uuid
 
 BASE_URL = "http://localhost:8018"
 TIMEOUT = 30
@@ -65,6 +66,7 @@ def test_billto_selection_on_invoice_address_resolution():
     try:
         # Step 1: Create a Customer (sales.customer) with required fields
         customer_vals = {
+            "customer_id": f"CUS-{uuid.uuid4().hex[:8].upper()}",
             "customer_name": "Test Customer for TC004",
             "cust_category": 1,
             "email": "tc004_test@example.com",

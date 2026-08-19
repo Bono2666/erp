@@ -54,6 +54,9 @@ def test_product_cogs_and_bom(logged_in_page):
     page.locator('div[name="product_name"] textarea, div[name="product_name"] input').first.fill(prod_name)
     page.wait_for_timeout(500)
 
+    page.locator('div[name="product_id"] input').first.fill(f"{PREFIX}-{suffix}")
+    page.wait_for_timeout(500)
+
     page.locator('div[name="product_category"] input').first.click()
     page.wait_for_timeout(500)
     page.locator('.o-autocomplete--dropdown-item, .o-dropdown-item').first.click()

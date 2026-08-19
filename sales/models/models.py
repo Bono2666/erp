@@ -355,7 +355,7 @@ class customer(models.Model):
     _rec_name = 'customer_name'
     _menu_code = 'customers'
 
-    customer_id = fields.Char(string="Customer ID", readonly=True)
+    customer_id = fields.Char(string="Customer ID", required=True)
     customer_name = fields.Char(string="Customer Name")
     address = fields.Text(string="Address")
     country = fields.Many2one(
@@ -404,6 +404,11 @@ class customer(models.Model):
     avatar_128 = fields.Binary(
         string="Avatar 128", related='partner_id.avatar_128')
     tags = fields.Char(string="Tags")
+
+    _sql_constraints = [
+        ('customer_id_unique', 'unique(customer_id)',
+         'Customer ID must be unique! A customer with this ID already exists.'),
+    ]
     pkp = fields.Boolean(string="PKP", default=False)
 
     # ============================================================
@@ -446,10 +451,6 @@ class customer(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if not vals.get('customer_id'):
-                vals['customer_id'] = self.env['ir.sequence'].next_by_code(
-                    'sales.customer') or '/'
-
             # --- CREATE PARTNER ---
             partner_vals = {
                 'name': vals.get('customer_name'),
@@ -870,7 +871,7 @@ class products(models.Model):
     _rec_name = 'product_name'
     _menu_code = 'products'
 
-    product_id = fields.Char(string="Product ID")
+    product_id = fields.Char(string="Product ID", required=True)
     product_name = fields.Char(string="Product Name")
     sales_ok = fields.Boolean(string="Sales", default=True)
     purchase_ok = fields.Boolean(string="Purchase", default=True)
@@ -905,18 +906,10 @@ class products(models.Model):
     image = fields.Binary(string="Image")
     is_edit = fields.Boolean(default=False)
 
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('product_id'):
-                    v['product_id'] = self.env['ir.sequence'].next_by_code(
-                        'sales.products') or '/'
-            return super(products, self).create(vals)
-        if not vals.get('product_id'):
-            vals['product_id'] = self.env['ir.sequence'].next_by_code(
-                'sales.products') or '/'
-        return super(products, self).create(vals)
+    _sql_constraints = [
+        ('product_id_unique', 'unique(product_id)',
+         'Product ID must be unique! A product with this ID already exists.'),
+    ]
 
     @api.depends('customer_tax', 'base_price')
     def _compute_tax_string(self):
@@ -1028,6 +1021,7 @@ class price_condition(models.Model):
     _menu_code = 'price_condition'
     _order = 'customer_priority asc, product_priority asc, id desc'
 
+    price_condition_id = fields.Char(string="Price Condition ID", required=True)
     price_name = fields.Char(string="Price Name")
     date_start = fields.Datetime(string="Validity")
     date_end = fields.Datetime(string="Expiry Date")
@@ -1063,6 +1057,11 @@ class price_condition(models.Model):
     customer_ids = fields.One2many(
         'sales.price_condition_customer', 'price_id', string="Customers")
     is_edit = fields.Boolean(default=False)
+
+    _sql_constraints = [
+        ('price_condition_id_unique', 'unique(price_condition_id)',
+         'Price Condition ID must be unique! A condition with this ID already exists.'),
+    ]
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -98,6 +98,7 @@ def test_sales_order_workflow_approval_and_discount():
                 return prods[0]["id"], prods[0]["name"]
             else:
                 prod_vals = {
+                    "product_id": f"PROD-{int(time.time())}",
                     "name": "Test Product for SO",
                     "type": "product",
                     "list_price": 100.0,

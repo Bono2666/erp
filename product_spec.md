@@ -407,7 +407,7 @@ ResUsers._refresh_custom_menu_access() (line 935-1018)
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
-| `employee_id` | Char | Auto-generated, readonly |
+| `employee_id` | Char | **Required, manual input** (e.g. `EMP-001`), unique (SQL constraint `employee_id_unique`), readonly saat edit |
 | `name` | Char | Required |
 | `nik` | Char | Required, unique (SQL constraint) |
 | `phone` | Char | |
@@ -522,11 +522,11 @@ _escapeHtml(str) {
 
 #### 2.4.1 Customer Master Data
 
-**Model: `sales.customer`** (`sales/models/models.py:312-543`)
+**Model: `sales.customer`** (`sales/models/models.py:351-591`)
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
-| `customer_id` | Char | Auto-generated, readonly |
+| `customer_id` | Char | **Required, manual input** (e.g. `CUS-001`), unique (SQL constraint `customer_id_unique`), readonly saat edit |
 | `customer_name` | Char | |
 | `address` | Text | |
 | `country` → `district` | Many2one chain | Address hierarchy (4 level, tanpa village) |
@@ -550,11 +550,11 @@ _escapeHtml(str) {
 | `avatar_128` | Binary | Related |
 
 **Behavior:**
-- `create()` (line 400): Generate sequence, **create `res.partner`** (name, email, phone, street, city, country, state, user_id, vat, image)
-- `write()` (line 444): Sync ke `res.partner`. Jika `cust_category` berubah → trigger `_resync_price_conditions()`
-- `unlink()` (line 507): Cascade delete `res.partner`
+- `create()` (line 452): **create `res.partner`** (name, email, phone, street, city, country, state, user_id, vat, image). `customer_id` diisi manual oleh user (tidak ada auto-generation sequence)
+- `write()` (line 492): Sync ke `res.partner`. Jika `cust_category` berubah → trigger `_resync_price_conditions()`
+- `unlink()` (line 555): Cascade delete `res.partner`
 
-**Price Condition Sync** (`_resync_price_conditions`, line 521):
+**Price Condition Sync** (`_resync_price_conditions`, line 569):
 1. Hapus semua M2M link via raw SQL
 2. Query `sales.price_condition` yang applicable (valid dates + customer scope match)
 3. Tambahkan condition ke M2M link
@@ -600,11 +600,11 @@ _escapeHtml(str) {
 
 #### 2.4.2 Product Master Data
 
-**Model: `sales.products`** (`sales/models/models.py:868-976`)
+**Model: `sales.products`** (`sales/models/models.py:867-970`)
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
-| `product_id` | Char | Auto-generated |
+| `product_id` | Char | **Required, manual input** (e.g. `3422010503`), unique (SQL constraint `product_id_unique`), readonly saat edit |
 | `product_name` | Char | |
 | `sales_ok` | Boolean | Default True |
 | `purchase_ok` | Boolean | Default True |
@@ -720,10 +720,11 @@ def _compute_subtotal(self):
 
 #### 2.4.3 Price Conditions
 
-**Model: `sales.price_condition`** (`sales/models/models.py:769-888`)
+**Model: `sales.price_condition`** (`sales/models/models.py:1016-1143`)
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
+| `price_condition_id` | Char | **Required, manual input** (e.g. `PC-001`), unique (SQL constraint `price_condition_id_unique`), readonly saat edit |
 | `price_name` | Char | |
 | `date_start`, `date_end` | Datetime | Validity period |
 | `min_quantity` | Integer | Default 1 |
@@ -745,7 +746,7 @@ def _compute_subtotal(self):
 _order = 'customer_priority asc, product_priority asc, id desc'
 ```
 
-**Sync Logic** (`_sync_to_customers`, line 830):
+**Sync Logic** (`_sync_to_customers`, line 1083):
 1. Hapus semua M2M link via raw SQL
 2. Cari target customers berdasarkan `customer_applied_on`:
    - `all` → semua customers
@@ -1089,7 +1090,7 @@ Default content di-load ke `note` field di sales order baru via `default_get()`.
 | `sales.taxes` | `sales_taxes` | `name`, `tax_percentage`, `default_tax` |
 | `sales.bom` | `sales_bom` | `name`, `product_id`, `overhead_cost`, `line_ids`, `total_bom_cost` |
 | `sales.bom_line` | `sales_bom_line` | `bom_id`, `component_id`, `quantity`, `component_cost`, `subtotal` |
-| `sales.price_condition` | `sales_price_condition` | `price_name`, `date_start/end`, `compute_price`, `fixed_price`, `percent_price`, `applied_on`, `customer_applied_on` |
+| `sales.price_condition` | `sales_price_condition` | `price_condition_id`, `price_name`, `date_start/end`, `compute_price`, `fixed_price`, `percent_price`, `applied_on`, `customer_applied_on` |
 | `sales.price_condition_product` | `sales_price_condition_product` | `price_id`, `product_id` |
 | `sales.price_condition_customer` | `sales_price_condition_customer` | `price_id`, `customer_id` |
 | `sales.account_type` | `sales_account_type` | `name` |

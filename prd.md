@@ -304,7 +304,18 @@ Computes visibility of module cards (HCM, Sales, Configuration) based on user's 
 
 ### 4.6 Sequences
 
-Auto-generated IDs use `ir.sequence` records defined in `data/sequence.xml` for all master data models.
+Master data IDs use `ir.sequence` records defined in `data/sequence.xml`. Auto-generation applies to categories, types, areas, sub-categories, ship-to/sold-to/bill-to, and similar master data.
+
+The following business IDs are **manual input** (required, unique — no auto-generation from sequence):
+
+| Model | ID Field |
+| ----- | -------- |
+| `hcm.employee` | `employee_id` |
+| `sales.customer` | `customer_id` |
+| `sales.products` | `product_id` |
+| `sales.price_condition` | `price_condition_id` |
+
+All four fields enforce uniqueness via SQL constraints and are read-only on existing records (editable only when creating a new record).
 
 ---
 
@@ -327,6 +338,8 @@ Auto-generated IDs use `ir.sequence` records defined in `data/sequence.xml` for 
 Inherits `navigation.mixin`. Uses `name_get()` to display parent/child naming.
 
 ### 5.2 Employee (`hcm.employee`)
+
+**Manual ID:** `employee_id` is a **required manual input** (e.g. `EMP-001`), unique via SQL constraint, and read-only when editing existing records. No sequence auto-generation.
 
 **Tab 1 — Employee Data:** NIK, name, phone, email, company, location, division, department, level/grade, position, manager (computed from position hierarchy), join date, status (active/inactive/resigned/terminated), photo, system user link
 
@@ -378,6 +391,8 @@ Inherits `navigation.mixin`.
 
 Customers auto-create linked `res.partner` records. Price conditions auto-sync based on category matching.
 
+**Manual ID:** `customer_id` is a **required manual input** (e.g. `CUS-001`), unique via SQL constraint, and read-only when editing existing records. No sequence auto-generation.
+
 ### 6.2 Product Master Data
 
 | Model                    | Description        | Key Fields                                                                                                                                                                                                                                                                      |
@@ -389,6 +404,8 @@ Customers auto-create linked `res.partner` records. Price conditions auto-sync b
 | `sales.taxes`            | Taxes              | `name`, `tax_percentage`, `default_tax` (only one)                                                                                                                                                                                                                              |
 
 **Stock booking:** Products track `qty_reserved_sale` — quantity booked on open (non-cancelled) sales orders. This is used for Indent detection.
+
+**Manual ID:** `product_id` is a **required manual input** (e.g. `3422010503`), unique via SQL constraint, and read-only when editing existing records. No sequence auto-generation.
 
 **Product Category hierarchy:** Categories support a parent-child hierarchy via `parent_category_id`. Each category must have a `product_type` assigned. A category cannot be deleted if products are still assigned to it.
 
@@ -422,6 +439,13 @@ The effective cost of a product is determined by a recursive algorithm with cycl
 Model: `sales.price_condition`
 
 Complex pricing rules with priority-based matching:
+
+| Field | Type | Notes |
+| ----- | ---- | ----- |
+| `price_condition_id` | Char | **Required manual input** (e.g. `PC-001`), unique via SQL constraint, read-only when editing existing records. No sequence auto-generation |
+| `price_name` | Char | Descriptive name |
+| `date_start` / `date_end` | Datetime | Validity period |
+| `compute_price` | Selection | Fixed Price or Discount (%) |
 
 | Dimension      | Values                                        | Priority               |
 | -------------- | --------------------------------------------- | ---------------------- |

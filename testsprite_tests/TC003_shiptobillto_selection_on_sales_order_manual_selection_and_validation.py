@@ -1,4 +1,5 @@
 import requests
+import uuid
 
 BASE_URL = "http://localhost:8018"
 HEADERS = {"Content-Type": "application/json"}
@@ -57,6 +58,7 @@ def call_kw(session_id, model, method, args=None, kwargs=None, context=None):
 def create_customer(session_id, name):
     # Create sales.customer directly with customer_name and required fields
     customer_vals = {
+        "customer_id": f"CUS-{uuid.uuid4().hex[:8].upper()}",
         "customer_name": name,
         "cust_category": 1,  # Required field - Corporate / Enterprise (B2B)
         "email": f"test_{name.lower().replace(' ', '_')}@example.com",

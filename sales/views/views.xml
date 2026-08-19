@@ -7,6 +7,7 @@
       <field name="model">sales.price_condition</field>
       <field name="arch" type="xml">
         <tree>
+          <field name="price_condition_id"/>
           <field name="price_name"/>
           <field name="applied_on" string="Applicable On"/>
           <field name="customer_applied_on" string="Customers"/>
@@ -830,6 +831,7 @@
           </header>
           <sheet>
             <div class="oe_title">
+              <field name="price_condition_id" readonly="not is_edit and id" placeholder="e.g. PC-001"/>
               <h1>
                 <div class="d-flex">
                   <field class="text-break" name="price_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
@@ -938,7 +940,7 @@
             <sheet>
               <field name="image_1920" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title mb24">
-                  <field name="customer_id"/>
+                  <field name="customer_id" readonly="not is_edit and id" placeholder="e.g. CUS-001"/>
                   <h1>
                       <field id="company" options="{'line_breaks': False}" widget="text" class="text-break" name="customer_name" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
                   </h1>

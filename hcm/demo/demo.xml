@@ -11,6 +11,7 @@
         <field name="parent_id" ref="demo_position_manager"/>
     </record>
     <record id="demo_employee" model="hcm.employee">
+        <field name="employee_id">EMP-DEMO-001</field>
         <field name="name">Demo Employee</field>
         <field name="nik">1234567890123456</field>
         <field name="phone">08123456789</field>
