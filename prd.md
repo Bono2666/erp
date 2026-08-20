@@ -78,12 +78,14 @@ Form dengan workflow state-based (sales order, invoice, payment, delivery) **tid
 
 ## 3. Module: `disable_autosave`
 
-**Purpose:** Disable Odoo's auto-save on form blur and handle Cancel button behavior.
+**Purpose:** Disable Odoo's auto-save on form blur, handle Cancel button behavior, dan UI cleanup (sembunyikan menu Discuss & icon chat).
 
 ### 3.1 Features
 
 - Prevents automatic save when clicking outside a form field
 - Custom JavaScript (`disable_autosave.js`) handles `.discard-new` and `.discard-edit` CSS class buttons for cancel behavior
+- Sembunyikan Icon Chat (messaging systray menu) di pojok kanan atas navbar via CSS
+- Sembunyikan menu Discuss dari sidebar/app switcher via XML record override (`active=False` pada `mail.menu_root_discuss`)
 - CSS styling adjustments
 
 ---
@@ -614,7 +616,7 @@ Each module defines `security/ir.model.access.csv` for model-level CRUD access c
 | Component          | Module           | File                                                 | Purpose                        |
 | ------------------ | ---------------- | ---------------------------------------------------- | ------------------------------ |
 | `OrgStructure`     | hcm              | `hcm/static/src/js/org_structure.js`                 | Interactive organization chart |
-| `disable_autosave` | disable_autosave | `disable_autosave/static/src/js/disable_autosave.js` | Cancel button behavior         |
+| `disable_autosave` | disable_autosave | `disable_autosave/static/src/js/disable_autosave.js` | Cancel button behavior, UI cleanup (hide chat icon, Discuss menu) |
 
 ### 9.3 External Libraries (CDN)
 
@@ -778,6 +780,7 @@ sales
 | `sales/data/menu.xml`                                  | Sales menu structure                                                                    |
 | `sales/data/sequence.xml`                              | Sales ID sequences                                                                      |
 | `sales/data/mail_template_*.xml`                       | Email templates                                                                         |
-| `disable_autosave/static/src/js/disable_autosave.js`   | Cancel button handler                                                                   |
-| `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling                                                                   |
+| `disable_autosave/static/src/js/disable_autosave.js`   | Cancel button handler                                                             |
+| `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling & hide chat icon (messaging systray menu)                    |
+| `disable_autosave/data/hide_discuss_menu.xml`          | Sembunyikan menu Discuss dari sidebar/app switcher (`active=False`)                |
 | `tests/e2e/`                                           | End-to-end test suite (Playwright)                                                      |

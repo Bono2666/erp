@@ -105,7 +105,12 @@ Kedua file `general/controllers/controllers.py` dan `sales/controllers/controlle
 ```python
 # disable_autosave/__manifest__.py:10
 'name': 'Disable Autosave by KSI'
-'depends': ['base']
+'depends': ['base', 'mail']
+'data': [
+    'security/ir.model.access.csv',
+    'data/prevent_model_demo.xml',
+    'data/hide_discuss_menu.xml',
+]
 'assets': {
     'web.assets_backend': [
         'disable_autosave/static/src/js/disable_autosave.js',
@@ -158,6 +163,13 @@ let auto_save_boolean = false      // Flag per-model
 |--------|-------------|
 | Custom menu | Tambahkan `"My Preferences"` (sequence 10, callback: `general.action_my_preferences`) |
 | Cleanup | Hapus: `settings`, `documentation`, `support`, `odoo_account`, `shortcuts`, `debug` |
+
+**Chat Icon & Discuss Menu Cleanup** (Agustus 2026):
+
+| Action | File | Behavior |
+|--------|------|----------|
+| CSS | `disable_autosave.css` | Sembunyikan icon chat (messaging systray menu) di pojok kanan atas navbar. Selector: `.o-mail-DiscussSystray-class.o-dropdown.dropdown { display: none !important; }` |
+| XML | `hide_discuss_menu.xml` | Sembunyikan menu Discuss dari sidebar/app switcher. Override `mail.menu_root_discuss` (model `ir.ui.menu`) dengan `active=False`. Modul `disable_autosave` menambah dependensi `mail` agar record override dimuat setelah data `mail`. |
 
 #### 2.1.3 Data Models
 
@@ -1706,7 +1718,8 @@ SO di-submit untuk approval
 |------|---------|
 | `disable_autosave/__manifest__.py` | Module manifest |
 | `disable_autosave/static/src/js/disable_autosave.js` | Cancel button handler, auto-save patch |
-| `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling |
+| `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling, hide chat icon (messaging systray menu) |
+| `disable_autosave/data/hide_discuss_menu.xml` | Sembunyikan menu Discuss dari app switcher (`active=False`) |
 | `general/__manifest__.py` | Module manifest |
 | `general/models/models.py` | NavigationMixin, all master data, RBAC (~1053 lines) |
 | `general/views/views.xml` | Form/tree views |

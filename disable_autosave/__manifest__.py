@@ -9,11 +9,12 @@
     'category': 'Technical',
     'version': '0.1',
 
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
 
     'data': [
         'security/ir.model.access.csv',
         'data/prevent_model_demo.xml',
+        'data/hide_discuss_menu.xml',
         'views/views.xml',
         'views/templates.xml',
     ],

@@ -6,3 +6,8 @@
 .o_hidden_menu {
     display: none !important;
 }
+
+/* Sembunyikan Icon Chat (messaging menu) di pojok kanan atas */
+.o-mail-DiscussSystray-class.o-dropdown.dropdown {
+    display: none !important;
+}
