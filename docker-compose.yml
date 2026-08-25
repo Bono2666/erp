@@ -20,7 +20,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: ["python3", "/opt/odoo/odoo17/odoo-bin", "-c", "/etc/odoo/odoo.conf", "--db_name=erp"]
     environment:
       ODOO_DB_HOST: db
       ODOO_DB_PORT: 5432
