@@ -2217,7 +2217,6 @@
     <menuitem name="Transaction" id="sales.menu_transaction" parent="sales.menu_sales_root" sequence="1"/>
     <menuitem name="Quotations" id="sales.quotation_menu" parent="sales.menu_transaction" action="sales.quotation_action" sequence="1"/>
     <menuitem name="Sales Orders" id="sales.sales_order_menu" parent="sales.menu_transaction" action="sales.sales_order_action" sequence="2"/>
-    <menuitem name="Delivery Orders" id="sales.delivery_orders_menu" parent="sales.menu_transaction" action="sales_delivery_action" sequence="3"/>
     <menuitem name="Sales Approval" id="sales.sales_approvals_menu" parent="sales.menu_transaction" action="sales.sales_approval_action" sequence="4"/>
 
     <!-- Report -->
@@ -2331,6 +2330,8 @@
         </p>
       </field>
     </record>
+
+    <menuitem name="Delivery Orders" id="sales.delivery_orders_menu" parent="sales.menu_transaction" action="sales_delivery_action" sequence="3"/>
 
     
 
