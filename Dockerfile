@@ -7,3 +7,6 @@ RUN echo "db_name = erp" >> /etc/odoo/odoo.conf && chown odoo:odoo /etc/odoo/odo
 COPY --chown=odoo:odoo . /opt/odoo/custom-addons
 
 USER odoo
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["--db_name=erp"]
