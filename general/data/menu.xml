@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Configuration Root Menu -->
+    <record id="master_data_menu" model="general.menu">
+        <field name="menu_id">master_data</field>
+        <field name="menu_name">Configuration</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Transaction -->
+    <record id="general_transaction_menu" model="general.menu">
+        <field name="menu_id">general_transaction</field>
+        <field name="menu_name">Transaction</field>
+        <field name="parent_menu">master_data</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Report -->
+    <record id="general_report_menu" model="general.menu">
+        <field name="menu_id">general_report</field>
+        <field name="menu_name">Report</field>
+        <field name="parent_menu">master_data</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Master Data -->
+    <record id="general_master_data_menu" model="general.menu">
+        <field name="menu_id">general_master_data</field>
+        <field name="menu_name">Master Data</field>
+        <field name="parent_menu">master_data</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <record id="users_menu" model="general.menu">
+        <field name="menu_id">custom_users</field>
+        <field name="menu_name">Users</field>
+        <field name="parent_menu">general_master_data</field>
+    </record>
+
+    <record id="others_menu" model="general.menu">
+        <field name="menu_id">others</field>
+        <field name="menu_name">Others</field>
+        <field name="parent_menu">general_master_data</field>
+        <field name="is_parent">True</field>
+    </record>
+
     <record id="country_menu" model="general.menu">
         <field name="menu_id">country</field>
         <field name="menu_name">Countries</field>
@@ -21,9 +65,14 @@
         <field name="menu_name">Districts</field>
         <field name="parent_menu">others</field>
     </record>
-    <record id="company_menu" model="general.menu">
-        <field name="menu_id">company</field>
-        <field name="menu_name">Companies</field>
+    <record id="village_menu" model="general.menu">
+        <field name="menu_id">village</field>
+        <field name="menu_name">Villages</field>
+        <field name="parent_menu">others</field>
+    </record>
+    <record id="department_menu" model="general.menu">
+        <field name="menu_id">department</field>
+        <field name="menu_name">Departments</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="location_menu" model="general.menu">
@@ -41,42 +90,27 @@
         <field name="menu_name">Levels / Grades</field>
         <field name="parent_menu">others</field>
     </record>
-    <record id="department_menu" model="general.menu">
-        <field name="menu_id">department</field>
-        <field name="menu_name">Departments</field>
-        <field name="parent_menu">others</field>
-    </record>
-    <record id="position_menu" model="general.menu">
-        <field name="menu_id">position</field>
-        <field name="menu_name">Positions</field>
-        <field name="parent_menu">others</field>
-    </record>
-    <record id="users_menu" model="general.menu">
-        <field name="menu_id">custom_users</field>
-        <field name="menu_name">Users</field>
-        <field name="parent_menu">master_data</field>
-    </record>
-    <record id="others_menu" model="general.menu">
-        <field name="menu_id">others</field>
-        <field name="menu_name">Others</field>
+
+    <!-- Setup -->
+    <record id="general_setup_menu" model="general.menu">
+        <field name="menu_id">general_setup</field>
+        <field name="menu_name">Setup</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
-    <record id="master_data_menu" model="general.menu">
-        <field name="menu_id">master_data</field>
-        <field name="menu_name">Configuration</field>
-        <field name="is_parent">True</field>
+
+    <record id="company_menu" model="general.menu">
+        <field name="menu_id">company</field>
+        <field name="menu_name">Companies</field>
+        <field name="parent_menu">general_setup</field>
     </record>
-    <record id="approvals_menu_root" model="general.menu">
-        <field name="menu_id">approvals</field>
-        <field name="menu_name">Approvals</field>
-        <field name="parent_menu">sales</field>
-        <field name="is_parent">True</field>
-    </record>
-    <record id="approvals_config_menu" model="general.menu">
-        <field name="menu_id">approvals_config</field>
-        <field name="menu_name">Approval</field>
+
+    <!-- Help -->
+    <record id="general_help_menu" model="general.menu">
+        <field name="menu_id">general_help</field>
+        <field name="menu_name">Help</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
+
 </odoo>

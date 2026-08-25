@@ -2212,35 +2212,46 @@
     <!-- Top menu item -->
 
     <menuitem name="Sales" id="sales.menu_sales_root" sequence="1"/>
-    <menuitem name="Approvals" id="sales.menu_approvals_root" parent="sales.menu_sales_root" sequence="4"/>
 
-    <!-- menu categories -->
-    
-    <menuitem name="Order" id="sales.orders_menu" parent="sales.menu_sales_root" sequence="0"/>
-    <menuitem name="Customer" id="sales.customer_menu" parent="general.menu_master_menu" sequence="1"/>
-    <menuitem name="Invoicing" id="sales.invoicing_menu" parent="general.menu_master_menu" sequence="3"/>
-    <menuitem name="Product" id="sales.product_menu" parent="general.menu_master_menu" sequence="5"/>
-    <menuitem name="Price Conditions" id="sales.price_condition_menu" parent="general.menu_master_menu" action="sales.price_condition_action" sequence="8"/>
-    <menuitem name="Approval" id="sales.approval_matrix_menu" parent="general.menu_master_menu" sequence="9"/>
-    <menuitem name="Sales Approval" id="sales.sales_approvals_menu" parent="sales.menu_approvals_root" action="sales.sales_approval_action" sequence="1"/>
+    <!-- Transaction -->
+    <menuitem name="Transaction" id="sales.menu_transaction" parent="sales.menu_sales_root" sequence="1"/>
+    <menuitem name="Quotations" id="sales.quotation_menu" parent="sales.menu_transaction" action="sales.quotation_action" sequence="1"/>
+    <menuitem name="Sales Orders" id="sales.sales_order_menu" parent="sales.menu_transaction" action="sales.sales_order_action" sequence="2"/>
+    <menuitem name="Delivery Orders" id="sales.delivery_orders_menu" parent="sales.menu_transaction" action="sales_delivery_action" sequence="3"/>
+    <menuitem name="Sales Approval" id="sales.sales_approvals_menu" parent="sales.menu_transaction" action="sales.sales_approval_action" sequence="4"/>
 
-    <!-- actions opening views on models -->
-    
-    <menuitem name="Quotations" id="sales.quotation_menu" parent="sales.orders_menu" action="sales.quotation_action" sequence="1"/>
-    <menuitem name="Sales Orders" id="sales.sales_order_menu" parent="sales.orders_menu" action="sales.sales_order_action" sequence="2"/>
-    <menuitem name="Customers" id="sales.customer_customer_menu" parent="sales.orders_menu" action="sales.customer_action" sequence="3"/>
-    <menuitem name="Payment Terms" id="sales.payment_terms_menu_act"  parent="sales.invoicing_menu" action="sales.payment_terms_action" sequence="1"/>
-    <menuitem name="Terms and Conditions" id="sales.terms_and_conditions_menu_act"  parent="sales.invoicing_menu" action="sales.terms_and_conditions_server_action" sequence="3"/>
-    <menuitem name="Customer Categories" id="sales.cust_category" parent="sales.customer_menu" action="sales.cust_category_action" sequence="3"/>
-    <menuitem name="Customer Types" id="sales.cust_type" parent="sales.customer_menu" action="sales.cust_type_action" sequence="4"/>
-    <menuitem name="Customer Areas" id="sales.cust_area" parent="sales.customer_menu" action="sales.cust_area_action" sequence="5"/>
-    <menuitem name="Customer Sub Categories" id="sales.cust_sub_category_menu" parent="sales.customer_menu" action="sales.cust_sub_category_action" sequence="6"/>
-    <menuitem name="Products" id="sales.product_product_menu" parent="sales.menu_sales_root" action="sales.products_action" sequence="1"/>
-    <menuitem id="product_type_menu_act" name="Product Types" parent="sales.product_menu" action="sales.product_type_action" sequence="1"/>
-    <menuitem id="product_category_menu_act" name="Product Categories" parent="sales.product_menu" action="sales.product_category_action" sequence="2"/>
-    <menuitem id="product_unit_menu_act" name="Unit of Measures" parent="sales.product_menu" action="sales.product_unit_action" sequence="3"/>
-    <menuitem name="Taxes" id="sales.taxes_menu_act"  parent="general.menu_master_menu" action="sales.taxes_action" sequence="7"/>
+    <!-- Report -->
+    <menuitem name="Report" id="sales.menu_report" parent="sales.menu_sales_root" sequence="2"/>
+
+    <!-- Master Data -->
+    <menuitem name="Master Data" id="sales.menu_master_data" parent="sales.menu_sales_root" sequence="3"/>
+    <menuitem name="Customers" id="sales.customer_customer_menu" parent="sales.menu_master_data" action="sales.customer_action" sequence="1"/>
+    <menuitem name="Products" id="sales.product_product_menu" parent="sales.menu_master_data" action="sales.products_action" sequence="2"/>
+
+    <!-- Setup -->
+    <menuitem name="Setup" id="sales.menu_setup" parent="sales.menu_sales_root" sequence="4"/>
+    <menuitem name="Customer" id="sales.customer_menu" parent="sales.menu_setup" sequence="1"/>
+    <menuitem name="Customer Categories" id="sales.cust_category" parent="sales.customer_menu" action="sales.cust_category_action" sequence="1"/>
+    <menuitem name="Customer Type" id="sales.cust_type" parent="sales.customer_menu" action="sales.cust_type_action" sequence="2"/>
+    <menuitem name="Customer Areas" id="sales.cust_area" parent="sales.customer_menu" action="sales.cust_area_action" sequence="3"/>
+
+    <menuitem name="Invoicing" id="sales.invoicing_menu" parent="sales.menu_setup" sequence="2"/>
+    <menuitem name="Payment Terms" id="sales.payment_terms_menu_act" parent="sales.invoicing_menu" action="sales.payment_terms_action" sequence="1"/>
+    <menuitem name="Terms and Conditions" id="sales.terms_and_conditions_menu_act" parent="sales.invoicing_menu" action="sales.terms_and_conditions_server_action" sequence="2"/>
+
+    <menuitem name="Product" id="sales.product_menu" parent="sales.menu_setup" sequence="3"/>
+    <menuitem name="Product Types" id="product_type_menu_act" parent="sales.product_menu" action="sales.product_type_action" sequence="1"/>
+    <menuitem name="Product Categories" id="product_category_menu_act" parent="sales.product_menu" action="sales.product_category_action" sequence="2"/>
+    <menuitem name="Unit of Measures" id="product_unit_menu_act" parent="sales.product_menu" action="sales.product_unit_action" sequence="3"/>
+
+    <menuitem name="Taxes" id="sales.taxes_menu_act" parent="sales.menu_setup" action="sales.taxes_action" sequence="4"/>
+    <menuitem name="Price Conditions" id="sales.price_condition_menu" parent="sales.menu_setup" action="sales.price_condition_action" sequence="5"/>
+
+    <menuitem name="Approval" id="sales.approval_matrix_menu" parent="sales.menu_setup" sequence="6"/>
     <menuitem name="Sales Matrix" id="sales.approval_matrix_menu_act" parent="sales.approval_matrix_menu" action="sales.approval_matrix_action" sequence="1"/>
+
+    <!-- Help -->
+    <menuitem name="Help" id="sales.menu_help" parent="sales.menu_sales_root" sequence="5"/>
 
     <!-- ────────────────────────────
          SALES DELIVERY
@@ -2321,7 +2332,7 @@
       </field>
     </record>
 
-    <menuitem name="Delivery Orders" id="sales.delivery_orders_menu" parent="sales.orders_menu" action="sales_delivery_action" sequence="4"/>
+    
 
   </data>
 </odoo>

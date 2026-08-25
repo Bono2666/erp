@@ -784,3 +784,88 @@ sales
 | `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling & hide chat icon (messaging systray menu)                    |
 | `disable_autosave/data/hide_discuss_menu.xml`          | Sembunyikan menu Discuss dari sidebar/app switcher (`active=False`)                |
 | `tests/e2e/`                                           | End-to-end test suite (Playwright)                                                      |
+
+---
+
+## 12. Menu Structure
+
+### 12.1 Standard Menu Hierarchy
+
+Setiap modul mengikuti struktur menu utama:
+
+```
+Transaction
+Report
+Master Data
+Setup
+Help
+```
+
+### 12.2 HCM Module Menus
+
+```
+HCM (root app)
+├── Transaction
+├── Report
+├── Master Data
+│   ├── Employees
+│   ├── Positions
+│   └── Organization Structure
+├── Setup
+└── Help
+```
+
+### 12.3 Sales Module Menus
+
+```
+Sales (root app)
+├── Transaction
+│   ├── Quotations
+│   ├── Sales Orders
+│   ├── Delivery Orders
+│   └── Sales Approval
+├── Report
+├── Master Data
+│   ├── Customers
+│   └── Products
+├── Setup
+│   ├── Customer
+│   │   ├── Customer Categories
+│   │   ├── Customer Type
+│   │   └── Customer Areas
+│   ├── Invoicing
+│   │   ├── Payment Terms
+│   │   └── Terms and Conditions
+│   ├── Product
+│   │   ├── Product Types
+│   │   ├── Product Categories
+│   │   └── Unit of Measures
+│   ├── Taxes
+│   ├── Price Conditions
+│   └── Approval
+│       └── Sales Matrix
+└── Help
+```
+
+### 12.4 General Module (Configuration) Menus
+
+```
+Configuration (root app)
+├── Transaction
+├── Report
+├── Master Data
+│   ├── Users
+│   └── Others
+│       ├── Countries
+│       ├── States
+│       ├── Cities
+│       ├── Districts
+│       ├── Villages
+│       ├── Departments
+│       ├── Locations
+│       ├── Divisions
+│       └── Levels/Grades
+├── Setup
+│   └── Companies
+└── Help
+```

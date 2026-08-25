@@ -436,26 +436,56 @@
               name="HCM"
               sequence="2"/>
 
+    <!-- Transaction -->
+    <menuitem id="menu_hcm_transaction"
+              name="Transaction"
+              parent="menu_hcm_root"
+              sequence="1"/>
+
+    <!-- Report -->
+    <menuitem id="menu_hcm_report"
+              name="Report"
+              parent="menu_hcm_root"
+              sequence="2"/>
+
+    <!-- Master Data -->
+    <menuitem id="menu_hcm_master_data"
+              name="Master Data"
+              parent="menu_hcm_root"
+              sequence="3"/>
+
     <!-- Employees -->
     <menuitem id="menu_hcm_employee"
               name="Employees"
-              parent="menu_hcm_root"
+              parent="menu_hcm_master_data"
               sequence="1"
               action="hcm.employee_action"/>
 
     <!-- Positions -->
     <menuitem id="menu_hcm_position"
               name="Positions"
-              parent="menu_hcm_root"
+              parent="menu_hcm_master_data"
               sequence="2"
               action="hcm.position_action"/>
 
     <!-- Organization Structure -->
     <menuitem id="menu_hcm_org_structure"
               name="Organization Structure"
-              parent="menu_hcm_root"
+              parent="menu_hcm_master_data"
               sequence="3"
               action="hcm.org_structure_client_action"/>
+
+    <!-- Setup -->
+    <menuitem id="menu_hcm_setup"
+              name="Setup"
+              parent="menu_hcm_root"
+              sequence="4"/>
+
+    <!-- Help -->
+    <menuitem id="menu_hcm_help"
+              name="Help"
+              parent="menu_hcm_root"
+              sequence="5"/>
 
   </data>
 </odoo>

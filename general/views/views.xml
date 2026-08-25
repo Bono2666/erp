@@ -893,20 +893,34 @@
     
     <menuitem name="Configuration" id="general.menu_master_menu" sequence="5"/>
 
-    <!-- general menus -->
+    <!-- Transaction -->
+    <menuitem name="Transaction" id="general.menu_general_transaction" parent="general.menu_master_menu" sequence="1"/>
 
-    <menuitem name="Others" id="general.general_others_menu" parent="general.menu_master_menu" sequence="100"/>
+    <!-- Report -->
+    <menuitem name="Report" id="general.menu_general_report" parent="general.menu_master_menu" sequence="2"/>
+
+    <!-- Master Data -->
+    <menuitem name="Master Data" id="general.menu_general_master_data" parent="general.menu_master_menu" sequence="3"/>
+
+    <!-- general menus -->
+    <menuitem name="Others" id="general.general_others_menu" parent="general.menu_general_master_data" sequence="100"/>
     
     <menuitem name="Countries" id="general.general_country_act" parent="general.general_others_menu" action="general.country_action" sequence="1"/>
     <menuitem name="States" id="general.general_state_act" parent="general.general_others_menu" action="general.state_action" sequence="2"/>
     <menuitem name="Cities" id="general.general_city_act" parent="general.general_others_menu" action="general.city_action" sequence="3"/>
     <menuitem name="Districts" id="general.general_district_act" parent="general.general_others_menu" action="general.district_action" sequence="4"/>
     <menuitem name="Villages" id="general.general_village_act" parent="general.general_others_menu" action="general.village_action" sequence="5"/>
-    <menuitem name="Companies" id="general.general_company_act" parent="general.general_others_menu" action="general.company_action" sequence="6"/>
     <menuitem name="Departments" id="general.general_department_act" parent="general.general_others_menu" action="general.department_action" sequence="7"/>
     <menuitem name="Locations" id="general.general_location_act" parent="general.general_others_menu" action="general.location_action" sequence="8"/>
     <menuitem name="Divisions" id="general.general_division_act" parent="general.general_others_menu" action="general.division_action" sequence="9"/>
     <menuitem name="Levels / Grades" id="general.general_level_grade_act" parent="general.general_others_menu" action="general.level_grade_action" sequence="10"/>
+
+    <!-- Setup -->
+    <menuitem name="Setup" id="general.menu_general_setup" parent="general.menu_master_menu" sequence="4"/>
+    <menuitem name="Companies" id="general.general_company_act" parent="general.menu_general_setup" action="general.company_action" sequence="1"/>
+
+    <!-- Help -->
+    <menuitem name="Help" id="general.menu_general_help" parent="general.menu_master_menu" sequence="5"/>
     
   </data>
 </odoo>

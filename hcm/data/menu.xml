@@ -2,24 +2,67 @@
 <odoo>
 
     <!-- HCM Custom Menu Records for Authorization System -->
+
+    <!-- Root Menu -->
+    <record id="hcm_parent_menu" model="general.menu">
+        <field name="menu_id">hcm</field>
+        <field name="menu_name">HCM</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Transaction -->
+    <record id="hcm_transaction_menu" model="general.menu">
+        <field name="menu_id">hcm_transaction</field>
+        <field name="menu_name">Transaction</field>
+        <field name="parent_menu">hcm</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Report -->
+    <record id="hcm_report_menu" model="general.menu">
+        <field name="menu_id">hcm_report</field>
+        <field name="menu_name">Report</field>
+        <field name="parent_menu">hcm</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Master Data -->
+    <record id="hcm_master_data_menu" model="general.menu">
+        <field name="menu_id">hcm_master_data</field>
+        <field name="menu_name">Master Data</field>
+        <field name="parent_menu">hcm</field>
+        <field name="is_parent">True</field>
+    </record>
+
     <record id="hcm_employee_menu" model="general.menu">
         <field name="menu_id">hcm_employee</field>
         <field name="menu_name">Employees</field>
-        <field name="parent_menu">hcm</field>
+        <field name="parent_menu">hcm_master_data</field>
     </record>
     <record id="hcm_position_menu" model="general.menu">
         <field name="menu_id">hcm_position</field>
         <field name="menu_name">Positions</field>
-        <field name="parent_menu">hcm</field>
+        <field name="parent_menu">hcm_master_data</field>
     </record>
     <record id="hcm_org_structure_menu" model="general.menu">
         <field name="menu_id">hcm_org_structure</field>
         <field name="menu_name">Organization Structure</field>
-        <field name="parent_menu">hcm</field>
+        <field name="parent_menu">hcm_master_data</field>
     </record>
-    <record id="hcm_parent_menu" model="general.menu">
-        <field name="menu_id">hcm</field>
-        <field name="menu_name">HCM</field>
+
+    <!-- Setup -->
+    <record id="hcm_setup_menu" model="general.menu">
+        <field name="menu_id">hcm_setup</field>
+        <field name="menu_name">Setup</field>
+        <field name="parent_menu">hcm</field>
+        <field name="is_parent">True</field>
+    </record>
+
+    <!-- Help -->
+    <record id="hcm_help_menu" model="general.menu">
+        <field name="menu_id">hcm_help</field>
+        <field name="menu_name">Help</field>
+        <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
     </record>
 
