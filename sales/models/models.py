@@ -35,7 +35,7 @@ class NavigationMixin(models.AbstractModel):
     _name = 'navigation.mixin'
     _description = 'Mixin for General Navigation'
 
-    model_description = fields.Char(compute='_compute_model_description')
+    model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._description)
     user_can_read = fields.Boolean(compute='_compute_custom_permissions')
     user_can_create = fields.Boolean(
         compute='_compute_custom_permissions', store=False)
@@ -194,22 +194,9 @@ class cust_category(models.Model):
     _rec_name = 'category_name'
     _menu_code = 'cust_category'
 
-    category_id = fields.Char(string="Category ID", readonly=True)
+    category_id = fields.Char(string="Category ID")
     category_name = fields.Char(string="Category Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('category_id'):
-                    v['category_id'] = self.env['ir.sequence'].next_by_code(
-                        'sales.cust_category') or '/'
-            return super(cust_category, self).create(vals)
-        if not vals.get('category_id'):
-            vals['category_id'] = self.env['ir.sequence'].next_by_code(
-                'sales.cust_category') or '/'
-        return super(cust_category, self).create(vals)
 
     def unlink(self):
         for record in self:
@@ -234,22 +221,9 @@ class cust_type(models.Model):
     _rec_name = 'type_name'
     _menu_code = 'cust_type'
 
-    type_id = fields.Char(string="Type ID", readonly=True)
+    type_id = fields.Char(string="Type ID")
     type_name = fields.Char(string="Type Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('type_id'):
-                    v['type_id'] = self.env['ir.sequence'].next_by_code(
-                        'sales.cust_type') or '/'
-            return super(cust_type, self).create(vals)
-        if not vals.get('type_id'):
-            vals['type_id'] = self.env['ir.sequence'].next_by_code(
-                'sales.cust_type') or '/'
-        return super(cust_type, self).create(vals)
 
 
 class cust_area(models.Model):
@@ -259,22 +233,9 @@ class cust_area(models.Model):
     _rec_name = 'area_name'
     _menu_code = 'cust_area'
 
-    area_id = fields.Char(string="Area ID", readonly=True)
+    area_id = fields.Char(string="Area ID")
     area_name = fields.Char(string="Area Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('area_id'):
-                    v['area_id'] = self.env['ir.sequence'].next_by_code(
-                        'sales.cust_area') or '/'
-            return super(cust_area, self).create(vals)
-        if not vals.get('area_id'):
-            vals['area_id'] = self.env['ir.sequence'].next_by_code(
-                'sales.cust_area') or '/'
-        return super(cust_area, self).create(vals)
 
 
 class cust_sub_category(models.Model):
@@ -809,6 +770,7 @@ class product_type(models.Model):
     _description = 'Product Types'
     _menu_code = 'product_type'
 
+    product_type_id = fields.Char(string="Product Type ID")
     name = fields.Char(string='Product Type')
     is_edit = fields.Boolean(default=False)
 
@@ -820,6 +782,7 @@ class product_category(models.Model):
     _rec_name = 'category_name'
     _menu_code = 'product_category'
 
+    category_id = fields.Char(string="Category ID")
     category_name = fields.Char(string="Category Name")
     product_type = fields.Many2one(
         comodel_name='sales.product_type', string='Product Type', required=True)
@@ -851,6 +814,7 @@ class product_unit(models.Model):
     _rec_name = 'uom'
     _menu_code = 'product_unit'
 
+    uom_id = fields.Char(string="Unit of Measure ID")
     uom = fields.Char(string='Unit of Measure')
     qty = fields.Integer(string='Qty', default=1)
     base_uom = fields.Char(string='Base UoM')
@@ -1176,7 +1140,7 @@ class payment_terms(models.Model):
     _rec_name = 'sales_text'
     _menu_code = 'payment_terms'
 
-    payment_terms_id = fields.Char(string="Payment Terms ID", readonly=True)
+    payment_terms_id = fields.Char(string="Payment Terms ID")
     sales_text = fields.Char(string="Sales Text")
     early_discount = fields.Boolean(string="Early Payment Disc.")
     discount_percentage = fields.Float(
@@ -1201,19 +1165,6 @@ class payment_terms(models.Model):
     payment_terms_ids = fields.One2many(
         'sales.payment_terms_detail', 'payment_terms_id', string="Payment Terms")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('payment_terms_id'):
-                    v['payment_terms_id'] = self.env['ir.sequence'].next_by_code(
-                        'sales.payment_terms') or '/'
-            return super(payment_terms, self).create(vals)
-        if not vals.get('payment_terms_id'):
-            vals['payment_terms_id'] = self.env['ir.sequence'].next_by_code(
-                'sales.payment_terms') or '/'
-        return super(payment_terms, self).create(vals)
 
     @api.depends('example_amount', 'example_date', 'payment_terms_ids.no_of_days', 'payment_terms_ids.percentage', 'early_discount', 'discount_percentage', 'discount_days')
     def _compute_example_preview(self):
@@ -2744,6 +2695,7 @@ class taxes(models.Model):
     _description = 'Taxes'
     _menu_code = 'taxes'
 
+    tax_id = fields.Char(string="Tax ID")
     name = fields.Char(string='Tax Name', required=True)
     tax_percentage = fields.Float(string='Tax Percentage (%)', required=True)
     default_tax = fields.Boolean(string='Default Tax')

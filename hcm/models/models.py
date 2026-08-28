@@ -10,8 +10,7 @@ class HcmPosition(models.Model):
     _order = 'name'
 
     position_id = fields.Char(
-        string="Position ID", readonly=True, copy=False,
-        default=lambda self: _('New'))
+        string="Position ID", copy=False)
     name = fields.Char(string="Position Name", required=True)
     department_id = fields.Many2one(
         'general.department', string="Department", index=True)
@@ -34,13 +33,6 @@ class HcmPosition(models.Model):
     def _compute_employee_count(self):
         for record in self:
             record.employee_count = len(record.employee_ids)
-
-    @api.model
-    def create(self, vals):
-        if vals.get('position_id', _('New')) == _('New'):
-            vals['position_id'] = self.env['ir.sequence'].next_by_code(
-                'hcm.position.sequence') or _('New')
-        return super().create(vals)
 
     def name_get(self):
         result = []

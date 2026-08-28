@@ -139,7 +139,7 @@ class NavigationMixin(models.AbstractModel):
     _name = 'navigation.mixin'
     _description = 'Mixin for General Navigation'
 
-    model_description = fields.Char(compute='_compute_model_description')
+    model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._description)
     user_can_read = fields.Boolean(compute='_compute_custom_permissions')
     user_can_create = fields.Boolean(
         compute='_compute_custom_permissions', store=False)
@@ -355,33 +355,9 @@ class country(models.Model):
     _rec_name = 'country_name'
     _menu_code = 'country'
 
-    country_id = fields.Char(string="Country ID", readonly=True)
+    country_id = fields.Char(string="Country ID")
     country_name = fields.Char(string="Country Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        is_admin = self.env.user.has_group('base.group_system')
-        if not is_admin:
-            access = self.env['general.auth'].sudo().search([
-                ('custom_user_id.user_id', '=', self.env.uid),
-                ('menu_id.menu_id', '=', self._menu_code)
-            ], limit=1)
-
-            if not access or not access.create:  # 'create' adalah nama field di model auth Anda
-                raise UserError(
-                    _("You do not have access rights to create new data in this menu!"))
-
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('country_id'):
-                    v['country_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.country.sequence') or '/'
-            return super(country, self).create(vals)
-        if not vals.get('country_id'):
-            vals['country_id'] = self.env['ir.sequence'].next_by_code(
-                'general.country.sequence') or '/'
-        return super(country, self).create(vals)
 
 
 class state(models.Model):
@@ -391,23 +367,10 @@ class state(models.Model):
     _rec_name = 'state_name'
     _menu_code = 'state'
 
-    state_id = fields.Char(string="State ID", readonly=True)
+    state_id = fields.Char(string="State ID")
     state_name = fields.Char(string="State Name")
     country_ref = fields.Many2one('general.country', string="Country", required=True)
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('state_id'):
-                    v['state_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.state.sequence') or '/'
-            return super(state, self).create(vals)
-        if not vals.get('state_id'):
-            vals['state_id'] = self.env['ir.sequence'].next_by_code(
-                'general.state.sequence') or '/'
-        return super(state, self).create(vals)
 
 
 class city(models.Model):
@@ -417,23 +380,10 @@ class city(models.Model):
     _rec_name = 'city_name'
     _menu_code = 'city'
 
-    city_id = fields.Char(string="City ID", readonly=True)
+    city_id = fields.Char(string="City ID")
     city_name = fields.Char(string="City Name")
     state_ref = fields.Many2one('general.state', string="State", required=True)
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('city_id'):
-                    v['city_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.city.sequence') or '/'
-            return super(city, self).create(vals)
-        if not vals.get('city_id'):
-            vals['city_id'] = self.env['ir.sequence'].next_by_code(
-                'general.city.sequence') or '/'
-        return super(city, self).create(vals)
 
 
 class district(models.Model):
@@ -443,23 +393,10 @@ class district(models.Model):
     _rec_name = 'district_name'
     _menu_code = 'district'
 
-    district_id = fields.Char(string="District ID", readonly=True)
+    district_id = fields.Char(string="District ID")
     district_name = fields.Char(string="District Name")
     city_ref = fields.Many2one('general.city', string="City", required=True)
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('district_id'):
-                    v['district_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.district.sequence') or '/'
-            return super(district, self).create(vals)
-        if not vals.get('district_id'):
-            vals['district_id'] = self.env['ir.sequence'].next_by_code(
-                'general.district.sequence') or '/'
-        return super(district, self).create(vals)
 
 
 class village(models.Model):
@@ -469,23 +406,10 @@ class village(models.Model):
     _rec_name = 'village_name'
     _menu_code = 'village'
 
-    village_id = fields.Char(string="Village ID", readonly=True)
+    village_id = fields.Char(string="Village ID")
     village_name = fields.Char(string="Village Name")
     district_ref = fields.Many2one('general.district', string="District", required=True)
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('village_id'):
-                    v['village_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.village.sequence') or '/'
-            return super(village, self).create(vals)
-        if not vals.get('village_id'):
-            vals['village_id'] = self.env['ir.sequence'].next_by_code(
-                'general.village.sequence') or '/'
-        return super(village, self).create(vals)
 
 
 class position(models.Model):
@@ -495,24 +419,11 @@ class position(models.Model):
     _rec_name = 'position_name'
     _menu_code = 'position'
 
-    position_id = fields.Char(string="Position ID", readonly=True)
+    position_id = fields.Char(string="Position ID")
     position_name = fields.Char(string="Position Name")
     department_id = fields.Many2one(
         'general.department', string="Department", required=True)
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('position_id'):
-                    v['position_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.position.sequence') or '/'
-            return super(position, self).create(vals)
-        if not vals.get('position_id'):
-            vals['position_id'] = self.env['ir.sequence'].next_by_code(
-                'general.position.sequence') or '/'
-        return super(position, self).create(vals)
 
 
 class department(models.Model):
@@ -522,26 +433,13 @@ class department(models.Model):
     _rec_name = 'department_name'
     _menu_code = 'department'
 
-    department_id = fields.Char(string="Department ID", readonly=True)
+    department_id = fields.Char(string="Department ID")
     department_name = fields.Char(string="Department Name")
     division_id = fields.Many2one(
         'general.division', string="Division", required=True)
     position_ids = fields.One2many(
         'general.position', 'department_id', string="Positions")
     is_edit = fields.Boolean(string="Is Edit?", default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('department_id'):
-                    v['department_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.department.sequence') or '/'
-            return super(department, self).create(vals)
-        if not vals.get('department_id'):
-            vals['department_id'] = self.env['ir.sequence'].next_by_code(
-                'general.department.sequence') or '/'
-        return super(department, self).create(vals)
 
 
 class company(models.Model):
@@ -551,22 +449,9 @@ class company(models.Model):
     _rec_name = 'company_name'
     _menu_code = 'company'
 
-    company_id = fields.Char(string="Company ID", readonly=True)
+    company_id = fields.Char(string="Company ID")
     company_name = fields.Char(string="Company Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('company_id'):
-                    v['company_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.company.sequence') or '/'
-            return super(company, self).create(vals)
-        if not vals.get('company_id'):
-            vals['company_id'] = self.env['ir.sequence'].next_by_code(
-                'general.company.sequence') or '/'
-        return super(company, self).create(vals)
 
 
 class location(models.Model):
@@ -576,22 +461,9 @@ class location(models.Model):
     _rec_name = 'location_name'
     _menu_code = 'location'
 
-    location_id = fields.Char(string="Location ID", readonly=True)
+    location_id = fields.Char(string="Location ID")
     location_name = fields.Char(string="Location Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('location_id'):
-                    v['location_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.location.sequence') or '/'
-            return super(location, self).create(vals)
-        if not vals.get('location_id'):
-            vals['location_id'] = self.env['ir.sequence'].next_by_code(
-                'general.location.sequence') or '/'
-        return super(location, self).create(vals)
 
 
 class division(models.Model):
@@ -601,24 +473,11 @@ class division(models.Model):
     _rec_name = 'division_name'
     _menu_code = 'division'
 
-    division_id = fields.Char(string="Division ID", readonly=True)
+    division_id = fields.Char(string="Division ID")
     division_name = fields.Char(string="Division Name")
     department_ids = fields.One2many(
         'general.department', 'division_id', string="Departments")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('division_id'):
-                    v['division_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.division.sequence') or '/'
-            return super(division, self).create(vals)
-        if not vals.get('division_id'):
-            vals['division_id'] = self.env['ir.sequence'].next_by_code(
-                'general.division.sequence') or '/'
-        return super(division, self).create(vals)
 
 
 class level_grade(models.Model):
@@ -628,22 +487,9 @@ class level_grade(models.Model):
     _rec_name = 'level_name'
     _menu_code = 'level_grade'
 
-    level_id = fields.Char(string="Level ID", readonly=True)
+    level_id = fields.Char(string="Level ID")
     level_name = fields.Char(string="Level / Grade Name")
     is_edit = fields.Boolean(default=False)
-
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, list):
-            for v in vals:
-                if not v.get('level_id'):
-                    v['level_id'] = self.env['ir.sequence'].next_by_code(
-                        'general.level_grade.sequence') or '/'
-            return super(level_grade, self).create(vals)
-        if not vals.get('level_id'):
-            vals['level_id'] = self.env['ir.sequence'].next_by_code(
-                'general.level_grade.sequence') or '/'
-        return super(level_grade, self).create(vals)
 
 
 class menu(models.Model):

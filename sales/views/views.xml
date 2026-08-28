@@ -337,7 +337,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -348,10 +348,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="payment_terms_id"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="payment_terms_id" string="Payment Terms ID"/>
+                <field name="payment_terms_id" readonly="not is_edit and id" placeholder="e.g. PAYT-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="sales_text" options="{'line_breaks': False}" widget="text" placeholder="e.g. 30 days" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="sales_text" string="Description"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="sales_text" options="{'line_breaks': False}" widget="text" placeholder="e.g. 30 days" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -427,7 +433,7 @@
             <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
             <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -462,7 +468,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -473,10 +479,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="category_id"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="category_id" string="Category ID"/>
+                <field name="category_id" readonly="not is_edit and id" placeholder="e.g. CUSTCAT-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Retail Customer" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="category_name" string="Category Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Retail Customer" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -504,7 +516,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -515,10 +527,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="type_id"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="type_id" string="Type ID"/>
+                <field name="type_id" readonly="not is_edit and id" placeholder="e.g. CUSTTYP-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="type_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales &amp; Distribution (SD) Customer" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="type_name" string="Type Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="type_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales &amp; Distribution (SD) Customer" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -546,7 +564,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -557,10 +575,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="area_id"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="area_id" string="Area ID"/>
+                <field name="area_id" readonly="not is_edit and id" placeholder="e.g. CUSTARE-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="area_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. West Region" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="area_name" string="Area Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="area_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. West Region" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -588,7 +612,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -599,10 +623,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="sub_category_id"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="sub_category_id" string="Sub Category ID"/>
+                <field name="sub_category_id" readonly="not is_edit and id" placeholder="e.g. SUBCAT-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="sub_category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="sub_category_name" string="Sub Category Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="sub_category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -635,7 +665,7 @@
               <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
               <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
               <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-              <span class="min-w-0 text-truncate mt-1">
+              <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
               <style>
@@ -647,10 +677,16 @@
             <sheet>
               <field name="image" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title">
-                <field name="product_id" placeholder="e.g. 3422010503" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="product_id" string="Product ID"/>
+                  <field name="product_id" placeholder="e.g. 3422010503" readonly="not is_edit and id" default_focus="1"/>
+                </div>
                 <h1>
-                  <div class="d-flex">
-                    <field class="text-break" name="product_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Screw Compressor 30HP Evo Series" readonly="not is_edit and id"/>
+                  <div style="display: block; margin-bottom: 8px;">
+                    <label for="product_name" string="Product Name"/>
+                    <div class="d-flex">
+                      <field class="text-break" name="product_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Screw Compressor 30HP Evo Series" readonly="not is_edit and id"/>
+                    </div>
                   </div>
                 </h1>
                 <div class="o_row">
@@ -725,7 +761,7 @@
               <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
               <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
               <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-              <span class="min-w-0 text-truncate mt-1">
+              <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
               <style>
@@ -736,10 +772,16 @@
             </header>
             <sheet>
               <div class="oe_title">
-                <label for="name" string="Product Type"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="product_type_id" string="Product Type ID"/>
+                  <field name="product_type_id" readonly="not is_edit and id" placeholder="e.g. PT-001" default_focus="1"/>
+                </div>
                 <h1>
-                  <div class="d-flex">
-                    <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Raw Materials" readonly="not is_edit and id"/>
+                  <div style="display: block; margin-bottom: 8px;">
+                    <label for="name" string="Product Type"/>
+                    <div class="d-flex">
+                      <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Raw Materials" readonly="not is_edit and id"/>
+                    </div>
                   </div>
                 </h1>
               </div>
@@ -767,7 +809,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -778,13 +820,20 @@
           </header>
           <sheet>
             <div class="oe_title">
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="uom_id" string="Unit of Measure ID"/>
+                <field name="uom_id" readonly="not is_edit and id" placeholder="e.g. UOM-001" default_focus="1"/>
+              </div>
               <span class="d-inline-flex">
                   <label for="qty" string="Quantity"/>
                   <field name="qty" readonly="not is_edit and id"/>
               </span>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="uom" options="{'line_breaks': False}" widget="text" placeholder="e.g. Piece" default_focus="1" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="uom" string="Unit of Measure"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="uom" options="{'line_breaks': False}" widget="text" placeholder="e.g. Piece" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -820,7 +869,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -831,10 +880,16 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <field name="price_condition_id" readonly="not is_edit and id" placeholder="e.g. PC-001"/>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="price_condition_id" string="Price Condition ID"/>
+                <field name="price_condition_id" readonly="not is_edit and id" placeholder="e.g. PC-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="price_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="price_name" string="Price Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="price_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -928,7 +983,7 @@
               <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
               <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
               <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-              <span class="min-w-0 text-truncate mt-1">
+              <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
               <style>
@@ -940,9 +995,17 @@
             <sheet>
               <field name="image_1920" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title mb24">
-                  <field name="customer_id" readonly="not is_edit and id" placeholder="e.g. CUS-001"/>
+                  <div style="display: block; margin-bottom: 8px;">
+                    <label for="customer_id" string="Customer ID"/>
+                    <field name="customer_id" readonly="not is_edit and id" placeholder="e.g. CUS-001" default_focus="1"/>
+                  </div>
                   <h1>
-                      <field id="company" options="{'line_breaks': False}" widget="text" class="text-break" name="customer_name" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
+                      <div style="display: block; margin-bottom: 8px;">
+                        <label for="customer_name" string="Customer Name"/>
+                        <div class="d-flex">
+                          <field options="{'line_breaks': False}" widget="text" class="text-break" name="customer_name" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
+                        </div>
+                      </div>
                   </h1>
               </div>
 
@@ -1189,7 +1252,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -1200,9 +1263,16 @@
           </header>
           <sheet>
             <div class="oe_title">
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="tax_id" string="Tax ID"/>
+                <field name="tax_id" readonly="not is_edit and id" placeholder="e.g. TAX-001" default_focus="1"/>
+              </div>
               <h1>
-                <div class="d-flex">
-                  <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. VAT 10%" readonly="not is_edit and id"/>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="name" string="Tax Name"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. VAT 10%" readonly="not is_edit and id"/>
+                  </div>
                 </div>
               </h1>
             </div>
@@ -1238,7 +1308,7 @@
             <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
             <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
             <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
             <style>
@@ -1249,9 +1319,16 @@
           </header>
             <sheet>
               <div class="oe_title">
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="category_id" string="Category ID"/>
+                  <field name="category_id" readonly="not is_edit and id" placeholder="e.g. PCAT-001" default_focus="1"/>
+                </div>
                 <h1>
-                  <div class="d-flex">
-                    <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Beverages" readonly="not is_edit and id"/>
+                  <div style="display: block; margin-bottom: 8px;">
+                    <label for="category_name" string="Category Name"/>
+                    <div class="d-flex">
+                      <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Beverages" readonly="not is_edit and id"/>
+                    </div>
                   </div>
                 </h1>
               </div>
@@ -1339,7 +1416,7 @@
             <field name="state" widget="statusbar" statusbar_visible="draft,wait_approval,approved,sent,sale" invisible="not need_approval or not is_quotation"/>
             <field name="state" widget="statusbar" statusbar_visible="sale_draft,sale" invisible="need_approval or is_quotation"/>
             <field name="state" widget="statusbar" statusbar_visible="sale_draft,wait_approval,approved,sale" invisible="not need_approval or is_quotation"/>
-            <span class="min-w-0 text-truncate mt-1">
+            <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="state" readonly="1"/>
             </span>
             <style>
