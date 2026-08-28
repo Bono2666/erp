@@ -1,7 +1,7 @@
 # ERP KSI — Product Specification Document
 
-> **Versi:** 1.2  
-> **Terakhir diperbarui:** 2026-08-06  
+> **Versi:** 1.3  
+> **Terakhir diperbarui:** 2026-08-29  
 > **Stack:** Odoo 17 (Python/OWL) + PostgreSQL  
 > **Target:** Developer
 
@@ -192,11 +192,21 @@ AbstractModel yang diwarisi oleh semua master-data models.
 
 | Field | Tipe | Keterangan |
 |-------|------|------------|
-| `model_description` | Char (compute) | Deskripsi model |
+| `model_description` | Char (compute, default lambda) | Deskripsi model (judul form) dengan `default=lambda self: self._description` agar muncul saat mode New |
 | `user_can_read` | Boolean (compute) | Hak akses baca |
 | `user_can_create` | Boolean (compute) | Hak akses buat |
 | `user_can_update` | Boolean (compute) | Hak akses ubah |
 | `user_can_delete` | Boolean (compute) | Hak akses hapus |
+
+**Form Header Title (`model_description`) Lifecycle:**
+- **New Mode (`default_get`)**: Nilai langsung disediakan oleh `default=lambda self: self._description` saat in-memory draft record (`NewId`) diinisialisasi.
+- **Edit/View Mode (`web_read`)**: Nilai dihitung melalui method `_compute_model_description()` yang menetapkan `record.model_description = self._description`.
+- **XML Display**: Dirender di dalam `<header>` menggunakan:
+  ```xml
+  <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
+    <field name="model_description"/>
+  </span>
+  ```
 
 **Metode Utama:**
 
@@ -1474,19 +1484,49 @@ Setiap module mendefinisikan `security/ir.model.access.csv` untuk model-level CR
 ### 7.1 NavigationMixin Form Pattern
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  [Back]  [Edit]  [Save]  [Cancel]  [Delete]  [🔑]  │  ← Header buttons
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│  <field name="is_edit" invisible="1"/>              │  ← Hidden field
-│                                                     │
-│  ┌─ <sheet> ─────────────────────────────────────┐  │
-│  │                                                │  │
-│  │  Semua fields: readonly="not is_edit and id"   │  │  ← Auto-injected
-│  │                                                │  │
-│  └────────────────────────────────────────────────┘  │
-│                                                     │
-└─────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│  [Back] [Edit] [Save] [Cancel] [Delete] [🔑]   Position (Title)        │  ← Header buttons & Title
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  <field name="is_edit" invisible="1"/>                                 │  ← Hidden field
+│                                                                        │
+│  ┌─ <sheet> ────────────────────────────────────────────────────────┐  │
+│  │  <div class="oe_title">                                          │  │
+│  │    [Label: ID]   [Field: ID]                                     │  │  ← Title block
+│  │    [Label: Name] [Field: Name]                                   │  │
+│  │  </div>                                                          │  │
+│  │                                                                  │  │
+│  │  Semua fields: readonly="not is_edit and id"                     │  │  ← Auto-injected
+│  │                                                                  │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+**Header Title Standard:**
+Form header memuat judul model (`model_description`) yang selalu tampak baik pada mode **New** (berkat `default=lambda self: self._description`) maupun mode **Edit/View**:
+```xml
+<span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
+  <field name="model_description"/>
+</span>
+```
+
+**Title Block Structure (`.oe_title`):**
+```xml
+<div class="oe_title">
+  <div style="display: block; margin-bottom: 8px;">
+    <label for="country_id" string="Country ID"/>
+    <field name="country_id" readonly="not is_edit and id" placeholder="e.g. CTRY-001" default_focus="1"/>
+  </div>
+  <h1>
+    <div style="display: block; margin-bottom: 8px;">
+      <label for="country_name" string="Country Name"/>
+      <div class="d-flex">
+        <field class="text-break" name="country_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Indonesia" readonly="not is_edit and id"/>
+      </div>
+    </div>
+  </h1>
+</div>
 ```
 
 **State Behavior:**

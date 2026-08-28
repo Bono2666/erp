@@ -1,6 +1,6 @@
 # ERP KSI — Product Requirements Document
 
-> **Last updated:** 2026-08-06
+> **Last updated:** 2026-08-28
 > **Stack:** Odoo 17 (Python) + OWL Framework (JavaScript) + PostgreSQL
 
 ---
@@ -101,8 +101,26 @@ Abstract model (`navigation.mixin`) inherited by all master-data models. Provide
 | Auto-inject readonly | `get_views()`                                                        | Injects `readonly="not is_edit and id"` to form fields        |
 | CRUD actions         | `action_back()`, `action_edit()`, `action_save()`, `action_delete()` | Standard navigation actions                                   |
 | Permissions          | `user_can_read/create/update/delete`                                 | Computed from `general.auth` records                          |
+| Form header title    | `model_description`                                                  | Computed field with default value showing model name in form header |
 | Password action      | `action_password()`                                                  | Opens change password wizard for custom users                 |
 | System field sync    | `action_save()`                                                      | Syncs `name`, `login` to `res.users` when saving custom_users |
+
+#### 4.1.1 Form Header Title (`model_description`)
+
+**Field Definition:**
+```python
+model_description = fields.Char(
+    compute='_compute_model_description',
+    default=lambda self: self._description
+)
+```
+
+**Behavior:**
+- **New Record (Create Mode)**: Default value populated via `default=lambda self: self._description` ensures the model name appears immediately when creating new records
+- **Edit/View Mode**: Computed via `_compute_model_description()` method which sets `record.model_description = self._description`
+- Displayed in form header via `<field name="model_description"/>` in XML views
+
+**Technical Note:** Prior to August 2026, `model_description` lacked a `default` parameter, causing the field to be empty when opening "New" forms. The default lambda ensures `default_get()` populates the field during record initialization.
 
 ### 4.2 Address Hierarchy
 
