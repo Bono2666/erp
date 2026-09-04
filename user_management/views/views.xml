@@ -6,7 +6,7 @@
         <field name="name">general.password</field>
         <field name="model">general.password</field>
         <field name="arch" type="xml">
-            <form string="Change Password">
+            <form string="Ubah Kata Sandi">
                 <sheet>
                     <field name="user_id" invisible="1"/>
                     <group>
@@ -15,8 +15,8 @@
                     </group>
                 </sheet>
                 <footer>
-                    <button name="action_update_password" string="Save" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_update_password" string="Simpan" type="object" class="btn-primary"/>
+                    <button string="Batal" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -24,7 +24,7 @@
 
     <!-- action_open_change_password -->
     <record id="action_open_change_password" model="ir.actions.act_window">
-        <field name="name">Change Password</field>
+        <field name="name">Ubah Kata Sandi</field>
         <field name="res_model">general.password</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
@@ -34,7 +34,7 @@
     </record>
 
     <record model="ir.ui.view" id="user_management.custom_users_tree">
-      <field name="name">Users</field>
+      <field name="name">Pengguna</field>
       <field name="model">general.custom_users</field>
       <field name="arch" type="xml">
         <tree>
@@ -49,22 +49,22 @@
       <field name="name">user_management.custom_users.view.form</field>
       <field name="model">general.custom_users</field>
       <field name="arch" type="xml">
-      <form string="Users">
+      <form string="Pengguna">
         <header>
           <field name="id" invisible="1"/>
           <field name="is_edit" invisible="1"/>
           <field name="user_can_update" invisible="1"/>
           <field name="user_can_delete" invisible="1"/>
           <field name="user_id" invisible="1"/>
-          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-          <button name="%(user_management.action_open_change_password)d" string="Change Password" type="action" class="btn-secondary" invisible="not id or is_edit" context="{'active_user_id': user_id}"/>
-          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Batal" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Batal" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="%(user_management.action_open_change_password)d" string="Ubah Kata Sandi" type="action" class="btn-secondary" invisible="not id or is_edit" context="{'active_user_id': user_id}"/>
+          <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
           <span class="min-w-0 text-truncate mt-1">
             <field name="model_description"/>
           </span>
@@ -79,27 +79,27 @@
           <div class="oe_title">
               <label for="name"/>
               <h1><field name="name" placeholder="e.g. John Doe" required="1" readonly="not is_edit and id"/></h1>
-              <label for="login" string="Email Address"/>
+              <label for="login" string="Alamat Email"/>
               <h2><field name="login" placeholder="e.g. email@yourcompany.com" readonly="not is_edit and id"/></h2>
               <notebook>
-                <page string="Account Security" name="security" invisible="id">
-                  <group string="Password Management">
+                <page string="Keamanan Akun" name="security" invisible="id">
+                  <group string="Manajemen Kata Sandi">
                     <field name="password" password="True" width="20px"/>
                   </group>
                 </page>
-                <page string="Access Rights" name="authentication" invisible="not id">
+                <page string="Hak Akses" name="authentication" invisible="not id">
                   <field name="menu_ids" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}">
                     <tree editable="bottom">
                         <field name="menu_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                        <field name="can_create" string="Create"/>
-                        <field name="can_update" string="Update"/>
-                        <field name="can_delete" string="Delete"/>
-                        <field name="can_submit" string="Submit"/>
-                        <field name="can_send" string="Send"/>
-                        <field name="can_confirm" string="Confirm"/>
-                        <field name="can_invoicing" string="Invoicing"/>
-                        <field name="can_receive" string="Receive"/>
-                        <field name="can_billing" string="Billing"/>
+                        <field name="can_create" string="Buat"/>
+                        <field name="can_update" string="Perbarui"/>
+                        <field name="can_delete" string="Hapus"/>
+                        <field name="can_submit" string="Ajukan"/>
+                        <field name="can_send" string="Kirim"/>
+                        <field name="can_confirm" string="Konfirmasi"/>
+                        <field name="can_invoicing" string="Penagihan"/>
+                        <field name="can_receive" string="Terima"/>
+                        <field name="can_billing" string="Penagihan"/>
                     </tree>
                   </field>
                 </page>
@@ -113,7 +113,7 @@
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="user_management.custom_users_action">
-      <field name="name">Users</field>
+      <field name="name">Pengguna</field>
       <field name="res_model">general.custom_users</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -147,7 +147,7 @@
 -->
     <!-- menu categories -->
 
-    <menuitem name="Users" id="user_management.custom_user_menu" parent="general.menu_general_master_data" sequence="1" action="user_management.custom_users_action"/>
+    <menuitem name="Pengguna" id="user_management.custom_user_menu" parent="general.menu_general_master_data" sequence="1" action="user_management.custom_users_action"/>
     
     <!-- actions -->
 <!--

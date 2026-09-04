@@ -3,7 +3,7 @@
     <!-- explicit tree view definition -->
 
     <record model="ir.ui.view" id="sales.price_condition_tree">
-      <field name="name">Price Condition</field>
+      <field name="name">Kondisi Harga</field>
       <field name="model">sales.price_condition</field>
       <field name="arch" type="xml">
         <tree>
@@ -21,7 +21,7 @@
 
     <!-- sales.payment_terms tree view -->
     <record id="sales.payment_terms_view_tree" model="ir.ui.view">
-      <field name="name">Payment Terms</field>
+      <field name="name">Syarat Pembayaran</field>
       <field name="model">sales.payment_terms</field>
       <field name="arch" type="xml">
         <tree>
@@ -35,7 +35,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.cust_category_tree">
-      <field name="name">Customer Category</field>
+      <field name="name">Kategori Customer</field>
       <field name="model">sales.cust_category</field>
       <field name="arch" type="xml">
         <tree>
@@ -46,7 +46,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.cust_type_tree">
-      <field name="name">Customer Type</field>
+      <field name="name">Tipe Customer</field>
       <field name="model">sales.cust_type</field>
       <field name="arch" type="xml">
         <tree>
@@ -57,7 +57,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.cust_area_tree">
-      <field name="name">Customer Area</field>
+      <field name="name">Area Customer</field>
       <field name="model">sales.cust_area</field>
       <field name="arch" type="xml">
         <tree>
@@ -68,7 +68,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.cust_sub_category_tree">
-      <field name="name">Customer Sub Category</field>
+      <field name="name">Sub Kategori Customer</field>
       <field name="model">sales.cust_sub_category</field>
       <field name="arch" type="xml">
         <tree>
@@ -95,7 +95,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.sold_to_tree">
-      <field name="name">Sold To</field>
+      <field name="name">Pemesan</field>
       <field name="model">sales.sold_to</field>
       <field name="arch" type="xml">
         <tree>
@@ -112,7 +112,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.ship_to_tree">
-      <field name="name">Ship To</field>
+      <field name="name">Penerima</field>
       <field name="model">sales.ship_to</field>
       <field name="arch" type="xml">
         <tree>
@@ -129,7 +129,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.bill_to_tree">
-      <field name="name">Bill To</field>
+      <field name="name">Penagih</field>
       <field name="model">sales.bill_to</field>
       <field name="arch" type="xml">
         <tree>
@@ -146,7 +146,7 @@
     </record>
 
     <record model="ir.ui.view" id="sales.products_kanban">
-      <field name="name">Products</field>
+      <field name="name">Produk</field>
       <field name="model">sales.products</field>
       <field name="arch" type="xml">
         <kanban class="o_kanban_mobile">
@@ -287,14 +287,14 @@
       <field name="model">sales.sales_order</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="sales_code"/>
-          <field name="create_date" string="Creation Date" widget="date" optional="show"/>
-          <field name="customer_id"/>
-          <field name="sales_name" widget="many2one_avatar"/>
-          <field name="total_amount" decoration-bf="1" optional="show"/>
-          <field name="state" decoration-danger="state == 'cancel'" decoration-info="state in ['draft', 'sale_draft']" decoration-primary="state == 'approved'" decoration-warning="state == 'sent'" widget="badge" optional="show"/>
-          <field name="current_approver_name" string="Wait Approver" column_invisible="context.get('is_approval_view')" invisible="state != 'wait_approval'" optional="show"/>
-          <field name="invoice_status" widget="badge" decoration-info="invoice_status == 'to_invoice'" decoration-success="invoice_status == 'invoiced'" optional="show" column_invisible="context.get('hide_invoice')"/>
+          <field name="sales_code" string="Kode Penjualan"/>
+          <field name="create_date" string="Tanggal Pembuatan" widget="date" optional="show"/>
+          <field name="customer_id" string="Customer"/>
+          <field name="sales_name" string="Tenaga Penjual" widget="many2one_avatar"/>
+          <field name="total_amount" string="Total" decoration-bf="1" optional="show"/>
+          <field name="state" string="Status" decoration-danger="state == 'cancel'" decoration-info="state in ['draft', 'sale_draft']" decoration-primary="state == 'approved'" decoration-warning="state == 'sent'" widget="badge" optional="show"/>
+          <field name="current_approver_name" string="Menunggu Penyetuju" column_invisible="context.get('is_approval_view')" invisible="state != 'wait_approval'" optional="show"/>
+          <field name="invoice_status" string="Status Faktur" widget="badge" decoration-info="invoice_status == 'to_invoice'" decoration-success="invoice_status == 'invoiced'" optional="show" column_invisible="context.get('hide_invoice')"/>
         </tree>
       </field>
     </record>
@@ -323,20 +323,20 @@
       <field name="name">sales.payment_terms.view.form</field>
       <field name="model">sales.payment_terms</field>
       <field name="arch" type="xml">
-        <form string="Sales Order" class="o_sale_order">
+        <form string="Pesanan Penjualan" class="o_sale_order">
           <header>
             <field name="id" invisible="1"/>
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -354,7 +354,7 @@
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="sales_text" string="Description"/>
+                  <label for="sales_text" string="Deskripsi"/>
                   <div class="d-flex">
                     <field class="text-break" name="sales_text" options="{'line_breaks': False}" widget="text" placeholder="e.g. 30 days" readonly="not is_edit and id"/>
                   </div>
@@ -362,13 +362,13 @@
               </h1>
             </div>
             <notebook>
-              <page string="General Information" name="general_information">
+              <page string="Informasi Umum" name="general_information">
                 <group>
                   <field name="account_type" widget="many2many_tags" readonly="not is_edit and id"/>
                   <field name="baseline_date" readonly="not is_edit and id"/>
                 </group>
               </page>
-              <page string="Payment Terms" name="payment_terms">
+              <page string="Syarat Pembayaran" name="payment_terms">
                 <group class="mt-2 mb-0">
                   <label for="early_discount"/>
                   <div class="o_field_highlight">
@@ -380,7 +380,7 @@
                   </div>
                 </group>
                 <group>
-                  <group string="Due Terms">
+                  <group string="Syarat Jatuh Tempo">
                     <field name="payment_terms_ids" readonly="not is_edit and id" nolabel="1" colspan="2">
                       <tree editable="bottom">
                         <field name="percentage"/>
@@ -396,7 +396,7 @@
                       </form>
                     </field>
                   </group>
-                  <group string="Preview">
+                  <group string="Pratinjau">
                     <div class="d-flex gap-2" colspan="2" col="4">
                         Example:
                         <span> Rp </span>
@@ -428,11 +428,11 @@
             <field name="id" invisible="1"/>
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -460,14 +460,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -480,12 +480,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="category_id" string="Category ID"/>
+                <label for="category_id" string="ID Kategori"/>
                 <field name="category_id" readonly="not is_edit and id" placeholder="e.g. CUSTCAT-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="category_name" string="Category Name"/>
+                  <label for="category_name" string="Nama Kategori"/>
                   <div class="d-flex">
                     <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Retail Customer" readonly="not is_edit and id"/>
                   </div>
@@ -508,14 +508,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -528,12 +528,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="type_id" string="Type ID"/>
+                <label for="type_id" string="ID Tipe"/>
                 <field name="type_id" readonly="not is_edit and id" placeholder="e.g. CUSTTYP-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="type_name" string="Type Name"/>
+                  <label for="type_name" string="Nama Tipe"/>
                   <div class="d-flex">
                     <field class="text-break" name="type_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales &amp; Distribution (SD) Customer" readonly="not is_edit and id"/>
                   </div>
@@ -556,14 +556,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -576,12 +576,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="area_id" string="Area ID"/>
+                <label for="area_id" string="ID Area"/>
                 <field name="area_id" readonly="not is_edit and id" placeholder="e.g. CUSTARE-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="area_name" string="Area Name"/>
+                  <label for="area_name" string="Nama Area"/>
                   <div class="d-flex">
                     <field class="text-break" name="area_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. West Region" readonly="not is_edit and id"/>
                   </div>
@@ -604,14 +604,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -624,12 +624,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="sub_category_id" string="Sub Category ID"/>
+                <label for="sub_category_id" string="ID Sub Kategori"/>
                 <field name="sub_category_id" readonly="not is_edit and id" placeholder="e.g. SUBCAT-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="sub_category_name" string="Sub Category Name"/>
+                  <label for="sub_category_name" string="Nama Sub Kategori"/>
                   <div class="d-flex">
                     <field class="text-break" name="sub_category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
                   </div>
@@ -651,20 +651,20 @@
       <field name="name">sales.products.view.form</field>
       <field name="model">sales.products</field>
       <field name="arch" type="xml">
-          <form string="">
+          <form string="Products">
             <header>
               <field name="id" invisible="1"/>
               <field name="is_edit" invisible="1"/>
               <field name="user_can_update" invisible="1"/>
               <field name="user_can_delete" invisible="1"/>
-              <button string="Back" name="action_back_kanban" type="object" invisible="is_edit or not id"/>
-              <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-              <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-              <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-              <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-              <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-              <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-              <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+              <button string="Kembali" name="action_back_kanban" type="object" invisible="is_edit or not id"/>
+              <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+              <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+              <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+              <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+              <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+              <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+              <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
               <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
@@ -678,12 +678,12 @@
               <field name="image" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title">
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="product_id" string="Product ID"/>
+                  <label for="product_id" string="ID Produk"/>
                   <field name="product_id" placeholder="e.g. 3422010503" readonly="not is_edit and id" default_focus="1"/>
                 </div>
                 <h1>
                   <div style="display: block; margin-bottom: 8px;">
-                    <label for="product_name" string="Product Name"/>
+                    <label for="product_name" string="Nama Produk"/>
                     <div class="d-flex">
                       <field class="text-break" name="product_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Screw Compressor 30HP Evo Series" readonly="not is_edit and id"/>
                     </div>
@@ -692,22 +692,22 @@
                 <div class="o_row">
                   <field name="sales_ok" readonly="not is_edit and id"/>
                   <label for="sales_ok"/>
-                  <field name="purchase_ok" readonly="not is_edit and id"/>
+                  <field name="purchase_ok" string="Pembelian" readonly="not is_edit and id"/>
                   <label for="purchase_ok"/>
                 </div>
               </div>
               <notebook>
-                <page string="General Information" name="general_information">
+                <page string="Informasi Umum" name="general_information">
                   <group>
                     <group name="group_general">
                       <field name="barcode" readonly="not is_edit and id"/>
-                      <field name="product_category" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                      <field name="product_unit" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                      <field name="product_type" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
-                      <field name="stock" string="Quantiity On Hand" readonly="1"/>
+                      <field name="product_category" string="Kategori Produk" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                      <field name="product_unit" string="Satuan Produk" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                      <field name="product_type" string="Tipe Produk" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                      <field name="stock" string="Kuantitas Tersedia" readonly="1"/>
                     </group>
                     <group name="group_standard_price">
-                        <label for="base_price"/>
+                        <label for="base_price" string="Harga Penjualan"/>
                         <div name="pricing" class="o_row">
                           <field name="base_price" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" readonly="not is_edit and id"/>
                           <field name="currency_id" class="oe_inline" readonly="not is_edit and id"/>
@@ -715,11 +715,11 @@
                         </div>
                         <field name="cogs" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" readonly="not is_edit and id"/>
                         <field name="bom_based_cogs" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}" readonly="1"/>
-                        <field name="customer_tax" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                        <field name="customer_tax" string="Pajak Customer" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                     </group>
                   </group>
                 </page>
-                <page string="BOM / Components" name="bom">
+                <page string="BOM / Komponen" name="bom">
                   <field name="bom_ids" readonly="not is_edit and id">
                     <tree editable="bottom">
                       <field name="name"/>
@@ -753,14 +753,14 @@
               <field name="is_edit" invisible="1"/>
               <field name="user_can_update" invisible="1"/>
               <field name="user_can_delete" invisible="1"/>
-              <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-              <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-              <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-              <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-              <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-              <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-              <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-              <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+              <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+              <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+              <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+              <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+              <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+              <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+              <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+              <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
               <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
@@ -773,12 +773,12 @@
             <sheet>
               <div class="oe_title">
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="product_type_id" string="Product Type ID"/>
+                  <label for="product_type_id" string="ID Tipe Produk"/>
                   <field name="product_type_id" readonly="not is_edit and id" placeholder="e.g. PT-001" default_focus="1"/>
                 </div>
                 <h1>
                   <div style="display: block; margin-bottom: 8px;">
-                    <label for="name" string="Product Type"/>
+                    <label for="name" string="Tipe Produk"/>
                     <div class="d-flex">
                       <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Raw Materials" readonly="not is_edit and id"/>
                     </div>
@@ -801,14 +801,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -821,16 +821,16 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="uom_id" string="Unit of Measure ID"/>
+                <label for="uom_id" string="ID Satuan Ukur"/>
                 <field name="uom_id" readonly="not is_edit and id" placeholder="e.g. UOM-001" default_focus="1"/>
               </div>
               <span class="d-inline-flex">
-                  <label for="qty" string="Quantity"/>
+                  <label for="qty" string="Kuantitas"/>
                   <field name="qty" readonly="not is_edit and id"/>
               </span>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="uom" string="Unit of Measure"/>
+                  <label for="uom" string="Satuan Ukur"/>
                   <div class="d-flex">
                     <field class="text-break" name="uom" options="{'line_breaks': False}" widget="text" placeholder="e.g. Piece" readonly="not is_edit and id"/>
                   </div>
@@ -838,7 +838,7 @@
               </h1>
             </div>
             <notebook>
-              <page string="Base Information" name="base_information">
+              <page string="Informasi Dasar" name="base_information">
                 <group>
                   <field name="base_qty" readonly="not is_edit and id"/>
                   <field name="base_uom" readonly="not is_edit and id"/>
@@ -861,14 +861,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -881,12 +881,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="price_condition_id" string="Price Condition ID"/>
+                <label for="price_condition_id" string="ID Kondisi Harga"/>
                 <field name="price_condition_id" readonly="not is_edit and id" placeholder="e.g. PC-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="price_name" string="Price Name"/>
+                  <label for="price_name" string="Nama Harga"/>
                   <div class="d-flex">
                     <field class="text-break" name="price_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
                   </div>
@@ -894,9 +894,9 @@
               </h1>
             </div>
             <notebook>
-              <page name="rules" string="Price Rules">
+              <page name="rules" string="Aturan Harga">
                 <group>
-                  <group name="group_price_computation" string="Price Computation">
+                  <group name="group_price_computation" string="Perhitungan Harga">
                     <field name="compute_price" readonly="not is_edit and id" widget="radio"/>
                     <field name="fixed_price" readonly="not is_edit and id" invisible="compute_price != 'fixed'" style="width: 40%;"/>
                     <label for="percent_price" invisible="compute_price != 'discount'"/>
@@ -907,7 +907,7 @@
                         <span>%%</span>
                     </div>
                   </group>
-                  <group name="group_conditions" string="Conditions">
+                  <group name="group_conditions" string="Kondisi">
                     <field name="min_quantity" readonly="not is_edit and id"/>
                     <field name="date_start" 
                           widget="daterange" 
@@ -916,8 +916,8 @@
                   </group>
                 </group>
               </page>
-              <page name="products" string="Products">
-                <group name="product_conditions" string="Conditions">
+              <page name="products" string="Produk">
+                <group name="product_conditions" string="Kondisi">
                     <field name="applied_on" readonly="not is_edit and id" widget="radio"/>
                     <field name="product_category_ids" widget="many2many_tags" 
                           invisible="applied_on != 'category'" 
@@ -937,8 +937,8 @@
                     </field>
                 </div>
               </page>
-              <page name="customers" string="Customers">
-                <group name="customer_conditions" string="Conditions">
+              <page name="customers" string="Customer">
+                <group name="customer_conditions" string="Kondisi">
                     <field name="customer_applied_on" readonly="not is_edit and id" widget="radio"/>
                     <field name="customer_category_ids" widget="many2many_tags" 
                           invisible="customer_applied_on != 'category'" 
@@ -975,14 +975,13 @@
               <field name="is_edit" invisible="1"/>
               <field name="user_can_update" invisible="1"/>
               <field name="user_can_delete" invisible="1"/>
-              <button string="Back" name="action_back_kanban" type="object" invisible="is_edit or not id"/>
-              <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-              <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-              <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-              <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-              <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-              <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-              <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+              <button string="Kembali" name="action_back_kanban" type="object" invisible="is_edit or not id"/>
+              <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+              <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+              <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+              <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+              <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+              <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
               <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
                 <field name="model_description"/>
               </span>
@@ -996,12 +995,12 @@
               <field name="image_1920" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title mb24">
                   <div style="display: block; margin-bottom: 8px;">
-                    <label for="customer_id" string="Customer ID"/>
+                    <label for="customer_id" string="ID Customer"/>
                     <field name="customer_id" readonly="not is_edit and id" placeholder="e.g. CUS-001" default_focus="1"/>
                   </div>
                   <h1>
                       <div style="display: block; margin-bottom: 8px;">
-                        <label for="customer_name" string="Customer Name"/>
+                        <label for="customer_name" string="Nama Customer"/>
                         <div class="d-flex">
                           <field options="{'line_breaks': False}" widget="text" class="text-break" name="customer_name" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
                         </div>
@@ -1013,18 +1012,19 @@
                   <group>
                       <field name="cust_type" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                       <span class="o_form_label o_td_label" name="address_name">
-                          <b>Address</b>
+                          <b>Alamat</b>
                       </span>
                       <div class="o_address_format">
                           <field name="address" placeholder="Street..." readonly="not is_edit and id"/>
-                          <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('city_ref', '=', city)] if city else []"/>
-                          <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('state_ref', '=', state)] if state else []"/>
-                          <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('country_ref', '=', country)] if country else []"/>
-                          <field name="postal_code" placeholder="Postal Code" readonly="not is_edit and id" class="o_address_zip"/>
+                          <field name="district" placeholder="Kecamatan" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('city_ref', '=', city)] if city else []"/>
+                          <field name="city" placeholder="Kota" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('state_ref', '=', state)] if state else []"/>
+                          <field name="state" class="o_address_state" placeholder="Provinsi" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('country_ref', '=', country)] if country else []"/>
+                          <field name="postal_code" placeholder="Kode Pos" readonly="not is_edit and id" class="o_address_zip"/>
                           <div name="partner_address_country" class="d-flex justify-content-between">
-                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                              <field name="country" placeholder="Negara" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                           </div>
                       </div>
+                      <field name="address_display" readonly="1" string="Tampilan Alamat"/>
                       <field name="npwp" placeholder="e.g. 08.178.554.2-123.321" readonly="not is_edit and id"/>
                       <field name="pkp" readonly="not is_edit and id"/>
                   </group>
@@ -1032,70 +1032,14 @@
                       <field name="contact_name" readonly="not is_edit and id"/>
                       <field name="telephone" widget="phone" readonly="not is_edit and id"/>
                       <field name="email" widget="email" context="{'gravatar_image': True}" readonly="not is_edit and id"/>
-                      <field name="website" string="Website" widget="url" placeholder="e.g. https://www.odoo.com" readonly="not is_edit and id"/>
+                      <field name="website" string="Situs Web" widget="url" placeholder="e.g. https://www.odoo.com" readonly="not is_edit and id"/>
                       <field name="tags" placeholder="e.g. Google Maps tag" readonly="not is_edit and id"/>
                   </group>
               </group>
 
               <notebook colspan="4">
-               <page string="Sold To" name="sold_to" autofocus="autofocus">
-                        <field name="sold_to_ids" mode="kanban,tree" readonly="not is_edit and id">
-                           <tree>
-                               <field name="sold_id"/>
-                               <field name="sold_name"/>
-                               <field name="district"/>
-                               <field name="city"/>
-                               <field name="state"/>
-                               <field name="postal_code"/>
-                               <field name="country"/>
-                           </tree>
-                           <kanban>
-                               <field name="customer_id" invisible="1"/>
-                               <templates>
-                                   <t t-name="kanban-box">
-                                       <div class="oe_kanban_global_click">
-                                           <div class="o_kanban_image">
-                                               <img alt="Contact image" t-attf-src="sales/static/src/img/contact.png"/>
-                                           </div>
-                                           <div class="oe_kanban_details">
-                                               <field name="sold_name"/>
-                                               <div t-if="record.address">
-                                                   <div>
-                                                       <field name="district"/><t t-if="record.city"> </t>
-                                                       <field name="city"/><t t-if="record.postal_code"> </t>
-                                                       <field name="postal_code"/>
-                                                   </div>
-                                                   <field t-if="record.state.raw_value" name="state"/><t t-if="record.country"> </t>
-                                                   <field name="country"/>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </t>
-                               </templates>
-                           </kanban>
-                          <form string="Sold To Address">
-                              <sheet>
-                                  <field name="customer_id" invisible="1"/>
-                                  <hr/>
-                                  <group>
-                                      <field name="sold_name" string="Sold Name" required="1"/>
-                                      <label for="address" string="Address"/>
-                                      <div>
-                                          <div class="o_address_format" name="div_address">
-                                              <field name="address" placeholder="Street..."/>
-                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
-                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
-                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
-                                              <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
-                                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                                          </div>
-                                      </div>
-                                  </group>
-                              </sheet>
-                          </form>
-                      </field>
-                  </page>
-                   <page string="Ship To" name="ship_to">
+
+                   <page string="Dikirim Ke" name="ship_to">
                        <field name="ship_to_ids" mode="kanban,tree" readonly="not is_edit and id">
                            <tree>
                                <field name="ship_id"/>
@@ -1130,21 +1074,21 @@
                                    </t>
                                </templates>
                            </kanban>
-                          <form string="Shipping Address">
+                          <form string="Alamat Pengiriman">
                               <sheet>
                                   <field name="customer_id" invisible="1"/>
                                   <hr/>
                                   <group>
-                                      <field name="ship_name" string="Ship Name" required="1"/>
-                                      <label for="address" string="Address"/>
+                                      <field name="ship_name" string="Nama Penerima" required="1"/>
+                                      <label for="address" string="Alamat"/>
                                       <div>
                                           <div class="o_address_format" name="div_address">
                                               <field name="address" placeholder="Street..."/>
-                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
-                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
-                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
-                                              <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
-                                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                              <field name="district" placeholder="Kecamatan" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
+                                              <field name="city" placeholder="Kota" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
+                                              <field name="state" class="o_address_state" placeholder="Provinsi" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
+                                              <field name="postal_code" placeholder="Kode Pos" class="o_address_zip"/>
+                                              <field name="country" placeholder="Negara" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                           </div>
                                       </div>
                                   </group>
@@ -1152,7 +1096,7 @@
                           </form>
                       </field>
                   </page>
-                    <page string="Bill To" name="bill_to">
+                    <page string="Ditagih Ke" name="bill_to">
                        <field name="bill_to_ids" mode="kanban,tree" readonly="not is_edit and id">
                            <tree>
                                <field name="bill_id"/>
@@ -1187,21 +1131,21 @@
                                    </t>
                                </templates>
                            </kanban>
-                          <form string="Bill To Address">
+                          <form string="Alamat Penagihan">
                               <sheet>
                                   <field name="customer_id" invisible="1"/>
                                   <hr/>
                                   <group>
-                                      <field name="bill_name" string="Bill Name" required="1"/>
-                                      <label for="address" string="Address"/>
+                                      <field name="bill_name" string="Nama Penagihan" required="1"/>
+                                      <label for="address" string="Alamat"/>
                                       <div>
                                           <div class="o_address_format" name="div_address">
                                               <field name="address" placeholder="Street..."/>
-                                              <field name="district" placeholder="District" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
-                                              <field name="city" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
-                                              <field name="state" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
-                                              <field name="postal_code" placeholder="Postal Code" class="o_address_zip"/>
-                                              <field name="country" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                              <field name="district" placeholder="Kecamatan" class="o_address_street" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('city_ref', '=', city)] if city else []"/>
+                                              <field name="city" placeholder="Kota" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('state_ref', '=', state)] if state else []"/>
+                                              <field name="state" class="o_address_state" placeholder="Provinsi" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" domain="[('country_ref', '=', country)] if country else []"/>
+                                              <field name="postal_code" placeholder="Kode Pos" class="o_address_zip"/>
+                                              <field name="country" placeholder="Negara" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                           </div>
                                       </div>
                                   </group>
@@ -1209,23 +1153,39 @@
                           </form>
                       </field>
                   </page>
-                  <page name="sales" string="Sales">
+                  <page name="sales" string="Penjualan">
                       <group name="container_row_2">
-                          <group string="Sales" name="sale" priority="1">
+                          <group string="Penjualan" name="sale" priority="1">
                               <field name="sales_name" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                           </group>
-                          <group name="misc" string="Misc">
+                          <group name="misc" string="Lainnya">
                               <field name="cust_category" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                               <field name="cust_sub_category" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id" domain="[('category_ref', '=', cust_category)] if cust_category else []"/>
                               <field name="cust_area" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
                           </group>
                       </group>
                   </page>
-                  <page name="price_condition" string="Price Condition">
-                      <field name="price_condition_ids" readonly="1" widget="many2many_tags"/>
+                  <page name="price_condition" string="Kondisi Harga">
+                      <group name="group_price_condition">
+                          <field name="price_condition_ids"
+                                 string="Kondisi Harga"
+                                 readonly="not is_edit and id"
+                                 widget="many2many_tags"
+                                 options="{'no_create': True, 'no_open': True}"
+                                 placeholder="Select price conditions..."
+                                 domain="[('customer_applied_on', '=', 'customer')]"
+                          />
+                      </group>
                   </page>
-                  <page name="payment_terms" string="Payment Terms">
-                      <field name="payment_terms" placeholder="Payment terms..." options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="not is_edit and id"/>
+                  <page name="payment_terms" string="Syarat Pembayaran">
+                      <group name="group_payment_terms">
+                          <field name="payment_terms"
+                                 string="Syarat Pembayaran"
+                                 placeholder="Select payment terms..."
+                                 options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                 readonly="not is_edit and id"
+                          />
+                      </group>
                   </page>
               </notebook>
             </sheet>
@@ -1244,14 +1204,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -1264,12 +1224,12 @@
           <sheet>
             <div class="oe_title">
               <div style="display: block; margin-bottom: 8px;">
-                <label for="tax_id" string="Tax ID"/>
+                <label for="tax_id" string="ID Pajak"/>
                 <field name="tax_id" readonly="not is_edit and id" placeholder="e.g. TAX-001" default_focus="1"/>
               </div>
               <h1>
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="name" string="Tax Name"/>
+                  <label for="name" string="Nama Pajak"/>
                   <div class="d-flex">
                     <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. VAT 10%" readonly="not is_edit and id"/>
                   </div>
@@ -1277,7 +1237,7 @@
               </h1>
             </div>
             <notebook>
-              <page string="General Information" name="general_information">
+              <page string="Informasi Umum" name="general_information">
                 <group>
                   <field name="tax_percentage" readonly="not is_edit and id"/>
                   <field name="default_tax" readonly="not is_edit and id"/>
@@ -1300,14 +1260,14 @@
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
               <field name="model_description"/>
             </span>
@@ -1320,12 +1280,12 @@
             <sheet>
               <div class="oe_title">
                 <div style="display: block; margin-bottom: 8px;">
-                  <label for="category_id" string="Category ID"/>
+                  <label for="category_id" string="ID Kategori"/>
                   <field name="category_id" readonly="not is_edit and id" placeholder="e.g. PCAT-001" default_focus="1"/>
                 </div>
                 <h1>
                   <div style="display: block; margin-bottom: 8px;">
-                    <label for="category_name" string="Category Name"/>
+                    <label for="category_name" string="Nama Kategori"/>
                     <div class="d-flex">
                       <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Beverages" readonly="not is_edit and id"/>
                     </div>
@@ -1347,7 +1307,7 @@
       <field name="name">sales.quotation.view.form</field>
       <field name="model">sales.sales_order</field>
       <field name="arch" type="xml">
-        <form string="Quotation">
+        <form string="Penawaran">
           <header>
             <field name="id" invisible="1"/>
             <field name="is_edit" invisible="1"/>
@@ -1369,46 +1329,46 @@
             <field name="is_quotation" invisible="1"/>
             <field name="invoice_status" invisible="1"/>
             <field name="invoice_count" invisible="1"/>
-            <button string="Back" name="action_back_to_quotations" type="object" invisible="is_edit or not id or context.get('is_approval_view') or state == 'sale' or is_quotation == False"/>
-            <button string="Back" name="action_back_to_approvals" type="object" invisible="is_edit or not id or not context.get('is_approval_view') or state == 'sale'"/>
-            <button string="Back" name="action_back_to_sales" type="object" invisible="is_edit or not id or (state not in ['sale', 'sale_draft', 'approved'] and is_quotation == False) or (state not in ['sale'] and is_quotation == True)"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit or is_revised" class="oe_highlight"/>
-            <button string="Save" name="action_save_revised" type="object" invisible="id and not is_edit or not is_revised" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete_sales" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
+            <button string="Kembali" name="action_back_to_quotations" type="object" invisible="is_edit or not id or context.get('is_approval_view') or state == 'sale' or is_quotation == False"/>
+            <button string="Kembali" name="action_back_to_approvals" type="object" invisible="is_edit or not id or not context.get('is_approval_view') or state == 'sale'"/>
+            <button string="Kembali" name="action_back_to_sales" type="object" invisible="is_edit or not id or (state not in ['sale', 'sale_draft', 'approved'] and is_quotation == False) or (state not in ['sale'] and is_quotation == True)"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit or is_revised" class="oe_highlight"/>
+            <button string="Simpan" name="action_save_revised" type="object" invisible="id and not is_edit or not is_revised" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete_sales" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete or state not in ['draft', 'sale_draft', 'approved', 'sent']"/>
             <div class="btn-group oe_right" role="group" aria-label="Quotation Actions">
-              <button name="action_quotation_send_custom" id="send_by_email_primary" string="Send by Email" type="object" data-hotkey="g" invisible="state not in ['draft', 'approved'] or not id or is_edit or need_approval or not user_can_send or not order_line_ids" class="btn-primary float-end"/>
-              <button string="Send by Email" class="btn-primary float-end opacity-50 pe-none" invisible="state not in ['draft', 'approved'] or not id or is_edit or need_approval or user_can_send"/>
-              <button name="action_submit_for_approval" id="submit_for_approval" string="Submit" type="object" data-hotkey="s" invisible="state not in ['draft', 'sale_draft'] or not need_approval or not id or is_edit or not user_can_submit" class="btn-primary float-end"/>
-              <button string="Submit" class="btn-primary float-end opacity-50 pe-none" invisible="state not in ['draft', 'sale_draft'] or not need_approval or not id or is_edit or user_can_submit"/>
-              <button name="action_confirm" id="action_confirm" data-hotkey="q" string="Confirm" class="btn-primary float-end" type="object" invisible="is_edit or (state not in ['sent'] and is_quotation == True) or (state not in ['sale_draft'] and is_quotation == False and not need_approval) or (state not in ['approved'] and is_quotation == False and need_approval) or not user_can_confirm"/>
-              <button string="Confirm" class="btn-primary float-end opacity-50 pe-none" invisible="is_edit or (state not in ['sent'] and is_quotation == True) or (state not in ['sale_draft'] and is_quotation == False) or (state not in ['approved'] and is_quotation == False) or user_can_confirm"/>
-              <button name="action_quotation_send_custom" id="send_by_email" string="Send by Email" type="object" data-hotkey="g" invisible="state not in ['sent', 'approved'] or not id or is_edit or not user_can_send or is_quotation == False"/>
-              <button string="Send by Email" class="btn-secondary float-end opacity-50 pe-none" invisible="state not in ['sent', 'approved'] or not id or is_edit or user_can_send or not order_line_ids"/>
-              <button name="action_approve" id="approve" string="Approve" type="object" data-hotkey="a" invisible="not id or is_edit or not user_can_approve or not context.get('is_approval_view')" class="oe_highlight"/>
-              <button name="action_revise" id="revise" string="Revise" type="object" data-hotkey="e" invisible="not id or is_edit or not user_can_revise or not context.get('is_approval_view')" class="btn-secondary"/>
-              <button name="action_return" id="return" string="Return" type="object" data-hotkey="t" invisible="not id or is_edit or not user_can_return or not context.get('is_approval_view')" class="btn-secondary"/>
-              <button name="action_reject" id="reject" string="Reject" type="object" data-hotkey="r" invisible="not id or is_edit or not user_can_reject or not context.get('is_approval_view')"/>
+              <button name="action_quotation_send_custom" id="send_by_email_primary" string="Kirim via Email" type="object" data-hotkey="g" invisible="state not in ['draft', 'approved'] or not id or is_edit or need_approval or not user_can_send or not order_line_ids" class="btn-primary float-end"/>
+              <button string="Kirim via Email" class="btn-primary float-end opacity-50 pe-none" invisible="state not in ['draft', 'approved'] or not id or is_edit or need_approval or user_can_send"/>
+              <button name="action_submit_for_approval" id="submit_for_approval" string="Ajukan" type="object" data-hotkey="s" invisible="state not in ['draft', 'sale_draft'] or not need_approval or not id or is_edit or not user_can_submit" class="btn-primary float-end"/>
+              <button string="Ajukan" class="btn-primary float-end opacity-50 pe-none" invisible="state not in ['draft', 'sale_draft'] or not need_approval or not id or is_edit or user_can_submit"/>
+              <button name="action_confirm" id="action_confirm" data-hotkey="q" string="Konfirmasi" class="btn-primary float-end" type="object" invisible="is_edit or (state not in ['sent'] and is_quotation == True) or (state not in ['sale_draft'] and is_quotation == False and not need_approval) or (state not in ['approved'] and is_quotation == False and need_approval) or not user_can_confirm"/>
+              <button string="Konfirmasi" class="btn-primary float-end opacity-50 pe-none" invisible="is_edit or (state not in ['sent'] and is_quotation == True) or (state not in ['sale_draft'] and is_quotation == False) or (state not in ['approved'] and is_quotation == False) or user_can_confirm"/>
+              <button name="action_quotation_send_custom" id="send_by_email" string="Kirim via Email" type="object" data-hotkey="g" invisible="state not in ['sent', 'approved'] or not id or is_edit or not user_can_send or is_quotation == False"/>
+              <button string="Kirim via Email" class="btn-secondary float-end opacity-50 pe-none" invisible="state not in ['sent', 'approved'] or not id or is_edit or user_can_send or not order_line_ids"/>
+              <button name="action_approve" id="approve" string="Setujui" type="object" data-hotkey="a" invisible="not id or is_edit or not user_can_approve or not context.get('is_approval_view')" class="oe_highlight"/>
+              <button name="action_revise" id="revise" string="Revisi" type="object" data-hotkey="e" invisible="not id or is_edit or not user_can_revise or not context.get('is_approval_view')" class="btn-secondary"/>
+              <button name="action_return" id="return" string="Kembalikan" type="object" data-hotkey="t" invisible="not id or is_edit or not user_can_return or not context.get('is_approval_view')" class="btn-secondary"/>
+              <button name="action_reject" id="reject" string="Tolak" type="object" data-hotkey="r" invisible="not id or is_edit or not user_can_reject or not context.get('is_approval_view')"/>
 
               <button name="action_create_invoice_simple"
                     type="object"
-                    string="Create Invoice"
+                    string="Buat Faktur"
                     class="btn-primary"
                     invisible="invoice_status != 'to_invoice' or not user_can_invoicing"/>
-              <button string="Create Invoice"
+              <button string="Buat Faktur"
                     class="btn-primary opacity-50 pe-none"
                     invisible="invoice_status != 'to_invoice' or user_can_invoicing"/>
               <button name="action_cancel"
                     type="object"
-                    string="Cancel Order"
+                    string="Batal Pesanan"
                     class="btn-secondary"
                     confirm="Are you sure you want to cancel this sales order?"
                     invisible="state != 'sale' or is_edit or not user_can_delete"/>
-              <button string="Cancel Order"
+              <button string="Batal Pesanan"
                     class="btn-secondary opacity-50 pe-none"
                     invisible="state != 'sale' or is_edit or user_can_delete"/>
             </div>
@@ -1458,8 +1418,8 @@
                     <field name="payment_terms" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="state in ['cancel'] or (not is_edit and id)"/>
                 </group>
                 <notebook colspan="4">
-                    <page string="Order Lines" name="order_lines">
-                        <field name="order_line_ids" string="Order Lines" readonly="state in ['cancel', 'wait_approval'] or (not is_edit and id)">
+                    <page string="Baris Pesanan" name="order_lines">
+                        <field name="order_line_ids" string="Baris Pesanan" readonly="state in ['cancel', 'wait_approval'] or (not is_edit and id)">
                             <tree editable="bottom">
                                 <field name="product_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" force_save="1"/>
                                 <field name="quantity"/>
@@ -1471,7 +1431,7 @@
                                 <field name="info"/>
                                 <field name="sub_total"/>
                                 <control>
-                                    <create name="add_product_control" string="Add a product"/>
+                                    <create name="add_product_control" string="Tambah Produk"/>
                                 </control>
                             </tree>
                         </field>
@@ -1481,23 +1441,23 @@
                             </group>
                             <group colspan="1" class="d-flex flex-column align-items-end">
                               <div class="d-flex gap-1 mb-2 ms-1" name="so_button_below_order_lines">
-                                  <button string="Discount" name="action_open_discount_wizard" type="object" class="btn btn-secondary" invisible="state in ['sale', 'wait_approval', 'cancel'] or (not is_edit and id)"/>
+                                  <button string="Diskon" name="action_open_discount_wizard" type="object" class="btn btn-secondary" invisible="state in ['sale', 'wait_approval', 'cancel'] or (not is_edit and id)"/>
                               </div>
                             </group>
                             <group class="oe_subtotal_footer" colspan="3" name="sale_total">
-                                <field name="total_amount_untaxed" colspan="2" readonly="1" string="Untaxed Amount" class="text-bold" invisible="total_amount_untaxed == 0"/>
-                                <field name="total_tax" string="Tax Amount" colspan="2" readonly="1" invisible="total_tax == 0"/>
+                                <field name="total_amount_untaxed" colspan="2" readonly="1" string="Total Sebelum Pajak" class="text-bold" invisible="total_amount_untaxed == 0"/>
+                                <field name="total_tax" string="Total Pajak" colspan="2" readonly="1" invisible="total_tax == 0"/>
                                 <field name="total_amount" string="Total" colspan="2" readonly="1" class="text-bold total"/>
                             </group>
                         </group>
                     </page>
-                    <page string="Other Info" name="other_information">
+                    <page string="Info Lain" name="other_information">
                         <group>
-                            <group name="sales_person" string="Sales">
+                            <group name="sales_person" string="Penjualan">
                                 <field name="sales_name" readonly="1" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                             </group>
-                            <group name="sale_shipping" string="Shipping">
-                                <label for="commitment_date" string="Delivery Date"/>
+                            <group name="sale_shipping" string="Pengiriman">
+                                <label for="commitment_date" string="Tanggal Pengiriman"/>
                                 <div name="commitment_date_div" class="o_row">
                                     <field name="commitment_date" readonly="state == 'cancel' or (not is_edit and id)"/>
                                     <span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>
@@ -1505,19 +1465,19 @@
                             </group>
                         </group>
                     </page>
-                    <page string="Approval Logs" name="approval_logs" invisible="not approval_log_ids">
+                    <page string="Log Persetujuan" name="approval_logs" invisible="not approval_log_ids">
                         <field name="approval_log_ids" readonly="1">
                             <tree default_order="action_date asc, id asc">
                                 <field name="id" column_invisible="True"/>
                                 <field name="sequence" widget="handle"/>
-                                <field name="approver" string="Approver Name"/>
+                                <field name="approver" string="Nama Penyetuju"/>
                                 <field name="position" string="Position/Role"/>
-                                <field name="action_date" string="Date"/>
+                                <field name="action_date" string="Tanggal"/>
                                 <field name="state" decoration-danger="state == 'rejected'" decoration-info="state == 'revised'" decoration-primary="state == 'approved'" decoration-warning="state == 'returned'" widget="badge" string="Status"/>
                                 <field name="note" string="Notes/Feedback"/>
-                                <field name="approval_reason" string="Approval Reason"/>
+                                <field name="approval_reason" string="Alasan Persetujuan"/>
                             </tree>
-                            <form string="Approval Log Detail">
+                            <form string="Detail Log Persetujuan">
                                 <group>
                                     <group>
                                         <field name="approver"/>
@@ -1528,14 +1488,14 @@
                                         <field name="state" decoration-danger="state == 'rejected'" decoration-info="state == 'revised'" decoration-primary="state == 'approved'" decoration-warning="state == 'returned'" widget="badge" string="Status"/>
                                     </group>
                                 </group>
-                                <separator string="Approval Reason"/>
+                                <separator string="Alasan Persetujuan"/>
                                 <field name="approval_reason" placeholder="No reason provided..." readonly="1"/>
-                                <separator string="Notes"/>
+                                <separator string="Catatan"/>
                                 <field name="note" placeholder="No feedback provided..." readonly="1"/>
                             </form>
                         </field>
                     </page>
-                    <page string="Invoices" name="custom_invoices" invisible="invoice_count == 0">
+                    <page string="Faktur" name="custom_invoices" invisible="invoice_count == 0">
                         <field name="invoice_ids" readonly="1">
                             <tree create="0" delete="0" edit="0" no_open="1">
                                 <field name="invoice_number"/>
@@ -1543,11 +1503,11 @@
                                 <field name="invoice_type"/>
                                 <field name="amount_total"/>
                                 <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'posted'" decoration-danger="state == 'cancel'"/>
-                                <field name="payment_state" string="Payment Status" widget="badge"
+                                <field name="payment_state" string="Status Pembayaran" widget="badge"
                                        decoration-warning="payment_state == 'partial'"
                                        decoration-success="payment_state == 'paid'"
                                        decoration-muted="payment_state == 'not_paid'"/>
-                                <button name="action_view_invoice" string="Open" type="object" icon="fa-external-link"/>
+                                <button name="action_view_invoice" string="Buka" type="object" icon="fa-external-link"/>
                             </tree>
                         </field>
                     </page>
@@ -1569,8 +1529,8 @@
                   <field name="message"/>
               </div>
               <footer>
-                  <button name="action_confirm" string="Yes, Approved" type="object" class="btn-primary"/>
-                  <button string="Cancel" class="btn-secondary" special="cancel"/>
+                  <button name="action_confirm" string="Ya, Disetujui" type="object" class="btn-primary"/>
+                  <button string="Batal" class="btn-secondary" special="cancel"/>
               </footer>
           </form>
       </field>
@@ -1582,13 +1542,13 @@
         <field name="name">sales.reject.wizard.form</field>
         <field name="model">sales.reject.wizard</field>
         <field name="arch" type="xml">
-            <form string="Reject Reason">
+            <form string="Alasan Penolakan">
                 <group>
                     <field name="reason" placeholder="e.g. Discounts are too high, margins are below 5%..."/>
                 </group>
                 <footer>
-                    <button name="action_reject_confirm" string="Confirm Reject" type="object" class="btn-danger"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_reject_confirm" string="Konfirmasi Penolakan" type="object" class="btn-danger"/>
+                    <button string="Batal" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -1600,13 +1560,13 @@
         <field name="name">sales.return.wizard.form</field>
         <field name="model">sales.return.wizard</field>
         <field name="arch" type="xml">
-            <form string="Return Reason">
+            <form string="Alasan Pengembalian">
                 <group>
                     <field name="reason" placeholder="e.g. Please provide more details about the order..."/>
                 </group>
                 <footer>
-                    <button name="action_return_confirm" string="Confirm Return" type="object" class="btn-warning"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_return_confirm" string="Konfirmasi Pengembalian" type="object" class="btn-warning"/>
+                    <button string="Batal" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -1618,13 +1578,13 @@
         <field name="name">sales.revise.wizard.form</field>
         <field name="model">sales.revise.wizard</field>
         <field name="arch" type="xml">
-            <form string="Revise Message">
+            <form string="Pesan Revisi">
                 <group>
                     <field name="message" placeholder="e.g. Update delivery date to tomorrow, and reduce quantity from 10 to 5..."/>
                 </group>
                 <footer>
-                    <button name="action_revise_confirm" class="btn btn-primary" string="Confirm Revise" type="object"/>
-                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    <button name="action_revise_confirm" class="btn btn-primary" string="Konfirmasi Revisi" type="object"/>
+                    <button string="Batal" class="btn btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -1660,17 +1620,17 @@
       <field name="name">sales.discount.wizard.form</field>
       <field name="model">sales.discount_wizard</field>
       <field name="arch" type="xml">
-        <form string="Apply Discount">
+        <form string="Terapkan Diskon">
           <group>
-            <label for="discount_percentage" string="Discount"/>
+            <label for="discount_percentage" string="Diskon"/>
             <div class="o_row" style="display: flex !important; align-items: center;">
               <field name="discount_percentage" nolabel="1" style="width: 80px !important; flex: none !important;"/>
               <span style="margin-left: 5px;">%%. Enter a discount percentage to apply to all order lines.</span>
             </div>
           </group>
           <footer>
-            <button string="Apply" name="apply_discount" type="object" class="btn btn-primary"/>
-            <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+            <button string="Terapkan" name="apply_discount" type="object" class="btn btn-primary"/>
+            <button string="Batal" class="btn btn-secondary" special="cancel"/>
           </footer>
         </form>
       </field>
@@ -1680,7 +1640,7 @@
       <field name="name">sales.create.invoice.wizard.form</field>
       <field name="model">sales.create.invoice.wizard</field>
       <field name="arch" type="xml">
-        <form string="Create Invoice">
+        <form string="Buat Faktur">
           <group>
             <field name="sales_order_id" readonly="1"/>
             <field name="invoice_type" widget="radio"/>
@@ -1690,8 +1650,8 @@
             <field name="fixed_amount" invisible="invoice_type != 'down_payment_fixed'" required="invoice_type == 'down_payment_fixed'"/>
           </group>
           <footer>
-            <button name="action_create_invoice" string="Create Draft Invoice" type="object" class="btn-primary"/>
-            <button string="Cancel" special="cancel" class="btn-secondary"/>
+            <button name="action_create_invoice" string="Buat Faktur Draf" type="object" class="btn-primary"/>
+            <button string="Batal" special="cancel" class="btn-secondary"/>
           </footer>
         </form>
       </field>
@@ -1701,15 +1661,15 @@
       <field name="name">sales.credit.note.wizard.form</field>
       <field name="model">sales.credit.note.wizard</field>
       <field name="arch" type="xml">
-        <form string="Credit Note">
+        <form string="Nota Kredit">
           <group>
             <field name="invoice_id" readonly="1"/>
             <field name="credit_note_date"/>
             <field name="reason"/>
           </group>
           <footer>
-            <button name="action_create_credit_note" string="Reverse" type="object" class="btn-primary"/>
-            <button string="Cancel" special="cancel" class="btn-secondary"/>
+            <button name="action_create_credit_note" string="Balik" type="object" class="btn-primary"/>
+            <button string="Batal" special="cancel" class="btn-secondary"/>
           </footer>
         </form>
       </field>
@@ -1720,26 +1680,26 @@
       <field name="name">sales.register.payment.wizard.form</field>
       <field name="model">sales.register.payment.wizard</field>
       <field name="arch" type="xml">
-        <form string="Register Payment">
+        <form string="Daftar Pembayaran">
           <sheet>
             <group>
-              <group string="Payment Details">
+              <group string="Detail Pembayaran">
                 <field name="invoice_number" readonly="1"/>
                 <field name="customer_id" readonly="1"/>
                 <field name="payment_date" required="1"/>
                 <field name="payment_method" required="1"/>
                 <field name="memo"/>
               </group>
-              <group string="Amount">
+              <group string="Jumlah">
                 <field name="currency_id"/>
-                <field name="amount_due" readonly="1" string="Amount Due"/>
+                <field name="amount_due" readonly="1" string="Jumlah Terutang"/>
                 <field name="amount" required="1"/>
               </group>
             </group>
           </sheet>
           <footer>
-            <button name="action_register_payment" string="Pay" type="object" class="btn-primary"/>
-            <button string="Cancel" special="cancel" class="btn-secondary"/>
+            <button name="action_register_payment" string="Bayar" type="object" class="btn-primary"/>
+            <button string="Batal" special="cancel" class="btn-secondary"/>
           </footer>
         </form>
       </field>
@@ -1770,15 +1730,15 @@
       <field name="name">sales.payment.form.view</field>
       <field name="model">sales.payment</field>
       <field name="arch" type="xml">
-        <form string="Payment">
+        <form string="Pembayaran">
           <header>
             <field name="state" invisible="1"/>
-            <button string="Back" name="action_open_invoice" type="object"/>
-            <button string="Confirm" name="action_post" type="object"
+            <button string="Kembali" name="action_open_invoice" type="object"/>
+            <button string="Konfirmasi" name="action_post" type="object"
                     class="btn-primary" invisible="state != 'draft'"/>
-            <button string="Reset to Draft" name="action_reset_to_draft" type="object"
+            <button string="Atur Ulang ke Draf" name="action_reset_to_draft" type="object"
                     invisible="state != 'posted'"/>
-            <button string="Cancel Payment" name="action_cancel" type="object"
+            <button string="Batal Pembayaran" name="action_cancel" type="object"
                     invisible="state != 'draft'"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
             <style>
@@ -1792,20 +1752,20 @@
               </h1>
             </div>
             <group>
-              <group string="Payment Details">
+              <group string="Detail Pembayaran">
                 <field name="invoice_id" readonly="1"/>
                 <field name="customer_id" readonly="1"/>
                 <field name="payment_date" readonly="state != 'draft'"/>
                 <field name="payment_method" readonly="state != 'draft'"/>
                 <field name="memo" readonly="state != 'draft'"/>
               </group>
-              <group string="Amount">
+              <group string="Jumlah">
                 <field name="currency_id"/>
                 <field name="amount" readonly="state != 'draft'"/>
               </group>
             </group>
             <notebook>
-              <page string="Journal Items" name="journal_items">
+              <page string="Item Jurnal" name="journal_items">
                 <field name="journal_item_ids" readonly="1">
                   <tree create="0" delete="0" edit="0">
                     <field name="sequence" widget="handle"/>
@@ -1844,7 +1804,7 @@
       <field name="name">sales.invoice.form.view</field>
       <field name="model">sales.invoice</field>
       <field name="arch" type="xml">
-        <form string="Sales Invoice">
+        <form string="Faktur Penjualan">
           <header>
             <field name="document_type" invisible="1"/>
             <field name="credit_note_count" invisible="1"/>
@@ -1852,29 +1812,29 @@
             <field name="payment_count" invisible="1"/>
             <field name="previous_payment_count" invisible="1"/>
             <field name="user_can_invoicing" invisible="1"/>
-            <button string="Back" name="action_open_sales_order" type="object"/>
-            <button string="Confirm" name="action_post" type="object" class="btn-primary" invisible="state != 'draft' or not user_can_invoicing"/>
-            <button string="Confirm"
+            <button string="Kembali" name="action_open_sales_order" type="object"/>
+            <button string="Konfirmasi" name="action_post" type="object" class="btn-primary" invisible="state != 'draft' or not user_can_invoicing"/>
+            <button string="Konfirmasi"
                     class="btn-primary opacity-50 pe-none"
                     invisible="state != 'draft' or user_can_invoicing"/>
-            <button string="Send by Email" name="action_send_invoice_by_email" type="object"
+            <button string="Kirim via Email" name="action_send_invoice_by_email" type="object"
                     class="btn-primary"
                     invisible="state != 'posted'"/>
-            <button string="Register Payment" name="action_register_payment" type="object"
+            <button string="Daftar Pembayaran" name="action_register_payment" type="object"
                     class="btn-primary"
                     invisible="state != 'posted' or payment_state == 'paid' or not user_can_invoicing"/>
-            <button string="Register Payment"
+            <button string="Daftar Pembayaran"
                     class="btn-primary opacity-50 pe-none"
                     invisible="state != 'posted' or payment_state != 'paid' or user_can_invoicing"/>
 
-            <button string="Credit Note" name="action_open_credit_note_wizard" type="object" invisible="state != 'posted' or document_type != 'invoice' or not user_can_invoicing"/>
-            <button string="Credit Note"
+            <button string="Nota Kredit" name="action_open_credit_note_wizard" type="object" invisible="state != 'posted' or document_type != 'invoice' or not user_can_invoicing"/>
+            <button string="Nota Kredit"
                     class="opacity-50 pe-none"
                     invisible="state != 'posted' or document_type != 'invoice' or user_can_invoicing"/>
-            <button string="Credit Notes" name="action_view_credit_notes" type="object" invisible="credit_note_count == 0"/>
-            <button string="Cancel Invoice" name="action_cancel_invoice" type="object" invisible="state != 'draft'"/>
-            <button string="Reset to Draft" name="action_set_to_draft" type="object" invisible="state not in ['cancel', 'posted'] or not user_can_invoicing or payment_state == 'paid'"/>
-            <button string="Reset to Draft"
+            <button string="Nota Kredit" name="action_view_credit_notes" type="object" invisible="credit_note_count == 0"/>
+            <button string="Batal Faktur" name="action_cancel_invoice" type="object" invisible="state != 'draft'"/>
+            <button string="Atur Ulang ke Draf" name="action_set_to_draft" type="object" invisible="state not in ['cancel', 'posted'] or not user_can_invoicing or payment_state == 'paid'"/>
+            <button string="Atur Ulang ke Draf"
                     class="opacity-50 pe-none"
                     invisible="state not in ['cancel', 'posted'] or user_can_invoicing"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
@@ -1904,7 +1864,7 @@
               </group>
             </group>
             <notebook>
-              <page string="Invoice Lines" name="invoice_lines">
+              <page string="Baris Faktur" name="invoice_lines">
                 <field name="invoice_type" invisible="1"/>
                 <field name="line_ids" widget="section_and_note_one2many" readonly="state != 'draft'">
                   <tree editable="bottom">
@@ -1922,7 +1882,7 @@
                   </tree>
                 </field>
               </page>
-              <page string="Journal Items" name="journal_items">
+              <page string="Item Jurnal" name="journal_items">
                 <field name="journal_item_ids" readonly="1">
                   <tree create="0" delete="0" edit="0">
                     <field name="sequence" widget="handle"/>
@@ -1936,20 +1896,20 @@
                   </tree>
                 </field>
               </page>
-              <page string="Other Info" name="other_info">
+              <page string="Info Lain" name="other_info">
                 <group>
-                  <group string="Sales">
+                  <group string="Penjualan">
                     <field name="sales_name" readonly="1"/>
                     <field name="delivery_date" readonly="1"/>
                   </group>
-                  <group string="Accounting">
+                  <group string="Akuntansi">
                     <field name="payment_terms_id" readonly="1"/>
                     <field name="posted_date" readonly="1"/>
                     <field name="journal_item_count" readonly="1"/>
                   </group>
                 </group>
               </page>
-              <page string="Payments" name="payments" invisible="payment_count == 0">
+              <page string="Pembayaran" name="payments" invisible="payment_count == 0">
                 <field name="payment_ids" readonly="1">
                   <tree create="0" delete="0" edit="0" no_open="1">
                     <field name="payment_number"/>
@@ -1961,7 +1921,7 @@
                            decoration-info="state == 'draft'"
                            decoration-success="state == 'posted'"
                            decoration-danger="state == 'cancel'"/>
-                    <button name="action_view_payment" string="Open" type="object" icon="fa-external-link"/>
+                    <button name="action_view_payment" string="Buka" type="object" icon="fa-external-link"/>
                   </tree>
                 </field>
               </page>
@@ -1976,8 +1936,8 @@
                   <field name="amount_untaxed" readonly="1"/>
                   <field name="amount_tax" readonly="1"/>
                   <field name="amount_total" readonly="1"/>
-                  <field name="amount_paid" readonly="1" invisible="amount_paid == 0" string="Amount Paid"/>
-                  <field name="amount_due" readonly="1" invisible="amount_due == 0" string="Amount Due"/>
+                  <field name="amount_paid" readonly="1" invisible="amount_paid == 0" string="Jumlah Dibayar"/>
+                  <field name="amount_due" readonly="1" invisible="amount_due == 0" string="Jumlah Terutang"/>
                 </group>
               </div>
             </div>
@@ -1985,8 +1945,8 @@
               <field name="amount_untaxed" readonly="1"/>
               <field name="amount_tax" readonly="1"/>
               <field name="amount_total" readonly="1"/>
-              <field name="amount_paid" readonly="1" invisible="amount_paid == 0" string="Amount Paid"/>
-              <field name="amount_due" readonly="1" invisible="amount_due == 0" string="Amount Due"/>
+              <field name="amount_paid" readonly="1" invisible="amount_paid == 0" string="Jumlah Dibayar"/>
+              <field name="amount_due" readonly="1" invisible="amount_due == 0" string="Jumlah Terutang"/>
             </group>
           </sheet>
         </form>
@@ -1999,20 +1959,20 @@
       <field name="name">sales.approval_matrix.form</field>
       <field name="model">sales.sales_approval_matrix</field>
       <field name="arch" type="xml">
-        <form string="Approval Matrix">
+        <form string="Matriks Persetujuan">
           <header>
             <field name="id" invisible="1"/>
             <field name="is_edit" invisible="1"/>
             <field name="user_can_update" invisible="1"/>
             <field name="user_can_delete" invisible="1"/>
-            <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
-            <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-            <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-            <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-            <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
-            <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
-            <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
-            <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+            <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+            <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+            <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+            <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="id"/>
+            <button string="Batal" name="action_discard_edit" type="object" invisible="not is_edit"/>
+            <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+            <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
             <style>
               .o_control_panel {
                 display: none !important;
@@ -2042,7 +2002,7 @@
                 <field name="receive_return" readonly="not is_edit and id"/>
               </group>
               <notebook>
-                <page name="release" string="Release">
+                <page name="release" string="Rilis">
                   <group class="mt-2" name="release_group">
                     <field name="approve" readonly="not is_edit and id"/>
                     <field name="revise" readonly="not is_edit and id"/>
@@ -2060,7 +2020,7 @@
     <!-- Action Window Records -->
 
     <record model="ir.actions.act_window" id="sales.price_condition_action">
-      <field name="name">Price Condition</field>
+      <field name="name">Kondisi Harga</field>
       <field name="res_model">sales.price_condition</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2091,7 +2051,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.payment_terms_action">
-      <field name="name">Payment Terms</field>
+      <field name="name">Syarat Pembayaran</field>
       <field name="res_model">sales.payment_terms</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2102,7 +2062,7 @@
       </field>
     </record>
     <record model="ir.actions.server" id="sales.terms_and_conditions_server_action">
-      <field name="name">Terms and Conditions</field>
+      <field name="name">Syarat dan Ketentuan</field>
       <field name="model_id" ref="model_sales_terms_and_conditions"/>
       <field name="state">code</field>
       <field name="code">
@@ -2117,7 +2077,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.cust_category_action">
-      <field name="name">Customer Category</field>
+      <field name="name">Kategori Customer</field>
       <field name="res_model">sales.cust_category</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2128,18 +2088,18 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.cust_type_action">
-      <field name="name">Customer Type</field>
+      <field name="name">Tipe Customer</field>
       <field name="res_model">sales.cust_type</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-          Create your first Customer Type
+          Buat Tipe Customer pertama Anda
         </p>
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.cust_area_action">
-      <field name="name">Customer Area</field>
+      <field name="name">Area Customer</field>
       <field name="res_model">sales.cust_area</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2150,7 +2110,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.cust_sub_category_action">
-      <field name="name">Customer Sub Category</field>
+      <field name="name">Sub Kategori Customer</field>
       <field name="res_model">sales.cust_sub_category</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2161,7 +2121,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.products_action">
-      <field name="name">Products</field>
+      <field name="name">Produk</field>
       <field name="res_model">sales.products</field>
       <field name="view_mode">kanban,form</field>
       <field name="target">main</field>
@@ -2172,7 +2132,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.product_type_action">
-      <field name="name">Product Type</field>
+      <field name="name">Tipe Produk</field>
       <field name="res_model">sales.product_type</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2183,7 +2143,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.product_unit_action">
-      <field name="name">Unit of Measure</field>
+      <field name="name">Satuan Ukur</field>
       <field name="res_model">sales.product_unit</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2194,7 +2154,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.taxes_action">
-      <field name="name">Taxes</field>
+      <field name="name">Pajak</field>
       <field name="res_model">sales.taxes</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2205,7 +2165,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.quotation_action">
-      <field name="name">Quotation</field>
+      <field name="name">Penawaran</field>
       <field name="res_model">sales.sales_order</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2224,7 +2184,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.sales_order_action">
-      <field name="name">Sales Order</field>
+      <field name="name">Pesanan Penjualan</field>
       <field name="res_model">sales.sales_order</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2238,7 +2198,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.sales_invoice_action">
-      <field name="name">Invoices</field>
+      <field name="name">Faktur</field>
       <field name="res_model">sales.invoice</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2249,7 +2209,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.product_category_action">
-      <field name="name">Product Category</field>
+      <field name="name">Kategori Produk</field>
       <field name="res_model">sales.product_category</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2260,7 +2220,7 @@
       </field>
     </record>
     <record model="ir.actions.act_window" id="sales.approval_matrix_action">
-      <field name="name">Approval Matrix</field>
+      <field name="name">Matriks Persetujuan</field>
       <field name="res_model">sales.sales_approval_matrix</field>
       <field name="view_mode">tree,form</field>
       <field name="target">main</field>
@@ -2274,7 +2234,7 @@
       </field>
     </record>
     <record id="sales.sales_approval_action" model="ir.actions.act_window">
-      <field name="name">Waiting My Approval</field>
+      <field name="name">Menunggu Persetujuan Saya</field>
       <field name="res_model">sales.sales_order</field>
       <field name="view_mode">tree,form</field>
       <field name="domain">[('current_approver', '=', uid), ('state', 'in', ['wait_approval'])]</field>
@@ -2288,46 +2248,47 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Sales" id="sales.menu_sales_root" sequence="1"/>
+    <menuitem name="Penjualan" id="sales.menu_sales_root" action="sales.sales_splash_action" sequence="1"/>
 
     <!-- Transaction -->
-    <menuitem name="Transaction" id="sales.menu_transaction" parent="sales.menu_sales_root" sequence="1"/>
-    <menuitem name="Quotations" id="sales.quotation_menu" parent="sales.menu_transaction" action="sales.quotation_action" sequence="1"/>
-    <menuitem name="Sales Orders" id="sales.sales_order_menu" parent="sales.menu_transaction" action="sales.sales_order_action" sequence="2"/>
-    <menuitem name="Sales Approval" id="sales.sales_approvals_menu" parent="sales.menu_transaction" action="sales.sales_approval_action" sequence="4"/>
+    <menuitem name="Transaksi" id="sales.menu_transaction" parent="sales.menu_sales_root" sequence="1"/>
+    <menuitem name="Penawaran" id="sales.quotation_menu" parent="sales.menu_transaction" action="sales.quotation_action" sequence="1"/>
+    <menuitem name="Pesanan Penjualan" id="sales.sales_order_menu" parent="sales.menu_transaction" action="sales.sales_order_action" sequence="2"/>
+    <menuitem name="Persetujuan Penjualan" id="sales.sales_approvals_menu" parent="sales.menu_transaction" action="sales.sales_approval_action" sequence="4"/>
 
     <!-- Report -->
-    <menuitem name="Report" id="sales.menu_report" parent="sales.menu_sales_root" sequence="2"/>
+    <menuitem name="Laporan" id="sales.menu_report" parent="sales.menu_sales_root" sequence="2"/>
 
     <!-- Master Data -->
-    <menuitem name="Master Data" id="sales.menu_master_data" parent="sales.menu_sales_root" sequence="3"/>
-    <menuitem name="Customers" id="sales.customer_customer_menu" parent="sales.menu_master_data" action="sales.customer_action" sequence="1"/>
-    <menuitem name="Products" id="sales.product_product_menu" parent="sales.menu_master_data" action="sales.products_action" sequence="2"/>
+    <menuitem name="Data Master" id="sales.menu_master_data" parent="sales.menu_sales_root" sequence="3"/>
+    <menuitem name="Customer" id="sales.customer_customer_menu" parent="sales.menu_master_data" action="sales.customer_action" sequence="1"/>
+    <menuitem name="Produk" id="sales.product_product_menu" parent="sales.menu_master_data" action="sales.products_action" sequence="2"/>
 
     <!-- Setup -->
-    <menuitem name="Setup" id="sales.menu_setup" parent="sales.menu_sales_root" sequence="4"/>
+    <menuitem name="Pengaturan" id="sales.menu_setup" parent="sales.menu_sales_root" sequence="4"/>
     <menuitem name="Customer" id="sales.customer_menu" parent="sales.menu_setup" sequence="1"/>
-    <menuitem name="Customer Categories" id="sales.cust_category" parent="sales.customer_menu" action="sales.cust_category_action" sequence="1"/>
-    <menuitem name="Customer Type" id="sales.cust_type" parent="sales.customer_menu" action="sales.cust_type_action" sequence="2"/>
-    <menuitem name="Customer Areas" id="sales.cust_area" parent="sales.customer_menu" action="sales.cust_area_action" sequence="3"/>
+    <menuitem name="Kategori Customer" id="sales.cust_category" parent="sales.customer_menu" action="sales.cust_category_action" sequence="1"/>
+    <menuitem name="Sub Kategori Customer" id="sales.cust_sub_category" parent="sales.customer_menu" action="sales.cust_sub_category_action" sequence="2"/>
+    <menuitem name="Tipe Customer" id="sales.cust_type" parent="sales.customer_menu" action="sales.cust_type_action" sequence="3"/>
+    <menuitem name="Area Customer" id="sales.cust_area" parent="sales.customer_menu" action="sales.cust_area_action" sequence="4"/>
 
-    <menuitem name="Invoicing" id="sales.invoicing_menu" parent="sales.menu_setup" sequence="2"/>
-    <menuitem name="Payment Terms" id="sales.payment_terms_menu_act" parent="sales.invoicing_menu" action="sales.payment_terms_action" sequence="1"/>
-    <menuitem name="Terms and Conditions" id="sales.terms_and_conditions_menu_act" parent="sales.invoicing_menu" action="sales.terms_and_conditions_server_action" sequence="2"/>
+    <menuitem name="Penagihan" id="sales.invoicing_menu" parent="sales.menu_setup" sequence="2"/>
+    <menuitem name="Syarat Pembayaran" id="sales.payment_terms_menu_act" parent="sales.invoicing_menu" action="sales.payment_terms_action" sequence="1"/>
+    <menuitem name="Syarat dan Ketentuan" id="sales.terms_and_conditions_menu_act" parent="sales.invoicing_menu" action="sales.terms_and_conditions_server_action" sequence="2"/>
 
-    <menuitem name="Product" id="sales.product_menu" parent="sales.menu_setup" sequence="3"/>
-    <menuitem name="Product Types" id="product_type_menu_act" parent="sales.product_menu" action="sales.product_type_action" sequence="1"/>
-    <menuitem name="Product Categories" id="product_category_menu_act" parent="sales.product_menu" action="sales.product_category_action" sequence="2"/>
-    <menuitem name="Unit of Measures" id="product_unit_menu_act" parent="sales.product_menu" action="sales.product_unit_action" sequence="3"/>
+    <menuitem name="Produk" id="sales.product_menu" parent="sales.menu_setup" sequence="3"/>
+    <menuitem name="Tipe Produk" id="product_type_menu_act" parent="sales.product_menu" action="sales.product_type_action" sequence="1"/>
+    <menuitem name="Kategori Produk" id="product_category_menu_act" parent="sales.product_menu" action="sales.product_category_action" sequence="2"/>
+    <menuitem name="Satuan Ukur" id="product_unit_menu_act" parent="sales.product_menu" action="sales.product_unit_action" sequence="3"/>
 
-    <menuitem name="Taxes" id="sales.taxes_menu_act" parent="sales.menu_setup" action="sales.taxes_action" sequence="4"/>
-    <menuitem name="Price Conditions" id="sales.price_condition_menu" parent="sales.menu_setup" action="sales.price_condition_action" sequence="5"/>
+    <menuitem name="Pajak" id="sales.taxes_menu_act" parent="sales.menu_setup" action="sales.taxes_action" sequence="4"/>
+    <menuitem name="Kondisi Harga" id="sales.price_condition_menu" parent="sales.menu_setup" action="sales.price_condition_action" sequence="5"/>
 
-    <menuitem name="Approval" id="sales.approval_matrix_menu" parent="sales.menu_setup" sequence="6"/>
-    <menuitem name="Sales Matrix" id="sales.approval_matrix_menu_act" parent="sales.approval_matrix_menu" action="sales.approval_matrix_action" sequence="1"/>
+    <menuitem name="Persetujuan" id="sales.approval_matrix_menu" parent="sales.menu_setup" sequence="6"/>
+    <menuitem name="Matriks Penjualan" id="sales.approval_matrix_menu_act" parent="sales.approval_matrix_menu" action="sales.approval_matrix_action" sequence="1"/>
 
     <!-- Help -->
-    <menuitem name="Help" id="sales.menu_help" parent="sales.menu_sales_root" sequence="5"/>
+    <menuitem name="Bantuan" id="sales.menu_help" parent="sales.menu_sales_root" sequence="5"/>
 
     <!-- ────────────────────────────
          SALES DELIVERY
@@ -2351,13 +2312,13 @@
       <field name="name">sales.delivery.form</field>
       <field name="model">sales.delivery</field>
       <field name="arch" type="xml">
-        <form string="Delivery Order">
+        <form string="Pesanan Pengiriman">
           <header>
             <field name="id" invisible="1"/>
             <field name="state" invisible="1"/>
-            <button string="Sales Order" name="action_open_sales_order" type="object"/>
-            <button string="Validate" name="action_done" type="object" class="oe_highlight" invisible="state != 'draft'"/>
-            <button string="Cancel" name="action_cancel" type="object" invisible="state != 'draft'"/>
+            <button string="Pesanan Penjualan" name="action_open_sales_order" type="object"/>
+            <button string="Validasi" name="action_done" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+            <button string="Batal" name="action_cancel" type="object" invisible="state != 'draft'"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel"/>
           </header>
           <sheet>
@@ -2376,7 +2337,7 @@
               </group>
             </group>
             <notebook>
-              <page string="Delivery Lines">
+              <page string="Baris Pengiriman">
                 <field name="line_ids" readonly="state != 'draft'">
                   <tree editable="bottom">
                     <field name="sales_order_line_id" column_invisible="1"/>
@@ -2388,7 +2349,7 @@
                   </tree>
                 </field>
               </page>
-              <page string="Notes">
+              <page string="Catatan">
                 <field name="note" readonly="state != 'draft'"/>
               </page>
             </notebook>
@@ -2398,7 +2359,7 @@
     </record>
 
     <record id="sales_delivery_action" model="ir.actions.act_window">
-      <field name="name">Delivery Orders</field>
+      <field name="name">Pesanan Pengiriman</field>
       <field name="res_model">sales.delivery</field>
       <field name="view_mode">tree,form</field>
       <field name="help" type="html">

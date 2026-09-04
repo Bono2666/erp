@@ -14,7 +14,7 @@
                         Mohon tinjau permintaan persetujuan untuk pesanan penjualan berikut:
                         <br/><br/>
                         <strong>Nomor Order:</strong> ${object.sales_code}<br/>
-                        <strong>Pelanggan:</strong> ${object.customer_id.customer_name}<br/>
+                        <strong>Customer:</strong> ${object.customer_id.customer_name}<br/>
                         <strong>Total Nilai:</strong> ${format_amount(object.total_amount, 'Rp')}<br/>
                         <strong>Salesman:</strong> ${object.sales_name.name}<br/>
                         <br/>

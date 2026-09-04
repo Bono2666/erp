@@ -23,6 +23,7 @@ From quotations to invoices
     'data': [
         'security/ir.model.access.csv',
         'views/templates.xml',
+        'views/splash.xml',
         'views/views.xml',
         'data/sequence.xml',
         'data/account_type.xml',

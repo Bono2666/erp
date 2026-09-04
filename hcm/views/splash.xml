@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- HCM Splash Action -->
+    <record id="hcm_splash_action" model="ir.actions.client">
+        <field name="name">Beranda</field>
+        <field name="tag">general_splash</field>
+    </record>
+
+</odoo>

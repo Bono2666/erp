@@ -26,6 +26,7 @@ General Master Table
         'views/templates.xml',
         'data/menu.xml',
         'data/home.xml',
+        'views/splash.xml',
         'views/views.xml',
         'data/sequence.xml',
         'data/logo.xml',
@@ -37,6 +38,9 @@ General Master Table
 
     'assets': {
         'web.assets_backend': [
+            'general/static/src/css/splash_screen.css',
+            'general/static/src/js/splash_screen.js',
+            'general/static/src/xml/splash_screen.xml',
         ],
     },
 

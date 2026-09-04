@@ -1,10 +1,18 @@
+from pathlib import Path
+
+import polib
+from psycopg2 import sql
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
+
+
+
 class ChangePasswordPreferences(models.TransientModel):
     _name = 'general.password_preferences'
-    _description = 'Change Password Preferences'
+    _description = 'Preferensi Ubah Kata Sandi'
 
     user_id = fields.Many2one('res.users', string="User", required=True)
 
@@ -64,14 +72,14 @@ class ChangePasswordPreferences(models.TransientModel):
 
 class MyPreferences(models.TransientModel):
     _name = 'general.preferences'
-    _description = 'Change My Profile'
+    _description = 'Ubah Profil Saya'
 
     user_id = fields.Many2one(
         'res.users', default=lambda self: self.env.user, readonly=True)
     name = fields.Char(related='user_id.name',
                        string="User Name", readonly=True)
     image_1920 = fields.Image(
-        related='user_id.image_1920', string="Photo Profile", readonly=False)
+        related='user_id.image_1920', string="Foto Profil", readonly=False)
     login = fields.Char(related='user_id.login',
                         string="Email/Login", readonly=True)
 
@@ -102,7 +110,7 @@ class MyPreferences(models.TransientModel):
 
 class ChangePasswordWizard(models.TransientModel):
     _name = 'general.password'
-    _description = 'Change Password'
+    _description = 'Ubah Kata Sandi'
 
     user_id = fields.Many2one('res.users', string="User", required=True)
     new_password = fields.Char(string="New Password", required=True)
@@ -137,7 +145,7 @@ class ChangePasswordWizard(models.TransientModel):
 
 class NavigationMixin(models.AbstractModel):
     _name = 'navigation.mixin'
-    _description = 'Mixin for General Navigation'
+    _description = 'Mixin Navigasi Umum'
 
     model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._description)
     user_can_read = fields.Boolean(compute='_compute_custom_permissions')
@@ -280,6 +288,69 @@ class NavigationMixin(models.AbstractModel):
             'context': self.env.context,
         }
 
+    def action_discard_edit(self):
+        self.ensure_one()
+        self.write({'is_edit': False})
+        return {
+            'type': 'ir.actions.act_window_close',
+        }
+
+    def _invalidate_address_display(self):
+        """Force recompute address on all consumer models when master data changes.
+        Also cascade-update parent fields on consumers (e.g., if district's city changes,
+        update consumer's city to match)."""
+        CONSUMERS = {
+            'general.country': [
+                ('sales.customer', 'country', {}),
+                ('sales.ship_to', 'country', {}),
+                ('sales.sold_to', 'country', {}),
+                ('sales.bill_to', 'country', {}),
+                ('hcm.employee', 'country_id', {}),
+            ],
+            'general.state': [
+                ('sales.customer', 'state', {'country': 'country_ref'}),
+                ('sales.ship_to', 'state', {'country': 'country_ref'}),
+                ('sales.sold_to', 'state', {'country': 'country_ref'}),
+                ('sales.bill_to', 'state', {'country': 'country_ref'}),
+                ('hcm.employee', 'state_id', {'country_id': 'country_ref'}),
+            ],
+            'general.city': [
+                ('sales.customer', 'city', {'state': 'state_ref', 'country': 'state_ref.country_ref'}),
+                ('sales.ship_to', 'city', {'state': 'state_ref', 'country': 'state_ref.country_ref'}),
+                ('sales.sold_to', 'city', {'state': 'state_ref', 'country': 'state_ref.country_ref'}),
+                ('sales.bill_to', 'city', {'state': 'state_ref', 'country': 'state_ref.country_ref'}),
+                ('hcm.employee', 'city_id', {'state_id': 'state_ref', 'country_id': 'state_ref.country_ref'}),
+            ],
+            'general.district': [
+                ('sales.customer', 'district', {'city': 'city_ref', 'state': 'city_ref.state_ref', 'country': 'city_ref.state_ref.country_ref'}),
+                ('sales.ship_to', 'district', {'city': 'city_ref', 'state': 'city_ref.state_ref', 'country': 'city_ref.state_ref.country_ref'}),
+                ('sales.sold_to', 'district', {'city': 'city_ref', 'state': 'city_ref.state_ref', 'country': 'city_ref.state_ref.country_ref'}),
+                ('sales.bill_to', 'district', {'city': 'city_ref', 'state': 'city_ref.state_ref', 'country': 'city_ref.state_ref.country_ref'}),
+                ('hcm.employee', 'district_id', {'city_id': 'city_ref', 'state_id': 'city_ref.state_ref', 'country_id': 'city_ref.state_ref.country_ref'}),
+            ],
+            'general.village': [
+                ('hcm.employee', 'village_id', {'district_id': 'district_ref', 'city_id': 'district_ref.city_ref', 'state_id': 'district_ref.city_ref.state_ref', 'country_id': 'district_ref.city_ref.state_ref.country_ref'}),
+            ],
+        }
+        consumers = CONSUMERS.get(self._name, [])
+        for model_name, consumer_field, cascade_map in consumers:
+            records = self.env[model_name].sudo().search(
+                [(consumer_field, 'in', self.ids)])
+            if not records:
+                continue
+            update_vals = {}
+            for consumer_child_field, master_path in cascade_map.items():
+                related = self[:1]
+                for part in master_path.split('.'):
+                    related = related[part] if related else False
+                if related:
+                    update_vals[consumer_child_field] = related.id
+            if update_vals:
+                records.with_context(_address_cascade=True).write(update_vals)
+            if hasattr(records, '_compute_address_display'):
+                records._compute_address_display()
+                records.flush_recordset()
+
     def action_edit(self):
         self.ensure_one()
         self.write({'is_edit': True})
@@ -351,161 +422,268 @@ class NavigationMixin(models.AbstractModel):
 class country(models.Model):
     _name = 'general.country'
     _inherit = ['navigation.mixin']
-    _description = 'Countries'
+    _description = 'Negara'
     _rec_name = 'country_name'
     _menu_code = 'country'
 
-    country_id = fields.Char(string="Country ID")
-    country_name = fields.Char(string="Country Name")
+    country_id = fields.Char(string="ID Negara")
+    country_name = fields.Char(string="Nama Negara")
     is_edit = fields.Boolean(default=False)
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(f in vals for f in ['country_name']):
+            self._invalidate_address_display()
+        return res
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, rec.country_name or ''))
+        return result
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
+        args = args or []
+        if name:
+            args = [('country_name', operator, name)] + args
+        return self._search(args, limit=limit, order=order, access_rights_uid=name_get_uid)
 
 
 class state(models.Model):
     _name = 'general.state'
     _inherit = ['navigation.mixin']
-    _description = 'States'
+    _description = 'Provinsi'
     _rec_name = 'state_name'
     _menu_code = 'state'
 
-    state_id = fields.Char(string="State ID")
-    state_name = fields.Char(string="State Name")
-    country_ref = fields.Many2one('general.country', string="Country", required=True)
+    state_id = fields.Char(string="ID Provinsi")
+    state_name = fields.Char(string="Nama Provinsi")
+    country_ref = fields.Many2one('general.country', string="Negara", required=True)
     is_edit = fields.Boolean(default=False)
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(f in vals for f in ['state_name', 'country_ref']):
+            self._invalidate_address_display()
+        return res
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = rec.state_name or ''
+            if rec.country_ref:
+                name = f"{name} ({rec.country_ref.country_name})"
+            result.append((rec.id, name))
+        return result
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
+        args = args or []
+        if name:
+            args = [('state_name', operator, name)] + args
+        return self._search(args, limit=limit, order=order, access_rights_uid=name_get_uid)
 
 
 class city(models.Model):
     _name = 'general.city'
     _inherit = ['navigation.mixin']
-    _description = 'Cities'
+    _description = 'Kota'
     _rec_name = 'city_name'
     _menu_code = 'city'
 
-    city_id = fields.Char(string="City ID")
-    city_name = fields.Char(string="City Name")
-    state_ref = fields.Many2one('general.state', string="State", required=True)
+    city_id = fields.Char(string="ID Kota")
+    city_name = fields.Char(string="Nama Kota")
+    state_ref = fields.Many2one('general.state', string="Provinsi", required=True)
     is_edit = fields.Boolean(default=False)
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(f in vals for f in ['city_name', 'state_ref']):
+            self._invalidate_address_display()
+        return res
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = rec.city_name or ''
+            if rec.state_ref:
+                name = f"{name} ({rec.state_ref.state_name})"
+            result.append((rec.id, name))
+        return result
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
+        args = args or []
+        if name:
+            args = [('city_name', operator, name)] + args
+        return self._search(args, limit=limit, order=order, access_rights_uid=name_get_uid)
 
 
 class district(models.Model):
     _name = 'general.district'
     _inherit = ['navigation.mixin']
-    _description = 'Districts'
+    _description = 'Kecamatan'
     _rec_name = 'district_name'
     _menu_code = 'district'
 
-    district_id = fields.Char(string="District ID")
-    district_name = fields.Char(string="District Name")
-    city_ref = fields.Many2one('general.city', string="City", required=True)
+    district_id = fields.Char(string="ID Kecamatan")
+    district_name = fields.Char(string="Nama Kecamatan")
+    city_ref = fields.Many2one('general.city', string="Kota", required=True)
     is_edit = fields.Boolean(default=False)
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(f in vals for f in ['district_name', 'city_ref']):
+            self._invalidate_address_display()
+        return res
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = rec.district_name or ''
+            if rec.city_ref:
+                name = f"{name} ({rec.city_ref.city_name})"
+            result.append((rec.id, name))
+        return result
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
+        args = args or []
+        if name:
+            args = [('district_name', operator, name)] + args
+        return self._search(args, limit=limit, order=order, access_rights_uid=name_get_uid)
 
 
 class village(models.Model):
     _name = 'general.village'
     _inherit = ['navigation.mixin']
-    _description = 'Villages'
+    _description = 'Desa/Kelurahan'
     _rec_name = 'village_name'
     _menu_code = 'village'
 
-    village_id = fields.Char(string="Village ID")
-    village_name = fields.Char(string="Village Name")
-    district_ref = fields.Many2one('general.district', string="District", required=True)
+    village_id = fields.Char(string="ID Desa/Kelurahan")
+    village_name = fields.Char(string="Nama Desa/Kelurahan")
+    district_ref = fields.Many2one('general.district', string="Kecamatan", required=True)
     is_edit = fields.Boolean(default=False)
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(f in vals for f in ['village_name', 'district_ref']):
+            self._invalidate_address_display()
+        return res
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = rec.village_name or ''
+            if rec.district_ref:
+                name = f"{name} ({rec.district_ref.district_name})"
+            result.append((rec.id, name))
+        return result
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
+        args = args or []
+        if name:
+            args = [('village_name', operator, name)] + args
+        return self._search(args, limit=limit, order=order, access_rights_uid=name_get_uid)
 
 
 class position(models.Model):
     _name = 'general.position'
     _inherit = ['navigation.mixin']
-    _description = 'Position'
+    _description = 'Posisi'
     _rec_name = 'position_name'
     _menu_code = 'position'
 
-    position_id = fields.Char(string="Position ID")
-    position_name = fields.Char(string="Position Name")
+    position_id = fields.Char(string="ID Posisi")
+    position_name = fields.Char(string="Nama Posisi")
     department_id = fields.Many2one(
-        'general.department', string="Department", required=True)
+        'general.department', string="Departemen", required=True)
     is_edit = fields.Boolean(default=False)
 
 
 class department(models.Model):
     _name = 'general.department'
     _inherit = ['navigation.mixin']
-    _description = 'Departments'
+    _description = 'Departemen'
     _rec_name = 'department_name'
     _menu_code = 'department'
 
-    department_id = fields.Char(string="Department ID")
-    department_name = fields.Char(string="Department Name")
+    department_id = fields.Char(string="ID Departemen")
+    department_name = fields.Char(string="Nama Departemen")
     division_id = fields.Many2one(
-        'general.division', string="Division", required=True)
+        'general.division', string="Divisi", required=True)
     position_ids = fields.One2many(
-        'general.position', 'department_id', string="Positions")
+        'general.position', 'department_id', string="Posisi")
     is_edit = fields.Boolean(string="Is Edit?", default=False)
 
 
 class company(models.Model):
     _name = 'general.company'
     _inherit = ['navigation.mixin']
-    _description = 'Companies'
+    _description = 'Perusahaan'
     _rec_name = 'company_name'
     _menu_code = 'company'
 
-    company_id = fields.Char(string="Company ID")
-    company_name = fields.Char(string="Company Name")
+    company_id = fields.Char(string="ID Perusahaan")
+    company_name = fields.Char(string="Nama Perusahaan")
     is_edit = fields.Boolean(default=False)
 
 
 class location(models.Model):
     _name = 'general.location'
     _inherit = ['navigation.mixin']
-    _description = 'Locations'
+    _description = 'Lokasi'
     _rec_name = 'location_name'
     _menu_code = 'location'
 
-    location_id = fields.Char(string="Location ID")
-    location_name = fields.Char(string="Location Name")
+    location_id = fields.Char(string="ID Lokasi")
+    location_name = fields.Char(string="Nama Lokasi")
     is_edit = fields.Boolean(default=False)
 
 
 class division(models.Model):
     _name = 'general.division'
     _inherit = ['navigation.mixin']
-    _description = 'Divisions'
+    _description = 'Divisi'
     _rec_name = 'division_name'
     _menu_code = 'division'
 
-    division_id = fields.Char(string="Division ID")
-    division_name = fields.Char(string="Division Name")
+    division_id = fields.Char(string="ID Divisi")
+    division_name = fields.Char(string="Nama Divisi")
     department_ids = fields.One2many(
-        'general.department', 'division_id', string="Departments")
+        'general.department', 'division_id', string="Departemen")
     is_edit = fields.Boolean(default=False)
 
 
 class level_grade(models.Model):
     _name = 'general.level_grade'
     _inherit = ['navigation.mixin']
-    _description = 'Levels / Grades'
+    _description = 'Tingkat / Golongan'
     _rec_name = 'level_name'
     _menu_code = 'level_grade'
 
-    level_id = fields.Char(string="Level ID")
-    level_name = fields.Char(string="Level / Grade Name")
+    level_id = fields.Char(string="ID Tingkat/Golongan")
+    level_name = fields.Char(string="Nama Tingkat / Golongan")
     is_edit = fields.Boolean(default=False)
 
 
 class menu(models.Model):
     _name = 'general.menu'
-    _description = 'Menus'
+    _description = 'Menu'
     _rec_name = 'menu_name'
 
     menu_id = fields.Char(string="Menu ID")
-    menu_name = fields.Char(string="Menu Name")
+    menu_name = fields.Char(string="Nama Menu", translate=True)
     parent_menu = fields.Char(string="Parent Menu")
     is_parent = fields.Boolean(string="Is Parent Menu?", default=False)
 
 
 class home(models.Model):
     _name = 'general.home'
-    _description = 'Home'
+    _description = 'Beranda'
 
     name = fields.Char()
     show_hcm = fields.Boolean(compute='_compute_show_cards')
@@ -594,27 +772,27 @@ class home(models.Model):
 class custom_users(models.Model):
     _name = 'general.custom_users'
     _inherit = ['navigation.mixin']
-    _description = 'Users'
+    _description = 'Pengguna'
     _menu_code = 'custom_users'
 
     custom_user_id = fields.Char(string="User Id", readonly=True)
     name = fields.Char(string="Name", required=True)
     login = fields.Char(string="Email/Login", required=True)
-    password = fields.Char(string="Password", required=True)
+    password = fields.Char(string="Kata Sandi", required=True)
     position = fields.Many2one(
-        comodel_name='general.position', string='Job Position')
+        comodel_name='general.position', string='Posisi Jabatan')
     is_edit = fields.Boolean(default=False)
 
     # Field untuk menyimpan referensi ke record asli res.users
     user_id = fields.Many2one(
-        'res.users', string="Related Users", readonly=True)
+        'res.users', string="Pengguna Terkait", readonly=True)
     image_1920 = fields.Image(string="Photo Profile",
                               related='user_id.image_1920', readonly=False)
     avatar_128 = fields.Image(related='user_id.avatar_128', readonly=False)
     custom_login_date = fields.Datetime(
-        related='user_id.login_date', string="Latest Authentication", readonly=True)
+        related='user_id.login_date', string="Autentikasi Terbaru", readonly=True)
     menu_ids = fields.One2many(
-        'general.auth', 'custom_user_id', string="User Authentication", domain=[('is_parent', '=', False)])
+        'general.auth', 'custom_user_id', string="Autentikasi Pengguna", domain=[('is_parent', '=', False)])
 
     @api.model
     def create(self, vals):
@@ -712,7 +890,7 @@ class custom_users(models.Model):
 
 class auth(models.Model):
     _name = 'general.auth'
-    _description = 'Authentications'
+    _description = 'Autentikasi'
 
     custom_user_id = fields.Many2one(
         'general.custom_users', string='User', ondelete='cascade', index=True)
@@ -894,7 +1072,7 @@ class IrUiMenu(models.Model):
         menus = super(IrUiMenu, self)._filter_visible_menus()
 
         # Hide Dashboards app menu for all users
-        menus = menus.filtered(lambda m: m.name != 'Dashboards')
+        menus = menus.filtered(lambda m: m.name not in ('Dashboards', 'Dashboard'))
 
         # Hide menus by XML ID (safe if module not installed)
         hidden_ids = set()

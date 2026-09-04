@@ -74,6 +74,11 @@ class NavigationMixin(models.AbstractModel):
 
         return res
 
+    def action_discard_edit(self):
+        self.ensure_one()
+        self.write({'is_edit': False})
+        return {'type': 'ir.actions.act_window_close'}
+
     @api.depends_context('uid')
     def _compute_custom_permissions(self):
         is_admin = self.env.user.has_group('base.group_system')
@@ -194,8 +199,8 @@ class cust_category(models.Model):
     _rec_name = 'category_name'
     _menu_code = 'cust_category'
 
-    category_id = fields.Char(string="Category ID")
-    category_name = fields.Char(string="Category Name")
+    category_id = fields.Char(string="ID Kategori")
+    category_name = fields.Char(string="Nama Kategori")
     is_edit = fields.Boolean(default=False)
 
     def unlink(self):
@@ -217,12 +222,12 @@ class cust_category(models.Model):
 class cust_type(models.Model):
     _name = 'sales.cust_type'
     _inherit = ['navigation.mixin']
-    _description = 'Customer Types'
+    _description = 'Tipe Customer'
     _rec_name = 'type_name'
     _menu_code = 'cust_type'
 
-    type_id = fields.Char(string="Type ID")
-    type_name = fields.Char(string="Type Name")
+    type_id = fields.Char(string="ID Tipe")
+    type_name = fields.Char(string="Nama Tipe")
     is_edit = fields.Boolean(default=False)
 
 
@@ -233,8 +238,8 @@ class cust_area(models.Model):
     _rec_name = 'area_name'
     _menu_code = 'cust_area'
 
-    area_id = fields.Char(string="Area ID")
-    area_name = fields.Char(string="Area Name")
+    area_id = fields.Char(string="ID Area")
+    area_name = fields.Char(string="Nama Area")
     is_edit = fields.Boolean(default=False)
 
 
@@ -245,8 +250,8 @@ class cust_sub_category(models.Model):
     _rec_name = 'sub_category_name'
     _menu_code = 'cust_sub_category'
 
-    sub_category_id = fields.Char(string="Sub Category ID", readonly=True)
-    sub_category_name = fields.Char(string="Sub Category Name")
+    sub_category_id = fields.Char(string="ID Sub Kategori", readonly=True)
+    sub_category_name = fields.Char(string="Nama Sub Kategori")
     category_ref = fields.Many2one(
         comodel_name='sales.cust_category', string='Customer Category', required=True, ondelete='cascade', index=True)
     is_edit = fields.Boolean(default=False)
@@ -316,18 +321,39 @@ class customer(models.Model):
     _rec_name = 'customer_name'
     _menu_code = 'customers'
 
-    customer_id = fields.Char(string="Customer ID", required=True)
-    customer_name = fields.Char(string="Customer Name")
-    address = fields.Text(string="Address")
+    customer_id = fields.Char(string="ID Customer", required=True)
+    customer_name = fields.Char(string="Nama Customer")
+    address = fields.Text(string="Alamat")
     country = fields.Many2one(
-        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+        comodel_name='general.country', string='Negara', ondelete='set null', index=True)
     state = fields.Many2one(
-        comodel_name='general.state', string='State', ondelete='set null', index=True)
+        comodel_name='general.state', string='Provinsi', ondelete='set null', index=True)
     city = fields.Many2one(
-        comodel_name='general.city', string='City', ondelete='set null', index=True)
+        comodel_name='general.city', string='Kota', ondelete='set null', index=True)
     district = fields.Many2one(
-        comodel_name='general.district', string='District', ondelete='set null', index=True)
-    postal_code = fields.Char(string="Postal Code")
+        comodel_name='general.district', string='Kecamatan', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Kode Pos")
+    address_display = fields.Char(
+        string="Tampilan Alamat", compute='_compute_address_display',
+        store=True)
+
+    @api.depends('district', 'city', 'state', 'country',
+                 'district.district_name', 'city.city_name',
+                 'state.state_name', 'country.country_name')
+    def _compute_address_display(self):
+        for rec in self:
+            parts = []
+            if rec.address:
+                parts.append(rec.address)
+            if rec.district:
+                parts.append(rec.district.district_name or '')
+            if rec.city:
+                parts.append(rec.city.city_name or '')
+            if rec.state:
+                parts.append(rec.state.state_name or '')
+            if rec.country:
+                parts.append(rec.country.country_name or '')
+            rec.address_display = ', '.join(filter(None, parts))
     sales_name = fields.Many2one(
         comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations', 'Customers'])])
     npwp = fields.Char(string="NPWP")
@@ -336,7 +362,7 @@ class customer(models.Model):
     cust_sub_category = fields.Many2one(
         comodel_name='sales.cust_sub_category', string='Customer Sub Category', ondelete='set null', index=True)
     cust_type = fields.Many2one(
-        comodel_name='sales.cust_type', string='Customer Type', ondelete='set null', index=True)
+        comodel_name='sales.cust_type', string='Tipe Customer', ondelete='set null', index=True)
     cust_area = fields.Many2one(
         comodel_name='sales.cust_area', string='Customer Area', ondelete='set null', index=True)
     price_condition_ids = fields.Many2many(
@@ -344,14 +370,15 @@ class customer(models.Model):
         'customer_price_condition_rel',  # Table name
         'customer_id',
         'price_id',
-        string="Price Conditions"
+        string="Kondisi Harga",
+        domain=[('customer_applied_on', '=', 'customer')]
     )
     payment_terms = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True, domain="[('account_type', '=', 'Customer')]")
     contact_name = fields.Char(string="Contact Name")
     telephone = fields.Char(string="Telephone")
     email = fields.Char(string="Email", required=True)
-    website = fields.Char(string="Website")
+    website = fields.Char(string="Situs Web")
     ship_to_ids = fields.One2many(
         'sales.ship_to', 'customer_id', string="Ship To Addresses")
     sold_to_ids = fields.One2many(
@@ -448,9 +475,74 @@ class customer(models.Model):
         records = super(customer, self).create(vals_list)
         for record in records:
             record._resync_price_conditions()
+
+        # Sync: bila di create user memilih Price Condition(s), tambahkan
+        # customer ini ke tabel sales.price_condition_customer hanya untuk PC type Specific Customers
+        for record in records:
+            for pc in record.price_condition_ids.filtered(lambda p: p.customer_applied_on == 'customer'):
+                if not self.env['sales.price_condition_customer'].search(
+                        [('price_id', '=', pc.id), ('customer_id', '=', record.id)], limit=1):
+                    self.env['sales.price_condition_customer'].create(
+                        {'price_id': pc.id, 'customer_id': record.id})
+
         return records
 
+    # --- price_condition_ids sync helpers ---
+
+    def _parse_m2m_commands(self, commands, current_ids):
+        """Untuk Mimic Many2many commands (6,0,ids)/(4,id)/(3,id)/(5)/(0,0,vals)."""
+        res = set(current_ids)
+        if not commands:
+            return set()
+        for cmd in commands:
+            op = cmd[0]
+            if op == 6:
+                res = set(cmd[2] or [])
+            elif op == 4:
+                res.add(cmd[1])
+            elif op == 3:
+                res.discard(cmd[1])
+            elif op == 5:
+                res = set()
+            elif op == 0:
+                continue
+        return res
+
+    def _sync_customer_to_price_condition_specific(self, new_ids_by_customer, old_ids_by_customer):
+        """Sinkronkan delta Many2many price_condition_ids -> sales.price_condition_customer."""
+        PCC = self.env['sales.price_condition_customer']
+        for customer in self:
+            old_ids = old_ids_by_customer.get(customer.id, set())
+            new_ids = new_ids_by_customer.get(customer.id, set())
+            added_ids = new_ids - old_ids
+            removed_ids = old_ids - new_ids
+            if not (added_ids or removed_ids):
+                continue
+
+            pcs = self.env['sales.price_condition'].browse(list(added_ids | removed_ids))
+            only_specific = pcs.filtered(lambda p: p.customer_applied_on == 'customer')
+            added = only_specific.filtered(lambda p: p.id in added_ids)
+            removed = only_specific.filtered(lambda p: p.id in removed_ids)
+
+            for pc in added:
+                if not PCC.search([('price_id', '=', pc.id), ('customer_id', '=', customer.id)], limit=1):
+                    PCC.create({'price_id': pc.id, 'customer_id': customer.id})
+            if removed:
+                PCC.search([
+                    ('price_id', 'in', removed.ids),
+                    ('customer_id', '=', customer.id)
+                ]).unlink()
+
     def write(self, vals):
+        if self.env.context.get('_address_cascade'):
+            return super(customer, self).write(vals)
+
+        # --- Capture pre-write price_condition_ids per customer for bidirectional sync ---
+        _old_pc_ids_by_cust = {}
+        if 'price_condition_ids' in vals and not self.env.context.get('_price_condition_syncing'):
+            for rec in self:
+                _old_pc_ids_by_cust[rec.id] = set(rec.price_condition_ids.ids)
+
         # 1. Execute standard write
         res = super(customer, self).write(vals)
 
@@ -509,8 +601,15 @@ class customer(models.Model):
 
         # 2. Trigger re-sync price condition
         if 'cust_category' in vals:
+            self = self.with_context(_price_condition_syncing=True)
             for rec in self:
                 rec._resync_price_conditions()
+
+        # --- Bidirectional sync: price_condition_ids → sales.price_condition_customer ---
+        if 'price_condition_ids' in vals and not self.env.context.get('_price_condition_syncing'):
+            new_pc_ids_by_cust = {rec.id: set(rec.price_condition_ids.ids) for rec in self}
+            self.with_context(_price_condition_syncing=True)._sync_customer_to_price_condition_specific(new_pc_ids_by_cust, _old_pc_ids_by_cust)
+
         return res
 
     def unlink(self):
@@ -571,19 +670,19 @@ class ship_to(models.Model):
     _rec_name = 'ship_name'
 
     ship_id = fields.Char(string="Ship ID", readonly=True)
-    ship_name = fields.Char(string="Ship Name")
+    ship_name = fields.Char(string="Nama Penerima")
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
-    address = fields.Text(string="Address")
+    address = fields.Text(string="Alamat")
     country = fields.Many2one(
-        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+        comodel_name='general.country', string='Negara', ondelete='set null', index=True)
     state = fields.Many2one(
-        comodel_name='general.state', string='State', ondelete='set null', index=True)
+        comodel_name='general.state', string='Provinsi', ondelete='set null', index=True)
     city = fields.Many2one(
-        comodel_name='general.city', string='City', ondelete='set null', index=True)
+        comodel_name='general.city', string='Kota', ondelete='set null', index=True)
     district = fields.Many2one(
-        comodel_name='general.district', string='District', ondelete='set null', index=True)
-    postal_code = fields.Char(string="Postal Code")
+        comodel_name='general.district', string='Kecamatan', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Kode Pos")
 
     # ============================================================
     # ADDRESS ONCHANGE METHODS (Hierarchical Auto-fill)
@@ -642,19 +741,19 @@ class sold_to(models.Model):
     _rec_name = 'sold_name'
 
     sold_id = fields.Char(string="Sold ID", readonly=True)
-    sold_name = fields.Char(string="Sold Name")
+    sold_name = fields.Char(string="Nama Pemesan")
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
-    address = fields.Text(string="Address")
+    address = fields.Text(string="Alamat")
     country = fields.Many2one(
-        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+        comodel_name='general.country', string='Negara', ondelete='set null', index=True)
     state = fields.Many2one(
-        comodel_name='general.state', string='State', ondelete='set null', index=True)
+        comodel_name='general.state', string='Provinsi', ondelete='set null', index=True)
     city = fields.Many2one(
-        comodel_name='general.city', string='City', ondelete='set null', index=True)
+        comodel_name='general.city', string='Kota', ondelete='set null', index=True)
     district = fields.Many2one(
-        comodel_name='general.district', string='District', ondelete='set null', index=True)
-    postal_code = fields.Char(string="Postal Code")
+        comodel_name='general.district', string='Kecamatan', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Kode Pos")
 
     @api.onchange('district')
     def _onchange_district(self):
@@ -706,19 +805,19 @@ class bill_to(models.Model):
     _rec_name = 'bill_name'
 
     bill_id = fields.Char(string="Bill ID", readonly=True)
-    bill_name = fields.Char(string="Bill Name")
+    bill_name = fields.Char(string="Nama Penagihan")
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='cascade', index=True)
-    address = fields.Text(string="Address")
+    address = fields.Text(string="Alamat")
     country = fields.Many2one(
-        comodel_name='general.country', string='Country', ondelete='set null', index=True)
+        comodel_name='general.country', string='Negara', ondelete='set null', index=True)
     state = fields.Many2one(
-        comodel_name='general.state', string='State', ondelete='set null', index=True)
+        comodel_name='general.state', string='Provinsi', ondelete='set null', index=True)
     city = fields.Many2one(
-        comodel_name='general.city', string='City', ondelete='set null', index=True)
+        comodel_name='general.city', string='Kota', ondelete='set null', index=True)
     district = fields.Many2one(
-        comodel_name='general.district', string='District', ondelete='set null', index=True)
-    postal_code = fields.Char(string="Postal Code")
+        comodel_name='general.district', string='Kecamatan', ondelete='set null', index=True)
+    postal_code = fields.Char(string="Kode Pos")
 
     @api.onchange('district')
     def _onchange_district(self):
@@ -770,8 +869,8 @@ class product_type(models.Model):
     _description = 'Product Types'
     _menu_code = 'product_type'
 
-    product_type_id = fields.Char(string="Product Type ID")
-    name = fields.Char(string='Product Type')
+    product_type_id = fields.Char(string="ID Tipe Produk")
+    name = fields.Char(string='Tipe Produk')
     is_edit = fields.Boolean(default=False)
 
 
@@ -782,10 +881,10 @@ class product_category(models.Model):
     _rec_name = 'category_name'
     _menu_code = 'product_category'
 
-    category_id = fields.Char(string="Category ID")
-    category_name = fields.Char(string="Category Name")
+    category_id = fields.Char(string="ID Kategori")
+    category_name = fields.Char(string="Nama Kategori")
     product_type = fields.Many2one(
-        comodel_name='sales.product_type', string='Product Type', required=True)
+        comodel_name='sales.product_type', string='Tipe Produk', required=True)
     parent_category_id = fields.Many2one(
         comodel_name='sales.product_category', string='Product Category Parent')
     description = fields.Text(string='Description')
@@ -814,7 +913,7 @@ class product_unit(models.Model):
     _rec_name = 'uom'
     _menu_code = 'product_unit'
 
-    uom_id = fields.Char(string="Unit of Measure ID")
+    uom_id = fields.Char(string="ID Satuan Ukur")
     uom = fields.Char(string='Unit of Measure')
     qty = fields.Integer(string='Qty', default=1)
     base_uom = fields.Char(string='Base UoM')
@@ -831,40 +930,40 @@ RESERVED_SO_STATES = (
 class products(models.Model):
     _name = 'sales.products'
     _inherit = ['navigation.mixin']
-    _description = 'Products'
+    _description = 'Produk'
     _rec_name = 'product_name'
     _menu_code = 'products'
 
-    product_id = fields.Char(string="Product ID", required=True)
-    product_name = fields.Char(string="Product Name")
-    sales_ok = fields.Boolean(string="Sales", default=True)
-    purchase_ok = fields.Boolean(string="Purchase", default=True)
+    product_id = fields.Char(string="ID Produk", required=True)
+    product_name = fields.Char(string="Nama Produk")
+    sales_ok = fields.Boolean(string="Penjualan", default=True)
+    purchase_ok = fields.Boolean(string="Pembelian", default=True)
     barcode = fields.Char(string="Barcode")
     product_type = fields.Many2one(
-        comodel_name='sales.product_type', string='Product Type')
+        comodel_name='sales.product_type', string='Tipe Produk')
     product_category = fields.Many2one(
-        comodel_name='sales.product_category', string='Product Category', ondelete='cascade', index=True, required=True)
+        comodel_name='sales.product_category', string='Kategori Produk', ondelete='cascade', index=True, required=True)
     product_unit = fields.Many2one(
-        comodel_name='sales.product_unit', string='Product Unit')
-    base_price = fields.Float(string="Sales Price", digits=(16, 0))
+        comodel_name='sales.product_unit', string='Satuan Produk')
+    base_price = fields.Float(string="Harga Penjualan", digits=(16, 0))
     currency_id = fields.Many2one(
-        comodel_name='res.currency', string='Currency',
+        comodel_name='res.currency', string='Mata Uang',
         default=lambda self: self.env['res.currency'].search(
             [('name', '=', 'IDR')], limit=1)
         or self.env.company.currency_id)
-    price = fields.Float(string="Price", digits=(16, 0))
+    price = fields.Float(string="Harga", digits=(16, 0))
     tax_string = fields.Char(
-        compute='_compute_tax_string', string='Tax Description')
+        compute='_compute_tax_string', string='Deskripsi Pajak')
     customer_tax = fields.Many2one(
-        comodel_name='sales.taxes', string='Customer Tax', default=lambda self: self.env['sales.taxes'].search([('default_tax', '=', True)], limit=1))
-    stock = fields.Integer(string='Stock', default=0)
-    cogs = fields.Float(string="COGS", digits=(16, 0))
+        comodel_name='sales.taxes', string='Pajak Customer', default=lambda self: self.env['sales.taxes'].search([('default_tax', '=', True)], limit=1))
+    stock = fields.Integer(string='Stok', default=0)
+    cogs = fields.Float(string="HPP", digits=(16, 0))
     bom_ids = fields.One2many('sales.bom', 'product_id', string="Bill of Materials")
-    bom_based_cogs = fields.Float(string="COGS (BOM-based)", compute='_compute_bom_based_cogs')
+    bom_based_cogs = fields.Float(string="HPP (BOM)", compute='_compute_bom_based_cogs')
     sales_order_line_ids = fields.One2many(
-        'sales.sales_order_line', 'product_id', string='Sales Order Lines')
+        'sales.sales_order_line', 'product_id', string='Baris Pesanan Penjualan')
     qty_reserved_sale = fields.Integer(
-        string='Booked (Open SO)', compute='_compute_qty_reserved_sale',
+        string='Dipesan (SO Terbuka)', compute='_compute_qty_reserved_sale',
         store=True,
         help='Total quantity booked on open Sales Orders (not cancelled).')
     image = fields.Binary(string="Image")
@@ -985,8 +1084,8 @@ class price_condition(models.Model):
     _menu_code = 'price_condition'
     _order = 'customer_priority asc, product_priority asc, id desc'
 
-    price_condition_id = fields.Char(string="Price Condition ID", required=True)
-    price_name = fields.Char(string="Price Name")
+    price_condition_id = fields.Char(string="ID Kondisi Harga", required=True)
+    price_name = fields.Char(string="Nama Harga")
     date_start = fields.Datetime(string="Validity")
     date_end = fields.Datetime(string="Expiry Date")
     min_quantity = fields.Integer(string="Min. Quantity", default=1)
@@ -995,9 +1094,9 @@ class price_condition(models.Model):
         ('discount', 'Discount')
     ], string="Computation", default='fixed')
     fixed_price = fields.Float(string="Fixed Price", digits=(16, 0))
-    percent_price = fields.Float(string="Discount")
+    percent_price = fields.Float(string="Diskon")
     price = fields.Char(
-        string="Price", compute='_compute_price', store=False)
+        string="Harga", compute='_compute_price', store=False)
     applied_on = fields.Selection([
         ('all', 'All Products'),
         ('category', 'Product Category'),
@@ -1006,7 +1105,7 @@ class price_condition(models.Model):
     product_category_ids = fields.Many2many(
         'sales.product_category', string="Product Categories")
     product_ids = fields.One2many(
-        'sales.price_condition_product', 'price_id', string="Products")
+        'sales.price_condition_product', 'price_id', string="Produk")
     product_priority = fields.Integer(
         compute="_compute_product_priority", store=True)
     customer_applied_on = fields.Selection([
@@ -1123,6 +1222,11 @@ class price_condition_customer(models.Model):
     customer_id = fields.Many2one(
         comodel_name='sales.customer', string='Customer', ondelete='set null', index=True)
 
+    _sql_constraints = [
+        ('price_customer_uniq', 'unique(price_id, customer_id)',
+         'Combination Price Condition / Customer already exists!'),
+    ]
+
 
 class account_type(models.Model):
     _name = 'sales.account_type'
@@ -1157,13 +1261,13 @@ class payment_terms(models.Model):
         default=10000000, string="Example Amount", digits=(16, 0))
     example_date = fields.Date(
         string="Example Date", default=fields.Date.today())
-    note = fields.Html(string="Notes")
+    note = fields.Html(string="Catatan")
     example_preview_discount = fields.Html(
         string="Early Payment Discount Preview", compute='_compute_example_preview', sanitize=False)
     example_preview = fields.Html(
         string="Example Preview", compute='_compute_example_preview', sanitize=False)
     payment_terms_ids = fields.One2many(
-        'sales.payment_terms_detail', 'payment_terms_id', string="Payment Terms")
+        'sales.payment_terms_detail', 'payment_terms_id', string="Syarat Pembayaran")
     is_edit = fields.Boolean(default=False)
 
     @api.depends('example_amount', 'example_date', 'payment_terms_ids.no_of_days', 'payment_terms_ids.percentage', 'early_discount', 'discount_percentage', 'discount_days')
@@ -1234,7 +1338,7 @@ class discount_wizard(models.TransientModel):
     sales_order_id = fields.Many2one(
         comodel_name='sales.sales_order', string='Quotation', ondelete='cascade', index=True, readonly=True)
     discount_percentage = fields.Float(
-        string="Discount", default=0, digits=(5, 0))
+        string="Diskon", default=0, digits=(5, 0))
 
     def apply_discount(self):
         self.ensure_one()
@@ -1265,7 +1369,7 @@ class sales_order(models.Model):
     bill_to_id = fields.Many2one(
         comodel_name='sales.bill_to', string='Bill To', ondelete='set null', index=True,
         domain="[('customer_id', '=', customer_id)]")
-    address = fields.Text(compute='_compute_address')
+    address = fields.Text(compute='_compute_address', store=True)
     expiry_date = fields.Date(
         string="Expiration", default=fields.Date.add(fields.Date.today(), days=10))
     quotation_date = fields.Date(
@@ -1275,7 +1379,7 @@ class sales_order(models.Model):
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True, domain="[('account_type', '=', 'Customer')]")
     sales_name = fields.Many2one(
         comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True, default=lambda self: self.env['general.custom_users'].search([('user_id', '=', self.env.uid)], limit=1), domain=[('menu_ids.menu_id', 'in', ['Sales Orders', 'Quotations'])])
-    commitment_date = fields.Date(string="Delivery Date")
+    commitment_date = fields.Date(string="Tanggal Pengiriman")
     expected_date = fields.Date(
         string="Expected Date", default=fields.Date.add(fields.Date.today(), days=7), readonly=True)
     order_line_ids = fields.One2many(
@@ -1287,7 +1391,7 @@ class sales_order(models.Model):
     total_amount = fields.Float(
         string="Total", compute='_compute_total_amount', store=True, digits=(16, 0))
     approval_log_ids = fields.One2many(
-        'sales.sales_approval_log', 'sales_order_id', string="Approval Logs")
+        'sales.sales_approval_log', 'sales_order_id', string="Log Persetujuan")
     need_approval = fields.Boolean(compute='_compute_need_approval')
     approval_status = fields.Selection([
         ('pending', 'Pending Approval'),
@@ -1340,6 +1444,13 @@ class sales_order(models.Model):
     @api.depends('customer_id', 'sold_to_id',
                  'customer_id.address', 'customer_id.district', 'customer_id.city', 'customer_id.state', 'customer_id.postal_code', 'customer_id.country',
                  'sold_to_id.address', 'sold_to_id.district', 'sold_to_id.city', 'sold_to_id.state', 'sold_to_id.postal_code', 'sold_to_id.country')
+    @api.depends('sold_to_id', 'customer_id',
+                 'sold_to_id.district', 'sold_to_id.city', 'sold_to_id.state', 'sold_to_id.country',
+                 'sold_to_id.district.district_name', 'sold_to_id.city.city_name',
+                 'sold_to_id.state.state_name', 'sold_to_id.country.country_name',
+                 'customer_id.district', 'customer_id.city', 'customer_id.state', 'customer_id.country',
+                 'customer_id.district.district_name', 'customer_id.city.city_name',
+                 'customer_id.state.state_name', 'customer_id.country.country_name')
     def _compute_address(self):
         for record in self:
             if record.sold_to_id:
@@ -2443,7 +2554,7 @@ class SalesApproveWizard(models.TransientModel):
     _name = 'sales.approve.wizard'
     _description = 'Confirmation of Approval'
 
-    sales_order_id = fields.Many2one('sales.sales_order', string="Sales Order")
+    sales_order_id = fields.Many2one('sales.sales_order', string="Pesanan Penjualan")
     message = fields.Text(
         readonly=True, default="Are you sure you want to accept this order? This action will proceed to the next step.")
 
@@ -2457,8 +2568,8 @@ class SalesRejectWizard(models.TransientModel):
     _name = 'sales.reject.wizard'
     _description = 'Reject Reason Wizard'
 
-    sales_order_id = fields.Many2one('sales.sales_order', string="Sales Order")
-    reason = fields.Text(string="Reject Reason", required=True)
+    sales_order_id = fields.Many2one('sales.sales_order', string="Pesanan Penjualan")
+    reason = fields.Text(string="Alasan Penolakan", required=True)
 
     def action_reject_confirm(self):
         self.ensure_one()
@@ -2470,8 +2581,8 @@ class SalesReturnWizard(models.TransientModel):
     _name = 'sales.return.wizard'
     _description = 'Return Reason Wizard'
 
-    sales_order_id = fields.Many2one('sales.sales_order', string="Sales Order")
-    reason = fields.Text(string="Return Reason", required=True)
+    sales_order_id = fields.Many2one('sales.sales_order', string="Pesanan Penjualan")
+    reason = fields.Text(string="Alasan Pengembalian", required=True)
 
     def action_return_confirm(self):
         self.ensure_one()
@@ -2483,8 +2594,8 @@ class SalesReviseWizard(models.TransientModel):
     _name = 'sales.revise.wizard'
     _description = 'Revise Confirmation Wizard'
 
-    sales_order_id = fields.Many2one('sales.sales_order', string="Sales Order")
-    message = fields.Text(string="Revise Message", required=True)
+    sales_order_id = fields.Many2one('sales.sales_order', string="Pesanan Penjualan")
+    message = fields.Text(string="Pesan Revisi", required=True)
 
     def action_revise_confirm(self):
         self.ensure_one()
@@ -2501,7 +2612,7 @@ class sales_order_line(models.Model):
     product_id = fields.Many2one(
         comodel_name='sales.products', string='Product', ondelete='set null', index=True,
         domain=[('sales_ok', '=', True)])
-    quantity = fields.Integer(string="Quantity", default=1)
+    quantity = fields.Integer(string="Kuantitas", default=1)
     product_unit = fields.Many2one(
         related='product_id.product_unit', string="UoM")
     unit_price = fields.Float(string="Unit Price", digits=(16, 0), store=True)
@@ -2695,7 +2806,7 @@ class taxes(models.Model):
     _description = 'Taxes'
     _menu_code = 'taxes'
 
-    tax_id = fields.Char(string="Tax ID")
+    tax_id = fields.Char(string="ID Pajak")
     name = fields.Char(string='Tax Name', required=True)
     tax_percentage = fields.Float(string='Tax Percentage (%)', required=True)
     default_tax = fields.Boolean(string='Default Tax')
@@ -2783,10 +2894,10 @@ class sales_approval_log(models.Model):
     note = fields.Text(string="Comment")
     approval_reason = fields.Text(string="Reason for Approval Decision")
     mail_sent = fields.Boolean(string="Notification Sent", default=False)
-    approve = fields.Boolean(string="Approve", default=False)
-    revise = fields.Boolean(string="Revise", default=False)
-    returned = fields.Boolean(string="Return", default=False)
-    reject = fields.Boolean(string="Reject", default=False)
+    approve = fields.Boolean(string="Setujui", default=False)
+    revise = fields.Boolean(string="Revisi", default=False)
+    returned = fields.Boolean(string="Kembalikan", default=False)
+    reject = fields.Boolean(string="Tolak", default=False)
     printed = fields.Boolean(string="Print", default=False)
     notify = fields.Boolean(string="Notify", default=False)
     approved_as = fields.Char(string="Role in Approval")
@@ -2814,7 +2925,7 @@ class sales_invoice(models.Model):
     ], string="Document Type", default='invoice', required=True)
     sales_name = fields.Many2one(
         comodel_name='general.custom_users', string='Salesperson', ondelete='set null', index=True)
-    delivery_date = fields.Date(string="Delivery Date")
+    delivery_date = fields.Date(string="Tanggal Pengiriman")
     payment_terms_id = fields.Many2one(
         comodel_name='sales.payment_terms', string='Payment Terms', ondelete='set null', index=True)
     invoice_type = fields.Selection([
@@ -2849,9 +2960,9 @@ class sales_invoice(models.Model):
     journal_item_count = fields.Integer(
         string='Journal Item Count', compute='_compute_journal_item_count')
     amount_untaxed = fields.Float(
-        string="Untaxed Amount", compute='_compute_amounts', store=True, digits=(16, 0))
+        string="Total Sebelum Pajak", compute='_compute_amounts', store=True, digits=(16, 0))
     amount_tax = fields.Float(
-        string="Tax Amount", compute='_compute_amounts', store=True, digits=(16, 0))
+        string="Total Pajak", compute='_compute_amounts', store=True, digits=(16, 0))
     amount_total = fields.Float(
         string="Total", compute='_compute_amounts', store=True, digits=(16, 0))
     payment_ids = fields.One2many(
@@ -2864,14 +2975,14 @@ class sales_invoice(models.Model):
     previous_payment_count = fields.Integer(
         string='Previous Payment Count', compute='_compute_previous_payments')
     amount_paid = fields.Float(
-        string="Amount Paid", compute='_compute_payment_state', store=True, digits=(16, 0))
+        string="Jumlah Dibayar", compute='_compute_payment_state', store=True, digits=(16, 0))
     amount_due = fields.Float(
-        string="Amount Due", compute='_compute_payment_state', store=True, digits=(16, 0))
+        string="Jumlah Terutang", compute='_compute_payment_state', store=True, digits=(16, 0))
     payment_state = fields.Selection([
         ('not_paid', 'Not Paid'),
         ('partial', 'Partial'),
         ('paid', 'Paid'),
-    ], string="Payment Status", compute='_compute_payment_state', store=True, default='not_paid')
+    ], string="Status Pembayaran", compute='_compute_payment_state', store=True, default='not_paid')
     payment_terms_note = fields.Html(
         string="Payment Terms Note", compute='_compute_payment_terms_note', sanitize=False)
     user_can_invoicing = fields.Boolean(
@@ -3446,8 +3557,8 @@ class sales_invoice_line(models.Model):
         comodel_name='sales.sales_order_line', string='Sales Order Line', ondelete='set null', index=True)
     product_id = fields.Many2one(
         comodel_name='sales.products', string='Product', ondelete='set null', index=True)
-    description = fields.Char(string="Description", required=True)
-    quantity = fields.Float(string="Quantity", default=1)
+    description = fields.Char(string="Deskripsi", required=True)
+    quantity = fields.Float(string="Kuantitas", default=1)
     unit_price = fields.Float(string="Unit Price", digits=(16, 0), default=0.0)
     discount = fields.Float(string="Discount (%)", default=0.0)
     tax_id = fields.Many2one(
@@ -3459,7 +3570,7 @@ class sales_invoice_line(models.Model):
     sub_total = fields.Float(
         string="Sub Total", compute='_compute_amounts', store=True, digits=(16, 0))
     tax_amount = fields.Float(
-        string="Tax Amount", compute='_compute_amounts', store=True, digits=(16, 0))
+        string="Total Pajak", compute='_compute_amounts', store=True, digits=(16, 0))
     total = fields.Float(
         string="Total", compute='_compute_amounts', store=True, digits=(16, 0))
 
@@ -3559,7 +3670,7 @@ class sales_create_invoice_wizard(models.TransientModel):
         ('regular', 'Regular Invoice'),
         ('down_payment_percentage', 'Down Payment (Percentage)'),
         ('down_payment_fixed', 'Down Payment (Fixed Amount)')
-    ], string="Create Invoice", default='regular', required=True)
+    ], string="Buat Faktur", default='regular', required=True)
     already_invoiced_count = fields.Integer(
         string="Already Invoiced", compute='_compute_invoice_history')
     already_invoiced_amount = fields.Float(
@@ -3646,14 +3757,14 @@ class sales_payment(models.Model):
         ('cash', 'Cash'),
     ], string="Payment Method", required=True, default='manual')
     memo = fields.Char(string="Memo / Reference")
-    amount = fields.Float(string="Amount", digits=(16, 0), required=True)
+    amount = fields.Float(string="Jumlah", digits=(16, 0), required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('posted', 'Posted'),
         ('cancel', 'Cancelled'),
     ], string="Status", default='draft', readonly=True)
     currency_id = fields.Many2one(
-        comodel_name='res.currency', string='Currency',
+        comodel_name='res.currency', string='Mata Uang',
         default=lambda self: self.env['res.currency'].search(
             [('name', '=', 'IDR')], limit=1)
         or self.env.company.currency_id)
@@ -3787,11 +3898,11 @@ class sales_register_payment_wizard(models.TransientModel):
         ('cash', 'Cash'),
     ], string="Payment Method", required=True, default='manual')
     memo = fields.Char(string="Memo")
-    amount = fields.Float(string="Amount", digits=(16, 0), required=True)
+    amount = fields.Float(string="Jumlah", digits=(16, 0), required=True)
     amount_due = fields.Float(
-        string="Amount Due", digits=(16, 0), readonly=True)
+        string="Jumlah Terutang", digits=(16, 0), readonly=True)
     currency_id = fields.Many2one(
-        comodel_name='res.currency', string='Currency',
+        comodel_name='res.currency', string='Mata Uang',
         default=lambda self: self.env['res.currency'].search(
             [('name', '=', 'IDR')], limit=1)
         or self.env.company.currency_id)
@@ -3856,7 +3967,7 @@ class SalesDelivery(models.Model):
         comodel_name='sales.customer', string='Customer',
         ondelete='restrict', index=True, required=True)
     delivery_date = fields.Date(
-        string="Delivery Date", default=fields.Date.today, required=True)
+        string="Tanggal Pengiriman", default=fields.Date.today, required=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('done', 'Done'),
@@ -3866,7 +3977,7 @@ class SalesDelivery(models.Model):
         string="Done On", readonly=True, copy=False)
     line_ids = fields.One2many(
         'sales.delivery.line', 'delivery_id', string='Delivery Lines')
-    note = fields.Text(string="Notes")
+    note = fields.Text(string="Catatan")
     is_edit = fields.Boolean(default=False)
 
     @api.model_create_multi
@@ -3934,7 +4045,7 @@ class SalesDeliveryLine(models.Model):
     product_id = fields.Many2one(
         comodel_name='sales.products', string='Product',
         ondelete='set null', index=True)
-    description = fields.Char(string="Description", required=True)
+    description = fields.Char(string="Deskripsi", required=True)
     ordered_qty = fields.Float(
         string="Ordered Qty", digits=(16, 2), readonly=True)
     quantity = fields.Float(string="Delivered Qty", digits=(16, 2), default=0.0)

@@ -4,14 +4,14 @@
     <!-- Configuration Root Menu -->
     <record id="master_data_menu" model="general.menu">
         <field name="menu_id">master_data</field>
-        <field name="menu_name">Configuration</field>
+        <field name="menu_name">Konfigurasi</field>
         <field name="is_parent">True</field>
     </record>
 
     <!-- Transaction -->
     <record id="general_transaction_menu" model="general.menu">
         <field name="menu_id">general_transaction</field>
-        <field name="menu_name">Transaction</field>
+        <field name="menu_name">Transaksi</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
@@ -19,7 +19,7 @@
     <!-- Report -->
     <record id="general_report_menu" model="general.menu">
         <field name="menu_id">general_report</field>
-        <field name="menu_name">Report</field>
+        <field name="menu_name">Laporan</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
@@ -27,88 +27,90 @@
     <!-- Master Data -->
     <record id="general_master_data_menu" model="general.menu">
         <field name="menu_id">general_master_data</field>
-        <field name="menu_name">Master Data</field>
+        <field name="menu_name">Data Master</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
 
     <record id="users_menu" model="general.menu">
         <field name="menu_id">custom_users</field>
-        <field name="menu_name">Users</field>
+        <field name="menu_name">Pengguna</field>
         <field name="parent_menu">general_master_data</field>
     </record>
 
     <record id="others_menu" model="general.menu">
         <field name="menu_id">others</field>
-        <field name="menu_name">Others</field>
+        <field name="menu_name">Lainnya</field>
         <field name="parent_menu">general_master_data</field>
         <field name="is_parent">True</field>
     </record>
 
     <record id="country_menu" model="general.menu">
         <field name="menu_id">country</field>
-        <field name="menu_name">Countries</field>
+        <field name="menu_name">Negara</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="state_menu" model="general.menu">
         <field name="menu_id">state</field>
-        <field name="menu_name">State</field>
+        <field name="menu_name">Provinsi</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="city_menu" model="general.menu">
         <field name="menu_id">city</field>
-        <field name="menu_name">Cities</field>
+        <field name="menu_name">Kota</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="district_menu" model="general.menu">
         <field name="menu_id">district</field>
-        <field name="menu_name">Districts</field>
+        <field name="menu_name">Kecamatan</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="village_menu" model="general.menu">
         <field name="menu_id">village</field>
-        <field name="menu_name">Villages</field>
+        <field name="menu_name">Desa/Kelurahan</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="department_menu" model="general.menu">
         <field name="menu_id">department</field>
-        <field name="menu_name">Departments</field>
+        <field name="menu_name">Departemen</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="location_menu" model="general.menu">
         <field name="menu_id">location</field>
-        <field name="menu_name">Locations</field>
+        <field name="menu_name">Lokasi</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="division_menu" model="general.menu">
         <field name="menu_id">division</field>
-        <field name="menu_name">Divisions</field>
+        <field name="menu_name">Divisi</field>
         <field name="parent_menu">others</field>
     </record>
     <record id="level_grade_menu" model="general.menu">
         <field name="menu_id">level_grade</field>
-        <field name="menu_name">Levels / Grades</field>
+        <field name="menu_name">Tingkat / Golongan</field>
         <field name="parent_menu">others</field>
     </record>
 
     <!-- Setup -->
     <record id="general_setup_menu" model="general.menu">
         <field name="menu_id">general_setup</field>
-        <field name="menu_name">Setup</field>
+        <field name="menu_name">Pengaturan</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
 
     <record id="company_menu" model="general.menu">
         <field name="menu_id">company</field>
-        <field name="menu_name">Companies</field>
+        <field name="menu_name">Perusahaan</field>
         <field name="parent_menu">general_setup</field>
     </record>
+
+
 
     <!-- Help -->
     <record id="general_help_menu" model="general.menu">
         <field name="menu_id">general_help</field>
-        <field name="menu_name">Help</field>
+        <field name="menu_name">Bantuan</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
