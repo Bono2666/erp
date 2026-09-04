@@ -1,6 +1,6 @@
 # ERP KSI — Product Requirements Document
 
-> **Last updated:** 2026-08-28
+> **Last updated:** 2026-09-04
 > **Stack:** Odoo 17 (Python) + OWL Framework (JavaScript) + PostgreSQL
 
 ---
@@ -634,6 +634,7 @@ Each module defines `security/ir.model.access.csv` for model-level CRUD access c
 | Component          | Module           | File                                                 | Purpose                        |
 | ------------------ | ---------------- | ---------------------------------------------------- | ------------------------------ |
 | `OrgStructure`     | hcm              | `hcm/static/src/js/org_structure.js`                 | Interactive organization chart |
+| `SplashScreen`     | general          | `general/static/src/js/splash_screen.js`             | Splash screen on module app root click |
 | `disable_autosave` | disable_autosave | `disable_autosave/static/src/js/disable_autosave.js` | Cancel button behavior, UI cleanup (hide chat icon, Discuss menu) |
 
 ### 9.3 External Libraries (CDN)
@@ -715,6 +716,33 @@ Semua kanban view dengan foto/gambar harus mengikuti standar styling berikut:
 | hcm | `hcm.employee` | `hcm/static/src/css/employee_kanban.css` |
 
 Untuk module baru yang memiliki kanban view dengan foto, buat file CSS baru dan ikuti standar di atas.
+
+### 9.5 Splash Screen
+
+Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampilkan sebelum konten dimuat.
+
+| Feature | Detail |
+|---------|--------|
+| **Trigger** | Klik app root menu (menu yang memiliki action) |
+| **Component** | `SplashScreen` OWL — tag `general_splash` |
+| **Logo** | `general/static/src/img/transparent_logo.webp` |
+| **Opacity** | 0.2 (20% visible, watermarked) |
+| **Layout** | Centered horizontally & vertically, white background |
+| **Responsive** | 40% width desktop, 60% tablet, 75% mobile |
+
+**Architecture:**
+- Single shared OWL component registered in `general/static/src/js/splash_screen.js`
+- Each module defines an `ir.actions.client` record in `views/splash.xml` (same tag `general_splash`)
+- Root menuitems reference the splash action: `<menuitem ... action="module.splash_action"/>`
+- No separate "Beranda" child menu — splash is the root action itself
+
+**Files:**
+- `general/static/src/js/splash_screen.js` — OWL component
+- `general/static/src/xml/splash_screen.xml` — OWL template
+- `general/static/src/css/splash_screen.css` — responsive CSS
+- `general/views/splash.xml` — General splash action
+- `hcm/views/splash.xml` — HCM splash action
+- `sales/views/splash.xml` — Sales splash action
 
 ---
 
@@ -801,6 +829,13 @@ sales
 | `disable_autosave/static/src/js/disable_autosave.js`   | Cancel button handler                                                             |
 | `disable_autosave/static/src/css/disable_autosave.css` | Cancel button styling & hide chat icon (messaging systray menu)                    |
 | `disable_autosave/data/hide_discuss_menu.xml`          | Sembunyikan menu Discuss dari sidebar/app switcher (`active=False`)                |
+| `general/static/src/js/splash_screen.js`               | Splash screen OWL component (shared across all modules)                              |
+| `general/static/src/xml/splash_screen.xml`             | Splash screen OWL template                                                          |
+| `general/static/src/css/splash_screen.css`             | Splash screen CSS (responsive, opacity 0.2)                                         |
+| `general/static/src/img/transparent_logo.webp`         | Splash screen logo image                                                            |
+| `general/views/splash.xml`                             | General module splash action (ir.actions.client)                                    |
+| `hcm/views/splash.xml`                                 | HCM module splash action (ir.actions.client)                                        |
+| `sales/views/splash.xml`                               | Sales module splash action (ir.actions.client)                                      |
 | `tests/e2e/`                                           | End-to-end test suite (Playwright)                                                      |
 
 ---

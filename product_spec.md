@@ -1,7 +1,7 @@
 # ERP KSI — Product Specification Document
 
-> **Versi:** 1.3  
-> **Terakhir diperbarui:** 2026-08-29  
+> **Versi:** 1.4  
+> **Terakhir diperbarui:** 2026-09-04  
 > **Stack:** Odoo 17 (Python/OWL) + PostgreSQL  
 > **Target:** Developer
 
@@ -1682,6 +1682,66 @@ Form header memuat judul model (`model_description`) yang selalu tampak baik pad
 
 Semua Many2one fields di form views di-inject dengan `no_open=True` dan `no_create=True` untuk mencegah navigasi ke record terkait dan pembelian record baru dari dropdown.
 
+### 7.5 Splash Screen
+
+Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampilkan dengan logo transparan yang terpusat.
+
+**Arsitektur:**
+
+| Komponen | Detail |
+|----------|--------|
+| **OWL Component** | `SplashScreen` — tag `general_splash` |
+| **JS** | `general/static/src/js/splash_screen.js` |
+| **Template** | `general/static/src/xml/splash_screen.xml` |
+| **CSS** | `general/static/src/css/splash_screen.css` |
+| **Logo** | `general/static/src/img/transparent_logo.webp` |
+
+**Cara Kerja:**
+
+```
+1. User klik app root menu (Konfigurasi / HCM / Penjualan)
+2. Root menuitem punya action → ir.actions.client (tag: general_splash)
+3. OWL SplashScreen component di-render
+4. Logo transparan ditampilkan di tengah layar (opacity 0.2)
+5. User dapat langsung navigasi ke child menu dari sidebar
+```
+
+**Struktur XML Action:**
+
+```xml
+<!-- general/views/splash.xml -->
+<record id="general_splash_action" model="ir.actions.client">
+    <field name="name">Konfigurasi</field>
+    <field name="tag">general_splash</field>
+</record>
+```
+
+**Root Menuitem:**
+
+```xml
+<menuitem name="Konfigurasi" id="general.menu_master_menu"
+          action="general.general_splash_action" sequence="5"/>
+```
+
+**CSS Behavior:**
+
+| Property | Nilai | Keterangan |
+|----------|-------|------------|
+| `opacity` | 0.2 | Logo transparan (20% visible) |
+| `width` | 40% | Desktop (max 380px) |
+| `width` | 60% | Tablet ≤768px (max 240px) |
+| `width` | 75% | Mobile ≤480px (max 180px) |
+| `background` | #ffffff | White background |
+| `height` | calc(100vh - 46px) | Full viewport minus navbar |
+
+**File Splash per Module:**
+
+| Module | Splash XML | Action ID |
+|--------|-----------|-----------|
+| general | `general/views/splash.xml` | `general_splash_action` |
+| hcm | `hcm/views/splash.xml` | `hcm_splash_action` |
+| sales | `sales/views/splash.xml` | `sales_splash_action` |
+
 ---
 
 ## 8. Integration & Email
@@ -1793,6 +1853,13 @@ SO di-submit untuk approval
 | `sales/static/src/js/address_view_toggle.js` | Tree/Kanban toggle for Sold To, Ship To, Bill To |
 | `sales/static/src/css/address_view_toggle.css` | Toggle button styling |
 | `sales/static/src/css/customer_kanban.css` | Customer kanban image styling |
+| `general/static/src/js/splash_screen.js` | Splash screen OWL component |
+| `general/static/src/xml/splash_screen.xml` | Splash screen OWL template |
+| `general/static/src/css/splash_screen.css` | Splash screen CSS (responsive, opacity 0.2) |
+| `general/static/src/img/transparent_logo.webp` | Splash screen logo image |
+| `general/views/splash.xml` | General module splash action |
+| `hcm/views/splash.xml` | HCM module splash action |
+| `sales/views/splash.xml` | Sales module splash action |
 | `tests/e2e/` | End-to-end test suite (Playwright) |
 | `user_management/__manifest__.py` | Module manifest |
 | `user_management/views/views.xml` | User management UI |
