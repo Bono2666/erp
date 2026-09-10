@@ -77,10 +77,22 @@
         <sheet>
           <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_1920&quot;}" on_change="1" field_id="image_1920_0" readonly="not is_edit and id"/>
           <div class="oe_title">
-              <label for="name"/>
-              <h1><field name="name" placeholder="e.g. John Doe" required="1" readonly="not is_edit and id"/></h1>
-              <label for="login" string="Alamat Email"/>
-              <h2><field name="login" placeholder="e.g. email@yourcompany.com" readonly="not is_edit and id"/></h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="name" string="Nama" placeholder="e.g. John Doe" required="1" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="login" string="Alamat Email" placeholder="e.g. email@yourcompany.com" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
               <notebook>
                 <page string="Keamanan Akun" name="security" invisible="id">
                   <group string="Manajemen Kata Sandi">

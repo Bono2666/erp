@@ -1492,8 +1492,18 @@ Setiap module mendefinisikan `security/ir.model.access.csv` untuk model-level CR
 │                                                                        │
 │  ┌─ <sheet> ────────────────────────────────────────────────────────┐  │
 │  │  <div class="oe_title">                                          │  │
-│  │    [Label: ID]   [Field: ID]                                     │  │  ← Title block
-│  │    [Label: Name] [Field: Name]                                   │  │
+│  │    <div class="row">                                             │  │
+│  │      <div class="col-md-6">                                      │  │  ← Title block
+│  │        <group>                                                   │  │  ← 2-column layout
+│  │          [Field: ID]    (left column)                             │  │
+│  │        </group>                                                  │  │
+│  │      </div>                                                      │  │
+│  │      <div class="col-md-6">                                      │  │
+│  │        <group>                                                   │  │
+│  │          [Field: Name]  (right column)                            │  │
+│  │        </group>                                                  │  │
+│  │      </div>                                                      │  │
+│  │    </div>                                                        │  │
 │  │  </div>                                                          │  │
 │  │                                                                  │  │
 │  │  Semua fields: readonly="not is_edit and id"                     │  │  ← Auto-injected
@@ -1514,20 +1524,25 @@ Form header memuat judul model (`model_description`) yang selalu tampak baik pad
 **Title Block Structure (`.oe_title`):**
 ```xml
 <div class="oe_title">
-  <div style="display: block; margin-bottom: 8px;">
-    <label for="country_id" string="Country ID"/>
-    <field name="country_id" readonly="not is_edit and id" placeholder="e.g. CTRY-001" default_focus="1"/>
-  </div>
-  <h1>
-    <div style="display: block; margin-bottom: 8px;">
-      <label for="country_name" string="Country Name"/>
-      <div class="d-flex">
-        <field class="text-break" name="country_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Indonesia" readonly="not is_edit and id"/>
-      </div>
+  <div class="row">
+    <div class="col-md-6">
+      <group>
+        <field name="country_id" string="ID Negara" readonly="not is_edit and id" placeholder="e.g. CTRY-001" default_focus="1"/>
+      </group>
     </div>
-  </h1>
+    <div class="col-md-6">
+      <group>
+        <field name="country_name" string="Nama Negara" options="{'line_breaks': False}" widget="text" placeholder="e.g. Indonesia" readonly="not is_edit and id"/>
+      </group>
+    </div>
+  </div>
 </div>
 ```
+
+**Layout Pattern:**
+- **2-column layout**: ID field di kolom kiri, Name field di kolom kanan (`<div class="row">` + `<div class="col-md-6">`)
+- **Odoo native `<group>`**: Label diambil dari attribute `string=""` pada `<field>`, spacing dan alignment menggunakan CSS bawaan Odoo (sama seperti field Many2one di bawahnya)
+- **Tanpa `<label>` tag**: Label ditampilkan oleh `<group>` dari attribute `string=""`
 
 **State Behavior:**
 

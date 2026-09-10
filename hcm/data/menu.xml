@@ -29,7 +29,7 @@
     <!-- Master Data -->
     <record id="hcm_master_data_menu" model="general.menu">
         <field name="menu_id">hcm_master_data</field>
-        <field name="menu_name">Data Master</field>
+        <field name="menu_name">Master Data</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
     </record>

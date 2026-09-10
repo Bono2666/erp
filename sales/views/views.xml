@@ -348,18 +348,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="payment_terms_id" string="Payment Terms ID"/>
-                <field name="payment_terms_id" readonly="not is_edit and id" placeholder="e.g. PAYT-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="sales_text" string="Deskripsi"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="sales_text" options="{'line_breaks': False}" widget="text" placeholder="e.g. 30 days" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="payment_terms_id" string="Payment Terms ID" readonly="not is_edit and id" placeholder="e.g. PAYT-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="sales_text" string="Deskripsi" options="{'line_breaks': False}" widget="text" placeholder="e.g. 30 days" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
             <notebook>
               <page string="Informasi Umum" name="general_information">
@@ -479,18 +483,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="category_id" string="ID Kategori"/>
-                <field name="category_id" readonly="not is_edit and id" placeholder="e.g. CUSTCAT-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="category_name" string="Nama Kategori"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Retail Customer" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="category_id" string="ID Kategori" readonly="not is_edit and id" placeholder="e.g. CUSTCAT-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="category_name" string="Nama Kategori" options="{'line_breaks': False}" widget="text" placeholder="e.g. Retail Customer" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
           </sheet>
         </form>
@@ -527,18 +535,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="type_id" string="ID Tipe"/>
-                <field name="type_id" readonly="not is_edit and id" placeholder="e.g. CUSTTYP-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="type_name" string="Nama Tipe"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="type_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales &amp; Distribution (SD) Customer" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="type_id" string="ID Tipe" readonly="not is_edit and id" placeholder="e.g. CUSTTYP-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="type_name" string="Nama Tipe" options="{'line_breaks': False}" widget="text" placeholder="e.g. Sales &amp; Distribution (SD) Customer" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
           </sheet>
         </form>
@@ -575,18 +587,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="area_id" string="ID Area"/>
-                <field name="area_id" readonly="not is_edit and id" placeholder="e.g. CUSTARE-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="area_name" string="Nama Area"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="area_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. West Region" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="area_id" string="ID Area" readonly="not is_edit and id" placeholder="e.g. CUSTARE-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="area_name" string="Nama Area" options="{'line_breaks': False}" widget="text" placeholder="e.g. West Region" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
           </sheet>
         </form>
@@ -623,18 +639,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="sub_category_id" string="ID Sub Kategori"/>
-                <field name="sub_category_id" readonly="not is_edit and id" placeholder="e.g. SUBCAT-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="sub_category_name" string="Nama Sub Kategori"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="sub_category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="sub_category_id" string="ID Sub Kategori" readonly="not is_edit and id" placeholder="e.g. SUBCAT-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="sub_category_name" string="Nama Sub Kategori" options="{'line_breaks': False}" widget="text" placeholder="e.g. Premium Retail" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
             <group>
               <group>
@@ -677,18 +697,22 @@
             <sheet>
               <field name="image" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title">
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="product_id" string="ID Produk"/>
-                  <field name="product_id" placeholder="e.g. 3422010503" readonly="not is_edit and id" default_focus="1"/>
-                </div>
-                <h1>
-                  <div style="display: block; margin-bottom: 8px;">
-                    <label for="product_name" string="Nama Produk"/>
-                    <div class="d-flex">
-                      <field class="text-break" name="product_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Screw Compressor 30HP Evo Series" readonly="not is_edit and id"/>
-                    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="product_id" string="ID Produk" placeholder="e.g. 3422010503" readonly="not is_edit and id" default_focus="1"/>
+
+                    </group>
                   </div>
-                </h1>
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="product_name" string="Nama Produk" options="{'line_breaks': False}" widget="text" placeholder="e.g. Screw Compressor 30HP Evo Series" readonly="not is_edit and id"/>
+
+                    </group>
+                  </div>
+                </div>
                 <div class="o_row">
                   <field name="sales_ok" readonly="not is_edit and id"/>
                   <label for="sales_ok"/>
@@ -772,18 +796,22 @@
             </header>
             <sheet>
               <div class="oe_title">
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="product_type_id" string="ID Tipe Produk"/>
-                  <field name="product_type_id" readonly="not is_edit and id" placeholder="e.g. PT-001" default_focus="1"/>
-                </div>
-                <h1>
-                  <div style="display: block; margin-bottom: 8px;">
-                    <label for="name" string="Tipe Produk"/>
-                    <div class="d-flex">
-                      <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Raw Materials" readonly="not is_edit and id"/>
-                    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="product_type_id" string="ID Tipe Produk" readonly="not is_edit and id" placeholder="e.g. PT-001" default_focus="1"/>
+
+                    </group>
                   </div>
-                </h1>
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="name" string="Tipe Produk" options="{'line_breaks': False}" widget="text" placeholder="e.g. Raw Materials" readonly="not is_edit and id"/>
+
+                    </group>
+                  </div>
+                </div>
               </div>
             </sheet>
           </form>
@@ -820,22 +848,27 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="uom_id" string="ID Satuan Ukur"/>
-                <field name="uom_id" readonly="not is_edit and id" placeholder="e.g. UOM-001" default_focus="1"/>
-              </div>
-              <span class="d-inline-flex">
-                  <label for="qty" string="Kuantitas"/>
-                  <field name="qty" readonly="not is_edit and id"/>
-              </span>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="uom" string="Satuan Ukur"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="uom" options="{'line_breaks': False}" widget="text" placeholder="e.g. Piece" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="uom_id" string="ID Satuan Ukur" readonly="not is_edit and id" placeholder="e.g. UOM-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="uom" string="Satuan Ukur" options="{'line_breaks': False}" widget="text" placeholder="e.g. Piece" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
+              <group>
+
+                <field name="qty" string="Kuantitas" readonly="not is_edit and id"/>
+
+              </group>
             </div>
             <notebook>
               <page string="Informasi Dasar" name="base_information">
@@ -880,18 +913,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="price_condition_id" string="ID Kondisi Harga"/>
-                <field name="price_condition_id" readonly="not is_edit and id" placeholder="e.g. PC-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="price_name" string="Nama Harga"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="price_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="price_condition_id" string="ID Kondisi Harga" readonly="not is_edit and id" placeholder="e.g. PC-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="price_name" string="Nama Harga" options="{'line_breaks': False}" widget="text" placeholder="e.g. a 10% discount for a particular customer-material combination" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
             <notebook>
               <page name="rules" string="Aturan Harga">
@@ -994,18 +1031,22 @@
             <sheet>
               <field name="image_1920" widget="image" class="oe_avatar" readonly="not is_edit and id"/>
               <div class="oe_title mb24">
-                  <div style="display: block; margin-bottom: 8px;">
-                    <label for="customer_id" string="ID Customer"/>
-                    <field name="customer_id" readonly="not is_edit and id" placeholder="e.g. CUS-001" default_focus="1"/>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <group>
+
+                        <field name="customer_id" string="ID Customer" readonly="not is_edit and id" placeholder="e.g. CUS-001" default_focus="1"/>
+
+                      </group>
+                    </div>
+                    <div class="col-md-6">
+                      <group>
+
+                        <field name="customer_name" string="Nama Customer" options="{'line_breaks': False}" widget="text" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
+
+                      </group>
+                    </div>
                   </div>
-                  <h1>
-                      <div style="display: block; margin-bottom: 8px;">
-                        <label for="customer_name" string="Nama Customer"/>
-                        <div class="d-flex">
-                          <field options="{'line_breaks': False}" widget="text" class="text-break" name="customer_name" placeholder="e.g. PT Kreatif Citra Indonesia" required="1" readonly="not is_edit and id"/>
-                        </div>
-                      </div>
-                  </h1>
               </div>
 
               <group>
@@ -1223,18 +1264,22 @@
           </header>
           <sheet>
             <div class="oe_title">
-              <div style="display: block; margin-bottom: 8px;">
-                <label for="tax_id" string="ID Pajak"/>
-                <field name="tax_id" readonly="not is_edit and id" placeholder="e.g. TAX-001" default_focus="1"/>
-              </div>
-              <h1>
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="name" string="Nama Pajak"/>
-                  <div class="d-flex">
-                    <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. VAT 10%" readonly="not is_edit and id"/>
-                  </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="tax_id" string="ID Pajak" readonly="not is_edit and id" placeholder="e.g. TAX-001" default_focus="1"/>
+
+                  </group>
                 </div>
-              </h1>
+                <div class="col-md-6">
+                  <group>
+
+                    <field name="name" string="Nama Pajak" options="{'line_breaks': False}" widget="text" placeholder="e.g. VAT 10%" readonly="not is_edit and id"/>
+
+                  </group>
+                </div>
+              </div>
             </div>
             <notebook>
               <page string="Informasi Umum" name="general_information">
@@ -1279,18 +1324,22 @@
           </header>
             <sheet>
               <div class="oe_title">
-                <div style="display: block; margin-bottom: 8px;">
-                  <label for="category_id" string="ID Kategori"/>
-                  <field name="category_id" readonly="not is_edit and id" placeholder="e.g. PCAT-001" default_focus="1"/>
-                </div>
-                <h1>
-                  <div style="display: block; margin-bottom: 8px;">
-                    <label for="category_name" string="Nama Kategori"/>
-                    <div class="d-flex">
-                      <field class="text-break" name="category_name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Beverages" readonly="not is_edit and id"/>
-                    </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="category_id" string="ID Kategori" readonly="not is_edit and id" placeholder="e.g. PCAT-001" default_focus="1"/>
+
+                    </group>
                   </div>
-                </h1>
+                  <div class="col-md-6">
+                    <group>
+
+                      <field name="category_name" string="Nama Kategori" options="{'line_breaks': False}" widget="text" placeholder="e.g. Beverages" readonly="not is_edit and id"/>
+
+                    </group>
+                  </div>
+                </div>
               </div>
               <group>
                 <field name="product_type" readonly="not is_edit and id"/>
@@ -2260,7 +2309,7 @@
     <menuitem name="Laporan" id="sales.menu_report" parent="sales.menu_sales_root" sequence="2"/>
 
     <!-- Master Data -->
-    <menuitem name="Data Master" id="sales.menu_master_data" parent="sales.menu_sales_root" sequence="3"/>
+    <menuitem name="Master Data" id="sales.menu_master_data" parent="sales.menu_sales_root" sequence="3"/>
     <menuitem name="Customer" id="sales.customer_customer_menu" parent="sales.menu_master_data" action="sales.customer_action" sequence="1"/>
     <menuitem name="Produk" id="sales.product_product_menu" parent="sales.menu_master_data" action="sales.products_action" sequence="2"/>
 

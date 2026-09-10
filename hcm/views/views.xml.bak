@@ -1,0 +1,504 @@
+<odoo>
+  <data>
+
+    <!-- ============================================================ -->
+    <!-- HCM POSITION VIEWS                                           -->
+    <!-- ============================================================ -->
+
+    <!-- Position Tree View -->
+    <record model="ir.ui.view" id="hcm.position_tree">
+      <field name="name">hcm.position.tree</field>
+      <field name="model">hcm.position</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="position_id"/>
+          <field name="name"/>
+          <field name="department_id"/>
+          <field name="parent_id"/>
+          <field name="employee_count"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Position Form View -->
+    <record id="hcm.position_view_form" model="ir.ui.view">
+      <field name="name">hcm.position.view.form</field>
+      <field name="model">hcm.position</field>
+      <field name="arch" type="xml">
+      <form string="Posisi">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Batal" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Batal" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Apakah Anda yakin ingin menghapus data ini secara permanen?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
+            <field name="model_description"/>
+          </span>
+          <style>
+            .o_control_panel {
+              display: none !important;
+            }
+          </style>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <div style="display: block; margin-bottom: 8px;">
+              <label for="position_id" string="ID Posisi"/>
+              <field name="position_id" readonly="not is_edit and id" placeholder="e.g. POS-001" default_focus="1"/>
+            </div>
+            <h1>
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="name" string="Nama Posisi"/>
+                <div class="d-flex">
+                  <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Manager" readonly="not is_edit and id"/>
+                </div>
+              </div>
+            </h1>
+          </div>
+          <group>
+            <group string="Hierarki">
+              <field name="department_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+              <field name="parent_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
+              <field name="active" readonly="not is_edit and id"/>
+            </group>
+            <group string="Info">
+              <field name="employee_count"/>
+            </group>
+          </group>
+          <group string="Deskripsi">
+            <field name="description" colspan="2" readonly="not is_edit and id"/>
+          </group>
+          <group string="Karyawan di Posisi Ini" invisible="not id">
+            <field name="employee_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
+              <tree>
+                <field name="employee_id"/>
+                <field name="name"/>
+                <field name="status"/>
+              </tree>
+            </field>
+          </group>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- HCM EMPLOYEE VIEWS                                           -->
+    <!-- ============================================================ -->
+
+    <!-- Employee Tree View -->
+    <record model="ir.ui.view" id="hcm.employee_tree">
+      <field name="name">hcm.employee.tree</field>
+      <field name="model">hcm.employee</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="employee_id"/>
+          <field name="name"/>
+          <field name="nik"/>
+          <field name="position_id"/>
+          <field name="department_id"/>
+          <field name="phone"/>
+          <field name="status"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Employee Kanban View -->
+    <record model="ir.ui.view" id="hcm.employee_kanban">
+      <field name="name">hcm.employee.kanban</field>
+      <field name="model">hcm.employee</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile">
+          <field name="photo"/>
+          <field name="employee_id"/>
+          <field name="name"/>
+          <field name="position_id"/>
+          <field name="department_id"/>
+          <field name="email"/>
+          <field name="phone"/>
+          <field name="status"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card oe_kanban_global_click o_kanban_record_has_image_fill">
+                <div class="o_kanban_image me-2">
+                  <img t-att-src="kanban_image('hcm.employee', 'photo', record.id.raw_value)" alt="Photo" class="o_image_64_cover"/>
+                </div>
+                <div class="oe_kanban_details">
+                  <div class="o_kanban_record_top mb-0">
+                    <div class="o_kanban_record_headings">
+                      <strong class="o_kanban_record_title">
+                        <field name="name"/>
+                      </strong>
+                    </div>
+                  </div>
+                  <div>
+                    <t t-esc="record.employee_id.value"/>
+                  </div>
+                  <div>
+                    <field name="position_id"/>
+                  </div>
+                  <div>
+                    <field name="department_id"/>
+                  </div>
+                  <div>
+                    <field name="status" widget="badge" decoration-success="status == 'active'" decoration-warning="status == 'inactive'" decoration-danger="status in ('resigned', 'terminated')"/>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- Employee Form View -->
+    <record id="hcm.employee_view_form" model="ir.ui.view">
+      <field name="name">hcm.employee.view.form</field>
+      <field name="model">hcm.employee</field>
+      <field name="arch" type="xml">
+      <form string="Data Karyawan">
+        <header>
+          <field name="id" invisible="1"/>
+          <field name="is_edit" invisible="1"/>
+          <field name="user_can_update" invisible="1"/>
+          <field name="user_can_delete" invisible="1"/>
+          <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Batal" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Batal" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Apakah Anda yakin ingin menghapus data ini secara permanen?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
+            <field name="model_description"/>
+          </span>
+          <style>
+            .o_control_panel {
+              display: none !important;
+            }
+          </style>
+        </header>
+        <sheet>
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="oe_title">
+              <div style="display: block; margin-bottom: 8px;">
+                <label for="employee_id" string="ID Karyawan"/>
+                <field name="employee_id" readonly="not is_edit and id" placeholder="e.g. EMP-001" default_focus="1"/>
+              </div>
+              <h1>
+                <div style="display: block; margin-bottom: 8px;">
+                  <label for="name" string="Nama"/>
+                  <div class="d-flex">
+                    <field class="text-break" name="name" placeholder="e.g. John Doe"/>
+                  </div>
+                </div>
+              </h1>
+            </div>
+            <field name="photo" widget="image" class="oe_avatar" nolabel="1" options="{'size': [90, 90]}"/>
+          </div>
+          <notebook>
+            <page string="Data Karyawan">
+              <group>
+                <group string="Informasi Dasar">
+                  <field name="nik"/>
+                  <field name="phone"/>
+                  <field name="email"/>
+                  <field name="company_ref" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="location_ref" options="{'no_create': True, 'no_open': True}"/>
+                </group>
+                <group string="Organisasi">
+                  <field name="division_ref" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="department_id" domain="[('division_id', '=', division_ref)] if division_ref else []" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="level_grade_ref" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="position_id" domain="[('department_id', '=', department_id)] if department_id else []" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="manager_id" options="{'no_open': True, 'no_create': True}"/>
+                  <field name="join_date"/>
+                  <field name="status"/>
+                </group>
+              </group>
+              <group string="Pengguna Sistem">
+                <field name="custom_user_id" options="{'no_create': True, 'no_open': True}"/>
+              </group>
+            </page>
+            <page string="Data Pribadi">
+              <group string="Identitas">
+                <group>
+                  <field name="first_name"/>
+                  <field name="last_name"/>
+                  <field name="place_of_birth"/>
+                  <field name="date_of_birth"/>
+                  <field name="age"/>
+                  <field name="gender"/>
+                  <field name="religion"/>
+                  <field name="blood_type"/>
+                  <field name="nationality"/>
+                </group>
+                <group>
+                  <field name="npwp"/>
+                  <field name="bpjs_kesehatan"/>
+                  <field name="bpjs_ketenagakerjaan"/>
+                  <field name="kk_number"/>
+                  <field name="ktp_number"/>
+                  <field name="passport_number"/>
+                  <field name="passport_expiry_date"/>
+                  <field name="tax_date"/>
+                  <field name="height"/>
+                  <field name="weight"/>
+                  <field name="wear_glasses"/>
+                </group>
+              </group>
+              <group string="Alamat">
+                <field name="address" colspan="2"/>
+                <field name="country_id" options="{'no_open': True, 'no_create': True}"/>
+                <field name="state_id" options="{'no_open': True, 'no_create': True}" domain="[('country_ref', '=', country_id)] if country_id else []"/>
+                <field name="city_id" options="{'no_open': True, 'no_create': True}" domain="[('state_ref', '=', state_id)] if state_id else []"/>
+                <field name="district_id" options="{'no_open': True, 'no_create': True}" domain="[('city_ref', '=', city_id)] if city_id else []"/>
+                <field name="village_id" options="{'no_open': True, 'no_create': True}" domain="[('district_ref', '=', district_id)] if district_id else []"/>
+                <field name="rt"/>
+                <field name="rw"/>
+                <field name="postal_code"/>
+              </group>
+              <group string="Informasi Bank">
+                <field name="bank_name"/>
+                <field name="bank_account_number"/>
+                <field name="bank_account_holder"/>
+              </group>
+              <group string="Informasi Pernikahan">
+                <field name="marital_status"/>
+                <field name="marriage_date"/>
+                <field name="spouse_name"/>
+                <field name="spouse_birth_date"/>
+                <field name="children_count"/>
+              </group>
+            </page>
+            <page string="Keluarga">
+              <field name="family_ids" options="{'no_open': True}">
+                <tree editable="bottom">
+                  <field name="kk_number"/>
+                  <field name="nik"/>
+                  <field name="name"/>
+                  <field name="relation"/>
+                  <field name="place_of_birth"/>
+                  <field name="date_of_birth"/>
+                  <field name="gender"/>
+                  <field name="last_education"/>
+                  <field name="phone"/>
+                </tree>
+                <form>
+                  <group>
+                    <group>
+                      <field name="kk_number"/>
+                      <field name="nik"/>
+                      <field name="name"/>
+                      <field name="relation"/>
+                    </group>
+                    <group>
+                      <field name="place_of_birth"/>
+                      <field name="date_of_birth"/>
+                      <field name="gender"/>
+                      <field name="last_education"/>
+                      <field name="phone"/>
+                    </group>
+                  </group>
+                </form>
+              </field>
+            </page>
+            <page string="Pendidikan">
+              <group string="Pendidikan Formal">
+                <field name="education_ids" options="{'no_open': True}">
+                  <tree>
+                    <field name="level"/>
+                    <field name="institution"/>
+                    <field name="major"/>
+                    <field name="start_year"/>
+                    <field name="end_year"/>
+                    <field name="gpa"/>
+                    <field name="document_filename" string="Dokumen"/>
+                  </tree>
+                  <form>
+                    <group>
+                      <group>
+                        <field name="level"/>
+                        <field name="institution"/>
+                        <field name="major"/>
+                      </group>
+                      <group>
+                        <field name="start_year"/>
+                        <field name="end_year"/>
+                        <field name="gpa"/>
+                      </group>
+                    </group>
+                    <group string="Dokumen">
+                      <field name="document" widget="binary"/>
+                      <field name="document_filename"/>
+                    </group>
+                  </form>
+                </field>
+              </group>
+              <group string="Sertifikat">
+                <field name="certificate_ids" options="{'no_open': True}">
+                  <tree>
+                    <field name="name"/>
+                    <field name="issuer"/>
+                    <field name="certificate_number"/>
+                    <field name="date_issued"/>
+                    <field name="expiry_date"/>
+                    <field name="document_filename" string="Dokumen"/>
+                  </tree>
+                  <form>
+                    <group>
+                      <group>
+                        <field name="name"/>
+                        <field name="issuer"/>
+                        <field name="certificate_number"/>
+                      </group>
+                      <group>
+                        <field name="date_issued"/>
+                        <field name="expiry_date"/>
+                      </group>
+                    </group>
+                    <group string="Dokumen">
+                      <field name="document" widget="binary"/>
+                      <field name="document_filename"/>
+                    </group>
+                  </form>
+                </field>
+              </group>
+              <group string="Pelatihan">
+                <field name="training_ids" options="{'no_open': True}">
+                  <tree>
+                    <field name="name"/>
+                    <field name="organizer"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="duration_days"/>
+                    <field name="location"/>
+                    <field name="document_filename" string="Dokumen"/>
+                  </tree>
+                  <form>
+                    <group>
+                      <group>
+                        <field name="name"/>
+                        <field name="organizer"/>
+                        <field name="location"/>
+                      </group>
+                      <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="duration_days"/>
+                      </group>
+                    </group>
+                    <group string="Deskripsi">
+                      <field name="description" colspan="2"/>
+                    </group>
+                    <group string="Dokumen">
+                      <field name="document" widget="binary"/>
+                      <field name="document_filename"/>
+                    </group>
+                  </form>
+                </field>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+      </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- ACTIONS                                                     -->
+    <!-- ============================================================ -->
+
+    <!-- Position Action -->
+    <record id="hcm.position_action" model="ir.actions.act_window">
+      <field name="name">Posisi</field>
+      <field name="res_model">hcm.position</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Employee Action -->
+    <record id="hcm.employee_action" model="ir.actions.act_window">
+      <field name="name">Karyawan</field>
+      <field name="res_model">hcm.employee</field>
+      <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- Organization Structure Action (Client Action) -->
+    <record id="hcm.org_structure_client_action" model="ir.actions.client">
+      <field name="name">Struktur Organisasi</field>
+      <field name="tag">hcm_org_structure</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- MENUITEMS                                                   -->
+    <!-- ============================================================ -->
+
+    <!-- Root HCM Menu — top-level app -->
+    <menuitem id="menu_hcm_root"
+              name="HCM"
+              action="hcm.hcm_splash_action"
+              sequence="2"/>
+
+    <!-- Transaction -->
+    <menuitem id="menu_hcm_transaction"
+              name="Transaction"
+              parent="menu_hcm_root"
+              sequence="1"/>
+
+    <!-- Report -->
+    <menuitem id="menu_hcm_report"
+              name="Report"
+              parent="menu_hcm_root"
+              sequence="2"/>
+
+    <!-- Master Data -->
+    <menuitem id="menu_hcm_master_data"
+              name="Master Data"
+              parent="menu_hcm_root"
+              sequence="3"/>
+
+    <!-- Employees -->
+    <menuitem id="menu_hcm_employee"
+              name="Employees"
+              parent="menu_hcm_master_data"
+              sequence="1"
+              action="hcm.employee_action"/>
+
+    <!-- Positions -->
+    <menuitem id="menu_hcm_position"
+              name="Positions"
+              parent="menu_hcm_master_data"
+              sequence="2"
+              action="hcm.position_action"/>
+
+    <!-- Organization Structure -->
+    <menuitem id="menu_hcm_org_structure"
+              name="Organization Structure"
+              parent="menu_hcm_master_data"
+              sequence="3"
+              action="hcm.org_structure_client_action"/>
+
+    <!-- Setup -->
+    <menuitem id="menu_hcm_setup"
+              name="Setup"
+              parent="menu_hcm_root"
+              sequence="4"/>
+
+    <!-- Help -->
+    <menuitem id="menu_hcm_help"
+              name="Help"
+              parent="menu_hcm_root"
+              sequence="5"/>
+
+  </data>
+</odoo>

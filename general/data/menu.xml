@@ -27,7 +27,7 @@
     <!-- Master Data -->
     <record id="general_master_data_menu" model="general.menu">
         <field name="menu_id">general_master_data</field>
-        <field name="menu_name">Data Master</field>
+        <field name="menu_name">Master Data</field>
         <field name="parent_menu">master_data</field>
         <field name="is_parent">True</field>
     </record>
