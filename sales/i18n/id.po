@@ -1228,407 +1228,407 @@ msgstr "Baris Pesanan Pengiriman"
 # XML View strings
 # ---------------------------------------------------------------------------
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_customer_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_customer_form
 msgid "General Information"
 msgstr "Informasi Umum"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_product_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_product_form
 msgid "BOM / Components"
 msgstr "BOM / Komponen"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_customer_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_customer_form
 msgid "Base Information"
 msgstr "Informasi Dasar"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_price_condition_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_price_condition_form
 msgid "Price Rules"
 msgstr "Aturan Harga"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_price_condition_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_price_condition_form
 msgid "Price Computation"
 msgstr "Perhitungan Harga"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_price_condition_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_price_condition_form
 msgid "Price Condition"
 msgstr "Kondisi Harga"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_common_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_common_filter
 msgid "Conditions"
 msgstr "Kondisi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_price_condition_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_price_condition_list
 msgid "Area ID"
 msgstr "ID Area"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_price_condition_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_price_condition_list
 msgid "Area Name"
 msgstr "Nama Area"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_category_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_category_list
 msgid "Category ID"
 msgstr "ID Kategori"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_category_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_category_list
 msgid "Category Name"
 msgstr "Nama Kategori"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_sub_category_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_sub_category_list
 msgid "Sub Category ID"
 msgstr "ID Sub Kategori"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_sub_category_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_sub_category_list
 msgid "Sub Category Name"
 msgstr "Nama Sub Kategori"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_type_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_type_list
 msgid "Type ID"
 msgstr "ID Tipe"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_type_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_type_list
 msgid "Type Name"
 msgstr "Nama Tipe"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Misc"
 msgstr "Lain-lain"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Order Lines"
 msgstr "Baris Pesanan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Other Info"
 msgstr "Info Lain"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Approval Log Detail"
 msgstr "Detail Log Persetujuan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_approval_matrix_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_approval_matrix_form
 msgid "Approval Matrix"
 msgstr "Matriks Persetujuan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Sales Approval"
 msgstr "Persetujuan Penjualan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_list
 msgid "Quotations"
 msgstr "Penawaran"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_list
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_list
 msgid "Delivery Orders"
 msgstr "Pesanan Pengiriman"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Sold To Address"
 msgstr "Alamat Jual Ke"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Shipping Address"
 msgstr "Alamat Pengiriman"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Bill To Address"
 msgstr "Alamat Tagih Ke"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Unit of Measure ID"
 msgstr "ID Satuan Ukur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Unit of Measure"
 msgstr "Satuan Ukur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_invoice_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_invoice_form
 msgid "Sales Invoice"
 msgstr "Faktur Penjualan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Back"
 msgstr "Kembali"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Edit"
 msgstr "Edit"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Save"
 msgstr "Simpan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Cancel"
 msgstr "Batal"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Delete"
 msgstr "Hapus"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Submit"
 msgstr "Kirim"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Confirm"
 msgstr "Konfirmasi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Reject"
 msgstr "Tolak"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Return"
 msgstr "Kembali"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Revise"
 msgstr "Revisi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Approve"
 msgstr "Setujui"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Send by Email"
 msgstr "Kirim via Email"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Create Invoice"
 msgstr "Buat Faktur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Register Payment"
 msgstr "Daftarkan Pembayaran"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Cancel Order"
 msgstr "Batalkan Pesanan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Cancel Invoice"
 msgstr "Batalkan Faktur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Cancel Payment"
 msgstr "Batalkan Pembayaran"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Reset to Draft"
 msgstr "Kembalikan ke Draf"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Reverse"
 msgstr "Balikkan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Release"
 msgstr "Lepaskan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Validate"
 msgstr "Validasi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_filter
 msgid "Start Date"
 msgstr "Tanggal Mulai"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_filter
 msgid "End Date"
 msgstr "Tanggal Akhir"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_filter
 msgid "Creation Date"
 msgstr "Tanggal Pembuatan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_common_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_common_filter
 msgid "Notes"
 msgstr "Catatan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_approval_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_approval_form
 msgid "Notes/Feedback"
 msgstr "Catatan/Masukan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_approval_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_approval_form
 msgid "Position/Role"
 msgstr "Posisi/Peran"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_approval_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_approval_form
 msgid "Approver Name"
 msgstr "Nama Pemberi Persetujuan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_approval_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_approval_form
 msgid "Date"
 msgstr "Tanggal"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_invoice_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_invoice_form
 msgid "Payment Details"
 msgstr "Detail Pembayaran"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_invoice_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_invoice_form
 msgid "Accounting"
 msgstr "Akuntansi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_form
 msgid "Shipping"
 msgstr "Pengiriman"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_line_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_line_form
 msgid "Add a product"
 msgstr "Tambah produk"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_discount_wizard
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_discount_wizard
 msgid "Apply Discount"
 msgstr "Terapkan Diskon"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_discount_wizard
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_discount_wizard
 msgid "Apply"
 msgstr "Terapkan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Konfirmasi"
 msgstr "Konfirmasi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Yes"
 msgstr "Ya"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Confirm Reject"
 msgstr "Konfirmasi Penolakan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Confirm Return"
 msgstr "Konfirmasi Pengembalian"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Confirm Revise"
 msgstr "Konfirmasi Revisi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_confirm_dialog
 msgid "Create Draft Invoice"
 msgstr "Buat Draf Faktur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_invoice_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_invoice_form
 msgid "Untaxed Amount"
 msgstr "Jumlah Tanpa Pajak"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_filter
 msgid "Open"
 msgstr "Terbuka"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_order_filter
 msgid "Wait Approver"
 msgstr "Menunggu Pemberi Persetujuan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_product_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_product_form
 msgid "BOM"
 msgstr "BOM"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Email/Login"
 msgstr "Email/Login"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Security Control"
 msgstr "Kontrol Keamanan"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Password Management"
 msgstr "Manajemen Kata Sandi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Change My Preferences"
 msgstr "Ubah Preferensi Saya"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Change Password"
 msgstr "Ubah Kata Sandi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Account Security"
 msgstr "Keamanan Akun"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.view_sales_user_form
+#: model_terms:ir.ui.view,arch_db:sales.view_sales_user_form
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -1693,117 +1693,117 @@ msgid "Configuration"
 msgstr "Konfigurasi"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "Select price conditions..."
 msgstr "Pilih kondisi harga..."
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "Select payment terms..."
 msgstr "Pilih syarat pembayaran..."
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. CUST-001"
 msgstr "cth. PEL-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. CUSTCAT-001"
 msgstr "cth. KATPEL-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. CUSTTYP-001"
 msgstr "cth. TIPEPEL-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. CUSTARE-001"
 msgstr "cth. AREAPEL-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. SUBCAT-001"
 msgstr "cth. SUBKAT-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. 30 days"
 msgstr "cth. 30 hari"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Payment terms: 30 days after invoice date"
 msgstr "cth. Syarat pembayaran: 30 hari setelah tanggal faktur"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Standard Terms and Conditions"
 msgstr "cth. Syarat dan Ketentuan Standar"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. PAYT-001"
 msgstr "cth. SYP-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. West Region"
 msgstr "cth. Wilayah Barat"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Premium Retail"
 msgstr "cth. Retail Premium"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Sales & Distribution (SD) Customer"
 msgstr "cth. Pelanggan Penjualan & Distribusi (SD)"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. PC-001"
 msgstr "cth. KH-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. a 10% discount for a particular customer-material combination"
 msgstr "cth. diskon 10% untuk kombinasi pelanggan-material tertentu"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. 3422010503"
 msgstr "cth. 3422010503"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Screw Compressor 30HP Evo Series"
 msgstr "cth. Screw Compressor 30HP Evo Series"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. PT-001"
 msgstr "cth. TJP-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Raw Materials"
 msgstr "cth. Bahan Baku"
 
 #. module: sales
-#: model: sales,i18n,id.po
+#: model_terms:ir.ui.view,arch_db:sales.product_unit_view_form
 msgid "e.g. UOM-001"
 msgstr "cth. SAT-001"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Piece"
 msgstr "cth. Pcs"
 
 #. module: sales
-#: model:ir.ui.view,arch_db:sales.customer_view_form
+#: model_terms:ir.ui.view,arch_db:sales.customer_view_form
 msgid "e.g. Rifle Acom"
 msgstr "cth. Rifle Acom"
 

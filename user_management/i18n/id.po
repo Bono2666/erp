@@ -15,27 +15,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. module: user_management
-#: model:ir.ui.view,arch_db:user_management.custom_users_view_form
+#: model_terms:ir.ui.view,arch_db:user_management.custom_users_view_form
 msgid "Users"
 msgstr "Pengguna"
 
 #. module: user_management
-#: model:ir.ui.view,arch_db:user_management.custom_users_view_form
+#: model_terms:ir.ui.view,arch_db:user_management.custom_users_view_form
 msgid "Change Password"
 msgstr "Ubah Kata Sandi"
 
 #. module: user_management
-#: model:ir.ui.view,arch_db:user_management.custom_users_view_form
+#: model_terms:ir.ui.view,arch_db:user_management.custom_users_view_form
 msgid "Email Address"
 msgstr "Alamat Email"
 
 #. module: user_management
-#: model:ir.ui.view,arch_db:user_management.custom_users_view_form
+#: model_terms:ir.ui.view,arch_db:user_management.custom_users_view_form
 msgid "Access Rights"
 msgstr "Hak Akses"
 
 #. module: user_management
-#: model:ir.ui.view,arch_db:user_management.custom_users_view_form
+#: model_terms:ir.ui.view,arch_db:user_management.custom_users_view_form
 msgid "Account Security"
 msgstr "Keamanan Akun"
 

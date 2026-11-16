@@ -477,12 +477,12 @@ msgid "Level / Grade"
 msgstr "Level / Grade"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Change My Preferences"
 msgstr "Ubah Preferensi Saya"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
 msgid "Security Control"
 msgstr "Kontrol Keamanan"
 
@@ -528,7 +528,7 @@ msgstr "Edit"
 #: model_terms:ir.ui.view,arch_db:general.location_view_form
 #: model_terms:ir.ui.view,arch_db:general.division_view_form
 #: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Save"
 msgstr "Simpan"
 
@@ -544,12 +544,12 @@ msgstr "Simpan"
 #: model_terms:ir.ui.view,arch_db:general.location_view_form
 #: model_terms:ir.ui.view,arch_db:general.division_view_form
 #: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Cancel"
 msgstr "Batal"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
 msgid "Batal"
 msgstr "Batal"
 
@@ -569,27 +569,27 @@ msgid "Delete"
 msgstr "Hapus"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
 msgid "Confirm Password"
 msgstr "Konfirmasi Kata Sandi"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Preferences"
 msgstr "Preferensi"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Account Security"
 msgstr "Keamanan Akun"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
 msgid "Password Management"
 msgstr "Manajemen Kata Sandi"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
 msgid "Please enter your password to confirm you own this account"
 msgstr "Silakan masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda pemilik akun ini"
 

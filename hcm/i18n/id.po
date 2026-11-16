@@ -476,92 +476,92 @@ msgid "End Date"
 msgstr "Tanggal Selesai"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Basic Information"
 msgstr "Informasi Dasar"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Identity"
 msgstr "Identitas"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Personal Data"
 msgstr "Data Pribadi"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Organization"
 msgstr "Organisasi"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Bank Information"
 msgstr "Informasi Bank"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Family"
 msgstr "Keluarga"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Education"
 msgstr "Pendidikan"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Document"
 msgstr "Dokumen"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Info"
 msgstr "Info"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Marriage Information"
 msgstr "Informasi Perkawinan"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Employee Data"
 msgstr "Data Karyawan"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Employees in this Position"
 msgstr "Karyawan di Posisi Ini"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Hierarchy"
 msgstr "Hirarki"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Back"
 msgstr "Kembali"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Edit"
 msgstr "Edit"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Save"
 msgstr "Simpan"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Cancel"
 msgstr "Batal"
 
 #. module: hcm
-#: model:ir.ui.view,arch_db:hcm.view_hcm_employee_form
+#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
 msgid "Delete"
 msgstr "Hapus"
 
@@ -586,7 +586,7 @@ msgid "Female"
 msgstr "Perempuan"
 
 #. module: hcm
-#: model:general.menu,name:hcm.menu_hcm
+#: model:general.menu,menu_name:hcm.menu_hcm
 #: model:ir.ui.menu,name:hcm.menu_hcm_root
 msgid "HCM"
 msgstr "HCM"
