@@ -6,7 +6,7 @@
             <!-- Sales Root Menu -->
             <record id="sales_menu" model="general.menu">
                 <field name="menu_id">sales</field>
-                <field name="menu_name">Penjualan</field>
+                <field name="menu_name">Sales</field>
                 <field name="is_parent">True</field>
             </record>
 

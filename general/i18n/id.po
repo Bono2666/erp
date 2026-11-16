@@ -596,17 +596,17 @@ msgstr "Silakan masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda pemilik 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.home_view_form
 msgid "HCM"
-msgstr "SDM"
+msgstr "HCM"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.home_view_form
 msgid "Sales"
-msgstr "Penjualan"
+msgstr "Sales"
 
 #. module: general
 #: model:ir.ui.menu,name:general.menu_master_menu
 msgid "Configuration"
-msgstr "Konfigurasi"
+msgstr "Config"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.country_view_form

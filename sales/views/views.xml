@@ -2297,7 +2297,7 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Penjualan" id="sales.menu_sales_root" action="sales.sales_splash_action" sequence="1"/>
+    <menuitem name="Sales" id="sales.menu_sales_root" action="sales.sales_splash_action" sequence="1"/>
 
     <!-- Transaction -->
     <menuitem name="Transaksi" id="sales.menu_transaction" parent="sales.menu_sales_root" sequence="1"/>

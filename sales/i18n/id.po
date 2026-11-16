@@ -1810,7 +1810,7 @@ msgstr "cth. Rifle Acom"
 #. module: sales
 #: model:ir.ui.menu,name:sales.menu_sales_root
 msgid "Sales"
-msgstr "Penjualan"
+msgstr "Sales"
 
 
 #. module: sales

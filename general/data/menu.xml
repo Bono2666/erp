@@ -4,7 +4,7 @@
     <!-- Configuration Root Menu -->
     <record id="master_data_menu" model="general.menu">
         <field name="menu_id">master_data</field>
-        <field name="menu_name">Konfigurasi</field>
+        <field name="menu_name">Config</field>
         <field name="is_parent">True</field>
     </record>
 

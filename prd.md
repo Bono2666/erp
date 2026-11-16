@@ -719,7 +719,7 @@ Untuk module baru yang memiliki kanban view dengan foto, buat file CSS baru dan 
 
 ### 9.5 Splash Screen
 
-Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampilkan sebelum konten dimuat.
+Saat user mengklik app root (Config, HCM, Sales), splash screen ditampilkan sebelum konten dimuat.
 
 | Feature | Detail |
 |---------|--------|

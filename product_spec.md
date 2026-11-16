@@ -1699,7 +1699,7 @@ Semua Many2one fields di form views di-inject dengan `no_open=True` dan `no_crea
 
 ### 7.5 Splash Screen
 
-Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampilkan dengan logo transparan yang terpusat.
+Saat user mengklik app root (Config, HCM, Sales), splash screen ditampilkan dengan logo transparan yang terpusat.
 
 **Arsitektur:**
 
@@ -1714,7 +1714,7 @@ Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampi
 **Cara Kerja:**
 
 ```
-1. User klik app root menu (Konfigurasi / HCM / Penjualan)
+1. User klik app root menu (Config / HCM / Sales)
 2. Root menuitem punya action → ir.actions.client (tag: general_splash)
 3. OWL SplashScreen component di-render
 4. Logo transparan ditampilkan di tengah layar (opacity 0.2)
@@ -1726,7 +1726,7 @@ Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampi
 ```xml
 <!-- general/views/splash.xml -->
 <record id="general_splash_action" model="ir.actions.client">
-    <field name="name">Konfigurasi</field>
+    <field name="name">Config</field>
     <field name="tag">general_splash</field>
 </record>
 ```
@@ -1734,7 +1734,7 @@ Saat user mengklik app root (Konfigurasi, HCM, Penjualan), splash screen ditampi
 **Root Menuitem:**
 
 ```xml
-<menuitem name="Konfigurasi" id="general.menu_master_menu"
+<menuitem name="Config" id="general.menu_master_menu"
           action="general.general_splash_action" sequence="5"/>
 ```
 

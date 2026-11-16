@@ -809,11 +809,11 @@
                       invisible="not show_hcm"/>
               <button name="action_open_sales" type="object"
                       class="home-menu-card home-card-sales"
-                      string="Penjualan"
+                      string="Sales"
                       invisible="not show_sales"/>
               <button name="action_open_configuration" type="object"
                       class="home-menu-card home-card-config"
-                      string="Konfigurasi"
+                      string="Config"
                       invisible="not show_configuration"/>
             </div>
           </div>
@@ -1038,7 +1038,7 @@
     <!-- menu items -->
     <menuitem name="Home" id="general.menu_root" sequence="0" action="general.home_action"/>
     
-    <menuitem name="Konfigurasi" id="general.menu_master_menu" action="general.general_splash_action" sequence="5"/>
+    <menuitem name="Config" id="general.menu_master_menu" action="general.general_splash_action" sequence="5"/>
 
     <!-- Transaction -->
     <menuitem name="Transaksi" id="general.menu_general_transaction" parent="general.menu_master_menu" sequence="1"/>

@@ -589,7 +589,7 @@ msgstr "Perempuan"
 #: model:general.menu,name:hcm.menu_hcm
 #: model:ir.ui.menu,name:hcm.menu_hcm_root
 msgid "HCM"
-msgstr "SDM"
+msgstr "HCM"
 
 #. module: hcm
 #: model:ir.ui.menu,name:hcm.menu_hcm_transaction
