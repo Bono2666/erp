@@ -8,43 +8,50 @@
                 <field name="menu_id">sales</field>
                 <field name="menu_name">Sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_sales_root"/>
             </record>
 
             <!-- Transaction -->
             <record id="sales_transaction_menu" model="general.menu">
                 <field name="menu_id">sales_transaction</field>
-                <field name="menu_name">Transaksi</field>
+                <field name="menu_name">Transaction</field>
                 <field name="parent_menu">sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_transaction"/>
             </record>
 
             <record id="sales_quotation_menu" model="general.menu">
                 <field name="menu_id">quotation</field>
-                <field name="menu_name">Penawaran</field>
+                <field name="menu_name">Quotations</field>
                 <field name="parent_menu">sales_transaction</field>
+                <field name="ui_menu_id" ref="sales.quotation_menu"/>
             </record>
             <record id="sales_orders_menu" model="general.menu">
                 <field name="menu_id">sales_order</field>
-                <field name="menu_name">Pesanan Penjualan</field>
+                <field name="menu_name">Sales Orders</field>
                 <field name="parent_menu">sales_transaction</field>
+                <field name="ui_menu_id" ref="sales.sales_order_menu"/>
             </record>
             <record id="delivery_menu" model="general.menu">
                 <field name="menu_id">delivery</field>
-                <field name="menu_name">Pesanan Pengiriman</field>
+                <field name="menu_name">Delivery Orders</field>
                 <field name="parent_menu">sales_transaction</field>
+                <field name="ui_menu_id" ref="sales.delivery_orders_menu"/>
             </record>
             <record id="approvals_sales_menu" model="general.menu">
                 <field name="menu_id">approvals_sales</field>
-                <field name="menu_name">Persetujuan Penjualan</field>
+                <field name="menu_name">Sales Approvals</field>
                 <field name="parent_menu">sales_transaction</field>
+                <field name="ui_menu_id" ref="sales.sales_approvals_menu"/>
             </record>
 
             <!-- Report -->
             <record id="sales_report_menu" model="general.menu">
                 <field name="menu_id">sales_report</field>
-                <field name="menu_name">Laporan</field>
+                <field name="menu_name">Report</field>
                 <field name="parent_menu">sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_report"/>
             </record>
 
             <!-- Master Data -->
@@ -53,129 +60,150 @@
                 <field name="menu_name">Master Data</field>
                 <field name="parent_menu">sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_master_data"/>
             </record>
 
             <record id="customers_menu" model="general.menu">
                 <field name="menu_id">customers</field>
-                <field name="menu_name">Customer</field>
+                <field name="menu_name">Customers</field>
                 <field name="parent_menu">sales_master_data</field>
+                <field name="ui_menu_id" ref="sales.customer_customer_menu"/>
             </record>
             <record id="products_menu" model="general.menu">
                 <field name="menu_id">products</field>
-                <field name="menu_name">Produk</field>
+                <field name="menu_name">Products</field>
                 <field name="parent_menu">sales_master_data</field>
+                <field name="ui_menu_id" ref="sales.product_product_menu"/>
             </record>
 
             <!-- Setup -->
             <record id="sales_setup_menu" model="general.menu">
                 <field name="menu_id">sales_setup</field>
-                <field name="menu_name">Pengaturan</field>
+                <field name="menu_name">Setup</field>
                 <field name="parent_menu">sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_setup"/>
             </record>
 
             <!-- Setup > Customer -->
             <record id="customers_setup_menu" model="general.menu">
                 <field name="menu_id">customer</field>
-                <field name="menu_name">Customer</field>
+                <field name="menu_name">Customers</field>
                 <field name="parent_menu">sales_setup</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.customer_menu"/>
             </record>
             <record id="cust_category_menu" model="general.menu">
                 <field name="menu_id">cust_category</field>
-                <field name="menu_name">Kategori Customer</field>
+                <field name="menu_name">Customer Categories</field>
                 <field name="parent_menu">customer</field>
+                <field name="ui_menu_id" ref="sales.cust_category"/>
             </record>
             <record id="cust_sub_category_menu" model="general.menu">
                 <field name="menu_id">cust_sub_category</field>
-                <field name="menu_name">Sub Kategori Customer</field>
+                <field name="menu_name">Customer Sub Categories</field>
                 <field name="parent_menu">customer</field>
+                <field name="ui_menu_id" ref="sales.cust_sub_category"/>
             </record>
             <record id="cust_type_menu" model="general.menu">
                 <field name="menu_id">cust_type</field>
-                <field name="menu_name">Tipe Customer</field>
+                <field name="menu_name">Customer Types</field>
                 <field name="parent_menu">customer</field>
+                <field name="ui_menu_id" ref="sales.cust_type"/>
             </record>
             <record id="cust_area_menu" model="general.menu">
                 <field name="menu_id">cust_area</field>
-                <field name="menu_name">Area Customer</field>
+                <field name="menu_name">Customer Areas</field>
                 <field name="parent_menu">customer</field>
+                <field name="ui_menu_id" ref="sales.cust_area"/>
             </record>
 
             <!-- Setup > Invoicing -->
             <record id="invoicings_menu" model="general.menu">
                 <field name="menu_id">invoicing</field>
-                <field name="menu_name">Penagihan</field>
+                <field name="menu_name">Invoicing</field>
                 <field name="parent_menu">sales_setup</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.invoicing_menu"/>
             </record>
             <record id="payment_terms_menu" model="general.menu">
                 <field name="menu_id">payment_terms</field>
-                <field name="menu_name">Syarat Pembayaran</field>
+                <field name="menu_name">Payment Terms</field>
                 <field name="parent_menu">invoicing</field>
+                <field name="ui_menu_id" ref="sales.payment_terms_menu_act"/>
             </record>
             <record id="terms_menu" model="general.menu">
                 <field name="menu_id">terms_and_conditions</field>
-                <field name="menu_name">Syarat dan Ketentuan</field>
+                <field name="menu_name">Terms and Conditions</field>
                 <field name="parent_menu">invoicing</field>
+                <field name="ui_menu_id" ref="sales.terms_and_conditions_menu_act"/>
             </record>
 
             <!-- Setup > Product -->
             <record id="product_parent_menu" model="general.menu">
                 <field name="menu_id">product</field>
-                <field name="menu_name">Produk</field>
+                <field name="menu_name">Products</field>
                 <field name="parent_menu">sales_setup</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.product_menu"/>
             </record>
             <record id="product_type_menu" model="general.menu">
                 <field name="menu_id">product_type</field>
-                <field name="menu_name">Tipe Produk</field>
+                <field name="menu_name">Product Types</field>
                 <field name="parent_menu">product</field>
+                <field name="ui_menu_id" ref="sales.product_type_menu_act"/>
             </record>
             <record id="product_category_menu" model="general.menu">
                 <field name="menu_id">product_category</field>
-                <field name="menu_name">Kategori Produk</field>
+                <field name="menu_name">Product Categories</field>
                 <field name="parent_menu">product</field>
+                <field name="ui_menu_id" ref="sales.product_category_menu_act"/>
             </record>
             <record id="product_unit_menu" model="general.menu">
                 <field name="menu_id">product_unit</field>
-                <field name="menu_name">Satuan Ukur</field>
+                <field name="menu_name">Units of Measure</field>
                 <field name="parent_menu">product</field>
+                <field name="ui_menu_id" ref="sales.product_unit_menu_act"/>
             </record>
 
             <!-- Setup > Taxes -->
             <record id="taxes_menu" model="general.menu">
                 <field name="menu_id">taxes</field>
-                <field name="menu_name">Pajak</field>
+                <field name="menu_name">Taxes</field>
                 <field name="parent_menu">sales_setup</field>
+                <field name="ui_menu_id" ref="sales.taxes_menu_act"/>
             </record>
 
             <!-- Setup > Price Conditions -->
             <record id="price_conditions_menu" model="general.menu">
                 <field name="menu_id">price_condition</field>
-                <field name="menu_name">Kondisi Harga</field>
+                <field name="menu_name">Price Conditions</field>
                 <field name="parent_menu">sales_setup</field>
+                <field name="ui_menu_id" ref="sales.price_condition_menu"/>
             </record>
 
             <!-- Setup > Approval -->
             <record id="sales_approval_menu" model="general.menu">
                 <field name="menu_id">sales_approval</field>
-                <field name="menu_name">Persetujuan</field>
+                <field name="menu_name">Approvals</field>
                 <field name="parent_menu">sales_setup</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.approval_matrix_menu"/>
             </record>
             <record id="approvals_sales_matrix_menu" model="general.menu">
                 <field name="menu_id">sales_approval_matrix</field>
-                <field name="menu_name">Matriks Penjualan</field>
+                <field name="menu_name">Approval Matrix</field>
                 <field name="parent_menu">sales_approval</field>
+                <field name="ui_menu_id" ref="sales.approval_matrix_menu_act"/>
             </record>
 
             <!-- Help -->
             <record id="sales_help_menu" model="general.menu">
                 <field name="menu_id">sales_help</field>
-                <field name="menu_name">Bantuan</field>
+                <field name="menu_name">Help</field>
                 <field name="parent_menu">sales</field>
                 <field name="is_parent">True</field>
+                <field name="ui_menu_id" ref="sales.menu_help"/>
             </record>
 
         </data>
