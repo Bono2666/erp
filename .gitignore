@@ -1,1 +1,8 @@
 testsprite_tests/tmp/config.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
