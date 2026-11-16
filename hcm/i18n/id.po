@@ -1,28 +1,325 @@
-# Translation of hcm module.
-# Bahasa Indonesia translation for hcm module.
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hcm
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 00:00+0000\n"
-"PO-Revision-Date: 2026-09-01 00:00+0000\n"
+"POT-Creation-Date: 2026-11-16 07:17+0000\n"
+"PO-Revision-Date: 2026-11-16 07:17+0000\n"
 "Last-Translator: \n"
-"Language-Team: Indonesian\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: hcm
-#: model:ir.model,name:hcm.model_hcm_position
-msgid "Position"
-msgstr "Posisi"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__blood_type__ab
+msgid "AB"
+msgstr "AB"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bank_account_holder
+msgid "Account Holder"
+msgstr "Pemegang Rekening"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bank_account_number
+msgid "Account Number"
+msgstr "Nomor Rekening"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__active
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__status__active
+msgid "Active"
+msgstr "Aktif"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__address
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Address"
+msgstr "Alamat"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__address_display
+msgid "Address Display"
+msgstr "Tampilan Alamat"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__age
+msgid "Age"
+msgstr "Usia"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Are you sure you want to delete this data permanently?"
+msgstr "Apakah Anda yakin ingin menghapus data ini secara permanen?"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bpjs_kesehatan
+msgid "BPJS Kesehatan"
+msgstr "BPJS Kesehatan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bpjs_ketenagakerjaan
+msgid "BPJS Ketenagakerjaan"
+msgstr "BPJS Ketenagakerjaan"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Back"
+msgstr "Kembali"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Bank Information"
+msgstr "Informasi Bank"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bank_name
+msgid "Bank Name"
+msgstr "Nama Bank"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Basic Information"
+msgstr "Informasi Dasar"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__blood_type
+msgid "Blood Type"
+msgstr "Golongan Darah"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__buddha
+msgid "Buddha"
+msgstr "Buddha"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Cancel"
+msgstr "Batal"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__catholic
+msgid "Catholic"
+msgstr "Katolik"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__document
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__document
+msgid "Certificate File"
+msgstr "Berkas Sertifikat"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__name
+msgid "Certificate Name"
+msgstr "Nama Sertifikat"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__certificate_number
+msgid "Certificate Number"
+msgstr "Nomor Sertifikat"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__certificate_ids
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Certificates"
+msgstr "Sertifikat"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__child
+msgid "Child"
+msgstr "Anak"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__christian
+msgid "Christian"
+msgstr "Kristen"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__city_id
+msgid "City"
+msgstr "Kota"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__company_ref
+msgid "Company"
+msgstr "Perusahaan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__country_id
+msgid "Country"
+msgstr "Negara"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__create_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__create_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__create_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__create_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__create_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__create_uid
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__create_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__create_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__create_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__create_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__create_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__create_date
+msgid "Created on"
+msgstr "Dibuat pada"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__d1
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__d1
+msgid "D1"
+msgstr "D1"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__d2
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__d2
+msgid "D2"
+msgstr "D2"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__d3
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__d3
+msgid "D3"
+msgstr "D3"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__date_issued
+msgid "Date Issued"
+msgstr "Tanggal Dikeluarkan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__date_of_birth
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__date_of_birth
+msgid "Date of Birth"
+msgstr "Tanggal Lahir"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Delete"
+msgstr "Hapus"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__department_id
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__department_id
+msgid "Department"
+msgstr "Departemen"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__description
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__description
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Description"
+msgstr "Deskripsi"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__document
+msgid "Diploma/Transcript"
+msgstr "Ijazah/Transkrip"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__manager_id
+msgid "Direct Superior"
+msgstr "Atasan Langsung"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__display_name
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__display_name
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__display_name
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__display_name
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__display_name
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__display_name
+msgid "Display Name"
+msgstr "Nama Tampilan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__district_id
+msgid "District"
+msgstr "Kecamatan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__division_ref
+msgid "Division"
+msgstr "Divisi"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__marital_status__divorced
+msgid "Divorced"
+msgstr "Cerai"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Document"
+msgstr "Dokumen"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__attachment_ids
+msgid "Documents"
+msgstr "Dokumen"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__duration_days
+msgid "Duration (Days)"
+msgstr "Durasi (Hari)"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Edit"
+msgstr "Ubah"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Education"
+msgstr "Pendidikan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__level
+msgid "Education Level"
+msgstr "Tingkat Pendidikan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__email
+msgid "Email"
+msgstr "Email"
 
 #. module: hcm
 #: model:ir.model,name:hcm.model_hcm_employee
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__employee_id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__employee_id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__employee_id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__employee_id
 msgid "Employee"
 msgstr "Karyawan"
+
+#. module: hcm
+#: model:ir.model,name:hcm.model_hcm_employee_certificate
+msgid "Employee Certificate"
+msgstr "Sertifikat Karyawan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__employee_count
+msgid "Employee Count"
+msgstr "Jumlah Karyawan"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Employee Data"
+msgstr "Data Karyawan"
 
 #. module: hcm
 #: model:ir.model,name:hcm.model_hcm_employee_family
@@ -35,9 +332,20 @@ msgid "Employee Formal Education"
 msgstr "Pendidikan Formal Karyawan"
 
 #. module: hcm
-#: model:ir.model,name:hcm.model_hcm_employee_certificate
-msgid "Employee Certificate"
-msgstr "Sertifikat Karyawan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__employee_id
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Employee ID"
+msgstr "ID Karyawan"
+
+#. module: hcm
+#: model:ir.model.constraint,message:hcm.constraint_hcm_employee_employee_id_unique
+msgid "Employee ID must be unique! An employee with this ID already exists."
+msgstr "ID Karyawan harus unik! Karyawan dengan ID ini sudah ada."
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__status
+msgid "Employee Status"
+msgstr "Status Karyawan"
 
 #. module: hcm
 #: model:ir.model,name:hcm.model_hcm_employee_training
@@ -45,90 +353,240 @@ msgid "Employee Training"
 msgstr "Pelatihan Karyawan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__position_id
-msgid "Position ID"
-msgstr "ID Posisi"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__name
-msgid "Position Name"
-msgstr "Nama Posisi"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__department_id
-msgid "Department"
-msgstr "Departemen"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__parent_id
-msgid "Superior Position"
-msgstr "Posisi Atasan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__child_ids
-msgid "Subordinate Positions"
-msgstr "Posisi Bawahan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__description
-msgid "Description"
-msgstr "Keterangan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__active
-msgid "Active"
-msgstr "Aktif"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_position__employee_count
-msgid "Employee Count"
-msgstr "Jumlah Karyawan"
-
-#. module: hcm
+#: model:general.menu,menu_name:hcm.hcm_employee_menu
+#: model:ir.actions.act_window,name:hcm.employee_action
 #: model:ir.model.fields,field_description:hcm.field_hcm_position__employee_ids
 #: model:ir.ui.menu,name:hcm.menu_hcm_employee
 msgid "Employees"
 msgstr "Karyawan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__employee_id
-msgid "Employee ID"
-msgstr "ID Karyawan"
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Employees in This Position"
+msgstr "Karyawan di Posisi Ini"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__employee_name_depan
-msgid "Nama Depan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__date_end
+msgid "End Date"
+msgstr "Tanggal Selesai"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__end_year
+msgid "End Year"
+msgstr "Tahun Selesai"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__expiry_date
+msgid "Expiry Date"
+msgstr "Tanggal Kedaluwarsa"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Family"
+msgstr "Keluarga"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__kk_number
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__kk_number
+msgid "Family Card No."
+msgstr "No. KK"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__family_ids
+msgid "Family Members"
+msgstr "Anggota Keluarga"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__father
+msgid "Father"
+msgstr "Ayah"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__gender__female
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__gender__female
+msgid "Female"
+msgstr "Perempuan"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__document_filename
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__document_filename
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__document_filename
+msgid "File Name"
+msgstr "Nama Berkas"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__first_name
+msgid "First Name"
 msgstr "Nama Depan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__employee_name_belakang
-msgid "Nama Belakang"
-msgstr "Nama Belakang"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__education_ids
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Formal Education"
+msgstr "Pendidikan Formal"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__gpa
+msgid "GPA"
+msgstr "IPK"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__gender
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__gender
 msgid "Gender"
 msgstr "Jenis Kelamin"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__date_of_birth
-msgid "Date of Birth"
-msgstr "Tanggal Lahir"
+#: model:general.menu,menu_name:hcm.hcm_parent_menu
+#: model:ir.ui.menu,name:hcm.menu_hcm_root
+msgid "HCM"
+msgstr "HCM"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__place_of_birth
-msgid "Place of Birth"
-msgstr "Tempat Lahir"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__height
+msgid "Height"
+msgstr "Tinggi Badan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__blood_type
-msgid "Blood Type"
-msgstr "Golongan Darah"
+#: model:general.menu,menu_name:hcm.hcm_help_menu
+#: model:ir.ui.menu,name:hcm.menu_hcm_help
+msgid "Help"
+msgstr "Bantuan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__religion
-msgid "Religion"
-msgstr "Agama"
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Hierarchy"
+msgstr "Hierarki"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__hindu
+msgid "Hindu"
+msgstr "Hindu"
+
+#. module: hcm
+#: model:ir.actions.client,name:hcm.hcm_splash_action
+msgid "Home"
+msgstr "Beranda"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__id
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__id
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__ktp_number
+msgid "ID Card No."
+msgstr "No. KTP"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Identity"
+msgstr "Identitas"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__status__inactive
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Info"
+msgstr "Info"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__institution
+msgid "Institution"
+msgstr "Institusi"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__is_edit
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__is_edit
+msgid "Is Edit"
+msgstr "Mode Ubah"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__islam
+msgid "Islam"
+msgstr "Islam"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__issuer
+msgid "Issuer"
+msgstr "Penerbit"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__join_date
+msgid "Join Date"
+msgstr "Tanggal Bergabung"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__konghucu
+msgid "Konghucu"
+msgstr "Konghucu"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__last_education
+msgid "Last Education"
+msgstr "Pendidikan Terakhir"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__last_name
+msgid "Last Name"
+msgstr "Nama Belakang"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__write_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__write_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__write_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__write_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__write_uid
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__write_uid
+msgid "Last Updated by"
+msgstr "Terakhir Diperbarui oleh"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__write_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__write_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__write_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__write_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__write_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__write_date
+msgid "Last Updated on"
+msgstr "Terakhir Diperbarui pada"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__level_grade_ref
+msgid "Level / Grade"
+msgstr "Tingkat / Golongan"
+
+#. module: hcm
+#. odoo-javascript
+#: code:addons/hcm/static/src/xml/org_structure.xml:0
+#, python-format
+msgid "Loading organization structure..."
+msgstr "Memuat struktur organisasi..."
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__location_ref
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__location
+msgid "Location"
+msgstr "Lokasi"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__major
+msgid "Major"
+msgstr "Jurusan"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__gender__male
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__gender__male
+msgid "Male"
+msgstr "Laki-laki"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__marital_status
@@ -136,14 +594,47 @@ msgid "Marital Status"
 msgstr "Status Perkawinan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__kewarganegaraan
-msgid "Kewarganegaraan"
-msgstr "Kewarganegaraan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__marriage_date
+msgid "Marriage Date"
+msgstr "Tanggal Perkawinan"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Marriage Information"
+msgstr "Informasi Pernikahan"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__marital_status__married
+msgid "Married"
+msgstr "Menikah"
+
+#. module: hcm
+#: model:general.menu,menu_name:hcm.hcm_master_data_menu
+#: model:ir.ui.menu,name:hcm.menu_hcm_master_data
+msgid "Master Data"
+msgstr "Data Master"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__model_description
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__model_description
+msgid "Model Description"
+msgstr "Deskripsi Model"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__mother
+msgid "Mother"
+msgstr "Ibu"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__nik
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__nik
 msgid "NIK"
 msgstr "NIK"
+
+#. module: hcm
+#: model:ir.model.constraint,message:hcm.constraint_hcm_employee_nik_unique
+msgid "NIK must be unique! An employee with this NIK already exists."
+msgstr "NIK harus unik! Karyawan dengan NIK ini sudah ada."
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__npwp
@@ -151,84 +642,108 @@ msgid "NPWP"
 msgstr "NPWP"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__no_ktp
-msgid "No. KTP"
-msgstr "No. KTP"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__name
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__name
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Name"
+msgstr "Nama"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__no_kk
-msgid "No. KK"
-msgstr "No. KK"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__nationality
+msgid "Nationality"
+msgstr "Kewarganegaraan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__no_passport
-msgid "No. Passport"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__children_count
+msgid "Number of Children"
+msgstr "Jumlah Anak"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Organization"
+msgstr "Organisasi"
+
+#. module: hcm
+#. odoo-javascript
+#. odoo-python
+#: code:addons/hcm/models/models.py:0
+#: code:addons/hcm/static/src/xml/org_structure.xml:0
+#: model:general.menu,menu_name:hcm.hcm_org_structure_menu
+#: model:ir.actions.client,name:hcm.org_structure_client_action
+#: model:ir.ui.menu,name:hcm.menu_hcm_org_structure
+#, python-format
+msgid "Organization Structure"
+msgstr "Struktur Organisasi"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__organizer
+msgid "Organizer"
+msgstr "Penyelenggara"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__religion__other
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__other
+msgid "Other"
+msgstr "Lainnya"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__passport_expiry_date
+msgid "Passport Expiry Date"
+msgstr "Tanggal Kedaluwarsa Paspor"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__passport_number
+msgid "Passport No."
 msgstr "No. Paspor"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__kk_number
-msgid "KK Number"
-msgstr "Nomor KK"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__usia
-msgid "Usia"
-msgstr "Usia"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__berat_badan
-msgid "Berat Badan"
-msgstr "Berat Badan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__tinggi_badan
-msgid "Tinggi Badan"
-msgstr "Tinggi Badan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__berkacamata
-msgid "Berkacamata"
-msgstr "Berkacamata"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__email
-msgid "Email"
-msgstr "Email"
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Personal Data"
+msgstr "Data Pribadi"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__phone
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__phone
 msgid "Phone"
 msgstr "Telepon"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__address
-msgid "Address"
-msgstr "Alamat"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__photo
+#: model_terms:ir.ui.view,arch_db:hcm.employee_kanban
+msgid "Photo"
+msgstr "Foto"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__country
-msgid "Country"
-msgstr "Negara"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__place_of_birth
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__place_of_birth
+msgid "Place of Birth"
+msgstr "Tempat Lahir"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__state
-msgid "State"
-msgstr "Provinsi"
+#: model:ir.model,name:hcm.model_hcm_position
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__position_id
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Position"
+msgstr "Posisi"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__city
-msgid "City"
-msgstr "Kota"
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__position_id
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Position ID"
+msgstr "ID Posisi"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__district
-msgid "District"
-msgstr "Kecamatan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__name
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Position Name"
+msgstr "Nama Posisi"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__village
-msgid "Village"
-msgstr "Kelurahan"
+#: model:general.menu,menu_name:hcm.hcm_position_menu
+#: model:ir.actions.act_window,name:hcm.position_action
+#: model:ir.ui.menu,name:hcm.menu_hcm_position
+msgid "Positions"
+msgstr "Posisi"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__postal_code
@@ -246,64 +761,105 @@ msgid "RW"
 msgstr "RW"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__direct_superior
-msgid "Direct Superior"
-msgstr "Atasan Langsung"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__relation
+msgid "Relationship"
+msgstr "Hubungan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__level_grade
-msgid "Level / Grade"
-msgstr "Level / Grade"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__religion
+msgid "Religion"
+msgstr "Agama"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__division_id
-msgid "Division"
-msgstr "Divisi"
+#: model:general.menu,menu_name:hcm.hcm_report_menu
+#: model:ir.ui.menu,name:hcm.menu_hcm_report
+msgid "Report"
+msgstr "Laporan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__location_id
-msgid "Location"
-msgstr "Lokasi"
+#: model:ir.model.fields,help:hcm.field_hcm_employee__attachment_ids
+msgid "Repository for all employee documents"
+msgstr "Tempat penyimpanan seluruh dokumen karyawan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__company_id
-msgid "Company"
-msgstr "Perusahaan"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__status__resigned
+msgid "Resigned"
+msgstr "Mengundurkan Diri"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__join_date
-msgid "Join Date"
-msgstr "Tanggal Bergabung"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__s1
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__s1
+msgid "S1"
+msgstr "S1"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__system_user
-msgid "System User"
-msgstr "Pengguna Sistem"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__s2
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__s2
+msgid "S2"
+msgstr "S2"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bank_name
-msgid "Bank Name"
-msgstr "Nama Bank"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__s3
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__s3
+msgid "S3"
+msgstr "S3"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__account_number
-msgid "Account Number"
-msgstr "Nomor Rekening"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__sd
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__sd
+msgid "SD"
+msgstr "SD"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__account_holder
-msgid "Account Holder"
-msgstr "Nama Pemegang Rekening"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__sma
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__sma
+msgid "SMA / SMK"
+msgstr "SMA / SMK"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bpjs_kesehatan
-msgid "BPJS Kesehatan"
-msgstr "BPJS Kesehatan"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_education__level__smp
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__last_education__smp
+msgid "SMP"
+msgstr "SMP"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__bpjs_ketenagakerjaan
-msgid "BPJS Ketenagakerjaan"
-msgstr "BPJS Ketenagakerjaan"
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
+msgid "Save"
+msgstr "Simpan"
+
+#. module: hcm
+#. odoo-javascript
+#: code:addons/hcm/static/src/xml/org_structure.xml:0
+#, python-format
+msgid "Scroll to zoom | Drag to pan | Click to expand/collapse"
+msgstr "Gulir untuk zoom | Seret untuk menggeser | Klik untuk buka/tutup"
+
+#. module: hcm
+#: model:general.menu,menu_name:hcm.hcm_setup_menu
+#: model:ir.ui.menu,name:hcm.menu_hcm_setup
+msgid "Setup"
+msgstr "Pengaturan"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__sibling
+msgid "Sibling"
+msgstr "Saudara"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__marital_status__single
+msgid "Single"
+msgstr "Lajang"
+
+#. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee_family__relation__spouse
+msgid "Spouse"
+msgstr "Suami/Istri"
+
+#. module: hcm
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__spouse_birth_date
+msgid "Spouse Date of Birth"
+msgstr "Tanggal Lahir Pasangan"
 
 #. module: hcm
 #: model:ir.model.fields,field_description:hcm.field_hcm_employee__spouse_name
@@ -311,433 +867,123 @@ msgid "Spouse Name"
 msgstr "Nama Pasangan"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__spouse_birth_date
-msgid "Spouse Birth Date"
-msgstr "Tanggal Lahir Pasangan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__number_of_children
-msgid "Number of Children"
-msgstr "Jumlah Anak"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__tanggal_perkawinan
-msgid "Tanggal Perkawinan"
-msgstr "Tanggal Perkawinan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__tanggal_pajak
-msgid "Tanggal Pajak"
-msgstr "Tanggal Pajak"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__tanggal_kadaluarsa
-msgid "Tanggal Kadaluarsa"
-msgstr "Tanggal Kedaluwarsa"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__education_level
-msgid "Education Level"
-msgstr "Pendidikan Terakhir"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__institution
-msgid "Institution"
-msgstr "Institusi"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__major
-msgid "Major"
-msgstr "Jurusan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__start_year
-msgid "Start Year"
-msgstr "Tahun Mulai"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__end_year
-msgid "End Year"
-msgstr "Tahun Selesai"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__gpa
-msgid "GPA"
-msgstr "IPK"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__last_education
-msgid "Last Education"
-msgstr "Pendidikan Terakhir"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__formal_education
-msgid "Formal Education"
-msgstr "Pendidikan Formal"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__certificate
-msgid "Certificate"
-msgstr "Sertifikat"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__diploma_transcript
-msgid "Diploma/Transcript"
-msgstr "Ijazah/Transkrip"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__training
-msgid "Training"
-msgstr "Pelatihan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__certificates
-msgid "Certificates"
-msgstr "Sertifikat"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__documents
-msgid "Documents"
-msgstr "Dokumen"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__name
-msgid "Name"
-msgstr "Nama"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__relationship
-msgid "Relationship"
-msgstr "Hubungan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_family__family_members
-msgid "Family Members"
-msgstr "Anggota Keluarga"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__certificate_name
-msgid "Certificate Name"
-msgstr "Nama Sertifikat"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__certificate_number
-msgid "Certificate Number"
-msgstr "Nomor Sertifikat"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__issuer
-msgid "Issuer"
-msgstr "Penerbit"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__date_issued
-msgid "Date Issued"
-msgstr "Tanggal Terbit"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__expiry_date
-msgid "Expiry Date"
-msgstr "Tanggal Kedaluwarsa"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__certificate_file
-msgid "Certificate File"
-msgstr "File Sertifikat"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_certificate__document_filename
-msgid "Document Filename"
-msgstr "Nama File Dokumen"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__training_name
-msgid "Training Name"
-msgstr "Nama Pelatihan"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__organizer
-msgid "Organizer"
-msgstr "Penyelenggara"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__duration_days
-msgid "Duration (Days)"
-msgstr "Durasi (Hari)"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__start_date
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__date_start
 msgid "Start Date"
 msgstr "Tanggal Mulai"
 
 #. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__end_date
-msgid "End Date"
-msgstr "Tanggal Selesai"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_education__start_year
+msgid "Start Year"
+msgstr "Tahun Mulai"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Basic Information"
-msgstr "Informasi Dasar"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__state_id
+msgid "State"
+msgstr "Provinsi"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Identity"
-msgstr "Identitas"
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__child_ids
+msgid "Subordinate Positions"
+msgstr "Posisi Bawahan"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Personal Data"
-msgstr "Data Pribadi"
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__parent_id
+msgid "Superior Position"
+msgstr "Posisi Atasan"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Organization"
-msgstr "Organisasi"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__custom_user_id
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "System User"
+msgstr "Pengguna Sistem"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Bank Information"
-msgstr "Informasi Bank"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__tax_date
+msgid "Tax Date"
+msgstr "Tanggal Pajak"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Family"
-msgstr "Keluarga"
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__status__terminated
+msgid "Terminated"
+msgstr "Diberhentikan"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Education"
-msgstr "Pendidikan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee_training__name
+msgid "Training Name"
+msgstr "Nama Pelatihan"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Document"
-msgstr "Dokumen"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__training_ids
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
+msgid "Trainings"
+msgstr "Pelatihan"
 
 #. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Info"
-msgstr "Info"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Marriage Information"
-msgstr "Informasi Perkawinan"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Employee Data"
-msgstr "Data Karyawan"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Employees in this Position"
-msgstr "Karyawan di Posisi Ini"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Hierarchy"
-msgstr "Hirarki"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Back"
-msgstr "Kembali"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Edit"
-msgstr "Edit"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Save"
-msgstr "Simpan"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Cancel"
-msgstr "Batal"
-
-#. module: hcm
-#: model_terms:ir.ui.view,arch_db:hcm.view_hcm_employee_form
-msgid "Delete"
-msgstr "Hapus"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__photo
-msgid "Photo"
-msgstr "Foto"
-
-#. module: hcm
-#: model:ir.model.fields,field_description:hcm.field_hcm_employee__employee_status
-msgid "Employee Status"
-msgstr "Status Karyawan"
-
-#. module: hcm
-#: selection:hcm.employee,gender:0
-msgid "Male"
-msgstr "Laki-laki"
-
-#. module: hcm
-#: selection:hcm.employee,gender:1
-msgid "Female"
-msgstr "Perempuan"
-
-#. module: hcm
-#: model:general.menu,menu_name:hcm.menu_hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_root
-msgid "HCM"
-msgstr "HCM"
-
-#. module: hcm
+#: model:general.menu,menu_name:hcm.hcm_transaction_menu
 #: model:ir.ui.menu,name:hcm.menu_hcm_transaction
 msgid "Transaction"
 msgstr "Transaksi"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_report
-msgid "Report"
-msgstr "Laporan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__user_can_create
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__user_can_create
+msgid "User Can Create"
+msgstr "Pengguna Dapat Membuat"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_master_data
-msgid "Master Data"
-msgstr "Data Master"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__user_can_delete
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__user_can_delete
+msgid "User Can Delete"
+msgstr "Pengguna Dapat Menghapus"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_position
-msgid "Positions"
-msgstr "Posisi"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__user_can_read
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__user_can_read
+msgid "User Can Read"
+msgstr "Pengguna Dapat Membaca"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_org_structure
-msgid "Organization Structure"
-msgstr "Struktur Organisasi"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__user_can_update
+#: model:ir.model.fields,field_description:hcm.field_hcm_position__user_can_update
+msgid "User Can Update"
+msgstr "Pengguna Dapat Mengubah"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_setup
-msgid "Setup"
-msgstr "Pengaturan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__village_id
+msgid "Village"
+msgstr "Desa/Kelurahan"
 
 #. module: hcm
-#: model:ir.ui.menu,name:hcm.menu_hcm_help
-msgid "Help"
-msgstr "Bantuan"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__wear_glasses
+msgid "Wears Glasses"
+msgstr "Berkacamata"
 
 #. module: hcm
-msgid "Are you sure you want to delete this data permanently?"
-msgstr "Apakah Anda yakin ingin menghapus data ini secara permanen?"
+#: model:ir.model.fields,field_description:hcm.field_hcm_employee__weight
+msgid "Weight"
+msgstr "Berat Badan"
 
 #. module: hcm
+#: model:ir.model.fields.selection,name:hcm.selection__hcm_employee__marital_status__widowed
+msgid "Widowed"
+msgstr "Duda/Janda"
+
+#. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
 msgid "e.g. EMP-001"
 msgstr "cth. EMP-001"
 
 #. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.employee_view_form
 msgid "e.g. John Doe"
-msgstr "cth. John Doe"
+msgstr "cth. Budi Santoso"
 
 #. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
 msgid "e.g. Manager"
 msgstr "cth. Manajer"
 
 #. module: hcm
+#: model_terms:ir.ui.view,arch_db:hcm.position_view_form
 msgid "e.g. POS-001"
 msgstr "cth. POS-001"
-
-#. module: hcm
-msgid "Posisi"
-msgstr "Posisi"
-
-#. module: hcm
-msgid "Karyawan"
-msgstr "Karyawan"
-
-#. module: hcm
-msgid "ID Posisi"
-msgstr "ID Posisi"
-
-#. module: hcm
-msgid "Nama Posisi"
-msgstr "Nama Posisi"
-
-#. module: hcm
-msgid "ID Karyawan"
-msgstr "ID Karyawan"
-
-#. module: hcm
-msgid "Nama"
-msgstr "Nama"
-
-#. module: hcm
-msgid "Data Karyawan"
-msgstr "Data Karyawan"
-
-#. module: hcm
-msgid "Informasi Dasar"
-msgstr "Informasi Dasar"
-
-#. module: hcm
-msgid "Organisasi"
-msgstr "Organisasi"
-
-#. module: hcm
-msgid "Pengguna Sistem"
-msgstr "Pengguna Sistem"
-
-#. module: hcm
-msgid "Data Pribadi"
-msgstr "Data Pribadi"
-
-#. module: hcm
-msgid "Identitas"
-msgstr "Identitas"
-
-#. module: hcm
-msgid "Alamat"
-msgstr "Alamat"
-
-#. module: hcm
-msgid "Informasi Bank"
-msgstr "Informasi Bank"
-
-#. module: hcm
-msgid "Informasi Pernikahan"
-msgstr "Informasi Pernikahan"
-
-#. module: hcm
-msgid "Keluarga"
-msgstr "Keluarga"
-
-#. module: hcm
-msgid "Pendidikan"
-msgstr "Pendidikan"
-
-#. module: hcm
-msgid "Pendidikan Formal"
-msgstr "Pendidikan Formal"
-
-#. module: hcm
-msgid "Dokumen"
-msgstr "Dokumen"
-
-#. module: hcm
-msgid "Sertifikat"
-msgstr "Sertifikat"
-
-#. module: hcm
-msgid "Pelatihan"
-msgstr "Pelatihan"
-
-#. module: hcm
-msgid "Deskripsi"
-msgstr "Deskripsi"
-
-#. module: hcm
-msgid "Hierarki"
-msgstr "Hierarki"
-
-#. module: hcm
-msgid "Karyawan di Posisi Ini"
-msgstr "Karyawan di Posisi Ini"

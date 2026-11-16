@@ -13,13 +13,13 @@ class HcmPosition(models.Model):
         string="Position ID", copy=False)
     name = fields.Char(string="Position Name", required=True)
     department_id = fields.Many2one(
-        'general.department', string="Departemen", index=True)
+        'general.department', string="Department", index=True)
     parent_id = fields.Many2one(
-        'hcm.position', string="Posisi Atasan",
+        'hcm.position', string="Superior Position",
         index=True, ondelete='set null')
     child_ids = fields.One2many(
-        'hcm.position', 'parent_id', string="Posisi Bawahan")
-    description = fields.Text(string="Deskripsi")
+        'hcm.position', 'parent_id', string="Subordinate Positions")
+    description = fields.Text(string="Description")
     active = fields.Boolean(string="Active", default=True)
     is_edit = fields.Boolean(default=False)
 
@@ -27,7 +27,7 @@ class HcmPosition(models.Model):
         string="Employee Count", compute='_compute_employee_count',
         store=False)
     employee_ids = fields.One2many(
-        'hcm.employee', 'position_id', string="Karyawan")
+        'hcm.employee', 'position_id', string="Employees")
 
     @api.depends('employee_ids')
     def _compute_employee_count(self):
@@ -46,64 +46,64 @@ class HcmPosition(models.Model):
 
 class HcmEmployee(models.Model):
     _name = 'hcm.employee'
-    _description = 'Karyawan'
+    _description = 'Employee'
     _inherit = ['navigation.mixin']
     _menu_code = 'hcm_employee'
     _order = 'employee_id desc'
 
     # ============================================================
-    # TAB 1: Data Karyawan
+    # TAB 1: Employee Data
     # ============================================================
 
     employee_id = fields.Char(
-        string="ID Karyawan", required=True, copy=False)
-    name = fields.Char(string="Nama", required=True)
+        string="Employee ID", required=True, copy=False)
+    name = fields.Char(string="Name", required=True)
     nik = fields.Char(string="NIK", required=True)
-    phone = fields.Char(string="Telepon")
+    phone = fields.Char(string="Phone")
     email = fields.Char(string="Email")
     company_ref = fields.Many2one(
-        'general.company', string="Perusahaan")
+        'general.company', string="Company")
     location_ref = fields.Many2one(
-        'general.location', string="Lokasi")
+        'general.location', string="Location")
     division_ref = fields.Many2one(
-        'general.division', string="Divisi")
+        'general.division', string="Division")
     department_id = fields.Many2one(
-        'general.department', string="Departemen",
+        'general.department', string="Department",
         domain="[('division_id', '=', division_ref)]")
     level_grade_ref = fields.Many2one(
-        'general.level_grade', string="Tingkat / Golongan")
+        'general.level_grade', string="Level / Grade")
     position_id = fields.Many2one(
-        'hcm.position', string="Posisi",
+        'hcm.position', string="Position",
         domain="[('department_id', '=', department_id), ('active', '=', True)]")
     manager_id = fields.Many2one(
-        'hcm.employee', string="Atasan Langsung",
+        'hcm.employee', string="Direct Superior",
         compute='_compute_manager_id', store=True)
-    join_date = fields.Date(string="Tanggal Bergabung")
+    join_date = fields.Date(string="Join Date")
     status = fields.Selection([
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('resigned', 'Resigned'),
         ('terminated', 'Terminated'),
-    ], string="Status Karyawan", default='active', required=True)
-    photo = fields.Binary(string="Foto", attachment=True)
+    ], string="Employee Status", default='active', required=True)
+    photo = fields.Binary(string="Photo", attachment=True)
     is_edit = fields.Boolean(default=False)
 
     # Integration with general.custom_users
     custom_user_id = fields.Many2one(
-        'general.custom_users', string="Pengguna Sistem",
+        'general.custom_users', string="System User",
         ondelete='set null')
 
     # ============================================================
-    # TAB 2: Data Pribadi
+    # TAB 2: Personal Data
     # ============================================================
 
     # Identity
-    place_of_birth = fields.Char(string="Tempat Lahir")
-    date_of_birth = fields.Date(string="Tanggal Lahir")
+    place_of_birth = fields.Char(string="Place of Birth")
+    date_of_birth = fields.Date(string="Date of Birth")
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
-    ], string="Jenis Kelamin")
+    ], string="Gender")
     religion = fields.Selection([
         ('islam', 'Islam'),
         ('christian', 'Christian'),
@@ -112,39 +112,39 @@ class HcmEmployee(models.Model):
         ('buddha', 'Buddha'),
         ('konghucu', 'Konghucu'),
         ('other', 'Other'),
-    ], string="Agama")
+    ], string="Religion")
     blood_type = fields.Selection([
         ('a', 'A'), ('b', 'B'), ('ab', 'AB'), ('o', 'O'),
-    ], string="Golongan Darah")
-    first_name = fields.Char(string="Nama Depan")
-    last_name = fields.Char(string="Nama Belakang")
-    nationality = fields.Char(string="Kewarganegaraan")
-    kk_number = fields.Char(string="No. KK")
-    ktp_number = fields.Char(string="No. KTP")
-    passport_number = fields.Char(string="No. Passport")
-    passport_expiry_date = fields.Date(string="Tanggal Kadaluarsa")
-    tax_date = fields.Date(string="Tanggal Pajak")
-    height = fields.Float(string="Tinggi Badan")
-    weight = fields.Float(string="Berat Badan")
-    wear_glasses = fields.Boolean(string="Berkacamata")
+    ], string="Blood Type")
+    first_name = fields.Char(string="First Name")
+    last_name = fields.Char(string="Last Name")
+    nationality = fields.Char(string="Nationality")
+    kk_number = fields.Char(string="Family Card No.")
+    ktp_number = fields.Char(string="ID Card No.")
+    passport_number = fields.Char(string="Passport No.")
+    passport_expiry_date = fields.Date(string="Passport Expiry Date")
+    tax_date = fields.Date(string="Tax Date")
+    height = fields.Float(string="Height")
+    weight = fields.Float(string="Weight")
+    wear_glasses = fields.Boolean(string="Wears Glasses")
     age = fields.Integer(
-        string="Usia", compute='_compute_age', store=False)
+        string="Age", compute='_compute_age', store=False)
     npwp = fields.Char(string="NPWP")
     bpjs_kesehatan = fields.Char(string="BPJS Kesehatan")
     bpjs_ketenagakerjaan = fields.Char(string="BPJS Ketenagakerjaan")
 
     # Address
-    address = fields.Text(string="Alamat")
-    country_id = fields.Many2one('general.country', string="Negara")
-    state_id = fields.Many2one('general.state', string="Provinsi")
-    city_id = fields.Many2one('general.city', string="Kota")
-    district_id = fields.Many2one('general.district', string="Kecamatan")
-    village_id = fields.Many2one('general.village', string="Desa/Kelurahan")
+    address = fields.Text(string="Address")
+    country_id = fields.Many2one('general.country', string="Country")
+    state_id = fields.Many2one('general.state', string="State")
+    city_id = fields.Many2one('general.city', string="City")
+    district_id = fields.Many2one('general.district', string="District")
+    village_id = fields.Many2one('general.village', string="Village")
     rt = fields.Char(string="RT")
     rw = fields.Char(string="RW")
-    postal_code = fields.Char(string="Kode Pos")
+    postal_code = fields.Char(string="Postal Code")
     address_display = fields.Char(
-        string="Tampilan Alamat", compute='_compute_address_display',
+        string="Address Display", compute='_compute_address_display',
         store=True)
 
     @api.depends('village_id', 'district_id', 'city_id', 'state_id', 'country_id',
@@ -168,9 +168,9 @@ class HcmEmployee(models.Model):
             rec.address_display = ', '.join(filter(None, parts))
 
     # Bank Information
-    bank_name = fields.Char(string="Nama Bank")
-    bank_account_number = fields.Char(string="Nomor Rekening")
-    bank_account_holder = fields.Char(string="Pemegang Rekening")
+    bank_name = fields.Char(string="Bank Name")
+    bank_account_number = fields.Char(string="Account Number")
+    bank_account_holder = fields.Char(string="Account Holder")
 
     # Marriage Information
     marital_status = fields.Selection([
@@ -178,29 +178,29 @@ class HcmEmployee(models.Model):
         ('married', 'Married'),
         ('divorced', 'Divorced'),
         ('widowed', 'Widowed'),
-    ], string="Status Perkawinan")
-    spouse_name = fields.Char(string="Nama Pasangan")
-    spouse_birth_date = fields.Date(string="Tanggal Lahir Pasangan")
-    children_count = fields.Integer(string="Jumlah Anak")
-    marriage_date = fields.Date(string="Tanggal Perkawinan")
+    ], string="Marital Status")
+    spouse_name = fields.Char(string="Spouse Name")
+    spouse_birth_date = fields.Date(string="Spouse Date of Birth")
+    children_count = fields.Integer(string="Number of Children")
+    marriage_date = fields.Date(string="Marriage Date")
 
     # ============================================================
-    # TAB 3: Data Keluarga
+    # TAB 3: Family
     # ============================================================
 
     family_ids = fields.One2many(
-        'hcm.employee.family', 'employee_id', string="Anggota Keluarga")
+        'hcm.employee.family', 'employee_id', string="Family Members")
 
     # ============================================================
-    # TAB 4: Pendidikan
+    # TAB 4: Education
     # ============================================================
 
     education_ids = fields.One2many(
-        'hcm.employee.education', 'employee_id', string="Pendidikan Formal")
+        'hcm.employee.education', 'employee_id', string="Formal Education")
     certificate_ids = fields.One2many(
-        'hcm.employee.certificate', 'employee_id', string="Sertifikat")
+        'hcm.employee.certificate', 'employee_id', string="Certificates")
     training_ids = fields.One2many(
-        'hcm.employee.training', 'employee_id', string="Pelatihan")
+        'hcm.employee.training', 'employee_id', string="Trainings")
 
     # ============================================================
     # DOCUMENT REPOSITORY
@@ -329,7 +329,7 @@ class HcmEmployee(models.Model):
     def action_back(self):
         self.ensure_one()
         return {
-            'name': self._description,
+            'name': self._translated_description(),
             'type': 'ir.actions.act_window',
             'res_model': self._name,
             'view_mode': 'kanban,tree,form',
@@ -356,25 +356,25 @@ class HcmEmployeeFamily(models.Model):
     _order = 'id'
 
     employee_id = fields.Many2one(
-        'hcm.employee', string="Karyawan",
+        'hcm.employee', string="Employee",
         required=True, ondelete='cascade')
-    kk_number = fields.Char(string="KK Number")
+    kk_number = fields.Char(string="Family Card No.")
     nik = fields.Char(string="NIK")
-    name = fields.Char(string="Nama", required=True)
+    name = fields.Char(string="Name", required=True)
     relation = fields.Selection([
-        ('father', 'Ayah'),
-        ('mother', 'Ibu'),
-        ('spouse', 'Suami/Istri'),
-        ('child', 'Anak'),
-        ('sibling', 'Saudara'),
-        ('other', 'Lainnya'),
-    ], string="Hubungan", required=True)
-    place_of_birth = fields.Char(string="Tempat Lahir")
-    date_of_birth = fields.Date(string="Tanggal Lahir")
+        ('father', 'Father'),
+        ('mother', 'Mother'),
+        ('spouse', 'Spouse'),
+        ('child', 'Child'),
+        ('sibling', 'Sibling'),
+        ('other', 'Other'),
+    ], string="Relationship", required=True)
+    place_of_birth = fields.Char(string="Place of Birth")
+    date_of_birth = fields.Date(string="Date of Birth")
     gender = fields.Selection([
-        ('male', 'Laki-laki'),
-        ('female', 'Perempuan'),
-    ], string="Jenis Kelamin")
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ], string="Gender")
     last_education = fields.Selection([
         ('sd', 'SD'),
         ('smp', 'SMP'),
@@ -385,30 +385,18 @@ class HcmEmployeeFamily(models.Model):
         ('s1', 'S1'),
         ('s2', 'S2'),
         ('s3', 'S3'),
-    ], string="Pendidikan Terakhir")
-    phone = fields.Char(string="Telepon")
-    last_education = fields.Selection([
-        ('sd', 'SD'),
-        ('smp', 'SMP'),
-        ('sma', 'SMA / SMK'),
-        ('d1', 'D1'),
-        ('d2', 'D2'),
-        ('d3', 'D3'),
-        ('s1', 'S1'),
-        ('s2', 'S2'),
-        ('s3', 'S3'),
-    ], string="Pendidikan Terakhir")
-    phone = fields.Char(string="Telepon")
+    ], string="Last Education")
+    phone = fields.Char(string="Phone")
 
 
 
 class HcmEmployeeEducation(models.Model):
     _name = 'hcm.employee.education'
-    _description = 'Pendidikan Formal Karyawan'
+    _description = 'Employee Formal Education'
     _order = 'start_year desc'
 
     employee_id = fields.Many2one(
-        'hcm.employee', string="Karyawan",
+        'hcm.employee', string="Employee",
         required=True, ondelete='cascade')
     level = fields.Selection([
         ('sd', 'SD'),
@@ -420,54 +408,54 @@ class HcmEmployeeEducation(models.Model):
         ('s1', 'S1'),
         ('s2', 'S2'),
         ('s3', 'S3'),
-    ], string="Tingkat Pendidikan", required=True)
-    institution = fields.Char(string="Institusi", required=True)
-    major = fields.Char(string="Jurusan")
-    start_year = fields.Char(string="Tahun Mulai", size=4)
-    end_year = fields.Char(string="Tahun Selesai", size=4)
-    gpa = fields.Char(string="IPK")
-    document = fields.Binary(string="Ijazah/Transkrip", attachment=True)
+    ], string="Education Level", required=True)
+    institution = fields.Char(string="Institution", required=True)
+    major = fields.Char(string="Major")
+    start_year = fields.Char(string="Start Year", size=4)
+    end_year = fields.Char(string="End Year", size=4)
+    gpa = fields.Char(string="GPA")
+    document = fields.Binary(string="Diploma/Transcript", attachment=True)
 
-    document_filename = fields.Char(string="Nama Berkas")
+    document_filename = fields.Char(string="File Name")
 
 
 class HcmEmployeeCertificate(models.Model):
     _name = 'hcm.employee.certificate'
-    _description = 'Sertifikat Karyawan'
+    _description = 'Employee Certificate'
     _order = 'date_issued desc'
 
     employee_id = fields.Many2one(
-        'hcm.employee', string="Karyawan",
+        'hcm.employee', string="Employee",
         required=True, ondelete='cascade')
-    name = fields.Char(string="Nama Sertifikat", required=True)
-    issuer = fields.Char(string="Penerbit")
-    date_issued = fields.Date(string="Tanggal Dikeluarkan")
-    expiry_date = fields.Date(string="Tanggal Kadaluarsa")
-    certificate_number = fields.Char(string="Nomor Sertifikat")
-    document = fields.Binary(string="Berkas Sertifikat", attachment=True)
+    name = fields.Char(string="Certificate Name", required=True)
+    issuer = fields.Char(string="Issuer")
+    date_issued = fields.Date(string="Date Issued")
+    expiry_date = fields.Date(string="Expiry Date")
+    certificate_number = fields.Char(string="Certificate Number")
+    document = fields.Binary(string="Certificate File", attachment=True)
 
-    document_filename = fields.Char(string="Nama Berkas")
+    document_filename = fields.Char(string="File Name")
 
 
 class HcmEmployeeTraining(models.Model):
     _name = 'hcm.employee.training'
-    _description = 'Pelatihan Karyawan'
+    _description = 'Employee Training'
     _order = 'date_start desc'
 
     employee_id = fields.Many2one(
-        'hcm.employee', string="Karyawan",
+        'hcm.employee', string="Employee",
         required=True, ondelete='cascade')
-    name = fields.Char(string="Nama Pelatihan", required=True)
-    organizer = fields.Char(string="Penyelenggara")
-    date_start = fields.Date(string="Tanggal Mulai")
-    date_end = fields.Date(string="Tanggal Selesai")
+    name = fields.Char(string="Training Name", required=True)
+    organizer = fields.Char(string="Organizer")
+    date_start = fields.Date(string="Start Date")
+    date_end = fields.Date(string="End Date")
     duration_days = fields.Integer(
-        string="Durasi (Hari)", compute='_compute_duration', store=True)
-    location = fields.Char(string="Lokasi")
-    description = fields.Text(string="Deskripsi")
-    document = fields.Binary(string="Certificate", attachment=True)
+        string="Duration (Days)", compute='_compute_duration', store=True)
+    location = fields.Char(string="Location")
+    description = fields.Text(string="Description")
+    document = fields.Binary(string="Certificate File", attachment=True)
 
-    document_filename = fields.Char(string="Nama Berkas")
+    document_filename = fields.Char(string="File Name")
 
     @api.depends('date_start', 'date_end')
     def _compute_duration(self):

@@ -26,20 +26,20 @@
       <field name="name">hcm.position.view.form</field>
       <field name="model">hcm.position</field>
       <field name="arch" type="xml">
-      <form string="Posisi">
+      <form string="Position">
         <header>
           <field name="id" invisible="1"/>
           <field name="is_edit" invisible="1"/>
           <field name="user_can_update" invisible="1"/>
           <field name="user_can_delete" invisible="1"/>
-          <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
-          <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-          <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-          <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-          <button string="Batal" invisible="id" special="cancel" class="discard-new"/>
-          <button string="Batal" invisible="not is_edit" special="cancel" class="discard-edit"/>
-          <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Apakah Anda yakin ingin menghapus data ini secara permanen?" invisible="not id or is_edit or not user_can_delete"/>
-          <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
           <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
             <field name="model_description"/>
           </span>
@@ -55,21 +55,21 @@
               <div class="col-md-6">
                 <group>
 
-                  <field name="position_id" string="ID Posisi" readonly="not is_edit and id" placeholder="e.g. POS-001" default_focus="1"/>
+                  <field name="position_id" string="Position ID" readonly="not is_edit and id" placeholder="e.g. POS-001" default_focus="1"/>
 
                 </group>
               </div>
               <div class="col-md-6">
                 <group>
 
-                  <field name="name" string="Nama Posisi" options="{'line_breaks': False}" widget="text" placeholder="e.g. Manager" readonly="not is_edit and id"/>
+                  <field name="name" string="Position Name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Manager" readonly="not is_edit and id"/>
 
                 </group>
               </div>
             </div>
           </div>
           <group>
-            <group string="Hierarki">
+            <group string="Hierarchy">
               <field name="department_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
               <field name="parent_id" readonly="not is_edit and id" options="{'no_open': True, 'no_create': True}"/>
               <field name="active" readonly="not is_edit and id"/>
@@ -78,10 +78,10 @@
               <field name="employee_count"/>
             </group>
           </group>
-          <group string="Deskripsi">
+          <group string="Description">
             <field name="description" colspan="2" readonly="not is_edit and id"/>
           </group>
-          <group string="Karyawan di Posisi Ini" invisible="not id">
+          <group string="Employees in This Position" invisible="not id">
             <field name="employee_ids" readonly="1" options="{'no_open': True, 'no_create': True}">
               <tree>
                 <field name="employee_id"/>
@@ -169,20 +169,20 @@
       <field name="name">hcm.employee.view.form</field>
       <field name="model">hcm.employee</field>
       <field name="arch" type="xml">
-      <form string="Data Karyawan">
+      <form string="Employee Data">
         <header>
           <field name="id" invisible="1"/>
           <field name="is_edit" invisible="1"/>
           <field name="user_can_update" invisible="1"/>
           <field name="user_can_delete" invisible="1"/>
-          <button string="Kembali" name="action_back" type="object" invisible="is_edit or not id"/>
-          <button string="Ubah" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
-          <button string="Ubah" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
-          <button string="Simpan" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
-          <button string="Batal" invisible="id" special="cancel" class="discard-new"/>
-          <button string="Batal" invisible="not is_edit" special="cancel" class="discard-edit"/>
-          <button name="action_delete" string="Hapus" type="object" class="oe_highlight" confirm="Apakah Anda yakin ingin menghapus data ini secara permanen?" invisible="not id or is_edit or not user_can_delete"/>
-          <button string="Hapus" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
+          <button string="Back" name="action_back" type="object" invisible="is_edit or not id"/>
+          <button string="Edit" name="action_edit" type="object" invisible="not id or is_edit or not user_can_update"/>
+          <button string="Edit" class="opacity-50 pe-none" invisible="not id or is_edit or user_can_update"/>
+          <button string="Save" name="action_save" type="object" invisible="id and not is_edit" class="oe_highlight"/>
+          <button string="Cancel" invisible="id" special="cancel" class="discard-new"/>
+          <button string="Cancel" invisible="not is_edit" special="cancel" class="discard-edit"/>
+          <button name="action_delete" string="Delete" type="object" class="oe_highlight" confirm="Are you sure you want to delete this data permanently?" invisible="not id or is_edit or not user_can_delete"/>
+          <button string="Delete" class="oe_highlight opacity-50 pe-none" invisible="not id or is_edit or user_can_delete"/>
           <span class="flex-grow-1 text-truncate mt-1" style="min-width: 150px; flex-shrink: 0; white-space: nowrap;">
             <field name="model_description"/>
           </span>
@@ -199,14 +199,14 @@
                 <div class="col-md-6">
                   <group>
 
-                    <field name="employee_id" string="ID Karyawan" readonly="not is_edit and id" placeholder="e.g. EMP-001" default_focus="1"/>
+                    <field name="employee_id" string="Employee ID" readonly="not is_edit and id" placeholder="e.g. EMP-001" default_focus="1"/>
 
                   </group>
                 </div>
                 <div class="col-md-6">
                   <group>
 
-                    <field name="name" string="Nama" placeholder="e.g. John Doe"/>
+                    <field name="name" string="Name" placeholder="e.g. John Doe"/>
 
                   </group>
                 </div>
@@ -215,16 +215,16 @@
             <field name="photo" widget="image" class="oe_avatar" nolabel="1" options="{'size': [90, 90]}"/>
           </div>
           <notebook>
-            <page string="Data Karyawan">
+            <page string="Employee Data">
               <group>
-                <group string="Informasi Dasar">
+                <group string="Basic Information">
                   <field name="nik"/>
                   <field name="phone"/>
                   <field name="email"/>
                   <field name="company_ref" options="{'no_create': True, 'no_open': True}"/>
                   <field name="location_ref" options="{'no_create': True, 'no_open': True}"/>
                 </group>
-                <group string="Organisasi">
+                <group string="Organization">
                   <field name="division_ref" options="{'no_create': True, 'no_open': True}"/>
                   <field name="department_id" domain="[('division_id', '=', division_ref)] if division_ref else []" options="{'no_create': True, 'no_open': True}"/>
                   <field name="level_grade_ref" options="{'no_create': True, 'no_open': True}"/>
@@ -234,12 +234,12 @@
                   <field name="status"/>
                 </group>
               </group>
-              <group string="Pengguna Sistem">
+              <group string="System User">
                 <field name="custom_user_id" options="{'no_create': True, 'no_open': True}"/>
               </group>
             </page>
-            <page string="Data Pribadi">
-              <group string="Identitas">
+            <page string="Personal Data">
+              <group string="Identity">
                 <group>
                   <field name="first_name"/>
                   <field name="last_name"/>
@@ -265,7 +265,7 @@
                   <field name="wear_glasses"/>
                 </group>
               </group>
-              <group string="Alamat">
+              <group string="Address">
                 <field name="address" colspan="2"/>
                 <field name="country_id" options="{'no_open': True, 'no_create': True}"/>
                 <field name="state_id" options="{'no_open': True, 'no_create': True}" domain="[('country_ref', '=', country_id)] if country_id else []"/>
@@ -276,12 +276,12 @@
                 <field name="rw"/>
                 <field name="postal_code"/>
               </group>
-              <group string="Informasi Bank">
+              <group string="Bank Information">
                 <field name="bank_name"/>
                 <field name="bank_account_number"/>
                 <field name="bank_account_holder"/>
               </group>
-              <group string="Informasi Pernikahan">
+              <group string="Marriage Information">
                 <field name="marital_status"/>
                 <field name="marriage_date"/>
                 <field name="spouse_name"/>
@@ -289,7 +289,7 @@
                 <field name="children_count"/>
               </group>
             </page>
-            <page string="Keluarga">
+            <page string="Family">
               <field name="family_ids" options="{'no_open': True}">
                 <tree editable="bottom">
                   <field name="kk_number"/>
@@ -321,8 +321,8 @@
                 </form>
               </field>
             </page>
-            <page string="Pendidikan">
-              <group string="Pendidikan Formal">
+            <page string="Education">
+              <group string="Formal Education">
                 <field name="education_ids" options="{'no_open': True}">
                   <tree>
                     <field name="level"/>
@@ -331,7 +331,7 @@
                     <field name="start_year"/>
                     <field name="end_year"/>
                     <field name="gpa"/>
-                    <field name="document_filename" string="Dokumen"/>
+                    <field name="document_filename" string="Document"/>
                   </tree>
                   <form>
                     <group>
@@ -346,14 +346,14 @@
                         <field name="gpa"/>
                       </group>
                     </group>
-                    <group string="Dokumen">
+                    <group string="Document">
                       <field name="document" widget="binary"/>
                       <field name="document_filename"/>
                     </group>
                   </form>
                 </field>
               </group>
-              <group string="Sertifikat">
+              <group string="Certificates">
                 <field name="certificate_ids" options="{'no_open': True}">
                   <tree>
                     <field name="name"/>
@@ -361,7 +361,7 @@
                     <field name="certificate_number"/>
                     <field name="date_issued"/>
                     <field name="expiry_date"/>
-                    <field name="document_filename" string="Dokumen"/>
+                    <field name="document_filename" string="Document"/>
                   </tree>
                   <form>
                     <group>
@@ -375,14 +375,14 @@
                         <field name="expiry_date"/>
                       </group>
                     </group>
-                    <group string="Dokumen">
+                    <group string="Document">
                       <field name="document" widget="binary"/>
                       <field name="document_filename"/>
                     </group>
                   </form>
                 </field>
               </group>
-              <group string="Pelatihan">
+              <group string="Trainings">
                 <field name="training_ids" options="{'no_open': True}">
                   <tree>
                     <field name="name"/>
@@ -391,7 +391,7 @@
                     <field name="date_end"/>
                     <field name="duration_days"/>
                     <field name="location"/>
-                    <field name="document_filename" string="Dokumen"/>
+                    <field name="document_filename" string="Document"/>
                   </tree>
                   <form>
                     <group>
@@ -406,10 +406,10 @@
                         <field name="duration_days"/>
                       </group>
                     </group>
-                    <group string="Deskripsi">
+                    <group string="Description">
                       <field name="description" colspan="2"/>
                     </group>
-                    <group string="Dokumen">
+                    <group string="Document">
                       <field name="document" widget="binary"/>
                       <field name="document_filename"/>
                     </group>
@@ -429,21 +429,21 @@
 
     <!-- Position Action -->
     <record id="hcm.position_action" model="ir.actions.act_window">
-      <field name="name">Posisi</field>
+      <field name="name">Positions</field>
       <field name="res_model">hcm.position</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <!-- Employee Action -->
     <record id="hcm.employee_action" model="ir.actions.act_window">
-      <field name="name">Karyawan</field>
+      <field name="name">Employees</field>
       <field name="res_model">hcm.employee</field>
       <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <!-- Organization Structure Action (Client Action) -->
     <record id="hcm.org_structure_client_action" model="ir.actions.client">
-      <field name="name">Struktur Organisasi</field>
+      <field name="name">Organization Structure</field>
       <field name="tag">hcm_org_structure</field>
     </record>
 

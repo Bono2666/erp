@@ -147,7 +147,7 @@ class NavigationMixin(models.AbstractModel):
     _name = 'navigation.mixin'
     _description = 'Mixin Navigasi Umum'
 
-    model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._description)
+    model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._translated_description())
     user_can_read = fields.Boolean(compute='_compute_custom_permissions')
     user_can_create = fields.Boolean(
         compute='_compute_custom_permissions', store=False)
@@ -260,14 +260,19 @@ class NavigationMixin(models.AbstractModel):
                 record.user_can_update = False
                 record.user_can_delete = False
 
+    def _translated_description(self):
+        """Model description translated into the current user's language."""
+        return self.env['ir.model'].sudo()._get(self._name).name or self._description
+
     def _compute_model_description(self):
+        description = self._translated_description()
         for record in self:
-            record.model_description = self._description
+            record.model_description = description
 
     def action_back(self):
         self.ensure_one()
         return {
-            'name': self._description,
+            'name': self._translated_description(),
             'type': 'ir.actions.act_window',
             'res_model': self._name,
             'view_mode': 'tree,form',
@@ -279,7 +284,7 @@ class NavigationMixin(models.AbstractModel):
     def action_back_kanban(self):
         self.ensure_one()
         return {
-            'name': self._description,
+            'name': self._translated_description(),
             'type': 'ir.actions.act_window',
             'res_model': self._name,
             'view_mode': 'kanban,form',
@@ -362,7 +367,7 @@ class NavigationMixin(models.AbstractModel):
 
         return {
             'type': 'ir.actions.act_window',
-            'name': self._description,
+            'name': self._translated_description(),
             'res_model': self._name,
             'view_mode': 'form',
             'res_id': self.id,
@@ -384,7 +389,7 @@ class NavigationMixin(models.AbstractModel):
 
         return {
             'type': 'ir.actions.act_window',
-            'name': self._description,
+            'name': self._translated_description(),
             'res_model': self._name,
             'view_mode': 'form',
             'res_id': self.id,
@@ -399,7 +404,7 @@ class NavigationMixin(models.AbstractModel):
         self.unlink()
 
         return {
-            'name': self._description,
+            'name': self._translated_description(),
             'type': 'ir.actions.act_window',
             'res_model': self._name,
             'view_mode': 'tree,form',
