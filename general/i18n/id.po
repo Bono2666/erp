@@ -1,180 +1,686 @@
-# Translation of general module.
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* general
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 00:00+0000\n"
-"PO-Revision-Date: 2026-09-01 00:00+0000\n"
+"POT-Creation-Date: 2026-11-16 08:55+0000\n"
+"PO-Revision-Date: 2026-11-16 08:55+0000\n"
 "Last-Translator: \n"
-"Language-Team: Indonesian\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-
-# -- general.country --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_country__country_id
-msgid "Country ID"
-msgstr "ID Negara"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_country__country_name
-msgid "Country Name"
-msgstr "Nama Negara"
-
-# -- general.state --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_state__state_id
-msgid "State ID"
-msgstr "ID Provinsi"
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
+msgid ""
+"<strong>Please enter your password to confirm you own this account</strong>"
+msgstr "<strong>Silakan masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda pemilik akun ini</strong>"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_state__state_name
-msgid "State Name"
-msgstr "Nama Provinsi"
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+msgid "Account Security"
+msgstr "Keamanan Akun"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_state__country_ref
-msgid "Country"
-msgstr "Negara"
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Are you sure you want to delete this data permanently?"
+msgstr "Apakah Anda yakin ingin menghapus data ini secara permanen?"
 
-# -- general.city --
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__avatar_128
+msgid "Avatar 128"
+msgstr "Avatar 128"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Back"
+msgstr "Kembali"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_billing
+msgid "Can Billing"
+msgstr "Dapat Menagih"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_confirm
+msgid "Can Confirm"
+msgstr "Dapat Mengonfirmasi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_create
+msgid "Can Create"
+msgstr "Dapat Membuat"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_delete
+msgid "Can Delete"
+msgstr "Dapat Menghapus"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_invoicing
+msgid "Can Invoicing"
+msgstr "Dapat Membuat Faktur"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_receive
+msgid "Can Receive"
+msgstr "Dapat Menerima"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_send
+msgid "Can Send"
+msgstr "Dapat Mengirim"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_submit
+msgid "Can Submit"
+msgstr "Dapat Mengajukan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__can_update
+msgid "Can Update"
+msgstr "Dapat Mengubah"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Cancel"
+msgstr "Batal"
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#: code:addons/general/models/models.py:0
+#: model:ir.model,name:general.model_general_password
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+#, python-format
+msgid "Change Password"
+msgstr "Ubah Kata Sandi"
+
+#. module: general
+#: model:ir.model,name:general.model_general_password_preferences
+msgid "Change Password Preferences"
+msgstr "Preferensi Ubah Kata Sandi"
+
+#. module: general
+#: model:general.menu,menu_name:general.city_menu
+#: model:ir.actions.act_window,name:general.city_action
+#: model:ir.ui.menu,name:general.general_city_act
+msgid "Cities"
+msgstr "Kota"
+
+#. module: general
+#: model:ir.model,name:general.model_general_city
+#: model:ir.model.fields,field_description:general.field_general_district__city_ref
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+msgid "City"
+msgstr "Kota"
+
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_city__city_id
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
 msgid "City ID"
 msgstr "ID Kota"
 
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_city__city_name
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
 msgid "City Name"
 msgstr "Nama Kota"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_city__state_ref
-msgid "State"
-msgstr "Provinsi"
-
-# -- general.district --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_district__district_id
-msgid "District ID"
-msgstr "ID Kecamatan"
+#: model:general.menu,menu_name:general.company_menu
+#: model:ir.actions.act_window,name:general.company_action
+#: model:ir.ui.menu,name:general.general_company_act
+msgid "Companies"
+msgstr "Perusahaan"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_district__district_name
-msgid "District Name"
-msgstr "Nama Kecamatan"
+#: model:ir.model,name:general.model_general_company
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+msgid "Company"
+msgstr "Perusahaan"
 
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_district__city_ref
-msgid "City"
-msgstr "Kota"
-
-# -- general.village --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_village__village_id
-msgid "Village ID"
-msgstr "ID Kelurahan/Desa"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_village__village_name
-msgid "Village Name"
-msgstr "Nama Kelurahan/Desa"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_village__district_ref
-msgid "District"
-msgstr "Kecamatan"
-
-# -- general.position --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_position__position_id
-msgid "Position ID"
-msgstr "ID Posisi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_position__position_name
-msgid "Position Name"
-msgstr "Nama Posisi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_position__department_id
-msgid "Department"
-msgstr "Departemen"
-
-# -- general.department --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_department__department_id
-msgid "Department ID"
-msgstr "ID Departemen"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_department__department_name
-msgid "Department Name"
-msgstr "Nama Departemen"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_department__division_id
-msgid "Division"
-msgstr "Divisi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_department__position_ids
-msgid "Positions"
-msgstr "Posisi-Posisi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_department__is_edit
-msgid "Is Edit?"
-msgstr "Apakah Edit?"
-
-# -- general.company --
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_company__company_id
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
 msgid "Company ID"
 msgstr "ID Perusahaan"
 
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_company__company_name
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
 msgid "Company Name"
 msgstr "Nama Perusahaan"
 
-# -- general.location --
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_location__location_id
-msgid "Location ID"
-msgstr "ID Lokasi"
+#: model:general.menu,menu_name:general.master_data_menu
+#: model:ir.actions.client,name:general.general_splash_action
+#: model:ir.ui.menu,name:general.menu_master_menu
+#: model_terms:ir.ui.view,arch_db:general.home_view_form
+msgid "Config"
+msgstr "Config"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_location__location_name
-msgid "Location Name"
-msgstr "Nama Lokasi"
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
+msgid "Confirm Password"
+msgstr "Konfirmasi Kata Sandi"
 
-# -- general.division --
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_password__confirm_password
+msgid "Confirmation Password"
+msgstr "Konfirmasi Kata Sandi"
+
+#. module: general
+#: model:general.menu,menu_name:general.country_menu
+#: model:ir.actions.act_window,name:general.country_action
+#: model:ir.ui.menu,name:general.general_country_act
+msgid "Countries"
+msgstr "Negara"
+
+#. module: general
+#: model:ir.model,name:general.model_general_country
+#: model:ir.model.fields,field_description:general.field_general_state__country_ref
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+msgid "Country"
+msgstr "Negara"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_country__country_id
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+msgid "Country ID"
+msgstr "ID Negara"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_country__country_name
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+msgid "Country Name"
+msgstr "Nama Negara"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.city_action
+msgid "Create your first City"
+msgstr "Buat Kota pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.company_action
+msgid "Create your first Company"
+msgstr "Buat Perusahaan pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.country_action
+msgid "Create your first Country"
+msgstr "Buat Negara pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.department_action
+msgid "Create your first Department"
+msgstr "Buat Departemen pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.district_action
+msgid "Create your first District"
+msgstr "Buat Kecamatan pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.division_action
+msgid "Create your first Division"
+msgstr "Buat Divisi pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.location_action
+msgid "Create your first Location"
+msgstr "Buat Lokasi pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.position_action
+msgid "Create your first Position"
+msgstr "Buat Posisi pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.state_action
+msgid "Create your first State"
+msgstr "Buat Provinsi pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.village_action
+msgid "Create your first Village"
+msgstr "Buat Desa/Kelurahan pertama Anda"
+
+#. module: general
+#: model_terms:ir.actions.act_window,help:general.level_grade_action
+msgid "Create your first level / grade"
+msgstr "Buat Tingkat / Golongan pertama Anda"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__create_uid
+#: model:ir.model.fields,field_description:general.field_general_city__create_uid
+#: model:ir.model.fields,field_description:general.field_general_company__create_uid
+#: model:ir.model.fields,field_description:general.field_general_country__create_uid
+#: model:ir.model.fields,field_description:general.field_general_custom_users__create_uid
+#: model:ir.model.fields,field_description:general.field_general_department__create_uid
+#: model:ir.model.fields,field_description:general.field_general_district__create_uid
+#: model:ir.model.fields,field_description:general.field_general_division__create_uid
+#: model:ir.model.fields,field_description:general.field_general_home__create_uid
+#: model:ir.model.fields,field_description:general.field_general_level_grade__create_uid
+#: model:ir.model.fields,field_description:general.field_general_location__create_uid
+#: model:ir.model.fields,field_description:general.field_general_menu__create_uid
+#: model:ir.model.fields,field_description:general.field_general_password__create_uid
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__create_uid
+#: model:ir.model.fields,field_description:general.field_general_position__create_uid
+#: model:ir.model.fields,field_description:general.field_general_preferences__create_uid
+#: model:ir.model.fields,field_description:general.field_general_state__create_uid
+#: model:ir.model.fields,field_description:general.field_general_village__create_uid
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__create_date
+#: model:ir.model.fields,field_description:general.field_general_city__create_date
+#: model:ir.model.fields,field_description:general.field_general_company__create_date
+#: model:ir.model.fields,field_description:general.field_general_country__create_date
+#: model:ir.model.fields,field_description:general.field_general_custom_users__create_date
+#: model:ir.model.fields,field_description:general.field_general_department__create_date
+#: model:ir.model.fields,field_description:general.field_general_district__create_date
+#: model:ir.model.fields,field_description:general.field_general_division__create_date
+#: model:ir.model.fields,field_description:general.field_general_home__create_date
+#: model:ir.model.fields,field_description:general.field_general_level_grade__create_date
+#: model:ir.model.fields,field_description:general.field_general_location__create_date
+#: model:ir.model.fields,field_description:general.field_general_menu__create_date
+#: model:ir.model.fields,field_description:general.field_general_password__create_date
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__create_date
+#: model:ir.model.fields,field_description:general.field_general_position__create_date
+#: model:ir.model.fields,field_description:general.field_general_preferences__create_date
+#: model:ir.model.fields,field_description:general.field_general_state__create_date
+#: model:ir.model.fields,field_description:general.field_general_village__create_date
+msgid "Created on"
+msgstr "Dibuat pada"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Delete"
+msgstr "Hapus"
+
+#. module: general
+#: model:ir.model,name:general.model_general_department
+#: model:ir.model.fields,field_description:general.field_general_position__department_id
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+msgid "Department"
+msgstr "Departemen"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_department__department_id
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+msgid "Department ID"
+msgstr "ID Departemen"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_department__department_name
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+msgid "Department Name"
+msgstr "Nama Departemen"
+
+#. module: general
+#: model:general.menu,menu_name:general.department_menu
+#: model:ir.actions.act_window,name:general.department_action
+#: model:ir.model.fields,field_description:general.field_general_division__department_ids
+#: model:ir.ui.menu,name:general.general_department_act
+msgid "Departments"
+msgstr "Departemen"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__display_name
+#: model:ir.model.fields,field_description:general.field_general_city__display_name
+#: model:ir.model.fields,field_description:general.field_general_company__display_name
+#: model:ir.model.fields,field_description:general.field_general_country__display_name
+#: model:ir.model.fields,field_description:general.field_general_custom_users__display_name
+#: model:ir.model.fields,field_description:general.field_general_department__display_name
+#: model:ir.model.fields,field_description:general.field_general_district__display_name
+#: model:ir.model.fields,field_description:general.field_general_division__display_name
+#: model:ir.model.fields,field_description:general.field_general_home__display_name
+#: model:ir.model.fields,field_description:general.field_general_level_grade__display_name
+#: model:ir.model.fields,field_description:general.field_general_location__display_name
+#: model:ir.model.fields,field_description:general.field_general_menu__display_name
+#: model:ir.model.fields,field_description:general.field_general_password__display_name
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__display_name
+#: model:ir.model.fields,field_description:general.field_general_position__display_name
+#: model:ir.model.fields,field_description:general.field_general_preferences__display_name
+#: model:ir.model.fields,field_description:general.field_general_state__display_name
+#: model:ir.model.fields,field_description:general.field_general_village__display_name
+msgid "Display Name"
+msgstr "Nama Tampilan"
+
+#. module: general
+#: model:ir.model,name:general.model_general_district
+#: model:ir.model.fields,field_description:general.field_general_village__district_ref
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+msgid "District"
+msgstr "Kecamatan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_district__district_id
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+msgid "District ID"
+msgstr "ID Kecamatan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_district__district_name
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+msgid "District Name"
+msgstr "Nama Kecamatan"
+
+#. module: general
+#: model:general.menu,menu_name:general.district_menu
+#: model:ir.actions.act_window,name:general.district_action
+#: model:ir.ui.menu,name:general.general_district_act
+msgid "Districts"
+msgstr "Kecamatan"
+
+#. module: general
+#: model:ir.model,name:general.model_general_division
+#: model:ir.model.fields,field_description:general.field_general_department__division_id
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+msgid "Division"
+msgstr "Divisi"
+
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_division__division_id
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
 msgid "Division ID"
 msgstr "ID Divisi"
 
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_division__division_name
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
 msgid "Division Name"
 msgstr "Nama Divisi"
 
-# -- general.level_grade --
+#. module: general
+#: model:general.menu,menu_name:general.division_menu
+#: model:ir.actions.act_window,name:general.division_action
+#: model:ir.ui.menu,name:general.general_division_act
+msgid "Divisions"
+msgstr "Divisi"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Edit"
+msgstr "Ubah"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+msgid "Edit Preferences"
+msgstr "Ubah Preferensi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__login
+#: model:ir.model.fields,field_description:general.field_general_preferences__login
+msgid "Email/Login"
+msgstr "Email/Login"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.home_view_form
+msgid "HCM"
+msgstr "HCM"
+
+#. module: general
+#: model:general.menu,menu_name:general.general_help_menu
+#: model:ir.ui.menu,name:general.menu_general_help
+msgid "Help"
+msgstr "Bantuan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_res_users__hide_menu_ids
+msgid "Hidden Menu"
+msgstr "Menu Tersembunyi"
+
+#. module: general
+#: model:ir.actions.act_window,name:general.home_action
+#: model:ir.model,name:general.model_general_home
+#: model:ir.ui.menu,name:general.menu_root
+#: model_terms:ir.ui.view,arch_db:general.home_view_form
+msgid "Home"
+msgstr "Beranda"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__id
+#: model:ir.model.fields,field_description:general.field_general_city__id
+#: model:ir.model.fields,field_description:general.field_general_company__id
+#: model:ir.model.fields,field_description:general.field_general_country__id
+#: model:ir.model.fields,field_description:general.field_general_custom_users__id
+#: model:ir.model.fields,field_description:general.field_general_department__id
+#: model:ir.model.fields,field_description:general.field_general_district__id
+#: model:ir.model.fields,field_description:general.field_general_division__id
+#: model:ir.model.fields,field_description:general.field_general_home__id
+#: model:ir.model.fields,field_description:general.field_general_level_grade__id
+#: model:ir.model.fields,field_description:general.field_general_location__id
+#: model:ir.model.fields,field_description:general.field_general_menu__id
+#: model:ir.model.fields,field_description:general.field_general_password__id
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__id
+#: model:ir.model.fields,field_description:general.field_general_position__id
+#: model:ir.model.fields,field_description:general.field_general_preferences__id
+#: model:ir.model.fields,field_description:general.field_general_state__id
+#: model:ir.model.fields,field_description:general.field_general_village__id
+msgid "ID"
+msgstr "ID"
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid ""
+"Incorrect Password, try again or contact an administrator to reset your "
+"password."
+msgstr "Kata sandi salah, coba lagi atau hubungi administrator untuk mengatur ulang kata sandi Anda."
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_city__is_edit
+#: model:ir.model.fields,field_description:general.field_general_company__is_edit
+#: model:ir.model.fields,field_description:general.field_general_country__is_edit
+#: model:ir.model.fields,field_description:general.field_general_custom_users__is_edit
+#: model:ir.model.fields,field_description:general.field_general_department__is_edit
+#: model:ir.model.fields,field_description:general.field_general_district__is_edit
+#: model:ir.model.fields,field_description:general.field_general_division__is_edit
+#: model:ir.model.fields,field_description:general.field_general_level_grade__is_edit
+#: model:ir.model.fields,field_description:general.field_general_location__is_edit
+#: model:ir.model.fields,field_description:general.field_general_position__is_edit
+#: model:ir.model.fields,field_description:general.field_general_state__is_edit
+#: model:ir.model.fields,field_description:general.field_general_village__is_edit
+msgid "Is Edit"
+msgstr "Mode Ubah"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__is_parent
+#: model:ir.model.fields,field_description:general.field_general_menu__is_parent
+msgid "Is Parent Menu?"
+msgstr "Menu Induk?"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__is_verified
+msgid "Is Verified"
+msgstr "Terverifikasi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__position
+msgid "Job Position"
+msgstr "Posisi Jabatan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__write_uid
+#: model:ir.model.fields,field_description:general.field_general_city__write_uid
+#: model:ir.model.fields,field_description:general.field_general_company__write_uid
+#: model:ir.model.fields,field_description:general.field_general_country__write_uid
+#: model:ir.model.fields,field_description:general.field_general_custom_users__write_uid
+#: model:ir.model.fields,field_description:general.field_general_department__write_uid
+#: model:ir.model.fields,field_description:general.field_general_district__write_uid
+#: model:ir.model.fields,field_description:general.field_general_division__write_uid
+#: model:ir.model.fields,field_description:general.field_general_home__write_uid
+#: model:ir.model.fields,field_description:general.field_general_level_grade__write_uid
+#: model:ir.model.fields,field_description:general.field_general_location__write_uid
+#: model:ir.model.fields,field_description:general.field_general_menu__write_uid
+#: model:ir.model.fields,field_description:general.field_general_password__write_uid
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__write_uid
+#: model:ir.model.fields,field_description:general.field_general_position__write_uid
+#: model:ir.model.fields,field_description:general.field_general_preferences__write_uid
+#: model:ir.model.fields,field_description:general.field_general_state__write_uid
+#: model:ir.model.fields,field_description:general.field_general_village__write_uid
+msgid "Last Updated by"
+msgstr "Terakhir Diperbarui oleh"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__write_date
+#: model:ir.model.fields,field_description:general.field_general_city__write_date
+#: model:ir.model.fields,field_description:general.field_general_company__write_date
+#: model:ir.model.fields,field_description:general.field_general_country__write_date
+#: model:ir.model.fields,field_description:general.field_general_custom_users__write_date
+#: model:ir.model.fields,field_description:general.field_general_department__write_date
+#: model:ir.model.fields,field_description:general.field_general_district__write_date
+#: model:ir.model.fields,field_description:general.field_general_division__write_date
+#: model:ir.model.fields,field_description:general.field_general_home__write_date
+#: model:ir.model.fields,field_description:general.field_general_level_grade__write_date
+#: model:ir.model.fields,field_description:general.field_general_location__write_date
+#: model:ir.model.fields,field_description:general.field_general_menu__write_date
+#: model:ir.model.fields,field_description:general.field_general_password__write_date
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__write_date
+#: model:ir.model.fields,field_description:general.field_general_position__write_date
+#: model:ir.model.fields,field_description:general.field_general_preferences__write_date
+#: model:ir.model.fields,field_description:general.field_general_state__write_date
+#: model:ir.model.fields,field_description:general.field_general_village__write_date
+msgid "Last Updated on"
+msgstr "Terakhir Diperbarui pada"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__custom_login_date
+msgid "Latest Authentication"
+msgstr "Autentikasi Terbaru"
+
+#. module: general
+#: model:ir.model,name:general.model_general_level_grade
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+msgid "Level / Grade"
+msgstr "Tingkat / Golongan"
+
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_level_grade__level_id
-msgid "Level ID"
-msgstr "ID Level"
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
+msgid "Level / Grade ID"
+msgstr "ID Tingkat / Golongan"
 
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_level_grade__level_name
+#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
 msgid "Level / Grade Name"
-msgstr "Nama Level / Grade"
+msgstr "Nama Tingkat / Golongan"
 
-# -- general.menu --
+#. module: general
+#: model:general.menu,menu_name:general.level_grade_menu
+#: model:ir.actions.act_window,name:general.level_grade_action
+#: model:ir.ui.menu,name:general.general_level_grade_act
+msgid "Levels / Grades"
+msgstr "Tingkat / Golongan"
+
+#. module: general
+#: model:ir.model,name:general.model_general_location
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+msgid "Location"
+msgstr "Lokasi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_location__location_id
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+msgid "Location ID"
+msgstr "ID Lokasi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_location__location_name
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+msgid "Location Name"
+msgstr "Nama Lokasi"
+
+#. module: general
+#: model:general.menu,menu_name:general.location_menu
+#: model:ir.actions.act_window,name:general.location_action
+#: model:ir.ui.menu,name:general.general_location_act
+msgid "Locations"
+msgstr "Lokasi"
+
+#. module: general
+#. odoo-javascript
+#: code:addons/general/static/src/xml/splash_screen.xml:0
+#, python-format
+msgid "Logo"
+msgstr "Logo"
+
+#. module: general
+#: model:general.menu,menu_name:general.general_master_data_menu
+#: model:ir.ui.menu,name:general.menu_general_master_data
+msgid "Master Data"
+msgstr "Data Master"
+
+#. module: general
+#: model:ir.model,name:general.model_general_menu
+#: model:ir.model,name:general.model_ir_ui_menu
+#: model:ir.model.fields,field_description:general.field_general_auth__menu_id
+msgid "Menu"
+msgstr "Menu"
+
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_menu__menu_id
 msgid "Menu ID"
@@ -186,77 +692,42 @@ msgid "Menu Name"
 msgstr "Nama Menu"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_menu__parent_menu
-msgid "Parent Menu"
-msgstr "Menu Induk"
+#: model:ir.model,name:general.model_navigation_mixin
+msgid "Mixin for General Navigation"
+msgstr "Mixin Navigasi Umum"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_menu__is_parent
-msgid "Is Parent Menu?"
-msgstr "Apakah Menu Induk?"
+#: model:ir.model.fields,field_description:general.field_general_city__model_description
+#: model:ir.model.fields,field_description:general.field_general_company__model_description
+#: model:ir.model.fields,field_description:general.field_general_country__model_description
+#: model:ir.model.fields,field_description:general.field_general_custom_users__model_description
+#: model:ir.model.fields,field_description:general.field_general_department__model_description
+#: model:ir.model.fields,field_description:general.field_general_district__model_description
+#: model:ir.model.fields,field_description:general.field_general_division__model_description
+#: model:ir.model.fields,field_description:general.field_general_level_grade__model_description
+#: model:ir.model.fields,field_description:general.field_general_location__model_description
+#: model:ir.model.fields,field_description:general.field_general_position__model_description
+#: model:ir.model.fields,field_description:general.field_general_state__model_description
+#: model:ir.model.fields,field_description:general.field_general_village__model_description
+#: model:ir.model.fields,field_description:general.field_navigation_mixin__model_description
+msgid "Model Description"
+msgstr "Deskripsi Model"
 
-# -- general.custom_users --
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__custom_user_id
-msgid "User Id"
-msgstr "ID Pengguna"
+#: model:ir.actions.act_window,name:general.action_my_preferences
+#: model:ir.model,name:general.model_general_preferences
+msgid "My Preferences"
+msgstr "Preferensi Saya"
 
 #. module: general
 #: model:ir.model.fields,field_description:general.field_general_custom_users__name
+#: model:ir.model.fields,field_description:general.field_general_home__name
 msgid "Name"
 msgstr "Nama"
 
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__login
-msgid "Email/Login"
-msgstr "Email/Login"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__password
-msgid "Password"
-msgstr "Kata Sandi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__position
-msgid "Job Position"
-msgstr "Posisi Jabatan"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__user_id
-msgid "Related Users"
-msgstr "Pengguna Terkait"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__image_1920
-msgid "Photo Profile"
-msgstr "Foto Profil"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__custom_login_date
-msgid "Latest Authentication"
-msgstr "Autentikasi Terbaru"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_custom_users__menu_ids
-msgid "User Authentication"
-msgstr "Autentikasi Pengguna"
-
-# -- general.password_preferences --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_password_preferences__user_id
-#: model:ir.model.fields,field_description:general.field_general_password__user_id
-#: model:ir.model.fields,field_description:general.field_general_auth__user_id
-msgid "User"
-msgstr "Pengguna"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_password_preferences__old_password
-msgid "Old Password"
-msgstr "Kata Sandi Lama"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_password_preferences__new_password
 #: model:ir.model.fields,field_description:general.field_general_password__new_password
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__new_password
 msgid "New Password"
 msgstr "Kata Sandi Baru"
 
@@ -265,323 +736,39 @@ msgstr "Kata Sandi Baru"
 msgid "New Password (Confirmation)"
 msgstr "Kata Sandi Baru (Konfirmasi)"
 
-# -- general.password --
 #. module: general
-#: model:ir.model.fields,field_description:general.field_general_password__confirm_password
-msgid "Confirmation Password"
-msgstr "Konfirmasi Kata Sandi"
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_preferences__name
-msgid "User Name"
-msgstr "Nama Pengguna"
-
-# -- general.auth --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_general_auth__menu_id
-msgid "Menu"
-msgstr "Menu"
-
-# -- res.users (inherited) --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_res_users__hide_menu_ids
-msgid "Hidden Menu"
-msgstr "Menu Tersembunyi"
-
-#. module: general
-#: model:ir.model.fields,help:general.field_res_users__hide_menu_ids
-msgid "Select menu items that need to be hidden to this user."
-msgstr "Pilih item menu yang perlu disembunyikan untuk pengguna ini."
-
-#. module: general
-#: model:ir.model.fields,field_description:general.field_ir_ui_menu__restrict_user_ids
-msgid "Restricted Users"
-msgstr "Pengguna Terbatas"
-
-#. module: general
-#: model:ir.model.fields,help:general.field_ir_ui_menu__restrict_user_ids
-msgid "Users restricted from accessing this menu."
-msgstr "Pengguna yang dibatasi untuk mengakses menu ini."
-
-# -- navigation.mixin --
-#. module: general
-#: model:ir.model.fields,field_description:general.field_navigation_mixin__model_description
-msgid "Model Description"
-msgstr "Deskripsi Model"
-
-#. module: general
-#: model:ir.model,name:general.model_general_password_preferences
-msgid "Change Password Preferences"
-msgstr "Ubah Preferensi Kata Sandi"
-
-#. module: general
-#: model:ir.model,name:general.model_general_preferences
-msgid "Change My Profile"
-msgstr "Ubah Profil Saya"
-
-#. module: general
-#: model:ir.model,name:general.model_general_password
-msgid "Change Password"
-msgstr "Ganti Kata Sandi"
-
-#. module: general
-#: model:ir.model,name:general.model_navigation_mixin
-msgid "Mixin for General Navigation"
-msgstr "Mixin untuk Navigasi Umum"
-
-#. module: general
-#: model:ir.model,name:general.model_general_country
-msgid "Countries"
-msgstr "Negara"
-
-#. module: general
-#: model:ir.model,name:general.model_general_state
-msgid "States"
-msgstr "Provinsi"
-
-#. module: general
-#: model:ir.model,name:general.model_general_city
-msgid "Cities"
-msgstr "Kota"
-
-#. module: general
-#: model:ir.model,name:general.model_general_district
-msgid "Districts"
-msgstr "Kecamatan"
-
-#. module: general
-#: model:ir.model,name:general.model_general_village
-msgid "Villages"
-msgstr "Kelurahan/Desa"
-
-#. module: general
-#: model:ir.model,name:general.model_general_position
-msgid "Position"
-msgstr "Posisi"
-
-#. module: general
-#: model:ir.model,name:general.model_general_department
-msgid "Departments"
-msgstr "Departemen"
-
-#. module: general
-#: model:ir.model,name:general.model_general_company
-msgid "Companies"
-msgstr "Perusahaan"
-
-#. module: general
-#: model:ir.model,name:general.model_general_location
-msgid "Locations"
-msgstr "Lokasi"
-
-#. module: general
-#: model:ir.model,name:general.model_general_division
-msgid "Divisions"
-msgstr "Divisi"
-
-#. module: general
-#: model:ir.model,name:general.model_general_level_grade
-msgid "Levels / Grades"
-msgstr "Level / Grade"
-
-#. module: general
-#: model:ir.model,name:general.model_general_menu
-msgid "Menus"
-msgstr "Menu"
-
-#. module: general
-#: model:ir.ui.menu,name:general.menu_root
-msgid "Home"
-msgstr "Beranda"
-
-#. module: general
-#: model:ir.model,name:general.model_general_custom_users
-msgid "Users"
-msgstr "Pengguna"
-
-#. module: general
-#: model:ir.model,name:general.model_general_auth
-msgid "Authentications"
-msgstr "Autentikasi"
-
-#. module: general
-#: code:addons/general/models/models.py:36
-msgid "Incorrect Password, try again or contact an administrator to reset your password."
-msgstr "Kata sandi salah, coba lagi atau hubungi administrator untuk mengatur ulang kata sandi Anda."
-
-#. module: general
-#: code:addons/general/models/models.py:43
-msgid "Please verify your old password first."
-msgstr "Harap verifikasi kata sandi lama Anda terlebih dahulu."
-
-#. module: general
-#: code:addons/general/models/models.py:46
-#: code:addons/general/models/models.py:116
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#: code:addons/general/models/models.py:0
+#, python-format
 msgid "New password and confirmation do not match!"
 msgstr "Kata sandi baru dan konfirmasi tidak cocok!"
 
 #. module: general
-#: code:addons/general/models/models.py:49
-#: code:addons/general/models/models.py:120
-msgid "Password must be at least 6 characters."
-msgstr "Kata sandi minimal harus 6 karakter."
+#: model:ir.model.fields,help:general.field_general_menu__ui_menu_id
+msgid "Odoo menu item restricted when the user has no access to this menu."
+msgstr "Item menu Odoo yang dibatasi jika pengguna tidak memiliki akses ke menu ini."
 
 #. module: general
-#: code:addons/general/models/models.py:57
-#: code:addons/general/models/models.py:95
-#: code:addons/general/models/models.py:130
-msgid "Succeed"
-msgstr "Berhasil"
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__old_password
+msgid "Old Password"
+msgstr "Kata Sandi Lama"
 
 #. module: general
-#: code:addons/general/models/models.py:58
-msgid "Your password has been updated."
-msgstr "Kata sandi Anda telah diperbarui."
+#: model:general.menu,menu_name:general.others_menu
+#: model:ir.ui.menu,name:general.general_others_menu
+msgid "Others"
+msgstr "Lainnya"
 
 #. module: general
-#: code:addons/general/models/models.py:96
-msgid "Your preferences has been updated."
-msgstr "Preferensi Anda telah diperbarui."
+#: model:ir.model.fields,field_description:general.field_general_menu__parent_menu
+msgid "Parent Menu"
+msgstr "Menu Induk"
 
 #. module: general
-#: code:addons/general/models/models.py:131
-msgid "Password has been updated for user %s"
-msgstr "Kata sandi telah diperbarui untuk pengguna %s"
-
-#. module: general
-#: code:addons/general/models/models.py:744
-msgid "This user already has access settings for the selected menu."
-msgstr "Pengguna ini sudah memiliki pengaturan akses untuk menu yang dipilih."
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-# reuse: "Village" already defined above
-msgid "Village"
-msgstr "Kelurahan/Desa"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-# reuse: "Company" already defined above
-msgid "Company"
-msgstr "Perusahaan"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-# reuse: "Location" already defined above
-msgid "Location"
-msgstr "Lokasi"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-msgid "Level / Grade"
-msgstr "Level / Grade"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
-msgid "Change My Preferences"
-msgstr "Ubah Preferensi Saya"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
-msgid "Security Control"
-msgstr "Kontrol Keamanan"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-msgid "Back"
-msgstr "Kembali"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-msgid "Edit"
-msgstr "Edit"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
-msgid "Save"
-msgstr "Simpan"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
-msgid "Cancel"
-msgstr "Batal"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
-msgid "Batal"
-msgstr "Batal"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-#: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-msgid "Delete"
-msgstr "Hapus"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
-msgid "Confirm Password"
-msgstr "Konfirmasi Kata Sandi"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
-msgid "Preferences"
-msgstr "Preferensi"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
-msgid "Account Security"
-msgstr "Keamanan Akun"
+#: model:ir.model.fields,field_description:general.field_general_custom_users__password
+msgid "Password"
+msgstr "Kata Sandi"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
@@ -589,14 +776,77 @@ msgid "Password Management"
 msgstr "Manajemen Kata Sandi"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
-msgid "Please enter your password to confirm you own this account"
-msgstr "Silakan masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda pemilik akun ini"
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Password has been updated for user %s"
+msgstr "Kata sandi telah diperbarui untuk pengguna %s"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.home_view_form
-msgid "HCM"
-msgstr "HCM"
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Password must be at least 6 characters."
+msgstr "Kata sandi minimal harus 6 karakter."
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Please verify your old password first."
+msgstr "Harap verifikasi kata sandi lama Anda terlebih dahulu."
+
+#. module: general
+#: model:ir.model,name:general.model_general_position
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+msgid "Position"
+msgstr "Posisi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_position__position_id
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+msgid "Position ID"
+msgstr "ID Posisi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_position__position_name
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+msgid "Position Name"
+msgstr "Nama Posisi"
+
+#. module: general
+#: model:ir.actions.act_window,name:general.position_action
+#: model:ir.model.fields,field_description:general.field_general_department__position_ids
+msgid "Positions"
+msgstr "Posisi"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+msgid "Preferences"
+msgstr "Preferensi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__image_1920
+#: model:ir.model.fields,field_description:general.field_general_preferences__image_1920
+msgid "Profile Photo"
+msgstr "Foto Profil"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_custom_users__user_id
+msgid "Related User"
+msgstr "Pengguna Terkait"
+
+#. module: general
+#: model:general.menu,menu_name:general.general_report_menu
+#: model:ir.ui.menu,name:general.menu_general_report
+msgid "Report"
+msgstr "Laporan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_ir_ui_menu__restrict_user_ids
+msgid "Restricted Users"
+msgstr "Pengguna Dibatasi"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.home_view_form
@@ -604,139 +854,253 @@ msgid "Sales"
 msgstr "Sales"
 
 #. module: general
-#: model:ir.ui.menu,name:general.menu_master_menu
-msgid "Configuration"
-msgstr "Config"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-#: model_terms:ir.ui.view,arch_db:general.state_view_form
 #: model_terms:ir.ui.view,arch_db:general.city_view_form
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
 #: model_terms:ir.ui.view,arch_db:general.company_view_form
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
 #: model_terms:ir.ui.view,arch_db:general.division_view_form
 #: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
-msgid "Are you sure you want to delete this data permanently?"
-msgstr "Apakah Anda yakin ingin menghapus data ini secara permanen?"
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+#: model_terms:ir.ui.view,arch_db:general.view_general_preferences_form
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Save"
+msgstr "Simpan"
 
 #. module: general
-#: model:ir.actions.act_window,name:general.action_my_preferences
-msgid "My Preferences"
-msgstr "Preferensi Saya"
+#: model_terms:ir.ui.view,arch_db:general.view_general_password_preferences_step_form
+msgid "Security Check"
+msgstr "Pemeriksaan Keamanan"
 
 #. module: general
-#: model_terms:ir.actions.act_window,help:general.company_action
-msgid "Create your first Company"
-msgstr "Buat Perusahaan pertama Anda"
+#: model:ir.model.fields,help:general.field_res_users__hide_menu_ids
+msgid "Select menu items that need to be hidden to this user."
+msgstr "Pilih item menu yang perlu disembunyikan untuk pengguna ini."
 
 #. module: general
-#: model_terms:ir.actions.act_window,help:general.location_action
-msgid "Create your first Location"
-msgstr "Buat Lokasi pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.division_action
-msgid "Create your first Division"
-msgstr "Buat Divisi pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.level_grade_action
-msgid "Create your first Level / Grade"
-msgstr "Buat Level / Grade pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.country_action
-msgid "Create your first Country"
-msgstr "Buat Negara pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.state_action
-msgid "Create your first State"
-msgstr "Buat Provinsi pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.city_action
-msgid "Create your first City"
-msgstr "Buat Kota pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.district_action
-msgid "Create your first District"
-msgstr "Buat Kecamatan pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.village_action
-msgid "Create your first Village"
-msgstr "Buat Kelurahan/Desa pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.position_action
-msgid "Create your first Position"
-msgstr "Buat Posisi pertama Anda"
-
-#. module: general
-#: model_terms:ir.actions.act_window,help:general.department_action
-msgid "Create your first Department"
-msgstr "Buat Departemen pertama Anda"
-
-#. module: general
-#: model:ir.ui.menu,name:general.menu_general_transaction
-msgid "Transaction"
-msgstr "Transaksi"
-
-#. module: general
-#: model:ir.ui.menu,name:general.menu_general_report
-msgid "Report"
-msgstr "Laporan"
-
-#. module: general
-#: model:ir.ui.menu,name:general.menu_general_master_data
-msgid "Master Data"
-msgstr "Data Master"
-
-#. module: general
-#: model:ir.ui.menu,name:general.general_others_menu
-msgid "Others"
-msgstr "Lainnya"
-
-#. module: general
+#: model:general.menu,menu_name:general.general_setup_menu
 #: model:ir.ui.menu,name:general.menu_general_setup
 msgid "Setup"
 msgstr "Pengaturan"
 
 #. module: general
-#: model:ir.ui.menu,name:general.menu_general_help
-msgid "Help"
-msgstr "Bantuan"
+#: model:ir.model.fields,field_description:general.field_general_home__show_configuration
+msgid "Show Configuration"
+msgstr "Tampilkan Config"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-msgid "e.g. CTRY-001"
-msgstr "cth. CTRY-001"
+#: model:ir.model.fields,field_description:general.field_general_home__show_hcm
+msgid "Show Hcm"
+msgstr "Tampilkan HCM"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.country_view_form
-msgid "e.g. Indonesia"
-msgstr "cth. Indonesia"
+#: model:ir.model.fields,field_description:general.field_general_home__show_sales
+msgid "Show Sales"
+msgstr "Tampilkan Sales"
 
 #. module: general
+#: model:ir.model,name:general.model_general_state
+#: model:ir.model.fields,field_description:general.field_general_city__state_ref
 #: model_terms:ir.ui.view,arch_db:general.state_view_form
-msgid "e.g. STAT-001"
-msgstr "cth. STAT-001"
+msgid "State"
+msgstr "Provinsi"
 
 #. module: general
+#: model:ir.model.fields,field_description:general.field_general_state__state_id
 #: model_terms:ir.ui.view,arch_db:general.state_view_form
-msgid "e.g. DKI Jakarta"
-msgstr "cth. DKI Jakarta"
+msgid "State ID"
+msgstr "ID Provinsi"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.city_view_form
-msgid "e.g. CITY-001"
-msgstr "cth. CITY-001"
+#: model:ir.model.fields,field_description:general.field_general_state__state_name
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+msgid "State Name"
+msgstr "Nama Provinsi"
+
+#. module: general
+#: model:general.menu,menu_name:general.state_menu
+#: model:ir.actions.act_window,name:general.state_action
+#: model:ir.ui.menu,name:general.general_state_act
+msgid "States"
+msgstr "Provinsi"
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#: code:addons/general/models/models.py:0
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Succeed"
+msgstr "Berhasil"
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "This user already has access settings for the selected menu."
+msgstr "Pengguna ini sudah memiliki pengaturan akses untuk menu yang dipilih."
+
+#. module: general
+#: model:general.menu,menu_name:general.general_transaction_menu
+#: model:ir.ui.menu,name:general.menu_general_transaction
+msgid "Transaction"
+msgstr "Transaksi"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_menu__ui_menu_id
+msgid "UI Menu"
+msgstr "Menu UI"
+
+#. module: general
+#: model:ir.model.fields,help:general.field_general_preferences__login
+msgid "Used to log into the system"
+msgstr "Digunakan untuk masuk ke sistem"
+
+#. module: general
+#: model:ir.model,name:general.model_general_custom_users
+#: model:ir.model,name:general.model_res_users
+#: model:ir.model.fields,field_description:general.field_general_auth__custom_user_id
+#: model:ir.model.fields,field_description:general.field_general_password__user_id
+#: model:ir.model.fields,field_description:general.field_general_password_preferences__user_id
+#: model:ir.model.fields,field_description:general.field_general_preferences__user_id
+msgid "User"
+msgstr "Pengguna"
+
+#. module: general
+#: model:ir.model,name:general.model_general_auth
+#: model:ir.model.fields,field_description:general.field_general_custom_users__menu_ids
+msgid "User Access"
+msgstr "Akses Pengguna"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_city__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_company__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_country__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_custom_users__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_department__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_district__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_division__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_level_grade__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_location__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_position__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_state__user_can_create
+#: model:ir.model.fields,field_description:general.field_general_village__user_can_create
+#: model:ir.model.fields,field_description:general.field_navigation_mixin__user_can_create
+msgid "User Can Create"
+msgstr "Pengguna Dapat Membuat"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_city__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_company__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_country__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_custom_users__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_department__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_district__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_division__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_level_grade__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_location__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_position__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_state__user_can_delete
+#: model:ir.model.fields,field_description:general.field_general_village__user_can_delete
+#: model:ir.model.fields,field_description:general.field_navigation_mixin__user_can_delete
+msgid "User Can Delete"
+msgstr "Pengguna Dapat Menghapus"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_city__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_company__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_country__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_custom_users__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_department__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_district__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_division__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_level_grade__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_location__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_position__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_state__user_can_read
+#: model:ir.model.fields,field_description:general.field_general_village__user_can_read
+#: model:ir.model.fields,field_description:general.field_navigation_mixin__user_can_read
+msgid "User Can Read"
+msgstr "Pengguna Dapat Membaca"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_city__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_company__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_country__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_custom_users__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_department__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_district__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_division__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_level_grade__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_location__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_position__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_state__user_can_update
+#: model:ir.model.fields,field_description:general.field_general_village__user_can_update
+#: model:ir.model.fields,field_description:general.field_navigation_mixin__user_can_update
+msgid "User Can Update"
+msgstr "Pengguna Dapat Mengubah"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_auth__user_id
+#: model:ir.model.fields,field_description:general.field_general_custom_users__custom_user_id
+msgid "User ID"
+msgstr "ID Pengguna"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_preferences__name
+msgid "User Name"
+msgstr "Nama Pengguna"
+
+#. module: general
+#: model:general.menu,menu_name:general.users_menu
+msgid "Users"
+msgstr "Pengguna"
+
+#. module: general
+#: model:ir.model.fields,help:general.field_ir_ui_menu__restrict_user_ids
+msgid "Users restricted from accessing this menu."
+msgstr "Pengguna yang dibatasi untuk mengakses menu ini."
+
+#. module: general
+#: model:ir.model,name:general.model_general_village
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Village"
+msgstr "Desa/Kelurahan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_village__village_id
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Village ID"
+msgstr "ID Desa/Kelurahan"
+
+#. module: general
+#: model:ir.model.fields,field_description:general.field_general_village__village_name
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "Village Name"
+msgstr "Nama Desa/Kelurahan"
+
+#. module: general
+#: model:general.menu,menu_name:general.village_menu
+#: model:ir.actions.act_window,name:general.village_action
+#: model:ir.ui.menu,name:general.general_village_act
+msgid "Villages"
+msgstr "Desa/Kelurahan"
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Your password has been updated."
+msgstr "Kata sandi Anda telah diperbarui."
+
+#. module: general
+#. odoo-python
+#: code:addons/general/models/models.py:0
+#, python-format
+msgid "Your preferences has been updated."
+msgstr "Preferensi Anda telah diperbarui."
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.city_view_form
@@ -744,44 +1108,9 @@ msgid "e.g. Bandung"
 msgstr "cth. Bandung"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-msgid "e.g. DIST-001"
-msgstr "cth. DIST-001"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.district_view_form
-msgid "e.g. Tebet"
-msgstr "cth. Tebet"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-msgid "e.g. VILL-001"
-msgstr "cth. VILL-001"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.village_view_form
-msgid "e.g. Cipete Utara"
-msgstr "cth. Cipete Utara"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-msgid "e.g. POS-001"
-msgstr "cth. POS-001"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.position_view_form
-msgid "e.g. Sales"
-msgstr "cth. Penjualan"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-msgid "e.g. DEPT-001"
-msgstr "cth. DEPT-001"
-
-#. module: general
-#: model_terms:ir.ui.view,arch_db:general.department_view_form
-msgid "e.g. Shipping"
-msgstr "cth. Pengiriman"
+#: model_terms:ir.ui.view,arch_db:general.city_view_form
+msgid "e.g. CITY-001"
+msgstr "cth. CITY-001"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.company_view_form
@@ -789,14 +1118,39 @@ msgid "e.g. COMP-001"
 msgstr "cth. COMP-001"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.company_view_form
-msgid "e.g. PT KSI Solusi"
-msgstr "cth. PT KSI Solusi"
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+msgid "e.g. CTRY-001"
+msgstr "cth. CTRY-001"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.location_view_form
-msgid "e.g. LOC-001"
-msgstr "cth. LOC-001"
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "e.g. Cipete Utara"
+msgstr "cth. Cipete Utara"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+msgid "e.g. DEPT-001"
+msgstr "cth. DEPT-001"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+msgid "e.g. DIST-001"
+msgstr "cth. DIST-001"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+msgid "e.g. DIV-001"
+msgstr "cth. DIV-001"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+msgid "e.g. DKI Jakarta"
+msgstr "cth. DKI Jakarta"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.country_view_form
+msgid "e.g. Indonesia"
+msgstr "cth. Indonesia"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.location_view_form
@@ -804,9 +1158,9 @@ msgid "e.g. Jakarta"
 msgstr "cth. Jakarta"
 
 #. module: general
-#: model_terms:ir.ui.view,arch_db:general.division_view_form
-msgid "e.g. DIV-001"
-msgstr "cth. DIV-001"
+#: model_terms:ir.ui.view,arch_db:general.location_view_form
+msgid "e.g. LOC-001"
+msgstr "cth. LOC-001"
 
 #. module: general
 #: model_terms:ir.ui.view,arch_db:general.level_grade_view_form
@@ -819,27 +1173,37 @@ msgid "e.g. Manager"
 msgstr "cth. Manajer"
 
 #. module: general
-#: model:ir.ui.menu,name:base.menu_board_root
-msgid "Dashboard"
-msgstr "Dasbor"
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+msgid "e.g. POS-001"
+msgstr "cth. POS-001"
 
 #. module: general
-#: model:ir.ui.menu,name:board.menu_board
-msgid "Dashboards"
-msgstr "Dasbor"
+#: model_terms:ir.ui.view,arch_db:general.company_view_form
+msgid "e.g. PT KSI Solusi"
+msgstr "cth. PT KSI Solusi"
 
 #. module: general
-msgid "Untranslated Word"
-msgstr "Kata yang Tidak Diterjemahkan"
-
-
-#. module: general
+#: model_terms:ir.ui.view,arch_db:general.state_view_form
+msgid "e.g. STAT-001"
+msgstr "cth. STAT-001"
 
 #. module: general
-msgid "Word"
-msgstr "Kata"
-
+#: model_terms:ir.ui.view,arch_db:general.division_view_form
+#: model_terms:ir.ui.view,arch_db:general.position_view_form
+msgid "e.g. Sales"
+msgstr "cth. Penjualan"
 
 #. module: general
-msgid "Description"
-msgstr "Deskripsi"
+#: model_terms:ir.ui.view,arch_db:general.department_view_form
+msgid "e.g. Shipping"
+msgstr "cth. Pengiriman"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.district_view_form
+msgid "e.g. Tebet"
+msgstr "cth. Tebet"
+
+#. module: general
+#: model_terms:ir.ui.view,arch_db:general.village_view_form
+msgid "e.g. VILL-001"
+msgstr "cth. VILL-001"

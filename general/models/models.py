@@ -12,7 +12,7 @@ from odoo.exceptions import UserError
 
 class ChangePasswordPreferences(models.TransientModel):
     _name = 'general.password_preferences'
-    _description = 'Preferensi Ubah Kata Sandi'
+    _description = 'Change Password Preferences'
 
     user_id = fields.Many2one('res.users', string="User", required=True)
 
@@ -72,21 +72,21 @@ class ChangePasswordPreferences(models.TransientModel):
 
 class MyPreferences(models.TransientModel):
     _name = 'general.preferences'
-    _description = 'Ubah Profil Saya'
+    _description = 'My Preferences'
 
     user_id = fields.Many2one(
         'res.users', default=lambda self: self.env.user, readonly=True)
     name = fields.Char(related='user_id.name',
                        string="User Name", readonly=True)
     image_1920 = fields.Image(
-        related='user_id.image_1920', string="Foto Profil", readonly=False)
+        related='user_id.image_1920', string="Profile Photo", readonly=False)
     login = fields.Char(related='user_id.login',
                         string="Email/Login", readonly=True)
 
     def action_open_change_password(self):
         """Memanggil wizard ganti password yang sudah dibuat sebelumnya"""
         return {
-            'name': 'Change Password',
+            'name': _('Change Password'),
             'type': 'ir.actions.act_window',
             'res_model': 'general.password_preferences',
             'view_mode': 'form',
@@ -110,7 +110,7 @@ class MyPreferences(models.TransientModel):
 
 class ChangePasswordWizard(models.TransientModel):
     _name = 'general.password'
-    _description = 'Ubah Kata Sandi'
+    _description = 'Change Password'
 
     user_id = fields.Many2one('res.users', string="User", required=True)
     new_password = fields.Char(string="New Password", required=True)
@@ -135,7 +135,7 @@ class ChangePasswordWizard(models.TransientModel):
             'tag': 'display_notification',
             'params': {
                 'title': _('Succeed'),
-                'message': _('Password has been updated for user %s') % self.user_id.name,
+                'message': _('Password has been updated for user %s', self.user_id.name),
                 'type': 'success',
                 'sticky': False,
                 'next': {'type': 'ir.actions.act_window_close'},
@@ -145,7 +145,7 @@ class ChangePasswordWizard(models.TransientModel):
 
 class NavigationMixin(models.AbstractModel):
     _name = 'navigation.mixin'
-    _description = 'Mixin Navigasi Umum'
+    _description = 'Navigation Mixin'
 
     model_description = fields.Char(compute='_compute_model_description', default=lambda self: self._translated_description())
     user_can_read = fields.Boolean(compute='_compute_custom_permissions')
@@ -416,7 +416,7 @@ class NavigationMixin(models.AbstractModel):
     def action_password(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Change Password',
+            'name': _('Change Password'),
             'res_model': 'general.password',
             'view_mode': 'form',
             'target': 'new',
@@ -427,12 +427,12 @@ class NavigationMixin(models.AbstractModel):
 class country(models.Model):
     _name = 'general.country'
     _inherit = ['navigation.mixin']
-    _description = 'Negara'
+    _description = 'Country'
     _rec_name = 'country_name'
     _menu_code = 'country'
 
-    country_id = fields.Char(string="ID Negara")
-    country_name = fields.Char(string="Nama Negara")
+    country_id = fields.Char(string="Country ID")
+    country_name = fields.Char(string="Country Name")
     is_edit = fields.Boolean(default=False)
 
     def write(self, vals):
@@ -458,13 +458,13 @@ class country(models.Model):
 class state(models.Model):
     _name = 'general.state'
     _inherit = ['navigation.mixin']
-    _description = 'Provinsi'
+    _description = 'State'
     _rec_name = 'state_name'
     _menu_code = 'state'
 
-    state_id = fields.Char(string="ID Provinsi")
-    state_name = fields.Char(string="Nama Provinsi")
-    country_ref = fields.Many2one('general.country', string="Negara", required=True)
+    state_id = fields.Char(string="State ID")
+    state_name = fields.Char(string="State Name")
+    country_ref = fields.Many2one('general.country', string="Country", required=True)
     is_edit = fields.Boolean(default=False)
 
     def write(self, vals):
@@ -493,13 +493,13 @@ class state(models.Model):
 class city(models.Model):
     _name = 'general.city'
     _inherit = ['navigation.mixin']
-    _description = 'Kota'
+    _description = 'City'
     _rec_name = 'city_name'
     _menu_code = 'city'
 
-    city_id = fields.Char(string="ID Kota")
-    city_name = fields.Char(string="Nama Kota")
-    state_ref = fields.Many2one('general.state', string="Provinsi", required=True)
+    city_id = fields.Char(string="City ID")
+    city_name = fields.Char(string="City Name")
+    state_ref = fields.Many2one('general.state', string="State", required=True)
     is_edit = fields.Boolean(default=False)
 
     def write(self, vals):
@@ -528,13 +528,13 @@ class city(models.Model):
 class district(models.Model):
     _name = 'general.district'
     _inherit = ['navigation.mixin']
-    _description = 'Kecamatan'
+    _description = 'District'
     _rec_name = 'district_name'
     _menu_code = 'district'
 
-    district_id = fields.Char(string="ID Kecamatan")
-    district_name = fields.Char(string="Nama Kecamatan")
-    city_ref = fields.Many2one('general.city', string="Kota", required=True)
+    district_id = fields.Char(string="District ID")
+    district_name = fields.Char(string="District Name")
+    city_ref = fields.Many2one('general.city', string="City", required=True)
     is_edit = fields.Boolean(default=False)
 
     def write(self, vals):
@@ -563,13 +563,13 @@ class district(models.Model):
 class village(models.Model):
     _name = 'general.village'
     _inherit = ['navigation.mixin']
-    _description = 'Desa/Kelurahan'
+    _description = 'Village'
     _rec_name = 'village_name'
     _menu_code = 'village'
 
-    village_id = fields.Char(string="ID Desa/Kelurahan")
-    village_name = fields.Char(string="Nama Desa/Kelurahan")
-    district_ref = fields.Many2one('general.district', string="Kecamatan", required=True)
+    village_id = fields.Char(string="Village ID")
+    village_name = fields.Char(string="Village Name")
+    district_ref = fields.Many2one('general.district', string="District", required=True)
     is_edit = fields.Boolean(default=False)
 
     def write(self, vals):
@@ -598,80 +598,80 @@ class village(models.Model):
 class position(models.Model):
     _name = 'general.position'
     _inherit = ['navigation.mixin']
-    _description = 'Posisi'
+    _description = 'Position'
     _rec_name = 'position_name'
     _menu_code = 'position'
 
-    position_id = fields.Char(string="ID Posisi")
-    position_name = fields.Char(string="Nama Posisi")
+    position_id = fields.Char(string="Position ID")
+    position_name = fields.Char(string="Position Name")
     department_id = fields.Many2one(
-        'general.department', string="Departemen", required=True)
+        'general.department', string="Department", required=True)
     is_edit = fields.Boolean(default=False)
 
 
 class department(models.Model):
     _name = 'general.department'
     _inherit = ['navigation.mixin']
-    _description = 'Departemen'
+    _description = 'Department'
     _rec_name = 'department_name'
     _menu_code = 'department'
 
-    department_id = fields.Char(string="ID Departemen")
-    department_name = fields.Char(string="Nama Departemen")
+    department_id = fields.Char(string="Department ID")
+    department_name = fields.Char(string="Department Name")
     division_id = fields.Many2one(
-        'general.division', string="Divisi", required=True)
+        'general.division', string="Division", required=True)
     position_ids = fields.One2many(
-        'general.position', 'department_id', string="Posisi")
-    is_edit = fields.Boolean(string="Is Edit?", default=False)
+        'general.position', 'department_id', string="Positions")
+    is_edit = fields.Boolean(string="Is Edit", default=False)
 
 
 class company(models.Model):
     _name = 'general.company'
     _inherit = ['navigation.mixin']
-    _description = 'Perusahaan'
+    _description = 'Company'
     _rec_name = 'company_name'
     _menu_code = 'company'
 
-    company_id = fields.Char(string="ID Perusahaan")
-    company_name = fields.Char(string="Nama Perusahaan")
+    company_id = fields.Char(string="Company ID")
+    company_name = fields.Char(string="Company Name")
     is_edit = fields.Boolean(default=False)
 
 
 class location(models.Model):
     _name = 'general.location'
     _inherit = ['navigation.mixin']
-    _description = 'Lokasi'
+    _description = 'Location'
     _rec_name = 'location_name'
     _menu_code = 'location'
 
-    location_id = fields.Char(string="ID Lokasi")
-    location_name = fields.Char(string="Nama Lokasi")
+    location_id = fields.Char(string="Location ID")
+    location_name = fields.Char(string="Location Name")
     is_edit = fields.Boolean(default=False)
 
 
 class division(models.Model):
     _name = 'general.division'
     _inherit = ['navigation.mixin']
-    _description = 'Divisi'
+    _description = 'Division'
     _rec_name = 'division_name'
     _menu_code = 'division'
 
-    division_id = fields.Char(string="ID Divisi")
-    division_name = fields.Char(string="Nama Divisi")
+    division_id = fields.Char(string="Division ID")
+    division_name = fields.Char(string="Division Name")
     department_ids = fields.One2many(
-        'general.department', 'division_id', string="Departemen")
+        'general.department', 'division_id', string="Departments")
     is_edit = fields.Boolean(default=False)
 
 
 class level_grade(models.Model):
     _name = 'general.level_grade'
     _inherit = ['navigation.mixin']
-    _description = 'Tingkat / Golongan'
+    _description = 'Level / Grade'
     _rec_name = 'level_name'
     _menu_code = 'level_grade'
 
-    level_id = fields.Char(string="ID Tingkat/Golongan")
-    level_name = fields.Char(string="Nama Tingkat / Golongan")
+    level_id = fields.Char(string="Level / Grade ID")
+    level_name = fields.Char(string="Level / Grade Name")
     is_edit = fields.Boolean(default=False)
 
 
@@ -681,14 +681,17 @@ class menu(models.Model):
     _rec_name = 'menu_name'
 
     menu_id = fields.Char(string="Menu ID")
-    menu_name = fields.Char(string="Nama Menu", translate=True)
+    menu_name = fields.Char(string="Menu Name", translate=True)
     parent_menu = fields.Char(string="Parent Menu")
     is_parent = fields.Boolean(string="Is Parent Menu?", default=False)
+    ui_menu_id = fields.Many2one(
+        'ir.ui.menu', string="UI Menu", ondelete='set null',
+        help="Odoo menu item restricted when the user has no access to this menu.")
 
 
 class home(models.Model):
     _name = 'general.home'
-    _description = 'Beranda'
+    _description = 'Home'
 
     name = fields.Char()
     show_hcm = fields.Boolean(compute='_compute_show_cards')
@@ -777,27 +780,27 @@ class home(models.Model):
 class custom_users(models.Model):
     _name = 'general.custom_users'
     _inherit = ['navigation.mixin']
-    _description = 'Pengguna'
+    _description = 'User'
     _menu_code = 'custom_users'
 
-    custom_user_id = fields.Char(string="User Id", readonly=True)
+    custom_user_id = fields.Char(string="User ID", readonly=True)
     name = fields.Char(string="Name", required=True)
     login = fields.Char(string="Email/Login", required=True)
-    password = fields.Char(string="Kata Sandi", required=True)
+    password = fields.Char(string="Password", required=True)
     position = fields.Many2one(
-        comodel_name='general.position', string='Posisi Jabatan')
+        comodel_name='general.position', string='Job Position')
     is_edit = fields.Boolean(default=False)
 
     # Field untuk menyimpan referensi ke record asli res.users
     user_id = fields.Many2one(
-        'res.users', string="Pengguna Terkait", readonly=True)
-    image_1920 = fields.Image(string="Photo Profile",
+        'res.users', string="Related User", readonly=True)
+    image_1920 = fields.Image(string="Profile Photo",
                               related='user_id.image_1920', readonly=False)
     avatar_128 = fields.Image(related='user_id.avatar_128', readonly=False)
     custom_login_date = fields.Datetime(
-        related='user_id.login_date', string="Autentikasi Terbaru", readonly=True)
+        related='user_id.login_date', string="Latest Authentication", readonly=True)
     menu_ids = fields.One2many(
-        'general.auth', 'custom_user_id', string="Autentikasi Pengguna", domain=[('is_parent', '=', False)])
+        'general.auth', 'custom_user_id', string="User Access", domain=[('is_parent', '=', False)])
 
     @api.model
     def create(self, vals):
@@ -895,7 +898,7 @@ class custom_users(models.Model):
 
 class auth(models.Model):
     _name = 'general.auth'
-    _description = 'Autentikasi'
+    _description = 'User Access'
 
     custom_user_id = fields.Many2one(
         'general.custom_users', string='User', ondelete='cascade', index=True)
@@ -1037,10 +1040,21 @@ class ResUsers(models.Model):
                     [('custom_user_id.user_id', '=', user.id)])
                 existing_menu_ids = [menu.menu_id.id for menu in menu_obj]
 
+            # UI menus explicitly linked to an access menu are only ever
+            # restricted through that link, never through a name match
+            linked_ui_menus = all_menus.mapped('ui_menu_id')
+
             for menu in all_menus:
                 if menu.id not in existing_menu_ids:
-                    menu_records = ir_ui_menu_model.search(
-                        [('name', '=', menu.menu_name)])
+                    if menu.ui_menu_id:
+                        menu_records = menu.ui_menu_id
+                    else:
+                        # Fallback: match on the English (source) name so the
+                        # result does not depend on the user's language
+                        menu_records = ir_ui_menu_model.with_context(lang='en_US').search([
+                            ('name', '=', menu.with_context(lang='en_US').menu_name),
+                            ('id', 'not in', linked_ui_menus.ids),
+                        ])
                     if menu_records:
                         menu_records.write({
                             'restrict_user_ids': [(4, user.id)]
@@ -1077,7 +1091,8 @@ class IrUiMenu(models.Model):
         menus = super(IrUiMenu, self)._filter_visible_menus()
 
         # Hide Dashboards app menu for all users
-        menus = menus.filtered(lambda m: m.name not in ('Dashboards', 'Dashboard'))
+        menus -= menus.with_context(lang='en_US').filtered(
+            lambda m: m.name in ('Dashboards', 'Dashboard'))
 
         # Hide menus by XML ID (safe if module not installed)
         hidden_ids = set()

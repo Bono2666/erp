@@ -8,6 +8,7 @@
         <field name="menu_id">hcm</field>
         <field name="menu_name">HCM</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_root"/>
     </record>
 
     <!-- Transaction -->
@@ -16,6 +17,7 @@
         <field name="menu_name">Transaction</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_transaction"/>
     </record>
 
     <!-- Report -->
@@ -24,6 +26,7 @@
         <field name="menu_name">Report</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_report"/>
     </record>
 
     <!-- Master Data -->
@@ -32,22 +35,26 @@
         <field name="menu_name">Master Data</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_master_data"/>
     </record>
 
     <record id="hcm_employee_menu" model="general.menu">
         <field name="menu_id">hcm_employee</field>
         <field name="menu_name">Employees</field>
         <field name="parent_menu">hcm_master_data</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_employee"/>
     </record>
     <record id="hcm_position_menu" model="general.menu">
         <field name="menu_id">hcm_position</field>
         <field name="menu_name">Positions</field>
         <field name="parent_menu">hcm_master_data</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_position"/>
     </record>
     <record id="hcm_org_structure_menu" model="general.menu">
         <field name="menu_id">hcm_org_structure</field>
         <field name="menu_name">Organization Structure</field>
         <field name="parent_menu">hcm_master_data</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_org_structure"/>
     </record>
 
     <!-- Setup -->
@@ -56,6 +63,7 @@
         <field name="menu_name">Setup</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_setup"/>
     </record>
 
     <!-- Help -->
@@ -64,6 +72,7 @@
         <field name="menu_name">Help</field>
         <field name="parent_menu">hcm</field>
         <field name="is_parent">True</field>
+        <field name="ui_menu_id" ref="hcm.menu_hcm_help"/>
     </record>
 
 </odoo>

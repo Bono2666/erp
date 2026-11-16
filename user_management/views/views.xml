@@ -160,6 +160,11 @@
     <!-- menu categories -->
 
     <menuitem name="Users" id="user_management.custom_user_menu" parent="general.menu_general_master_data" sequence="1" action="user_management.custom_users_action"/>
+
+    <!-- Link the access-control menu record (defined in general) to this menu item -->
+    <record id="general.users_menu" model="general.menu">
+      <field name="ui_menu_id" ref="user_management.custom_user_menu"/>
+    </record>
     
     <!-- actions -->
 <!--
