@@ -41,10 +41,11 @@ def test_sales_menu_visible(logged_in_page):
 
 
 def test_navigate_to_products(logged_in_page):
-    """Click Sales app card, then navigate to Products."""
+    """Click Sales app card, then navigate to Master Data > Products."""
     logged_in_page.wait_for_timeout(2000)
     logged_in_page.locator("button.home-menu-card.home-card-sales").first.click()
     logged_in_page.wait_for_timeout(5000)
-    logged_in_page.locator("a.o_nav_entry", has_text="Products").first.click()
+    logged_in_page.locator("button.dropdown-toggle", has_text="Master Data").first.click()
+    logged_in_page.locator(".dropdown-item", has_text="Products").first.click()
     logged_in_page.wait_for_timeout(3000)
-    assert "/web" in logged_in_page.url
+    assert "model=sales.products" in logged_in_page.url
