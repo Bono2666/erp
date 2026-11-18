@@ -2,16 +2,20 @@ FROM odoo:17
 
 USER root
 
-# Fix line endings untuk Windows
-RUN apt-get update && apt-get install -y dos2unix
+# Entrypoint that renders odoo.conf from ODOO_* environment variables
+COPY docker/entrypoint.sh /usr/local/bin/erp-entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/erp-entrypoint.sh \
+    && chmod 755 /usr/local/bin/erp-entrypoint.sh \
+    && chown odoo:odoo /etc/odoo/odoo.conf
 
-RUN sed -i 's|http_port = 8069|http_port = 8017\ndb_name = erp|' /entrypoint.sh && \
-    chmod +x /entrypoint.sh && \
-    dos2unix /entrypoint.sh
-
+# Custom addons. Kept outside /mnt/extra-addons on purpose: that path is a
+# VOLUME in the base image, so code copied there would be shadowed by the
+# old anonymous volume whenever the container is recreated.
 COPY --chown=odoo:odoo . /opt/odoo/custom-addons
 
-# Fix line endings untuk semua script
-RUN find /opt/odoo/custom-addons -name "*.sh" -exec dos2unix {} \;
-
 USER odoo
+
+EXPOSE 8069 8072
+
+ENTRYPOINT ["/usr/local/bin/erp-entrypoint.sh"]
+CMD ["odoo"]

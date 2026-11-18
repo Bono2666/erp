@@ -13,3 +13,9 @@ testsprite_tests
 tests_e2e
 *.md
 docker-data
+.env
+.env.*
+*.bak
+docker-compose*.yml
+Dockerfile
+.dockerignore
